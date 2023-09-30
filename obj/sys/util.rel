@@ -1,0 +1,105 @@
+XL2
+H 2 areas 32 global symbols
+M sys_util
+S cpct_setInterruptHandler_asm Ref0000
+S cpct_getScreenToSprite_asm Ref0000
+S cpct_isKeyPressed_asm Ref0000
+S cpct_setPalette_asm Ref0000
+S cpct_setPALColour_asm Ref0000
+S cpct_drawSprite_asm Ref0000
+S cpct_etm_drawTileBox2x4_asm Ref0000
+S cpct_etm_drawTilemap4x8_ag_asm Ref0000
+S _g_palette Ref0000
+S _cpct_keyboardStatusBuffer Ref0000
+S cpct_waitHalts_asm Ref0000
+S cpct_setSeed_mxor_asm Ref0000
+S .__.ABS. Def0000
+S cpct_setSeed_xsp40_u8_asm Ref0000
+S cpct_setVideoMemoryPage_asm Ref0000
+S cpct_memset_f64_asm Ref0000
+S _s_small_numbers_00 Ref0000
+S _s_small_numbers_01 Ref0000
+S _s_small_numbers_02 Ref0000
+S _s_small_numbers_03 Ref0000
+S _s_small_numbers_04 Ref0000
+S _s_small_numbers_05 Ref0000
+S _s_small_numbers_06 Ref0000
+S _s_small_numbers_07 Ref0000
+S cpct_isAnyKeyPressed_asm Ref0000
+S _s_small_numbers_08 Ref0000
+S cpct_scanKeyboard_if_asm Ref0000
+S _s_small_numbers_09 Ref0000
+S cpct_waitVSYNC_asm Ref0000
+S cpct_setVideoMode_asm Ref0000
+S cpct_getRandom_xsp40_u8_asm Ref0000
+S cpct_memset_asm Ref0000
+S _s_font_0 Ref0000
+S cpct_disableFirmware_asm Ref0000
+S cpct_getRandom_mxor_u8_asm Ref0000
+S cpct_drawSolidBox_asm Ref0000
+S cpct_drawSpriteBlended_asm Ref0000
+S cpct_etm_setDrawTilemap4x8_ag_asm Ref0000
+S cpct_waitVSYNCStart_asm Ref0000
+S cpct_scanKeyboard_asm Ref0000
+S cpct_getScreenPtr_asm Ref0000
+A _CODE size 7D flags 0 addr 0
+S sys_util_h_times_e Def0000
+S sys_util_BCD_Compare Def0050
+S sys_util_BCD_Add Def0046
+S sys_util_hl_div_c Def0024
+S sys_util_get_random_number Def005F
+S sys_util_absHL Def0031
+S sys_util_delay Def0075
+S sys_util_BCD_GetEnd Def003B
+A _DATA size B flags 0 addr 0
+S string_buffer Def0000
+T 00 00 20 20 20 20 20 20 20 20 20 20 00
+R 00 00 01 00
+T 00 00
+R 00 00 00 00
+T 00 00 16 00 6A CB 24 30 01 6B 29 30 01 19 29 30
+R 00 00 00 00
+T 0E 00 01 19 29 30 01 19 29 30 01 19 29 30 01 19
+R 00 00 00 00
+T 1C 00 29 30 01 19 29 D0 19 C9
+R 00 00 00 00
+T 24 00
+R 00 00 00 00
+T 24 00 06 10 AF 29 17 B9 38 02 2C 91 10 F7 C9
+R 00 00 00 00
+T 31 00
+R 00 00 00 00
+T 31 00 CB 7C C8 AF 95 6F 9F 94 67 C9
+R 00 00 00 00
+T 3B 00
+R 00 00 00 00
+T 3B 00 C5 48 0D 06 00 09 EB 09 EB C1 C9
+R 00 00 00 00
+T 46 00
+R 00 00 00 00
+T 46 00 B7
+R 00 00 00 00
+T 47 00
+R 00 00 00 00
+T 47 00 1A 8E 27 12 13 23 10 F8 C9
+R 00 00 00 00
+T 50 00
+R 00 00 00 00
+T 50 00 06 04 CD 3B 00
+R 00 00 00 00 00 05 00 00
+T 55 00
+R 00 00 00 00
+T 55 00 1A BE D8 C0 1B 2B 10 F8 B7 C9
+R 00 00 00 00
+T 5F 00
+R 00 00 00 00
+T 5F 00 32 69 00 CD 00 00 7D 26 00 0E 00 06 00
+R 00 00 00 00 00 03 00 00 02 06 22 00
+T 6C 00
+R 00 00 00 00
+T 6C 00 B7 ED 42 F2 6C 00 09 7D C9
+R 00 00 00 00 00 06 00 00
+T 75 00
+R 00 00 00 00
+T 75 00 C5 CD 00 00 C1 10 F9 C9
+R 00 00 00 00 02 04 26 00

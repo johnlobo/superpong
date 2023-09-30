@@ -1,0 +1,134 @@
+XL2
+H 1 areas 3E global symbols
+M cpct_keyboard
+S cpct_setInterruptHandler_asm Ref0000
+S cpct_getScreenToSprite_asm Ref0000
+S cpct_isKeyPressed_asm Ref0000
+S cpct_setPalette_asm Ref0000
+S cpct_setPALColour_asm Ref0000
+S sys_util_h_times_e Ref0000
+S sys_util_BCD_Compare Ref0000
+S sys_util_BCD_Add Ref0000
+S cpct_drawSprite_asm Ref0000
+S cpct_etm_drawTileBox2x4_asm Ref0000
+S cpct_etm_drawTilemap4x8_ag_asm Ref0000
+S sys_util_hl_div_c Ref0000
+S _g_palette Ref0000
+S _cpct_keyboardStatusBuffer Ref0000
+S cpct_waitHalts_asm Ref0000
+S cpct_setSeed_mxor_asm Ref0000
+S .__.ABS. Def0000
+S cpct_setSeed_xsp40_u8_asm Ref0000
+S cpct_setVideoMemoryPage_asm Ref0000
+S cpct_memset_f64_asm Ref0000
+S sys_util_get_random_number Ref0000
+S _s_small_numbers_00 Ref0000
+S _s_small_numbers_01 Ref0000
+S sys_util_absHL Ref0000
+S _s_small_numbers_02 Ref0000
+S _s_small_numbers_03 Ref0000
+S _s_small_numbers_04 Ref0000
+S _s_small_numbers_05 Ref0000
+S _s_small_numbers_06 Ref0000
+S sys_util_delay Ref0000
+S _s_small_numbers_07 Ref0000
+S cpct_isAnyKeyPressed_asm Ref0000
+S _s_small_numbers_08 Ref0000
+S cpct_scanKeyboard_if_asm Ref0000
+S _s_small_numbers_09 Ref0000
+S string_buffer Ref0000
+S cpct_waitVSYNC_asm Ref0000
+S cpct_setVideoMode_asm Ref0000
+S cpct_getRandom_xsp40_u8_asm Ref0000
+S cpct_memset_asm Ref0000
+S _s_font_0 Ref0000
+S cpct_disableFirmware_asm Ref0000
+S sys_util_BCD_GetEnd Ref0000
+S cpct_getRandom_mxor_u8_asm Ref0000
+S cpct_drawSolidBox_asm Ref0000
+S cpct_drawSpriteBlended_asm Ref0000
+S cpct_etm_setDrawTilemap4x8_ag_asm Ref0000
+S cpct_waitVSYNCStart_asm Ref0000
+S cpct_scanKeyboard_asm Ref0000
+S cpct_getScreenPtr_asm Ref0000
+A _CODE size EC flags 0 addr 0
+S man_components_removePtr Def00C7
+S man_components_getArrayHL Def00AE
+S _entities_components0_ptr_pend Def0000
+S _entities_components1_ptr_pend Def0002
+S _entities_components2_ptr_pend Def0004
+S _entities_components3_ptr_pend Def0006
+S _entities_components4_ptr_pend Def0008
+S _entities_components Def000A
+S man_components_add Def00B4
+S man_components_init Def0082
+S _entities_access_table Def0000
+S man_components_getComponentPtrHL Def00A0
+T 00 00
+R 00 00 00 00
+T 00 00 0A 00 22 00 3A 00
+R 00 00 00 00 00 02 00 00 00 04 00 00 00 06 00 00
+T 06 00 52 00 6A 00
+R 00 00 00 00 00 02 00 00 00 04 00 00
+T 0A 00
+R 00 00 00 00
+T 0A 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+R 00 00 00 00
+T 18 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+R 00 00 00 00
+T 26 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+R 00 00 00 00
+T 34 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+R 00 00 00 00
+T 42 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+R 00 00 00 00
+T 50 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+R 00 00 00 00
+T 5E 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+R 00 00 00 00
+T 6C 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+R 00 00 00 00
+T 7A 00 00 00 00 00 00 00 00 00
+R 00 00 00 00
+T 82 00
+R 00 00 00 00
+T 82 00 21 0A 00 11 0B 00 36 00 01 77 00 ED B0 06
+R 00 00 00 00 00 03 00 00 00 06 00 00
+T 90 00 05
+R 00 00 00 00
+T 91 00
+R 00 00 00 00
+T 91 00 78 3D CD A0 00 5D 54 13 13 73 23 72 10 F2
+R 00 00 00 00 00 05 00 00
+T 9F 00 C9
+R 00 00 00 00
+T A0 00
+R 00 00 00 00
+T A0 00 21 00 00 87 85 6F 8C 95 67 7E 23 66 6F C9
+R 00 00 00 00 00 03 00 00
+T AE 00
+R 00 00 00 00
+T AE 00 CD A0 00 23 23 C9
+R 00 00 00 00 00 03 00 00
+T B4 00
+R 00 00 00 00
+T B4 00 CD A0 00 5E 23 56 2B DD 7D 12 13 DD 7C 12
+R 00 00 00 00 00 03 00 00
+T C2 00 13 73 23 72 C9
+R 00 00 00 00
+T C7 00
+R 00 00 00 00
+T C7 00 CD A0 00 E5 5E 23 56 23
+R 00 00 00 00 00 03 00 00
+T CF 00
+R 00 00 00 00
+T CF 00 7E 23 DD BD 20 FA 7E 23 DD BC 20 F4
+R 00 00 00 00
+T DB 00
+R 00 00 00 00
+T DB 00 1B 1A 2B 77 1B 1A 2B 77
+R 00 00 00 00
+T E3 00
+R 00 00 00 00
+T E3 00 E1 73 23 72 AF 12 13 12 C9
+R 00 00 00 00

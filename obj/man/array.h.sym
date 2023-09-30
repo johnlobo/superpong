@@ -1,0 +1,56 @@
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 1.
+Hexadecimal [16-Bits]
+
+Symbol Table
+
+    .__.$$$.=  2710 L   |     .__.ABS.=  0000 G   |     .__.CPU.=  0000 L
+    .__.H$L.=  0000 L   |     BUFFER_S=  000A     |     COF     =  0016 
+    DASH_IMP=  0200     |     DASH_TIM=  000A     |     FONT_HEI=  0009 
+    FONT_WID=  0002     |     GRAVITY =  0024     |     MAX_ENTI=  000A 
+    MAX_HORI=  FF00     |     MAX_HORI=  0100     |     SCORE_NU=  0004 
+    STEP_HOR=  0018     |     S_SMALL_=  0005     |     S_SMALL_=  0002 
+    ZERO_KEY=  00FF     |     _cpct_ke   **** GX  |     _g_palet   **** GX
+    _s_font_   **** GX  |     _s_small   **** GX  |     _s_small   **** GX
+    _s_small   **** GX  |     _s_small   **** GX  |     _s_small   **** GX
+    _s_small   **** GX  |     _s_small   **** GX  |     _s_small   **** GX
+    _s_small   **** GX  |     _s_small   **** GX  |     a_array =  0007 
+    a_compon=  0003     |     a_compon=  0002     |     a_count =  0000 
+    a_delta =  0001     |     a_offset=  0008     |     a_pend  =  0004 
+    a_select=  0006     |     cpct_dis   **** GX  |     cpct_dra   **** GX
+    cpct_dra   **** GX  |     cpct_dra   **** GX  |     cpct_etm   **** GX
+    cpct_etm   **** GX  |     cpct_etm   **** GX  |     cpct_get   **** GX
+    cpct_get   **** GX  |     cpct_get   **** GX  |     cpct_get   **** GX
+    cpct_isA   **** GX  |     cpct_isK   **** GX  |     cpct_mem   **** GX
+    cpct_mem   **** GX  |     cpct_sca   **** GX  |     cpct_sca   **** GX
+    cpct_set   **** GX  |     cpct_set   **** GX  |     cpct_set   **** GX
+    cpct_set   **** GX  |     cpct_set   **** GX  |     cpct_set   **** GX
+    cpct_set   **** GX  |     cpct_wai   **** GX  |     cpct_wai   **** GX
+    cpct_wai   **** GX  |     e_addres=  0014     |     e_animat=  001C 
+    e_animat=  001E     |     e_cmp   =  0000     |     e_cmpID_=  0002 
+    e_cmpID_=  0003     |     e_cmpID_=  0004     |     e_cmpID_=  0005 
+    e_cmpID_=  0001     |     e_cmpID_=  0000     |     e_cmpID_=  0006 
+    e_cmp_ai=  0010     |     e_cmp_al=  0001     |     e_cmp_an=  0020 
+    e_cmp_co=  0040     |     e_cmp_co=  0080     |     e_cmp_de=  0047 
+    e_cmp_in=  0008     |     e_cmp_ph=  0004     |     e_cmp_re=  0002 
+    e_cmps  =  0002     |     e_dashin=  001B     |     e_end_x =  000A 
+    e_end_y =  000B     |     e_h     =  0009     |     e_last_x=  000C 
+    e_last_y=  000D     |     e_moved =  0018     |     e_offset=  001F 
+    e_on_pla=  0019     |     e_orient=  001A     |     e_p_addr=  0016 
+    e_ptr   =  0000     |     e_sprite=  0012     |     e_type  =  0003 
+    e_type_d=  0020     |     e_type_d=  0000     |     e_type_i=  00FF 
+    e_type_l=  0004     |     e_type_m=  0008     |     e_type_p=  0001 
+    e_type_p=  0002     |     e_type_s=  0010     |     e_vx    =  000E 
+    e_vy    =  0010     |     e_w     =  0008     |     e_x     =  0004 
+    e_y     =  0006     |     man_arra   **** GX  |     man_arra   **** GX
+    man_arra   **** GX  |     man_arra   **** GX  |     man_arra   **** GX
+    man_arra   **** GX  |     man_arra   **** GX  |     man_arra   **** GX
+    man_arra   **** GX  |     nullptr =  0000     |     sizeof_a=  0008 
+    sizeof_e=  001F 
+
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 2.
+Hexadecimal [16-Bits]
+
+Area Table
+
+   0 _CODE      size    0   flags    0
+
