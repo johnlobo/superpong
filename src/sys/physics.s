@@ -168,8 +168,8 @@ sys_physics_update_one_entity::
     
 spuoe_yCoord:
     ;; update y coord with vy
-    ld a, e_vy(ix)            ;; check if the speed in y is 0
-    ld c, e_vy+1(ix)              ;;
+    ld a, e_vy(ix)              ;; check if the speed in y is 0
+    ld c, e_vy+1(ix)            ;;
     or c                        ;; check if vx == 0
     jr z, spuoe_exit            ;; move to ret coord if vx === 0
     
@@ -178,6 +178,8 @@ spuoe_yCoord:
     ld l, e_y+1(ix)             ;; 
     ld a, h                     ;; save h value in a
     adc hl, bc                  ;; add y+vy
+    ld e_y(ix), h               ;; update entity with new position
+    ld e_y+1(ix), l             ;;
     ;; check if screen coord has changed to update moved.
     cp h                        ;; if h has changed (high value)moved = true
     jr z, spuoe_exit            ;; screen coord has not changed->check the ground

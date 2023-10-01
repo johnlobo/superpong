@@ -34,6 +34,7 @@ Hexadecimal [16-Bits]
                              29 .globl man_entity_create
                              30 .globl man_entity_getEntityArrayIX
                              31 .globl man_entity_getPlayerPosition
-                             32 .globl man_entity_set4destruction
-                             33 .globl man_entity_update
-                             34 .globl man_entity_deleteEverythingExceptPlayer
+                             32 .globl man_entity_getOponentPosition
+                             33 .globl man_entity_set4destruction
+                             34 .globl man_entity_update
+                             35 .globl man_entity_deleteEverythingExceptPlayer

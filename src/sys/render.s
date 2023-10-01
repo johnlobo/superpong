@@ -220,11 +220,13 @@ sys_render_erase_one_entity::
 ;;  Modified: AF, BC, DE, HL
 ;;
 sys_render_draw_one_player_entity::
+    ld h, e_color(ix)
+    ld l, e_color(ix)
+    call cpct_px2byteM0_asm
     ld e, e_address(ix)
     ld d, e_address+1(ix)
     ld c, e_w(ix)
     ld b, e_h(ix) 
-    ld a, #33
     call cpct_drawSolidBox_asm
     ret
 

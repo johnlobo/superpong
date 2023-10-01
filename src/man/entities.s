@@ -380,6 +380,23 @@ man_entity_getPlayerPosition::
 	ret
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;	ENTITY_MANAGER::GetPlayerPositionIY
+;;		Returns a pointer to the player for input system
+;;	INPUT:
+;;	MODIFY:
+;;		HL
+;;	   
+man_entity_getOponentPosition::
+	cpctm_push hl, bc
+	ld hl, #_entity_array
+	ld bc, #sizeof_e
+	add hl, bc
+	push hl
+	pop iy
+	cpctm_pop bc, hl
+	ret
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;	ENTITY_MANAGER::deleteEverythingExceptPlayer
 ;;		Remove all entities except the player'.
 ;;	INPUT:

@@ -56,68 +56,69 @@ Symbol Table
     Key_Tab =  1008     |     Key_U   =  0405     |     Key_V   =  8006 
     Key_W   =  0807     |     Key_X   =  8007     |     Key_Y   =  0805 
     Key_Z   =  8008     |     MAX_ENTI=  000A     |     MAX_HORI=  FF00 
-    MAX_HORI=  0100     |     MAX_VERT=  FF00     |     MAX_VERT=  0100 
+    MAX_HORI=  0100     |     MAX_VERT=  FE00     |     MAX_VERT=  0200 
     PAL_INKR=  0040     |     PAL_PENR=  0000     |     PPI_PORT=  00F5 
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 2.
 Hexadecimal [16-Bits]
 
 Symbol Table
 
-    SCORE_NU=  0004     |     STEP_HOR=  0018     |     STEP_VER=  0018 
+    SCORE_NU=  0004     |     STEP_HOR=  0018     |     STEP_VER=  0030 
     S_SMALL_=  0005     |     S_SMALL_=  0002     |     ZERO_KEY=  00FF 
-    _cpct_ke   **** GX  |     _g_palet   **** GX  |   0 _key_rel   0038 R
-  0 _kp_endL   002F R   |   0 _kp_loop   0017 R   |   0 _no_key_   0029 R
+    _cpct_ke   **** GX  |     _g_palet   **** GX  |   0 _key_rel   003D R
+  0 _kp_endL   0034 R   |   0 _kp_loop   001C R   |   0 _no_key_   002E R
     _s_font_   **** GX  |     _s_small   **** GX  |     _s_small   **** GX
     _s_small   **** GX  |     _s_small   **** GX  |     _s_small   **** GX
     _s_small   **** GX  |     _s_small   **** GX  |     _s_small   **** GX
     _s_small   **** GX  |     _s_small   **** GX  |   0 _siw_loo   0009 R
-  0 _size_co=  002B R   |     cpct_dis   **** GX  |     cpct_dra   **** GX
+  0 _size_co=  0030 R   |     cpct_dis   **** GX  |     cpct_dra   **** GX
     cpct_dra   **** GX  |     cpct_dra   **** GX  |     cpct_etm   **** GX
     cpct_etm   **** GX  |     cpct_etm   **** GX  |     cpct_get   **** GX
     cpct_get   **** GX  |     cpct_get   **** GX  |     cpct_get   **** GX
     cpct_isA   **** GX  |     cpct_isK   **** GX  |     cpct_mem   **** GX
     cpct_mem   **** GX  |     cpct_pag=  0000     |     cpct_pag=  0010 
-    cpct_pag=  0020     |     cpct_pag=  0030     |     cpct_sca   **** GX
-    cpct_sca   **** GX  |     cpct_set   **** GX  |     cpct_set   **** GX
+    cpct_pag=  0020     |     cpct_pag=  0030     |     cpct_px2   **** GX
+    cpct_sca   **** GX  |     cpct_sca   **** GX  |     cpct_set   **** GX
     cpct_set   **** GX  |     cpct_set   **** GX  |     cpct_set   **** GX
-    cpct_set   **** GX  |     cpct_set   **** GX  |     cpct_wai   **** GX
-    cpct_wai   **** GX  |     cpct_wai   **** GX  |     e_addres=  0014 
-    e_animat=  001C     |     e_animat=  001E     |     e_cmp   =  0000 
-    e_cmpID_=  0002     |     e_cmpID_=  0003     |     e_cmpID_=  0004 
-    e_cmpID_=  0005     |     e_cmpID_=  0001     |     e_cmpID_=  0000 
-    e_cmpID_=  0006     |     e_cmp_ai=  0010     |     e_cmp_al=  0001 
-    e_cmp_an=  0020     |     e_cmp_co=  0040     |     e_cmp_co=  0080 
-    e_cmp_de=  0047     |     e_cmp_in=  0008     |     e_cmp_ph=  0004 
-    e_cmp_re=  0002     |     e_cmps  =  0002     |     e_dashin=  001B 
-    e_end_x =  000A     |     e_end_y =  000B     |     e_h     =  0009 
-    e_last_x=  000C     |     e_last_y=  000D     |     e_moved =  0018 
-    e_offset=  001F     |     e_on_pla=  0019     |     e_orient=  001A 
-    e_p_addr=  0016     |     e_ptr   =  0000     |     e_sprite=  0012 
-    e_type  =  0003     |     e_type_d=  0020     |     e_type_d=  0000 
-    e_type_i=  00FF     |     e_type_l=  0004     |     e_type_m=  0008 
-    e_type_p=  0001     |     e_type_p=  0002     |     e_type_s=  0010 
-    e_vx    =  000E     |     e_vy    =  0010     |     e_w     =  0008 
-    e_x     =  0004     |     e_y     =  0006     |     firmware=  0038 
-  0 first_ke   0055 R   |   0 keys_loo   0050 R   |     man_enti   **** GX
+    cpct_set   **** GX  |     cpct_set   **** GX  |     cpct_set   **** GX
+    cpct_wai   **** GX  |     cpct_wai   **** GX  |     cpct_wai   **** GX
+    e_addres=  0015     |     e_animat=  001D     |     e_animat=  001F 
+    e_cmp   =  0000     |     e_cmpID_=  0002     |     e_cmpID_=  0003 
+    e_cmpID_=  0004     |     e_cmpID_=  0005     |     e_cmpID_=  0001 
+    e_cmpID_=  0000     |     e_cmpID_=  0006     |     e_cmp_ai=  0010 
+    e_cmp_al=  0001     |     e_cmp_an=  0020     |     e_cmp_co=  0040 
+    e_cmp_co=  0080     |     e_cmp_de=  0047     |     e_cmp_in=  0008 
+    e_cmp_ph=  0004     |     e_cmp_re=  0002     |     e_cmps  =  0002 
+    e_color =  0004     |     e_dashin=  001C     |     e_end_x =  000B 
+    e_end_y =  000C     |     e_h     =  000A     |     e_last_x=  000D 
+    e_last_y=  000E     |     e_moved =  0019     |     e_offset=  0020 
+    e_on_pla=  001A     |     e_orient=  001B     |     e_p_addr=  0017 
+    e_ptr   =  0000     |     e_sprite=  0013     |     e_type  =  0003 
+    e_type_d=  0020     |     e_type_d=  0000     |     e_type_i=  00FF 
+    e_type_l=  0004     |     e_type_m=  0008     |     e_type_p=  0001 
+    e_type_p=  0002     |     e_type_s=  0010     |     e_vx    =  000F 
+    e_vy    =  0011     |     e_w     =  0009     |     e_x     =  0005 
+    e_y     =  0007     |     firmware=  0038     |   0 first_ke   005A R
+  0 keys_loo   0055 R   |     man_enti   **** GX  |     man_enti   **** GX
     man_enti   **** GX  |     man_enti   **** GX  |     man_enti   **** GX
     man_enti   **** GX  |     man_enti   **** GX  |     man_enti   **** GX
     nullptr =  0000     |     opc_DI  =  00F3     |     opc_EI  =  00FB 
-    opc_JR  =  0018     |     opc_LD_D=  0016     |   0 sipd_exi   0117 R
-  0 sipd_max   0106 R   |   0 sipd_max   0111 R   |   0 sipl_exi   009E R
-  0 sipl_max   008D R   |   0 sipl_max   0098 R   |   0 sipr_exi   00C6 R
-  0 sipr_max   00B5 R   |   0 sipr_max   00C0 R   |   0 sipu_exi   00EF R
-  0 sipu_max   00DE R   |   0 sipu_max   00E9 R   |     sizeof_e=  001F 
-  0 sys_inpu   0000 GR  |   0 sys_inpu   004E GR  |   0 sys_inpu   0013 GR
-  0 sys_inpu   004D GR  |   1 sys_inpu   0000 GR  |   0 sys_inpu   006E GR
-  1 sys_inpu   0002 GR  |   0 sys_inpu   00F0 GR  |   0 sys_inpu   0118 GR
-  0 sys_inpu   0076 GR  |   0 sys_inpu   009F GR  |   0 sys_inpu   00C7 GR
-  0 sys_inpu   0134 GR  |   0 sys_inpu   0006 GR  |   0 sys_inpu   0039 GR
+    opc_JR  =  0018     |     opc_LD_D=  0016     |   0 sipd_exi   011C R
+  0 sipd_max   010B R   |   0 sipd_max   0116 R   |   0 sipl_exi   00A3 R
+  0 sipl_max   0092 R   |   0 sipl_max   009D R   |   0 sipr_exi   00CB R
+  0 sipr_max   00BA R   |   0 sipr_max   00C5 R   |   0 sipu_exi   00F4 R
+  0 sipu_max   00E3 R   |   0 sipu_max   00EE R   |     sizeof_e=  0020 
+  0 sys_inpu   0000 GR  |   0 sys_inpu   0053 GR  |   0 sys_inpu   0018 GR
+  0 sys_inpu   0052 GR  |   1 sys_inpu   0000 GR  |   0 sys_inpu   0073 GR
+  1 sys_inpu   0002 GR  |   0 sys_inpu   00F5 GR  |   0 sys_inpu   011D GR
+  0 sys_inpu   007B GR  |   0 sys_inpu   00A4 GR  |   0 sys_inpu   00CC GR
+  0 sys_inpu   0139 GR  |   0 sys_inpu   0006 GR  |   0 sys_inpu   003E GR
 
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 3.
 Hexadecimal [16-Bits]
 
 Area Table
 
-   0 _CODE      size  143   flags    0
+   0 _CODE      size  148   flags    0
    1 _DATA      size   18   flags    0
 

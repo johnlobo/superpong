@@ -64,6 +64,7 @@
 .globl cpct_etm_setDrawTilemap4x8_ag_asm
 .globl cpct_etm_drawTilemap4x8_ag_asm
 .globl cpct_etm_drawTileBox2x4_asm
+.globl cpct_px2byteM0_asm
 
 
 ;;===============================================================================
@@ -76,13 +77,13 @@ GRAVITY                 = #0x0024           ;; Gravity
 DASH_IMPULSE            = 0x0200
 DASH_TIMER              = 10
 
-STEP_HORIZONTAL_SPEED   = 0x0018
+STEP_HORIZONTAL_SPEED       = 0x0018
 MAX_HORIZONTAL_SPEED_POS    = 0x0100
 MAX_HORIZONTAL_SPEED_NEG    = 0xff00
 
-STEP_VERTICAL_SPEED         = 0x0018
-MAX_VERTICAL_SPEED_POS    = 0x0100
-MAX_VERTICAL_SPEED_NEG    = 0xff00
+STEP_VERTICAL_SPEED       = 0x0030
+MAX_VERTICAL_SPEED_POS    = 0x0200
+MAX_VERTICAL_SPEED_NEG    = 0xfe00
 
 MAX_ENTITIES = 10
 
@@ -152,6 +153,7 @@ BeginStruct e
 Field e, ptr                , 2
 Field e, cmps               , 1
 Field e, type               , 1
+Field e, color              , 1
 Field e, x                  , 2
 Field e, y                  , 2
 Field e, w                  , 1

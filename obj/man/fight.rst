@@ -30,19 +30,19 @@ Hexadecimal [16-Bits]
                              25 ;;
                              26 .area _DATA
                              27 
-   2321                      28 first_lvl::
-   2321 54 48 45 20 44 4F    29 .asciz "THE DOOR                     "  ;; Name
+   239E                      28 first_lvl::
+   239E 54 48 45 20 44 4F    29 .asciz "THE DOOR                     "  ;; Name
         4F 52 20 20 20 20
         20 20 20 20 20 20
         20 20 20 20 20 20
         20 20 20 20 20 00
-   233F 05                   30 .db 5                                   ;; Rounds
-   2340 00                   31 .db 0                                   ;; curent round
-   2341 01 02 03             32 .db 1, 2, 3
-   2344 01 02 03             33 .db 1, 2, 3
-   2347 01 02 03             34 .db 1, 2, 3
-   234A 01 02 03             35 .db 1, 2, 3
-   234D 01 02 03             36 .db 1, 2, 3
+   23BC 05                   30 .db 5                                   ;; Rounds
+   23BD 00                   31 .db 0                                   ;; curent round
+   23BE 01 02 03             32 .db 1, 2, 3
+   23C1 01 02 03             33 .db 1, 2, 3
+   23C4 01 02 03             34 .db 1, 2, 3
+   23C7 01 02 03             35 .db 1, 2, 3
+   23CA 01 02 03             36 .db 1, 2, 3
                              37 
                              38 ;;
                              39 ;; Start of _CODE area

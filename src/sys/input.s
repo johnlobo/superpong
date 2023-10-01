@@ -85,7 +85,7 @@ sys_input_clean_buffer::
 ;;
 ;; sys_input_wait4anykey
 ;;
-;;   Reads input and wait for any key press
+;;  Reads input and wait for any key press
 ;;  Input: 
 ;;  Output: hl: number of loops
 ;;  Modified: 
@@ -99,6 +99,9 @@ _siw_loop:
     pop hl
     inc hl
     jr z, _siw_loop
+    push hl
+    call sys_input_clean_buffer
+    pop hl
     ret
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -253,7 +256,7 @@ sys_input_player_left::
     ld bc, #STEP_HORIZONTAL_SPEED           
     or a
     sbc hl, bc                          ;; add STEP SPEED to current SPEED
-    ld bc, #MAX_HORIZONTAL_SPEED_NEG        ;; check if MAX HORIZONTAL SPEED has been reached
+    ld bc, #MAX_HORIZONTAL_SPEED_NEG    ;; check if MAX HORIZONTAL SPEED has been reached
     or a                                ;;
     ld (sipl_max_not_reached+1), hl     ;; save new vx value for later use
     sbc hl, bc                          ;;
@@ -314,16 +317,16 @@ sys_input_player_up::
     ld bc, #STEP_VERTICAL_SPEED           
     or a
     sbc hl, bc                          ;; add STEP SPEED to current SPEED
-    ld bc, #MAX_VERTICAL_SPEED_NEG        ;; check if MAX HORIZONTAL SPEED has been reached
+    ld bc, #MAX_VERTICAL_SPEED_NEG      ;; check if MAX HORIZONTAL SPEED has been reached
     or a                                ;;
     ld (sipu_max_not_reached+1), hl     ;; save new vx value for later use
     sbc hl, bc                          ;;
-    jr c, sipu_max_reached             ;;
+    jr c, sipu_max_reached              ;;
 sipu_max_not_reached:
     ld hl, #00000
     ld e_vy(ix), h
     ld e_vy+1(ix), l
-    jr sipl_exit
+    jr sipu_exit
 sipu_max_reached:                       ;; if max speed reached, vx set to max speed
     ld e_vy(ix), b
     ld e_vy+1(ix), c

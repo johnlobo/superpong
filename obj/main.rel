@@ -1,5 +1,5 @@
 XL2
-H 2 areas 43 global symbols
+H 2 areas 44 global symbols
 M cpct_keyboard
 S cpct_setInterruptHandler_asm Ref0000
 S transparency_table Ref0000
@@ -50,6 +50,7 @@ S VICTORY Def0005
 S cpct_waitVSYNC_asm Ref0000
 S cpct_setVideoMode_asm Ref0000
 S GAME_LOOP Def0000
+S cpct_px2byteM0_asm Ref0000
 S cpct_getRandom_xsp40_u8_asm Ref0000
 S cpct_memset_asm Ref0000
 S GAME_OVER Def0004
@@ -79,7 +80,7 @@ R 00 00 00 00
 T 00 00 CD 00 00 1E 06 16 4E 06 2C 0E 3C 21 00 00
 R 00 00 00 00 02 03 0B 00 00 0E 01 00
 T 0E 00 3E 01 CD 00 00 CD 00 00 C9
-R 00 00 00 00 02 05 34 00 02 08 17 00
+R 00 00 00 00 02 05 35 00 02 08 17 00
 T 17 00
 R 00 00 00 00
 T 17 00 31 00 80 CD 00 00 CD 00 00

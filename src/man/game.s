@@ -35,7 +35,7 @@
 .area _DATA
 
 player1Tpl::
-DefineEntity e_cmp_default, #0000, e_type_player, 100, 80, 2, 20, 0, 0, #0000, #0000, #0000, 1, 0, #0000, 0
+DefineEntity e_cmp_default, #0000, e_type_player, 15, 10, 80, 1, 20, 0, 0, #0000, #0000, #0000, 1, 0, #0000, 0
 
 game_state:: .db MAIN_MENU   ;; Game state ----- 0: Game loop, 1: Main menu, 2: Map loading, 3: Pause menu, 4: Game over, 5: Victory
 ;;
@@ -57,9 +57,14 @@ man_game_init::
     call man_entity_init
     
     ;; Create an entity in 100, 100
-    ld hl, #player1Tpl                   ;; Template of the entity to create
+    ld hl, #player1Tpl                  ;; Template of the entity to create
     call man_entity_create              ;; Create new entity
-    ld e_vx+1(ix), #0xff                ;; vx = 1
+
+    ;; Create an entity in 140, 100
+    ld hl, #player1Tpl                  ;; Template of the entity to create
+    call man_entity_create              ;; Create new entity
+    ld e_x(ix), #60                     ;; x = 60
+    ld e_color(ix), #1                  ;; color = pink 
 
     call sys_physics_init               ;; initilize physics system
     
@@ -76,6 +81,23 @@ man_game_init::
 ;;
 man_game_update::
     call sys_input_player_update
+
+    call man_entity_getPlayerPosition
+    call man_entity_getOponentPosition
+
+    ;; Copy player movements on Oponent
+    ld a, e_vx(ix)
+    ld e_vx(iy), a
+    ld a, e_vx+1(ix)
+    ld e_vx+1(iy), a
+
+    ld a, e_vy(ix)
+    ld e_vy(iy), a
+    ld a, e_vy+1(ix)
+    ld e_vy+1(iy), a
+    ;; -----------------------------
+_exit_clone_input:
+
     call sys_physics_update
     call sys_render_update
     call sys_render_debug_entity
