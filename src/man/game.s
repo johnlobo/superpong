@@ -36,6 +36,9 @@
 
 player1Tpl::
 DefineEntity e_cmp_default, #0000, e_type_player, 15, 10, 80, 1, 20, 0, 0, #0000, #0000, #0000, 1, 0, #0000, 0
+ballTpl:: 
+DefineEntity e_cmp_default, #0000, e_type_ball, 15, 40, 80, 1, 2, 0, 0, #0000, #0000, #0000, 1, 0, #0000, 0
+
 
 game_state:: .db MAIN_MENU   ;; Game state ----- 0: Game loop, 1: Main menu, 2: Map loading, 3: Pause menu, 4: Game over, 5: Victory
 ;;

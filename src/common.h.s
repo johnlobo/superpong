@@ -97,7 +97,7 @@ nullptr = 0x0000
 ;;==============================================================================================================================
 e_type_default          = 0x00
 e_type_player           = 0x01
-e_type_poison           = 0x02
+e_type_ball             = 0x02
 e_type_life_potion      = 0x04
 e_type_mob              = 0x08
 e_type_shield           = 0x10

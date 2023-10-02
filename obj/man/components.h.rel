@@ -1,9 +1,9 @@
-XL2
+XL3
 H 1 areas 6 global symbols
-S man_components_removePtr Ref0000
-S man_components_getArrayHL Ref0000
-S .__.ABS. Def0000
-S man_components_add Ref0000
-S man_components_init Ref0000
-S man_components_getComponentPtrHL Ref0000
+S man_components_removePtr Ref000000
+S man_components_getArrayHL Ref000000
+S .__.ABS. Def000000
+S man_components_add Ref000000
+S man_components_init Ref000000
+S man_components_getComponentPtrHL Ref000000
 A _CODE size 0 flags 0 addr 0

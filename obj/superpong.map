@@ -60,41 +60,41 @@ _CODE                               00000200    00002189 =        8585. bytes (R
      000005B2  _g_palette                         g_palette
      000005C2  main_init                          cpct_keyboard
      000005D9  _main                              cpct_keyboard
-     000005EA  man_fight_init                     fight_manager
-     000005EB  man_fight_update                   fight_manager
-     000005EC  _entities_access_table             cpct_keyboard
-     000005EC  _entities_components0_ptr_pend     cpct_keyboard
-     000005EE  _entities_components1_ptr_pend     cpct_keyboard
-     000005F0  _entities_components2_ptr_pend     cpct_keyboard
-     000005F2  _entities_components3_ptr_pend     cpct_keyboard
-     000005F4  _entities_components4_ptr_pend     cpct_keyboard
-     000005F6  _entities_components               cpct_keyboard
-     0000066E  man_components_init                cpct_keyboard
-     0000068C  man_components_getComponentPtrHL   cpct_keyboard
-     0000069A  man_components_getArrayHL          cpct_keyboard
-     000006A0  man_components_add                 cpct_keyboard
-     000006B3  man_components_removePtr           cpct_keyboard
-     000006D8  man_array_init                     array_manager
-     000006F2  man_array_create_element           array_manager
-     00000726  man_array_remove_element           array_manager
-     00000773  man_array_get_element              array_manager
-     00000782  man_array_get_random_element       array_manager
-     0000079B  man_array_move_all_elements        array_manager
-     000007C3  man_array_execute_each             array_manager
-     000007F1  man_array_execute_each_matching    array_manager
-     0000082C  man_array_first_element            array_manager
-     0000083B  _entity_array                      cpct_keyboard
-     0000097B  man_entity_destroy                 cpct_keyboard
-     000009B5  man_entity_new                     cpct_keyboard
-     000009D6  man_entity_init                    cpct_keyboard
-     000009F4  man_entity_init_linked_list        cpct_keyboard
-     00000A0F  man_entity_set4destruction         cpct_keyboard
-     00000A1D  man_entity_update                  cpct_keyboard
-     00000A44  man_entity_create                  cpct_keyboard
-     00000A84  man_entity_getEntityArrayIX        cpct_keyboard
-     00000A8C  man_entity_getPlayerPosition       cpct_keyboard
-     00000A91  man_entity_getOponentPosition      cpct_keyboard
-     00000AA0  man_entity_deleteEverythingExcep   cpct_keyboard
+     000005EA  man_array_init                     array_manager
+     00000604  man_array_create_element           array_manager
+     00000638  man_array_remove_element           array_manager
+     00000685  man_array_get_element              array_manager
+     00000694  man_array_get_random_element       array_manager
+     000006AD  man_array_move_all_elements        array_manager
+     000006D5  man_array_execute_each             array_manager
+     00000703  man_array_execute_each_matching    array_manager
+     0000073E  man_array_first_element            array_manager
+     00000748  _entities_access_table             cpct_keyboard
+     00000748  _entities_components0_ptr_pend     cpct_keyboard
+     0000074A  _entities_components1_ptr_pend     cpct_keyboard
+     0000074C  _entities_components2_ptr_pend     cpct_keyboard
+     0000074E  _entities_components3_ptr_pend     cpct_keyboard
+     00000750  _entities_components4_ptr_pend     cpct_keyboard
+     00000752  _entities_components               cpct_keyboard
+     000007CA  man_components_init                cpct_keyboard
+     000007E8  man_components_getComponentPtrHL   cpct_keyboard
+     000007F6  man_components_getArrayHL          cpct_keyboard
+     000007FC  man_components_add                 cpct_keyboard
+     0000080F  man_components_removePtr           cpct_keyboard
+     00000839  _entity_array                      cpct_keyboard
+     00000979  man_entity_destroy                 cpct_keyboard
+     000009B3  man_entity_new                     cpct_keyboard
+     000009D4  man_entity_init                    cpct_keyboard
+     000009F2  man_entity_init_linked_list        cpct_keyboard
+     00000A0D  man_entity_set4destruction         cpct_keyboard
+     00000A1B  man_entity_update                  cpct_keyboard
+     00000A42  man_entity_create                  cpct_keyboard
+     00000A82  man_entity_getEntityArrayIX        cpct_keyboard
+     00000A8A  man_entity_getPlayerPosition       cpct_keyboard
+     00000A8F  man_entity_getOponentPosition      cpct_keyboard
+     00000A9E  man_entity_deleteEverythingExcep   cpct_keyboard
+     00000AB3  man_fight_init                     fight_manager
+     00000AB4  man_fight_update                   fight_manager
      00000AB5  man_game_init                      game_manager
 ASxxxx Linker V03.00 + NoICE + sdld,  page 3.
 Hexadecimal  [32-Bits]
@@ -108,54 +108,54 @@ _CODE                               00000200    00002189 =        8585. bytes (R
      00000AD0  man_game_update                    game_manager
      00000AFB  man_game_get_state                 game_manager
      00000AFF  man_game_set_state                 game_manager
-     00000B03  sys_physics_init                   physics_system
-     00000B0C  sys_physics_apply_gravity          physics_system
-     00000B1E  sys_physics_apply_friction_vx      physics_system
-     00000B45  sys_physics_apply_friction_vy      physics_system
-     00000B6C  sys_physics_update_one_entity      physics_system
-     00000BB7  sys_physics_update                 physics_system
-     00000BCD  sys_render_clear_buffer            render_system
-     00000BD8  sys_render_clear_back_buffer       render_system
-     00000BE2  sys_render_clear_front_buffer      render_system
-     00000BEC  sys_render_switch_buffers          render_system
-     00000C02  sys_render_init                    render_system
-     00000C22  sys_render_erase_one_entity        render_system
-     00000C37  sys_render_draw_one_player_entit   render_system
-     00000C50  sys_render_draw_sprite_one_entit   render_system
-     00000C66  sys_render_update_one_entity       render_system
-     00000CA3  sys_render_update                  render_system
-     00000CB8  sys_render_debug_entity            render_system
-     00000D28  sys_util_h_times_e                 sys_util
-     00000D4C  sys_util_hl_div_c                  sys_util
-     00000D59  sys_util_absHL                     sys_util
-     00000D63  sys_util_BCD_GetEnd                sys_util
-     00000D6E  sys_util_BCD_Add                   sys_util
-     00000D78  sys_util_BCD_Compare               sys_util
-     00000D87  sys_util_get_random_number         sys_util
-     00000D9D  sys_util_delay                     sys_util
-     00000DA5  sys_text_reset_aux_txt             text_manager
-     00000DB0  sys_text_str_length                text_manager
-     00000DBC  sys_text_str_copy                  text_manager
-     00000DCB  sys_text_str_cmp                   text_manager
-     00000DE5  sys_text_draw_char                 text_manager
-     00000E75  sys_text_draw_string               text_manager
-     00000EC4  sys_text_num2str8                  text_manager
-     00000EDB  sys_text_draw_small_char_number    text_manager
-     00000EF2  sys_text_draw_small_number         text_manager
-     00000F1F  sys_messages_load_window_data      messages_system
-     00000F74  sys_messages_draw_window           messages_system
-     00000FAA  sys_messages_restore_message_bac   messages_system
-     00000FBD  sys_messages_show                  messages_system
-     00001048  sys_messages_draw_box              messages_system
-     00001CC2  sys_system_disable_firmware        system_system
-     00001CD4  sys_input_clean_buffer             input_system
-     00001CDA  sys_input_wait4anykey              input_system
-     00001CEC  sys_input_getKeyPressed            input_system
-     00001D12  sys_input_waitKeyPressed           input_system
-     00001D26  sys_input_init                     input_system
-     00001D27  sys_input_generic_update           input_system
-     00001D47  sys_input_main_menu_update         input_system
-     00001D4F  sys_input_player_left              input_system
+     00000B03  sys_input_clean_buffer             input_system
+     00000B09  sys_input_wait4anykey              input_system
+     00000B1B  sys_input_getKeyPressed            input_system
+     00000B41  sys_input_waitKeyPressed           input_system
+     00000B55  sys_input_init                     input_system
+     00000B56  sys_input_generic_update           input_system
+     00000B76  sys_input_main_menu_update         input_system
+     00000B7E  sys_input_player_left              input_system
+     00000BA7  sys_input_player_right             input_system
+     00000BCF  sys_input_player_up                input_system
+     00000BF8  sys_input_player_down              input_system
+     00000C20  sys_input_player_jump              input_system
+     00000C3C  sys_input_player_update            input_system
+     00000C4B  sys_messages_load_window_data      messages_system
+     00000CA0  sys_messages_draw_window           messages_system
+     00000CD6  sys_messages_restore_message_bac   messages_system
+     00000CE9  sys_messages_show                  messages_system
+     00000D74  sys_messages_draw_box              messages_system
+     00001987  sys_physics_init                   physics_system
+     00001990  sys_physics_apply_gravity          physics_system
+     000019A2  sys_physics_apply_friction_vx      physics_system
+     000019C9  sys_physics_apply_friction_vy      physics_system
+     000019F0  sys_physics_update_one_entity      physics_system
+     00001A3B  sys_physics_update                 physics_system
+     00001A51  sys_render_clear_buffer            render_system
+     00001A5C  sys_render_clear_back_buffer       render_system
+     00001A66  sys_render_clear_front_buffer      render_system
+     00001A70  sys_render_switch_buffers          render_system
+     00001A86  sys_render_init                    render_system
+     00001AA6  sys_render_erase_one_entity        render_system
+     00001ABB  sys_render_draw_one_player_entit   render_system
+     00001AD4  sys_render_draw_sprite_one_entit   render_system
+     00001AEA  sys_render_update_one_entity       render_system
+     00001B27  sys_render_update                  render_system
+     00001B3C  sys_render_debug_entity            render_system
+     00001C13  sys_system_disable_firmware        system_system
+     00001C25  sys_text_reset_aux_txt             text_manager
+     00001C30  sys_text_str_length                text_manager
+     00001C3C  sys_text_str_copy                  text_manager
+     00001C4B  sys_text_str_cmp                   text_manager
+     00001C65  sys_text_draw_char                 text_manager
+     00001CF5  sys_text_draw_string               text_manager
+     00001D44  sys_text_num2str8                  text_manager
+     00001D5B  sys_text_draw_small_char_number    text_manager
+     00001D72  sys_text_draw_small_number         text_manager
+     00001D9F  sys_util_h_times_e                 sys_util
+     00001DC3  sys_util_hl_div_c                  sys_util
+     00001DD0  sys_util_absHL                     sys_util
 ASxxxx Linker V03.00 + NoICE + sdld,  page 4.
 Hexadecimal  [32-Bits]
 
@@ -165,11 +165,11 @@ _CODE                               00000200    00002189 =        8585. bytes (R
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-     00001D78  sys_input_player_right             input_system
-     00001DA0  sys_input_player_up                input_system
-     00001DC9  sys_input_player_down              input_system
-     00001DF1  sys_input_player_jump              input_system
-     00001E0D  sys_input_player_update            input_system
+     00001DDA  sys_util_BCD_GetEnd                sys_util
+     00001DE5  sys_util_BCD_Add                   sys_util
+     00001DEF  sys_util_BCD_Compare               sys_util
+     00001DFE  sys_util_get_random_number         sys_util
+     00001E14  sys_util_delay                     sys_util
      00001E1C  _cpct_setInterruptHandler          cpct_firmware
      00001E1C  cpct_setInterruptHandler_asm       cpct_firmware
      00001E2D  cpct_safeInterruptHandlerHook      cpct_firmware
@@ -253,18 +253,18 @@ _DATA                               00002389    000000C1 =         193. bytes (R
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-     0000239E  first_lvl                          fight_manager
+     000023A6  first_lvl                          fight_manager
      000023D5  player1Tpl                         game_manager
      000023F5  game_state                         game_manager
-     000023F8  sys_render_front_buffer            render_system
-     000023F9  sys_render_back_buffer             render_system
-     000023FA  sys_render_touched_zones           render_system
-     000023FB  string_buffer                      sys_util
-     00002406  aux_txt                            text_manager
-     0000241A  _window_data                       messages_system
-     00002431  nInterrupt                         system_system
-     00002432  sys_input_main_menu_actions        input_system
-     00002434  sys_input_player_actions           input_system
+     000023F6  sys_input_main_menu_actions        input_system
+     000023F8  sys_input_player_actions           input_system
+     0000240E  _window_data                       messages_system
+     00002427  sys_render_front_buffer            render_system
+     00002428  sys_render_back_buffer             render_system
+     00002429  sys_render_touched_zones           render_system
+     0000242A  nInterrupt                         system_system
+     0000242B  aux_txt                            text_manager
+     0000243F  string_buffer                      sys_util
 ASxxxx Linker V03.00 + NoICE + sdld,  page 7.
 Hexadecimal  [32-Bits]
 
@@ -283,107 +283,107 @@ Files Linked                              [ module(s) ]
 obj/assets/sprites/small_numbers.rel      [ small_numbers ]
 obj/assets/sprites/font_chars_0.rel       [ font_chars_0 ]
 obj/assets/palette/g_palette.rel          [ g_palette ]
+obj/common.h.rel                          [  ]
 obj/macros.h.rel                          [  ]
 obj/main.rel                              [ cpct_keyboard ]
-obj/common.h.rel                          [  ]
-obj/cmp/cmp.h.rel                         [  ]
-obj/man/fight.rel                         [ fight_manager ]
-obj/man/fight.h.rel                       [ fight_manager ]
-obj/man/game.h.rel                        [ game_manager ]
-obj/man/components.rel                    [ cpct_keyboard ]
-obj/man/array.rel                         [ array_manager ]
-obj/man/entities.h.rel                    [ Entity_Manager ]
 obj/man/array.h.rel                       [ array_manager ]
+obj/man/array.rel                         [ array_manager ]
 obj/man/components.h.rel                  [  ]
+obj/man/components.rel                    [ cpct_keyboard ]
+obj/man/entities.h.rel                    [ Entity_Manager ]
 obj/man/entities.rel                      [ cpct_keyboard ]
+obj/man/fight.h.rel                       [ fight_manager ]
+obj/man/fight.rel                         [ fight_manager ]
+obj/man/game.h.rel                        [ game_manager ]
 obj/man/game.rel                          [ game_manager ]
-obj/sys/physics.rel                       [ physics_system ]
-obj/sys/render.rel                        [ render_system ]
-obj/sys/text.h.rel                        [  ]
-obj/sys/util.rel                          [ sys_util ]
-obj/sys/system.h.rel                      [ system_system ]
-obj/sys/util.h.rel                        [  ]
-obj/sys/messages.h.rel                    [ messages_system ]
-obj/sys/text.rel                          [ text_manager ]
-obj/sys/messages.rel                      [ messages_system ]
+obj/cmp/cmp.h.rel                         [  ]
 obj/sys/input.h.rel                       [  ]
-obj/sys/system.rel                        [ system_system ]
-obj/sys/render.h.rel                      [ render_system ]
-obj/sys/physics.h.rel                     [ physics_system ]
 obj/sys/input.rel                         [ input_system ]
+obj/sys/messages.h.rel                    [ messages_system ]
+obj/sys/messages.rel                      [ messages_system ]
+obj/sys/physics.h.rel                     [ physics_system ]
+obj/sys/physics.rel                       [ physics_system ]
+obj/sys/render.h.rel                      [ render_system ]
+obj/sys/render.rel                        [ render_system ]
+obj/sys/system.h.rel                      [ system_system ]
+obj/sys/system.rel                        [ system_system ]
+obj/sys/text.h.rel                        [  ]
+obj/sys/text.rel                          [ text_manager ]
+obj/sys/util.h.rel                        [  ]
+obj/sys/util.rel                          [ sys_util ]
 
 
 Libraries Linked                          [ object file ]
 
-/home/drodri/sources/retro/cpctelera/cpctelera/cpctelera.lib
+/Users/david/Projects/retro/cpctelera/cpctelera/cpctelera.lib
                                           [ cpct_setInterruptHandler.rel ]
-/home/drodri/sources/retro/cpctelera/cpctelera/cpctelera.lib
+/Users/david/Projects/retro/cpctelera/cpctelera/cpctelera.lib
                                           [ cpct_getScreenToSprite_asmbindin ]
-/home/drodri/sources/retro/cpctelera/cpctelera/cpctelera.lib
+/Users/david/Projects/retro/cpctelera/cpctelera/cpctelera.lib
                                           [ cpct_setPalette_asmbindings.rel ]
-/home/drodri/sources/retro/cpctelera/cpctelera/cpctelera.lib
+/Users/david/Projects/retro/cpctelera/cpctelera/cpctelera.lib
                                           [ cpct_isKeyPressed.rel ]
-/home/drodri/sources/retro/cpctelera/cpctelera/cpctelera.lib
+/Users/david/Projects/retro/cpctelera/cpctelera/cpctelera.lib
                                           [ cpct_setPALColour_asmbindings.re ]
-/home/drodri/sources/retro/cpctelera/cpctelera/cpctelera.lib
+/Users/david/Projects/retro/cpctelera/cpctelera/cpctelera.lib
                                           [ cpct_drawSprite_asmbindings.rel ]
-/home/drodri/sources/retro/cpctelera/cpctelera/cpctelera.lib
+/Users/david/Projects/retro/cpctelera/cpctelera/cpctelera.lib
                                           [ cpct_etm_drawTileBox2x4_asmbindi ]
-/home/drodri/sources/retro/cpctelera/cpctelera/cpctelera.lib
+/Users/david/Projects/retro/cpctelera/cpctelera/cpctelera.lib
                                           [ cpct_etm_drawTilemap4x8_ag_asmbi ]
-/home/drodri/sources/retro/cpctelera/cpctelera/cpctelera.lib
+/Users/david/Projects/retro/cpctelera/cpctelera/cpctelera.lib
                                           [ keyboard.rel ]
-/home/drodri/sources/retro/cpctelera/cpctelera/cpctelera.lib
+/Users/david/Projects/retro/cpctelera/cpctelera/cpctelera.lib
                                           [ cpct_waitHalts_asmbindings.rel ]
-/home/drodri/sources/retro/cpctelera/cpctelera/cpctelera.lib
+/Users/david/Projects/retro/cpctelera/cpctelera/cpctelera.lib
                                           [ cpct_setSeed_mxor.rel ]
-/home/drodri/sources/retro/cpctelera/cpctelera/cpctelera.lib
+/Users/david/Projects/retro/cpctelera/cpctelera/cpctelera.lib
                                           [ cpct_etm_drawTileRow2x4.rel ]
-/home/drodri/sources/retro/cpctelera/cpctelera/cpctelera.lib
+/Users/david/Projects/retro/cpctelera/cpctelera/cpctelera.lib
                                           [ cpct_setSeed_xsp40_u8_asmbinding ]
-/home/drodri/sources/retro/cpctelera/cpctelera/cpctelera.lib
+/Users/david/Projects/retro/cpctelera/cpctelera/cpctelera.lib
                                           [ cpct_setVideoMemoryPage.rel ]
-/home/drodri/sources/retro/cpctelera/cpctelera/cpctelera.lib
+/Users/david/Projects/retro/cpctelera/cpctelera/cpctelera.lib
                                           [ cpct_memset_f64_asmbinding.rel ]
-/home/drodri/sources/retro/cpctelera/cpctelera/cpctelera.lib
+/Users/david/Projects/retro/cpctelera/cpctelera/cpctelera.lib
                                           [ cpct_getRandom_xsp40_u8.rel ]
-/home/drodri/sources/retro/cpctelera/cpctelera/cpctelera.lib
+/Users/david/Projects/retro/cpctelera/cpctelera/cpctelera.lib
                                           [ cpct_isAnyKeyPressed.rel ]
-/home/drodri/sources/retro/cpctelera/cpctelera/cpctelera.lib
+/Users/david/Projects/retro/cpctelera/cpctelera/cpctelera.lib
                                           [ cpct_scanKeyboard_if.rel ]
-/home/drodri/sources/retro/cpctelera/cpctelera/cpctelera.lib
+/Users/david/Projects/retro/cpctelera/cpctelera/cpctelera.lib
                                           [ cpct_setVideoMode_asmbindings.re ]
-/home/drodri/sources/retro/cpctelera/cpctelera/cpctelera.lib
+/Users/david/Projects/retro/cpctelera/cpctelera/cpctelera.lib
                                           [ cpct_waitVSYNC.rel ]
-/home/drodri/sources/retro/cpctelera/cpctelera/cpctelera.lib
+/Users/david/Projects/retro/cpctelera/cpctelera/cpctelera.lib
                                           [ cpct_memset_asmbinding.rel ]
-/home/drodri/sources/retro/cpctelera/cpctelera/cpctelera.lib
+/Users/david/Projects/retro/cpctelera/cpctelera/cpctelera.lib
                                           [ cpct_px2byteM0_asmbindings.rel ]
-/home/drodri/sources/retro/cpctelera/cpctelera/cpctelera.lib
+/Users/david/Projects/retro/cpctelera/cpctelera/cpctelera.lib
                                           [ cpct_removeInterruptHandler.rel ]
-/home/drodri/sources/retro/cpctelera/cpctelera/cpctelera.lib
+/Users/david/Projects/retro/cpctelera/cpctelera/cpctelera.lib
                                           [ cpct_drawSolidBox_asmbindings.re ]
-/home/drodri/sources/retro/cpctelera/cpctelera/cpctelera.lib
+/Users/david/Projects/retro/cpctelera/cpctelera/cpctelera.lib
                                           [ cpct_getRandom_mxor_u8.rel ]
-/home/drodri/sources/retro/cpctelera/cpctelera/cpctelera.lib
+/Users/david/Projects/retro/cpctelera/cpctelera/cpctelera.lib
                                           [ cpct_drawTileAligned2x4_f_asmbin ]
-/home/drodri/sources/retro/cpctelera/cpctelera/cpctelera.lib
+/Users/david/Projects/retro/cpctelera/cpctelera/cpctelera.lib
                                           [ cpct_drawSpriteBlended_asmbindin ]
-/home/drodri/sources/retro/cpctelera/cpctelera/cpctelera.lib
+/Users/david/Projects/retro/cpctelera/cpctelera/cpctelera.lib
                                           [ cpc_mode_rom_status.rel ]
-/home/drodri/sources/retro/cpctelera/cpctelera/cpctelera.lib
+/Users/david/Projects/retro/cpctelera/cpctelera/cpctelera.lib
                                           [ cpct_getScreenPtr_asmbindings.re ]
-/home/drodri/sources/retro/cpctelera/cpctelera/cpctelera.lib
+/Users/david/Projects/retro/cpctelera/cpctelera/cpctelera.lib
                                           [ cpct_scanKeyboard.rel ]
-/home/drodri/sources/retro/cpctelera/cpctelera/cpctelera.lib
+/Users/david/Projects/retro/cpctelera/cpctelera/cpctelera.lib
                                           [ cpct_waitVSYNCStart.rel ]
-/home/drodri/sources/retro/cpctelera/cpctelera/cpctelera.lib
+/Users/david/Projects/retro/cpctelera/cpctelera/cpctelera.lib
                                           [ cpct_etm_setDrawTilemap4x8_ag_as ]
-/home/drodri/sources/retro/cpctelera/cpctelera/cpctelera.lib
+/Users/david/Projects/retro/cpctelera/cpctelera/cpctelera.lib
                                           [ cpct_mxor32_seed.rel ]
-/home/drodri/sources/retro/cpctelera/cpctelera/cpctelera.lib
+/Users/david/Projects/retro/cpctelera/cpctelera/cpctelera.lib
                                           [ cpct_nextRandom_mxor_u32.rel ]
-/home/drodri/sources/retro/cpctelera/cpctelera/cpctelera.lib
+/Users/david/Projects/retro/cpctelera/cpctelera/cpctelera.lib
                                           [ cpct_dc_mode0_ct.rel ]
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 9.

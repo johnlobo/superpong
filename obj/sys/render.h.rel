@@ -1,12 +1,12 @@
-XL2
+XL3
 H 1 areas 8 global symbols
 M render_system
-S transparency_table Ref0000
-S sys_render_back_buffer Ref0000
-S sys_render_init Ref0000
-S sys_render_touched_zones Ref0000
-S .__.ABS. Def0000
-S sys_render_front_buffer Ref0000
-S sys_render_debug_entity Ref0000
-S sys_render_update Ref0000
+S transparency_table Ref000000
+S sys_render_back_buffer Ref000000
+S sys_render_init Ref000000
+S sys_render_touched_zones Ref000000
+S .__.ABS. Def000000
+S sys_render_front_buffer Ref000000
+S sys_render_debug_entity Ref000000
+S sys_render_update Ref000000
 A _CODE size 0 flags 0 addr 0
