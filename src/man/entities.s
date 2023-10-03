@@ -307,8 +307,7 @@ man_entity_create::
 
 	pop hl
 
-	;;	HL and DE are incremented so as not to overwrite the list pointers
-	;; 	to the next entity.
+	;;	HL and DE are incremented so as not to overwrite the list pointers	to the next entity.
 	inc hl	
 	inc hl
 	inc de
@@ -351,9 +350,7 @@ man_entity_create::
 	_Physics:
 	ld a, #e_cmpID_Physics
 	call man_components_add
-	_noPhysics:
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;	
+	_noPhysics:	
 	ret
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -364,6 +361,18 @@ man_entity_create::
 ;;       IX, A
 ;;	   
 man_entity_getEntityArrayIX::
+	ld ix, (_entity_list)
+	ld a, (_entity_num)
+	ret
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;  ENTITY_MANAGER::GetEntityArrayIY
+;;      Returns the pointer to the entity array and the number of entities
+;;  INPUT:
+;;  MODIFY:
+;;       IX, A
+;;	   
+man_entity_getEntityArrayIY::
 	ld ix, (_entity_list)
 	ld a, (_entity_num)
 	ret
@@ -421,3 +430,46 @@ man_entity_deleteEverythingExceptPlayer::
 	ld__ixl_c
 	ld__ixh_b
 	jr __loop
+
+;; Pointer to function
+function_for_all: .db #0x00, #0x00
+
+;; ---------------------------------------------
+;; Applies a function filtering specific criteria
+;; B -> Mask of bytes (e_cmps)
+;; ---------------------------------------------
+man_entity_forall_matching_iy::
+    ld (function_for_all), hl
+    call man_entity_getEntityArrayIY ;; IY points to the first entity
+
+    ld a,e_cmps(iy) ;;si la primera entidad es invalida, salimos de la funcion
+    and #0xFF
+    jr z, final_matching
+
+    loop_forall_matching:
+        push bc ;;guardo mascara de bytes
+        ld a, e_cmps(iy)
+        and b
+        cp b
+        jr nz, afterjp_matching
+
+        
+        ld hl, #afterjp_matching
+        push hl
+
+        ld hl, (function_for_all)
+        jp (hl)
+
+        afterjp_matching:
+
+
+        call man_next_entity
+        
+        ld a,e_cmps(iy)
+        and #0xFF
+        pop bc
+    jr nz, loop_forall_matching
+
+    final_matching:
+        call man_entity_first_entity
+ret

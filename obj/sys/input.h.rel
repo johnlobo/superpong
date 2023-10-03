@@ -1,13 +1,13 @@
-XL3
+XL2
 H 1 areas A global symbols
-S sys_input_waitKeyPressed Ref000000
-S sys_input_init Ref000000
-S sys_input_wait4anykey Ref000000
-S sys_input_getKeyPressed Ref000000
-S sys_input_player_right Ref000000
-S .__.ABS. Def000000
-S sys_input_player_left Ref000000
-S sys_input_main_menu_update Ref000000
-S sys_input_clean_buffer Ref000000
-S sys_input_player_update Ref000000
+S sys_input_waitKeyPressed Ref0000
+S sys_input_init Ref0000
+S sys_input_wait4anykey Ref0000
+S sys_input_getKeyPressed Ref0000
+S sys_input_player_right Ref0000
+S .__.ABS. Def0000
+S sys_input_player_left Ref0000
+S sys_input_main_menu_update Ref0000
+S sys_input_clean_buffer Ref0000
+S sys_input_player_update Ref0000
 A _CODE size 0 flags 0 addr 0

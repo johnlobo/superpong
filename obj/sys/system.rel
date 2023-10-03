@@ -1,106 +1,106 @@
-XL3
+XL2
 H 2 areas 33 global symbols
 M system_system
-S cpct_setInterruptHandler_asm Ref000000
-S transparency_table Ref000000
-S cpct_getScreenToSprite_asm Ref000000
-S cpct_isKeyPressed_asm Ref000000
-S cpct_setPalette_asm Ref000000
-S cpct_setPALColour_asm Ref000000
-S sys_render_back_buffer Ref000000
-S cpct_drawSprite_asm Ref000000
-S sys_render_init Ref000000
-S cpct_etm_drawTileBox2x4_asm Ref000000
-S cpct_etm_drawTilemap4x8_ag_asm Ref000000
-S _g_palette Ref000000
-S sys_render_touched_zones Ref000000
-S _cpct_keyboardStatusBuffer Ref000000
-S cpct_waitHalts_asm Ref000000
-S cpct_setSeed_mxor_asm Ref000000
-S .__.ABS. Def000000
-S sys_render_front_buffer Ref000000
-S sys_render_debug_entity Ref000000
-S sys_render_update Ref000000
-S cpct_setSeed_xsp40_u8_asm Ref000000
-S cpct_setVideoMemoryPage_asm Ref000000
-S cpct_memset_f64_asm Ref000000
-S _s_small_numbers_00 Ref000000
-S _s_small_numbers_01 Ref000000
-S _s_small_numbers_02 Ref000000
-S _s_small_numbers_03 Ref000000
-S _s_small_numbers_04 Ref000000
-S _s_small_numbers_05 Ref000000
-S _s_small_numbers_06 Ref000000
-S _s_small_numbers_07 Ref000000
-S cpct_isAnyKeyPressed_asm Ref000000
-S _s_small_numbers_08 Ref000000
-S cpct_scanKeyboard_if_asm Ref000000
-S _s_small_numbers_09 Ref000000
-S cpct_waitVSYNC_asm Ref000000
-S cpct_setVideoMode_asm Ref000000
-S cpct_px2byteM0_asm Ref000000
-S cpct_getRandom_xsp40_u8_asm Ref000000
-S cpct_memset_asm Ref000000
-S _s_font_0 Ref000000
-S cpct_disableFirmware_asm Ref000000
-S cpct_getRandom_mxor_u8_asm Ref000000
-S cpct_drawSolidBox_asm Ref000000
-S cpct_drawSpriteBlended_asm Ref000000
-S cpct_etm_setDrawTilemap4x8_ag_asm Ref000000
-S cpct_waitVSYNCStart_asm Ref000000
-S cpct_scanKeyboard_asm Ref000000
-S cpct_getScreenPtr_asm Ref000000
+S cpct_setInterruptHandler_asm Ref0000
+S transparency_table Ref0000
+S cpct_getScreenToSprite_asm Ref0000
+S cpct_isKeyPressed_asm Ref0000
+S cpct_setPalette_asm Ref0000
+S cpct_setPALColour_asm Ref0000
+S sys_render_back_buffer Ref0000
+S cpct_drawSprite_asm Ref0000
+S sys_render_init Ref0000
+S cpct_etm_drawTileBox2x4_asm Ref0000
+S cpct_etm_drawTilemap4x8_ag_asm Ref0000
+S _g_palette Ref0000
+S sys_render_touched_zones Ref0000
+S _cpct_keyboardStatusBuffer Ref0000
+S cpct_waitHalts_asm Ref0000
+S cpct_setSeed_mxor_asm Ref0000
+S .__.ABS. Def0000
+S sys_render_front_buffer Ref0000
+S sys_render_debug_entity Ref0000
+S sys_render_update Ref0000
+S cpct_setSeed_xsp40_u8_asm Ref0000
+S cpct_setVideoMemoryPage_asm Ref0000
+S cpct_memset_f64_asm Ref0000
+S _s_small_numbers_00 Ref0000
+S _s_small_numbers_01 Ref0000
+S _s_small_numbers_02 Ref0000
+S _s_small_numbers_03 Ref0000
+S _s_small_numbers_04 Ref0000
+S _s_small_numbers_05 Ref0000
+S _s_small_numbers_06 Ref0000
+S _s_small_numbers_07 Ref0000
+S cpct_isAnyKeyPressed_asm Ref0000
+S _s_small_numbers_08 Ref0000
+S cpct_scanKeyboard_if_asm Ref0000
+S _s_small_numbers_09 Ref0000
+S cpct_waitVSYNC_asm Ref0000
+S cpct_setVideoMode_asm Ref0000
+S cpct_px2byteM0_asm Ref0000
+S cpct_getRandom_xsp40_u8_asm Ref0000
+S cpct_memset_asm Ref0000
+S _s_font_0 Ref0000
+S cpct_disableFirmware_asm Ref0000
+S cpct_getRandom_mxor_u8_asm Ref0000
+S cpct_drawSolidBox_asm Ref0000
+S cpct_drawSpriteBlended_asm Ref0000
+S cpct_etm_setDrawTilemap4x8_ag_asm Ref0000
+S cpct_waitVSYNCStart_asm Ref0000
+S cpct_scanKeyboard_asm Ref0000
+S cpct_getScreenPtr_asm Ref0000
 A _CODE size 79 flags 0 addr 0
-S sys_system_disable_firmware Def000067
+S sys_system_disable_firmware Def0067
 A _DATA size 1 flags 0 addr 0
-S nInterrupt Def000000
-T 00 00 00 00
-R 00 00 01 00
+S nInterrupt Def0000
 T 00 00 00
+R 00 00 01 00
+T 00 00
 R 00 00 00 00
-T 00 00 00 21 38 00 36 C3 23 36 13 00 00 23 36
-R 00 00 00 00 09 0A 00 00
-T 0A 00 00 13 00 00 23 36 C9 AF 32 00 00 C9
-R 00 00 00 00 89 03 00 00 00 0B 01 00
-T 13 00 00
+T 00 00 21 38 00 36 C3 23 36 13 00 23 36 13 00 23
+R 00 00 00 00 09 09 00 00 89 0D 00 00
+T 0C 00 36 C9 AF 32 00 00 C9
+R 00 00 00 00 00 06 01 00
+T 13 00
 R 00 00 00 00
-T 13 00 00 3A 00 00 3C 32 00 00 21 21 00 CD
-R 00 00 00 00 00 04 01 00 00 08 01 00 00 0B 00 00
-T 1E 00 00 00 00 C9
-R 00 00 00 00 02 03 00 00
-T 21 00 00
+T 13 00 3A 00 00 3C 32 00 00 21 21 00 CD
+R 00 00 00 00 00 03 01 00 00 07 01 00 00 0A 00 00
+T 1E 00 00 00 C9
+R 00 00 00 00 02 02 00 00
+T 21 00
 R 00 00 00 00
-T 21 00 00 3A 00 00 3C 32 00 00 CD 00 00 21
-R 00 00 00 00 00 04 01 00 00 08 01 00 02 0B 21 00
-T 2C 00 00 32 00 CD 00 00 C9
+T 21 00 3A 00 00 3C 32 00 00 CD 00 00 21
+R 00 00 00 00 00 03 01 00 00 07 01 00 02 0A 21 00
+T 2C 00 32 00 CD 00 00 C9
+R 00 00 00 00 00 02 00 00 02 05 00 00
+T 32 00
+R 00 00 00 00
+T 32 00 3A 00 00 3C 32 00 00 21 40 00 CD
+R 00 00 00 00 00 03 01 00 00 07 01 00 00 0A 00 00
+T 3D 00 00 00 C9
+R 00 00 00 00 02 02 00 00
+T 40 00
+R 00 00 00 00
+T 40 00 3A 00 00 3C 32 00 00 21 4E 00 CD
+R 00 00 00 00 00 03 01 00 00 07 01 00 00 0A 00 00
+T 4B 00 00 00 C9
+R 00 00 00 00 02 02 00 00
+T 4E 00
+R 00 00 00 00
+T 4E 00 3A 00 00 3C 32 00 00
+R 00 00 00 00 00 03 01 00 00 07 01 00
+T 55 00
+R 00 00 00 00
+T 55 00 21 5C 00 CD 00 00 C9
 R 00 00 00 00 00 03 00 00 02 06 00 00
-T 32 00 00
+T 5C 00
 R 00 00 00 00
-T 32 00 00 3A 00 00 3C 32 00 00 21 40 00 CD
-R 00 00 00 00 00 04 01 00 00 08 01 00 00 0B 00 00
-T 3D 00 00 00 00 C9
-R 00 00 00 00 02 03 00 00
-T 40 00 00
+T 5C 00 AF 32 00 00 21 13 00 CD 00 00 C9
+R 00 00 00 00 00 04 01 00 00 07 00 00 02 0A 00 00
+T 67 00
 R 00 00 00 00
-T 40 00 00 3A 00 00 3C 32 00 00 21 4E 00 CD
-R 00 00 00 00 00 04 01 00 00 08 01 00 00 0B 00 00
-T 4B 00 00 00 00 C9
-R 00 00 00 00 02 03 00 00
-T 4E 00 00
-R 00 00 00 00
-T 4E 00 00 3A 00 00 3C 32 00 00
-R 00 00 00 00 00 04 01 00 00 08 01 00
-T 55 00 00
-R 00 00 00 00
-T 55 00 00 21 5C 00 CD 00 00 C9
-R 00 00 00 00 00 04 00 00 02 07 00 00
-T 5C 00 00
-R 00 00 00 00
-T 5C 00 00 AF 32 00 00 21 13 00 CD 00 00 C9
-R 00 00 00 00 00 05 01 00 00 08 00 00 02 0B 00 00
-T 67 00 00
-R 00 00 00 00
-T 67 00 00 CD 00 00 21 13 00 CD 00 00 76 76 CD
-R 00 00 00 00 02 04 29 00 00 07 00 00 02 0A 23 00
-T 73 00 00 00 00 CD 00 00 C9
-R 00 00 00 00 02 03 23 00 02 06 00 00
+T 67 00 CD 00 00 21 13 00 CD 00 00 76 76 CD
+R 00 00 00 00 02 03 29 00 00 06 00 00 02 09 23 00
+T 73 00 00 00 CD 00 00 C9
+R 00 00 00 00 02 02 23 00 02 05 00 00

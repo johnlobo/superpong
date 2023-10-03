@@ -1,121 +1,130 @@
-XL3
-H 2 areas 50 global symbols
+XL2
+H 2 areas 51 global symbols
 M game_manager
-S cpct_setInterruptHandler_asm Ref000000
-S sys_input_waitKeyPressed Ref000000
-S sys_input_init Ref000000
-S transparency_table Ref000000
-S cpct_getScreenToSprite_asm Ref000000
-S cpct_isKeyPressed_asm Ref000000
-S cpct_setPalette_asm Ref000000
-S man_entity_deleteEverythingExceptPlayer Ref000000
-S cpct_setPALColour_asm Ref000000
-S sys_input_wait4anykey Ref000000
-S sys_render_back_buffer Ref000000
-S man_entity_set4destruction Ref000000
-S man_entity_create Ref000000
-S man_entity_init Ref000000
-S sys_input_getKeyPressed Ref000000
-S cpct_drawSprite_asm Ref000000
-S man_entity_getOponentPosition Ref000000
-S cpct_etm_drawTileBox2x4_asm Ref000000
-S sys_render_init Ref000000
-S PAUSE_MENU Def000003
-S cpct_etm_drawTilemap4x8_ag_asm Ref000000
-S _g_palette Ref000000
-S sys_physics_init Ref000000
-S _cpct_keyboardStatusBuffer Ref000000
-S sys_input_player_right Ref000000
-S sys_render_touched_zones Ref000000
-S man_entity_getPlayerPosition Ref000000
-S cpct_waitHalts_asm Ref000000
-S man_entity_update Ref000000
-S cpct_setSeed_mxor_asm Ref000000
-S MAP_LOAD Def000002
-S .__.ABS. Def000000
-S sys_render_front_buffer Ref000000
-S cpct_setSeed_xsp40_u8_asm Ref000000
-S sys_render_debug_entity Ref000000
-S sys_render_update Ref000000
-S cpct_setVideoMemoryPage_asm Ref000000
-S cpct_memset_f64_asm Ref000000
-S sys_physics_update Ref000000
-S _s_small_numbers_00 Ref000000
-S sys_input_player_left Ref000000
-S _s_small_numbers_01 Ref000000
-S _s_small_numbers_02 Ref000000
-S _s_small_numbers_03 Ref000000
-S _s_small_numbers_04 Ref000000
-S sys_input_main_menu_update Ref000000
-S _s_small_numbers_05 Ref000000
-S sys_input_clean_buffer Ref000000
-S _s_small_numbers_06 Ref000000
-S _s_small_numbers_07 Ref000000
-S cpct_isAnyKeyPressed_asm Ref000000
-S _s_small_numbers_08 Ref000000
-S cpct_scanKeyboard_if_asm Ref000000
-S _s_small_numbers_09 Ref000000
-S VICTORY Def000005
-S cpct_waitVSYNC_asm Ref000000
-S cpct_setVideoMode_asm Ref000000
-S GAME_LOOP Def000000
-S cpct_px2byteM0_asm Ref000000
-S cpct_getRandom_xsp40_u8_asm Ref000000
-S cpct_memset_asm Ref000000
-S man_entity_getEntityArrayIX Ref000000
-S GAME_OVER Def000004
-S _s_font_0 Ref000000
-S MAIN_MENU Def000001
-S cpct_disableFirmware_asm Ref000000
-S cpct_getRandom_mxor_u8_asm Ref000000
-S cpct_drawSolidBox_asm Ref000000
-S cpct_drawSpriteBlended_asm Ref000000
-S sys_input_player_update Ref000000
-S cpct_etm_setDrawTilemap4x8_ag_asm Ref000000
-S cpct_waitVSYNCStart_asm Ref000000
-S cpct_scanKeyboard_asm Ref000000
-S cpct_getScreenPtr_asm Ref000000
+S cpct_setInterruptHandler_asm Ref0000
+S sys_input_waitKeyPressed Ref0000
+S sys_input_init Ref0000
+S transparency_table Ref0000
+S cpct_getScreenToSprite_asm Ref0000
+S cpct_isKeyPressed_asm Ref0000
+S cpct_setPalette_asm Ref0000
+S man_entity_deleteEverythingExceptPlayer Ref0000
+S cpct_setPALColour_asm Ref0000
+S sys_input_wait4anykey Ref0000
+S sys_render_back_buffer Ref0000
+S man_entity_set4destruction Ref0000
+S man_entity_create Ref0000
+S man_entity_init Ref0000
+S sys_input_getKeyPressed Ref0000
+S cpct_drawSprite_asm Ref0000
+S man_entity_getOponentPosition Ref0000
+S cpct_etm_drawTileBox2x4_asm Ref0000
+S sys_render_init Ref0000
+S PAUSE_MENU Def0003
+S cpct_etm_drawTilemap4x8_ag_asm Ref0000
+S _g_palette Ref0000
+S sys_physics_init Ref0000
+S _cpct_keyboardStatusBuffer Ref0000
+S sys_input_player_right Ref0000
+S sys_render_touched_zones Ref0000
+S man_entity_getPlayerPosition Ref0000
+S cpct_waitHalts_asm Ref0000
+S man_entity_update Ref0000
+S cpct_setSeed_mxor_asm Ref0000
+S MAP_LOAD Def0002
+S .__.ABS. Def0000
+S sys_render_front_buffer Ref0000
+S cpct_setSeed_xsp40_u8_asm Ref0000
+S sys_render_debug_entity Ref0000
+S sys_render_update Ref0000
+S cpct_setVideoMemoryPage_asm Ref0000
+S cpct_memset_f64_asm Ref0000
+S sys_physics_update Ref0000
+S _s_small_numbers_00 Ref0000
+S sys_input_player_left Ref0000
+S _s_small_numbers_01 Ref0000
+S _s_small_numbers_02 Ref0000
+S _s_small_numbers_03 Ref0000
+S _s_small_numbers_04 Ref0000
+S sys_input_main_menu_update Ref0000
+S _s_small_numbers_05 Ref0000
+S sys_input_clean_buffer Ref0000
+S _s_small_numbers_06 Ref0000
+S _s_small_numbers_07 Ref0000
+S cpct_isAnyKeyPressed_asm Ref0000
+S _s_small_numbers_08 Ref0000
+S cpct_scanKeyboard_if_asm Ref0000
+S _s_small_numbers_09 Ref0000
+S VICTORY Def0005
+S cpct_waitVSYNC_asm Ref0000
+S cpct_setVideoMode_asm Ref0000
+S GAME_LOOP Def0000
+S cpct_px2byteM0_asm Ref0000
+S cpct_getRandom_xsp40_u8_asm Ref0000
+S cpct_memset_asm Ref0000
+S man_entity_getEntityArrayIX Ref0000
+S GAME_OVER Def0004
+S _s_font_0 Ref0000
+S MAIN_MENU Def0001
+S cpct_disableFirmware_asm Ref0000
+S cpct_getRandom_mxor_u8_asm Ref0000
+S cpct_drawSolidBox_asm Ref0000
+S cpct_drawSpriteBlended_asm Ref0000
+S sys_input_player_update Ref0000
+S cpct_etm_setDrawTilemap4x8_ag_asm Ref0000
+S cpct_waitVSYNCStart_asm Ref0000
+S cpct_scanKeyboard_asm Ref0000
+S cpct_getScreenPtr_asm Ref0000
 A _CODE size 4E flags 0 addr 0
-S man_game_init Def000000
-S man_game_get_state Def000046
-S man_game_update Def00001B
-S man_game_set_state Def00004A
-A _DATA size 21 flags 0 addr 0
-S game_state Def000020
-S player1Tpl Def000000
-T 00 00 00
+S man_game_init Def0000
+S man_game_get_state Def0046
+S man_game_update Def001B
+S man_game_set_state Def004A
+A _DATA size 41 flags 0 addr 0
+S ballTpl Def0020
+S game_state Def0040
+S player1Tpl Def0000
+T 00 00
 R 00 00 01 00
-T 00 00 00 00 00 47 01 0F 0A 00 50 00 01 14 0B 64
+T 00 00 00 00 47 01 0F 0A 00 50 00 01 14 0B 64 00
 R 00 00 01 00
-T 0D 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01
+T 0E 00 00 00 00 00 00 00 00 00 00 00 00 01 01 00
 R 00 00 01 00
-T 1A 00 00 01 00 00 00 00 00 01
+T 1C 00 00 00 00 00
 R 00 00 01 00
-T 00 00 00
+T 20 00
+R 00 00 01 00
+T 20 00 00 00 47 02 0F 28 00 50 00 01 02 29 52 00
+R 00 00 01 00
+T 2E 00 00 00 00 00 00 00 00 00 00 00 00 01 01 00
+R 00 00 01 00
+T 3C 00 00 00 00 00 01
+R 00 00 01 00
+T 00 00
 R 00 00 00 00
-T 00 00 00 CD 00 00 21 00 00 CD 00 00 21
-R 00 00 00 00 02 04 0D 00 00 07 01 00 02 0A 0C 00
-T 0A 00 00 00 00 CD 00 00 DD 36 05 3C DD 36 04 01
-R 00 00 00 00 00 03 01 00 02 06 0C 00
-T 17 00 00 CD 00 00 C9
-R 00 00 00 00 02 04 16 00
-T 1B 00 00
+T 00 00 CD 00 00 21 00 00 CD 00 00 21
+R 00 00 00 00 02 03 0D 00 00 06 01 00 02 09 0C 00
+T 0A 00 00 00 CD 00 00 DD 36 05 3C DD 36 04 01 CD
+R 00 00 00 00 00 02 01 00 02 05 0C 00
+T 18 00 00 00 C9
+R 00 00 00 00 02 02 16 00
+T 1B 00
 R 00 00 00 00
-T 1B 00 00 CD 00 00 CD 00 00 CD 00 00 DD 7E 0F FD
-R 00 00 00 00 02 04 45 00 02 07 1A 00 02 0A 10 00
-T 28 00 00 77 0F DD 7E 10 FD 77 10 DD 7E 11 FD 77
+T 1B 00 CD 00 00 CD 00 00 CD 00 00 DD 7E 0F FD 77
+R 00 00 00 00 02 03 45 00 02 06 1A 00 02 09 10 00
+T 29 00 0F DD 7E 10 FD 77 10 DD 7E 11 FD 77 11 DD
 R 00 00 00 00
-T 35 00 00 11 DD 7E 12 FD 77 12
+T 37 00 7E 12 FD 77 12
 R 00 00 00 00
-T 3C 00 00
+T 3C 00
 R 00 00 00 00
-T 3C 00 00 CD 00 00 CD 00 00 CD 00 00 C9
-R 00 00 00 00 02 04 26 00 02 07 23 00 02 0A 22 00
-T 46 00 00
+T 3C 00 CD 00 00 CD 00 00 CD 00 00 C9
+R 00 00 00 00 02 03 26 00 02 06 23 00 02 09 22 00
+T 46 00
 R 00 00 00 00
-T 46 00 00 3A 20 00 C9
-R 00 00 00 00 00 04 01 00
-T 4A 00 00
+T 46 00 3A 40 00 C9
+R 00 00 00 00 00 03 01 00
+T 4A 00
 R 00 00 00 00
-T 4A 00 00 32 20 00 C9
-R 00 00 00 00 00 04 01 00
+T 4A 00 32 40 00 C9
+R 00 00 00 00 00 03 01 00

@@ -1,127 +1,127 @@
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80), page 1.
-Hexadecimal [24-Bits]
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 1.
+Hexadecimal [16-Bits]
 
 Symbol Table
 
-    .__.$$$.=  002710 L   |     .__.ABS.=  000000 G   |     .__.CPU.=  000000 L
-    .__.H$L.=  000000 L   |   0 ADD_OFFS=  0000B9 R   |     BUFFER_S=  00000A 
-    COF     =  000016     |     CPCT_VME=  00C000     |     CRTC_SEL=  0000BC 
-    CRTC_SET=  0000BD     |     DASH_IMP=  000200     |     DASH_TIM=  00000A 
-  0 FIRST_AR=  0000CF R   |     FONT_HEI=  000009     |     FONT_WID=  000002 
-    FW_BLACK=  000000     |     FW_BLUE =  000001     |     FW_BRIGH=  000002 
-    FW_BRIGH=  000014     |     FW_BRIGH=  000012     |     FW_BRIGH=  000008 
-    FW_BRIGH=  000006     |     FW_BRIGH=  00001A     |     FW_BRIGH=  000018 
-    FW_CYAN =  00000A     |     FW_GREEN=  000009     |     FW_LIME =  000015 
-    FW_MAGEN=  000004     |     FW_MAUVE=  000005     |     FW_ORANG=  00000F 
-    FW_PASTE=  00000E     |     FW_PASTE=  000017     |     FW_PASTE=  000016 
-    FW_PASTE=  000011     |     FW_PASTE=  000019     |     FW_PINK =  000010 
-    FW_PURPL=  000007     |     FW_RED  =  000003     |     FW_SEA_G=  000013 
-    FW_SKY_B=  00000B     |     FW_WHITE=  00000D     |     FW_YELLO=  00000C 
-    GA_port =  007F00     |     GA_port_=  00007F     |     GRAVITY =  000024 
-    HW_BLACK=  000014     |     HW_BLUE =  000004     |     HW_BRIGH=  000015 
-    HW_BRIGH=  000013     |     HW_BRIGH=  000012     |     HW_BRIGH=  00000D 
-    HW_BRIGH=  00000C     |     HW_BRIGH=  00000B     |     HW_BRIGH=  00000A 
-    HW_CYAN =  000006     |     HW_GREEN=  000016     |     HW_LIME =  00001A 
-    HW_MAGEN=  000018     |     HW_MAUVE=  00001D     |     HW_ORANG=  00000E 
-    HW_PASTE=  00001F     |     HW_PASTE=  00001B     |     HW_PASTE=  000019 
-    HW_PASTE=  00000F     |     HW_PASTE=  000003     |     HW_PINK =  000007 
-    HW_PURPL=  000005     |     HW_RED  =  00001C     |     HW_SEA_G=  000002 
-    HW_SKY_B=  000017     |     HW_WHITE=  000000     |     HW_YELLO=  00001E 
-    Joy0_Dow=  000209     |     Joy0_Fir=  001009     |     Joy0_Fir=  002009 
-    Joy0_Fir=  004009     |     Joy0_Lef=  000409     |     Joy0_Rig=  000809 
-    Joy0_Up =  000109     |     Joy1_Dow=  000206     |     Joy1_Fir=  001006 
-    Joy1_Fir=  002006     |     Joy1_Fir=  004006     |     Joy1_Lef=  000406 
-    Joy1_Rig=  000806     |     Joy1_Up =  000106     |     Key_0   =  000104 
-    Key_1   =  000108     |     Key_2   =  000208     |     Key_3   =  000207 
-    Key_4   =  000107     |     Key_5   =  000206     |     Key_6   =  000106 
-    Key_7   =  000205     |     Key_8   =  000105     |     Key_9   =  000204 
-    Key_A   =  002008     |     Key_At  =  000403     |     Key_B   =  004006 
-    Key_Back=  004002     |     Key_C   =  004007     |     Key_Caps=  004008 
-    Key_Care=  000103     |     Key_Clos=  000802     |     Key_Clr =  000102 
-    Key_Colo=  002003     |     Key_Comm=  008004     |     Key_Cont=  008002 
-    Key_Copy=  000201     |     Key_Curs=  000400     |     Key_Curs=  000101 
-    Key_Curs=  000200     |     Key_Curs=  000100     |     Key_D   =  002007 
-    Key_Del =  008009     |     Key_Dot =  008003     |     Key_E   =  000407 
-    Key_Ente=  004000     |     Key_Esc =  000408     |     Key_F   =  002006 
-    Key_F0  =  008001     |     Key_F1  =  002001     |     Key_F2  =  004001 
-    Key_F3  =  002000     |     Key_F4  =  001002     |     Key_F5  =  001001 
-    Key_F6  =  001000     |     Key_F7  =  000401     |     Key_F8  =  000801 
-    Key_F9  =  000800     |     Key_FDot=  008000     |     Key_G   =  001006 
-    Key_H   =  001005     |     Key_Hyph=  000203     |     Key_I   =  000804 
-    Key_J   =  002005     |     Key_K   =  002004     |     Key_L   =  001004 
-    Key_M   =  004004     |     Key_N   =  004005     |     Key_O   =  000404 
-    Key_Open=  000202     |     Key_P   =  000803     |     Key_Q   =  000808 
-    Key_R   =  000406     |     Key_Retu=  000402     |     Key_S   =  001007 
-    Key_Semi=  001003     |     Key_Shif=  002002     |     Key_Slas=  004003 
-    Key_Spac=  008005     |     Key_T   =  000806     |     Key_Tab =  001008 
-    Key_U   =  000405     |     Key_V   =  008006     |     Key_W   =  000807 
-    Key_X   =  008007     |     Key_Y   =  000805     |     Key_Z   =  008008 
-    MAX_ENTI=  00000A     |     MAX_HORI=  00FF00     |     MAX_HORI=  000100 
-    MAX_VERT=  00FE00     |     MAX_VERT=  000200     |     PAL_INKR=  000040 
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80), page 2.
-Hexadecimal [24-Bits]
+    .__.$$$.=  2710 L   |     .__.ABS.=  0000 G   |     .__.CPU.=  0000 L
+    .__.H$L.=  0000 L   |   0 ADD_OFFS=  00B9 R   |     BUFFER_S=  000A 
+    COF     =  0016     |     CPCT_VME=  C000     |     CRTC_SEL=  00BC 
+    CRTC_SET=  00BD     |     DASH_IMP=  0200     |     DASH_TIM=  000A 
+  0 FIRST_AR=  00CF R   |     FONT_HEI=  0009     |     FONT_WID=  0002 
+    FW_BLACK=  0000     |     FW_BLUE =  0001     |     FW_BRIGH=  0002 
+    FW_BRIGH=  0014     |     FW_BRIGH=  0012     |     FW_BRIGH=  0008 
+    FW_BRIGH=  0006     |     FW_BRIGH=  001A     |     FW_BRIGH=  0018 
+    FW_CYAN =  000A     |     FW_GREEN=  0009     |     FW_LIME =  0015 
+    FW_MAGEN=  0004     |     FW_MAUVE=  0005     |     FW_ORANG=  000F 
+    FW_PASTE=  000E     |     FW_PASTE=  0017     |     FW_PASTE=  0016 
+    FW_PASTE=  0011     |     FW_PASTE=  0019     |     FW_PINK =  0010 
+    FW_PURPL=  0007     |     FW_RED  =  0003     |     FW_SEA_G=  0013 
+    FW_SKY_B=  000B     |     FW_WHITE=  000D     |     FW_YELLO=  000C 
+    GA_port =  7F00     |     GA_port_=  007F     |     GRAVITY =  0024 
+    HW_BLACK=  0014     |     HW_BLUE =  0004     |     HW_BRIGH=  0015 
+    HW_BRIGH=  0013     |     HW_BRIGH=  0012     |     HW_BRIGH=  000D 
+    HW_BRIGH=  000C     |     HW_BRIGH=  000B     |     HW_BRIGH=  000A 
+    HW_CYAN =  0006     |     HW_GREEN=  0016     |     HW_LIME =  001A 
+    HW_MAGEN=  0018     |     HW_MAUVE=  001D     |     HW_ORANG=  000E 
+    HW_PASTE=  001F     |     HW_PASTE=  001B     |     HW_PASTE=  0019 
+    HW_PASTE=  000F     |     HW_PASTE=  0003     |     HW_PINK =  0007 
+    HW_PURPL=  0005     |     HW_RED  =  001C     |     HW_SEA_G=  0002 
+    HW_SKY_B=  0017     |     HW_WHITE=  0000     |     HW_YELLO=  001E 
+    Joy0_Dow=  0209     |     Joy0_Fir=  1009     |     Joy0_Fir=  2009 
+    Joy0_Fir=  4009     |     Joy0_Lef=  0409     |     Joy0_Rig=  0809 
+    Joy0_Up =  0109     |     Joy1_Dow=  0206     |     Joy1_Fir=  1006 
+    Joy1_Fir=  2006     |     Joy1_Fir=  4006     |     Joy1_Lef=  0406 
+    Joy1_Rig=  0806     |     Joy1_Up =  0106     |     Key_0   =  0104 
+    Key_1   =  0108     |     Key_2   =  0208     |     Key_3   =  0207 
+    Key_4   =  0107     |     Key_5   =  0206     |     Key_6   =  0106 
+    Key_7   =  0205     |     Key_8   =  0105     |     Key_9   =  0204 
+    Key_A   =  2008     |     Key_At  =  0403     |     Key_B   =  4006 
+    Key_Back=  4002     |     Key_C   =  4007     |     Key_Caps=  4008 
+    Key_Care=  0103     |     Key_Clos=  0802     |     Key_Clr =  0102 
+    Key_Colo=  2003     |     Key_Comm=  8004     |     Key_Cont=  8002 
+    Key_Copy=  0201     |     Key_Curs=  0400     |     Key_Curs=  0101 
+    Key_Curs=  0200     |     Key_Curs=  0100     |     Key_D   =  2007 
+    Key_Del =  8009     |     Key_Dot =  8003     |     Key_E   =  0407 
+    Key_Ente=  4000     |     Key_Esc =  0408     |     Key_F   =  2006 
+    Key_F0  =  8001     |     Key_F1  =  2001     |     Key_F2  =  4001 
+    Key_F3  =  2000     |     Key_F4  =  1002     |     Key_F5  =  1001 
+    Key_F6  =  1000     |     Key_F7  =  0401     |     Key_F8  =  0801 
+    Key_F9  =  0800     |     Key_FDot=  8000     |     Key_G   =  1006 
+    Key_H   =  1005     |     Key_Hyph=  0203     |     Key_I   =  0804 
+    Key_J   =  2005     |     Key_K   =  2004     |     Key_L   =  1004 
+    Key_M   =  4004     |     Key_N   =  4005     |     Key_O   =  0404 
+    Key_Open=  0202     |     Key_P   =  0803     |     Key_Q   =  0808 
+    Key_R   =  0406     |     Key_Retu=  0402     |     Key_S   =  1007 
+    Key_Semi=  1003     |     Key_Shif=  2002     |     Key_Slas=  4003 
+    Key_Spac=  8005     |     Key_T   =  0806     |     Key_Tab =  1008 
+    Key_U   =  0405     |     Key_V   =  8006     |     Key_W   =  0807 
+    Key_X   =  8007     |     Key_Y   =  0805     |     Key_Z   =  8008 
+    MAX_ENTI=  000A     |     MAX_HORI=  FF00     |     MAX_HORI=  0100 
+    MAX_VERT=  FE00     |     MAX_VERT=  0200     |     PAL_INKR=  0040 
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 2.
+Hexadecimal [16-Bits]
 
 Symbol Table
 
-    PAL_PENR=  000000     |     PPI_PORT=  0000F5     |     SCORE_NU=  000004 
-  0 SECOND_A=  0000D7 R   |     STEP_HOR=  000018     |     STEP_VER=  000030 
-  0 SUB_OFFS=  0000B4 R   |     S_SMALL_=  000005     |     S_SMALL_=  000002 
-  0 THIRD_AR=  0000DE R   |     ZERO_KEY=  0000FF     |   0 _calc_en   000066 R
-    _cpct_ke   ****** GX  |   0 _create_=  000043 R   |   0 _g_e_sum   0000A6 R
-    _g_palet   ****** GX  |   0 _last_el   000081 R   |   0 _move_lo   0000CD R
-  0 _move_pe   000084 R   |   0 _r_e_out=  0000C1 R   |     _s_font_   ****** GX
-    _s_small   ****** GX  |     _s_small   ****** GX  |     _s_small   ****** GX
-    _s_small   ****** GX  |     _s_small   ****** GX  |     _s_small   ****** GX
-    _s_small   ****** GX  |     _s_small   ****** GX  |     _s_small   ****** GX
-    _s_small   ****** GX  |   0 _start_l   000063 R   |     a_array =  000007 
-    a_compon=  000003     |     a_compon=  000002     |     a_count =  000000 
-    a_delta =  000001     |     a_offset=  000008     |     a_pend  =  000004 
-    a_select=  000006     |   1 comp_siz   000002 R   |   1 comp_siz   000006 R
-  1 comp_typ   000003 R   |   1 comp_typ   000007 R   |     cpct_dis   ****** GX
-    cpct_dra   ****** GX  |     cpct_dra   ****** GX  |     cpct_dra   ****** GX
-    cpct_etm   ****** GX  |     cpct_etm   ****** GX  |     cpct_etm   ****** GX
-    cpct_get   ****** GX  |     cpct_get   ****** GX  |     cpct_get   ****** GX
-    cpct_get   ****** GX  |     cpct_isA   ****** GX  |     cpct_isK   ****** GX
-    cpct_mem   ****** GX  |     cpct_mem   ****** GX  |     cpct_pag=  000000 
-    cpct_pag=  000010     |     cpct_pag=  000020     |     cpct_pag=  000030 
-    cpct_px2   ****** GX  |     cpct_sca   ****** GX  |     cpct_sca   ****** GX
-    cpct_set   ****** GX  |     cpct_set   ****** GX  |     cpct_set   ****** GX
-    cpct_set   ****** GX  |     cpct_set   ****** GX  |     cpct_set   ****** GX
-    cpct_set   ****** GX  |     cpct_wai   ****** GX  |     cpct_wai   ****** GX
-    cpct_wai   ****** GX  |     e_addres=  000015     |     e_animat=  00001D 
-    e_animat=  00001F     |     e_cmp   =  000000     |     e_cmpID_=  000002 
-    e_cmpID_=  000003     |     e_cmpID_=  000004     |     e_cmpID_=  000005 
-    e_cmpID_=  000001     |     e_cmpID_=  000000     |     e_cmpID_=  000006 
-    e_cmp_ai=  000010     |     e_cmp_al=  000001     |     e_cmp_an=  000020 
-    e_cmp_co=  000040     |     e_cmp_co=  000080     |     e_cmp_de=  000047 
-    e_cmp_in=  000008     |     e_cmp_ph=  000004     |     e_cmp_re=  000002 
-    e_cmps  =  000002     |     e_color =  000004     |     e_dashin=  00001C 
-    e_end_x =  00000B     |     e_end_y =  00000C     |     e_h     =  00000A 
-    e_last_x=  00000D     |     e_last_y=  00000E     |     e_moved =  000019 
-    e_offset=  000020     |     e_on_pla=  00001A     |     e_orient=  00001B 
-    e_p_addr=  000017     |     e_ptr   =  000000     |     e_sprite=  000013 
-    e_type  =  000003     |     e_type_d=  000020     |     e_type_d=  000000 
-    e_type_i=  0000FF     |     e_type_l=  000004     |     e_type_m=  000008 
-    e_type_p=  000001     |     e_type_p=  000002     |     e_type_s=  000010 
-    e_vx    =  00000F     |     e_vy    =  000011     |     e_w     =  000009 
-    e_x     =  000005     |     e_y     =  000007     |     firmware=  000038 
-  0 loop_eac   000102 R   |   0 man_arra   00001A GR  |   0 man_arra   0000EB GR
-  0 man_arra   000119 GR  |   0 man_arra   000154 GR  |   0 man_arra   00009B GR
-  0 man_arra   0000AA GR  |   0 man_arra   000000 GR  |   0 man_arra   0000C3 GR
-  0 man_arra   00004E GR  |   0 matching   000133 R   |   0 matching   000146 R
-    nullptr =  000000     |     opc_DI  =  0000F3     |     opc_EI  =  0000FB 
-    opc_JR  =  000018     |     opc_LD_D=  000016     |   0 return_p   00010B R
-  1 routine    000000 R   |   1 routine_   000004 R   |     sizeof_a=  000008 
-    sizeof_e=  000020     |     string_b   ****** GX  |     sys_util   ****** GX
-    sys_util   ****** GX  |     sys_util   ****** GX  |     sys_util   ****** GX
-    sys_util   ****** GX  |     sys_util   ****** GX  |     sys_util   ****** GX
-    sys_util   ****** GX  |     v       =  000001 
+    PAL_PENR=  0000     |     PPI_PORT=  00F5     |     SCORE_NU=  0004 
+  0 SECOND_A=  00D7 R   |     STEP_HOR=  0018     |     STEP_VER=  0030 
+  0 SUB_OFFS=  00B4 R   |     S_SMALL_=  0005     |     S_SMALL_=  0002 
+  0 THIRD_AR=  00DE R   |     ZERO_KEY=  00FF     |   0 _calc_en   0066 R
+    _cpct_ke   **** GX  |   0 _create_=  0043 R   |   0 _g_e_sum   00A6 R
+    _g_palet   **** GX  |   0 _last_el   0081 R   |   0 _move_lo   00CD R
+  0 _move_pe   0084 R   |   0 _r_e_out=  00C1 R   |     _s_font_   **** GX
+    _s_small   **** GX  |     _s_small   **** GX  |     _s_small   **** GX
+    _s_small   **** GX  |     _s_small   **** GX  |     _s_small   **** GX
+    _s_small   **** GX  |     _s_small   **** GX  |     _s_small   **** GX
+    _s_small   **** GX  |   0 _start_l   0063 R   |     a_array =  0007 
+    a_compon=  0003     |     a_compon=  0002     |     a_count =  0000 
+    a_delta =  0001     |     a_offset=  0008     |     a_pend  =  0004 
+    a_select=  0006     |   1 comp_siz   0002 R   |   1 comp_siz   0006 R
+  1 comp_typ   0003 R   |   1 comp_typ   0007 R   |     cpct_dis   **** GX
+    cpct_dra   **** GX  |     cpct_dra   **** GX  |     cpct_dra   **** GX
+    cpct_etm   **** GX  |     cpct_etm   **** GX  |     cpct_etm   **** GX
+    cpct_get   **** GX  |     cpct_get   **** GX  |     cpct_get   **** GX
+    cpct_get   **** GX  |     cpct_isA   **** GX  |     cpct_isK   **** GX
+    cpct_mem   **** GX  |     cpct_mem   **** GX  |     cpct_pag=  0000 
+    cpct_pag=  0010     |     cpct_pag=  0020     |     cpct_pag=  0030 
+    cpct_px2   **** GX  |     cpct_sca   **** GX  |     cpct_sca   **** GX
+    cpct_set   **** GX  |     cpct_set   **** GX  |     cpct_set   **** GX
+    cpct_set   **** GX  |     cpct_set   **** GX  |     cpct_set   **** GX
+    cpct_set   **** GX  |     cpct_wai   **** GX  |     cpct_wai   **** GX
+    cpct_wai   **** GX  |     e_addres=  0015     |     e_animat=  001D 
+    e_animat=  001F     |     e_cmp   =  0000     |     e_cmpID_=  0002 
+    e_cmpID_=  0003     |     e_cmpID_=  0004     |     e_cmpID_=  0005 
+    e_cmpID_=  0001     |     e_cmpID_=  0000     |     e_cmpID_=  0006 
+    e_cmp_ai=  0010     |     e_cmp_al=  0001     |     e_cmp_an=  0020 
+    e_cmp_co=  0040     |     e_cmp_co=  0080     |     e_cmp_de=  0047 
+    e_cmp_in=  0008     |     e_cmp_ph=  0004     |     e_cmp_re=  0002 
+    e_cmps  =  0002     |     e_color =  0004     |     e_dashin=  001C 
+    e_end_x =  000B     |     e_end_y =  000C     |     e_h     =  000A 
+    e_last_x=  000D     |     e_last_y=  000E     |     e_moved =  0019 
+    e_offset=  0020     |     e_on_pla=  001A     |     e_orient=  001B 
+    e_p_addr=  0017     |     e_ptr   =  0000     |     e_sprite=  0013 
+    e_type  =  0003     |     e_type_b=  0002     |     e_type_d=  0020 
+    e_type_d=  0000     |     e_type_i=  00FF     |     e_type_l=  0004 
+    e_type_m=  0008     |     e_type_p=  0001     |     e_type_s=  0010 
+    e_vx    =  000F     |     e_vy    =  0011     |     e_w     =  0009 
+    e_x     =  0005     |     e_y     =  0007     |     firmware=  0038 
+  0 loop_eac   0102 R   |   0 man_arra   001A GR  |   0 man_arra   00EB GR
+  0 man_arra   0119 GR  |   0 man_arra   0154 GR  |   0 man_arra   009B GR
+  0 man_arra   00AA GR  |   0 man_arra   0000 GR  |   0 man_arra   00C3 GR
+  0 man_arra   004E GR  |   0 matching   0133 R   |   0 matching   0146 R
+    nullptr =  0000     |     opc_DI  =  00F3     |     opc_EI  =  00FB 
+    opc_JR  =  0018     |     opc_LD_D=  0016     |   0 return_p   010B R
+  1 routine    0000 R   |   1 routine_   0004 R   |     sizeof_a=  0008 
+    sizeof_e=  0020     |     string_b   **** GX  |     sys_util   **** GX
+    sys_util   **** GX  |     sys_util   **** GX  |     sys_util   **** GX
+    sys_util   **** GX  |     sys_util   **** GX  |     sys_util   **** GX
+    sys_util   **** GX  |     v       =  0001 
 
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80), page 3.
-Hexadecimal [24-Bits]
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 3.
+Hexadecimal [16-Bits]
 
 Area Table
 
-   0 _CODE      size    15E   flags    0
-   1 _DATA      size      8   flags    0
+   0 _CODE      size  15E   flags    0
+   1 _DATA      size    8   flags    0
 

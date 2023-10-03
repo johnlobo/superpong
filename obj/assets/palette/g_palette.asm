@@ -1,6 +1,6 @@
 ;--------------------------------------------------------
 ; File Created by SDCC : free open source ANSI-C Compiler
-; Version 4.2.0 #13081 (Mac OS X ppc)
+; Version 3.6.8 #9946 (Linux)
 ;--------------------------------------------------------
 	.module g_palette
 	.optsdcc -mz80

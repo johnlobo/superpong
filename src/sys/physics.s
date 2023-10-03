@@ -193,9 +193,9 @@ spuoe_exit:
 
 ;;-----------------------------------------------------------------
 ;;
-;; sys_render_update
+;; sys_physics_update
 ;;
-;;  Initilizes render system
+;;  Initilizes physics system
 ;;  Input: 
 ;;  Output: 
 ;;  Modified: AF, BC, DE, HL

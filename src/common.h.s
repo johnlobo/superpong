@@ -126,7 +126,7 @@ Enum e_cmpID Render
 Enum e_cmpID Physics
 Enum e_cmpID AI
 Enum e_cmpID Animation
-Enum e_cmpID Collisionable
+Enum e_cmpID Collision
 Enum e_cmpID Num_Components
 
 
