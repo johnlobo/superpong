@@ -68,7 +68,7 @@ man_entity_destroy::
 	jr z, _noCollisionableD
 
 	_Collisionabled:
-	ld a, #e_cmpID_Collisionable
+	ld a, #e_cmpID_Collision
 	call man_components_removePtr
 
 	_noCollisionableD:
@@ -339,7 +339,7 @@ man_entity_create::
 	jr z, _noCollisionable
 
 	_Collisionable:
-	ld a, #e_cmpID_Collisionable
+	ld a, #e_cmpID_Collision
 	call man_components_add
 
 	_noCollisionable:
@@ -376,6 +376,21 @@ man_entity_getEntityArrayIY::
 	ld ix, (_entity_list)
 	ld a, (_entity_num)
 	ret
+
+;;-----------------------------------------------------------------
+;;	man_next_entity_iy
+;;	INPUT: iy pointer to one the entities
+;;	OUTPUT: iy points to the nect
+;;
+man_next_entity_iy::
+	cpctm_push hl, bc
+	push iy
+	pop hl
+	ld bc, #sizeof_e
+	add hl, bc
+	push hl
+	pop iy
+	cpctm_pop bc, hl
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;	ENTITY_MANAGER::GetPlayerPositionIY
@@ -452,18 +467,15 @@ man_entity_forall_matching_iy::
         and b
         cp b
         jr nz, afterjp_matching
-
-        
+   
         ld hl, #afterjp_matching
         push hl
 
         ld hl, (function_for_all)
         jp (hl)
 
-        afterjp_matching:
-
-
-        call man_next_entity
+    afterjp_matching:
+        call man_next_entity_iy
         
         ld a,e_cmps(iy)
         and #0xFF
