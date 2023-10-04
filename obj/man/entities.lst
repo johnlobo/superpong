@@ -6131,14 +6131,14 @@ Hexadecimal [16-Bits]
                             335 
    0235                     336 	_noAI:
    0235 DD 7E 02      [19]  337 	ld a, e_cmps(ix)
-   0238 E6 80         [ 7]  338 	and #e_cmp_collisionable
-   023A 28 05         [12]  339 	jr z, _noCollisionable
+   0238 E6 40         [ 7]  338 	and #e_cmp_collider
+   023A 28 05         [12]  339 	jr z, _noCollider
                             340 
-   023C                     341 	_Collisionable:
+   023C                     341 	_Collider:
    023C 3E 04         [ 7]  342 	ld a, #e_cmpID_Collision
    023E CD 00 00      [17]  343 	call man_components_add
                             344 
-   0241                     345 	_noCollisionable:
+   0241                     345 	_noCollider:
    0241 DD 7E 02      [19]  346 	ld a, e_cmps(ix)
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 116.
 Hexadecimal [16-Bits]

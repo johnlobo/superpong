@@ -65,7 +65,7 @@ Symbol Table
 
     SCORE_NU=  0004     |     STEP_HOR=  0018     |     STEP_VER=  0030 
     S_SMALL_=  0005     |     S_SMALL_=  0002     |     ZERO_KEY=  00FF 
-  0 _AI        0230 R   |   0 _AId       014D R   |   0 _Collisi   023C R
+  0 _AI        0230 R   |   0 _AId       014D R   |   0 _Collide   023C R
   0 _Collisi   0159 R   |   0 _Physics   0248 R   |   0 _Render    0224 R
   0 __check_   0208 R   |   0 __init_l   01C9 R   |   0 __is_the   017A R
   0 __it_is_   0174 R   |   0 __loop     0283 R   |   0 __marked   0205 R

@@ -6108,66 +6108,67 @@ Hexadecimal [16-Bits]
    0017 21 20 00      [10]   75     ld hl, #ballTpl                     ;; Template of the ball
    001A CD 00 00      [17]   76     call man_entity_create              ;; Create ball
                              77 
-   001D CD 00 00      [17]   78     call sys_physics_init               ;; initilize physics system
-                             79     
-   0020 C9            [10]   80     ret
-                             81 
-                             82 ;;-----------------------------------------------------------------
-                             83 ;;
-                             84 ;; man_game_update
-                             85 ;;
-                             86 ;;   
+   001D CD 00 00      [17]   78     call sys_physics_init               ;; initialize physics system
+   0020 CD 00 00      [17]   79     call sys_collision_init             ;; initialize collision system
+                             80     
+   0023 C9            [10]   81     ret
+                             82 
+                             83 ;;-----------------------------------------------------------------
+                             84 ;;
+                             85 ;; man_game_update
+                             86 ;;
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 118.
 Hexadecimal [16-Bits]
 
 
 
-                             87 ;;  Input: 
-                             88 ;;  Output: 
-                             89 ;;  Modified: AF, BC, DE, HL
-                             90 ;;
-   0021                      91 man_game_update::
-   0021 CD 00 00      [17]   92     call sys_input_player_update
-                             93 
-   0024 CD 00 00      [17]   94     call man_entity_getPlayerPosition
-   0027 CD 00 00      [17]   95     call man_entity_getOponentPosition
-                             96 
-                             97     ;; Copy player movements on Oponent
-   002A DD 7E 0F      [19]   98     ld a, e_vx(ix)
-   002D FD 77 0F      [19]   99     ld e_vx(iy), a
-   0030 DD 7E 10      [19]  100     ld a, e_vx+1(ix)
-   0033 FD 77 10      [19]  101     ld e_vx+1(iy), a
-                            102 
-   0036 DD 7E 11      [19]  103     ld a, e_vy(ix)
-   0039 FD 77 11      [19]  104     ld e_vy(iy), a
-   003C DD 7E 12      [19]  105     ld a, e_vy+1(ix)
-   003F FD 77 12      [19]  106     ld e_vy+1(iy), a
-                            107     ;; -----------------------------
-   0042                     108 _exit_clone_input:
-                            109 
-   0042 CD 00 00      [17]  110     call sys_physics_update
-   0045 CD 00 00      [17]  111     call sys_collision_update
-   0048 CD 00 00      [17]  112     call sys_render_update
-   004B CD 00 00      [17]  113     call sys_render_debug_entity
-                            114     ;;;;delay 
-                            115     ;;ld b, #5
-                            116     ;;call cpct_waitHalts_asm
-   004E C9            [10]  117     ret
-                            118 
-                            119 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-                            120 ;;  Gets the current state of the game loop
-                            121 ;;  MODIFIES:
-                            122 ;;      - A: Returns state
-                            123 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-   004F                     124 man_game_get_state::
-   004F 3A 40 00      [13]  125     ld a, (game_state)
-   0052 C9            [10]  126     ret
-                            127 
-                            128 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-                            129 ;;  Sets the current state of the game loop
-                            130 ;;  MODIFIES:
-                            131 ;;      - A: Returns state
-                            132 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-   0053                     133 man_game_set_state::
-   0053 32 40 00      [13]  134     ld (game_state), a
-   0056 C9            [10]  135     ret
+                             87 ;;   
+                             88 ;;  Input: 
+                             89 ;;  Output: 
+                             90 ;;  Modified: AF, BC, DE, HL
+                             91 ;;
+   0024                      92 man_game_update::
+   0024 CD 00 00      [17]   93     call sys_input_player_update
+                             94 
+   0027 CD 00 00      [17]   95     call man_entity_getPlayerPosition
+   002A CD 00 00      [17]   96     call man_entity_getOponentPosition
+                             97 
+                             98     ;; Copy player movements on Oponent
+   002D DD 7E 0F      [19]   99     ld a, e_vx(ix)
+   0030 FD 77 0F      [19]  100     ld e_vx(iy), a
+   0033 DD 7E 10      [19]  101     ld a, e_vx+1(ix)
+   0036 FD 77 10      [19]  102     ld e_vx+1(iy), a
+                            103 
+   0039 DD 7E 11      [19]  104     ld a, e_vy(ix)
+   003C FD 77 11      [19]  105     ld e_vy(iy), a
+   003F DD 7E 12      [19]  106     ld a, e_vy+1(ix)
+   0042 FD 77 12      [19]  107     ld e_vy+1(iy), a
+                            108     ;; -----------------------------
+   0045                     109 _exit_clone_input:
+                            110 
+   0045 CD 00 00      [17]  111     call sys_physics_update
+   0048 CD 00 00      [17]  112     call sys_collision_update
+   004B CD 00 00      [17]  113     call sys_render_update
+   004E CD 00 00      [17]  114     call sys_render_debug_entity
+                            115     ;;;;delay 
+                            116     ;;ld b, #5
+                            117     ;;call cpct_waitHalts_asm
+   0051 C9            [10]  118     ret
+                            119 
+                            120 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                            121 ;;  Gets the current state of the game loop
+                            122 ;;  MODIFIES:
+                            123 ;;      - A: Returns state
+                            124 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+   0052                     125 man_game_get_state::
+   0052 3A 40 00      [13]  126     ld a, (game_state)
+   0055 C9            [10]  127     ret
+                            128 
+                            129 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                            130 ;;  Sets the current state of the game loop
+                            131 ;;  MODIFIES:
+                            132 ;;      - A: Returns state
+                            133 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+   0056                     134 man_game_set_state::
+   0056 32 40 00      [13]  135     ld (game_state), a
+   0059 C9            [10]  136     ret

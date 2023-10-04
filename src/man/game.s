@@ -75,7 +75,8 @@ man_game_init::
     ld hl, #ballTpl                     ;; Template of the ball
     call man_entity_create              ;; Create ball
 
-    call sys_physics_init               ;; initilize physics system
+    call sys_physics_init               ;; initialize physics system
+    call sys_collision_init             ;; initialize collision system
     
     ret
 

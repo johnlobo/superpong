@@ -878,7 +878,7 @@ Hexadecimal [16-Bits]
                             122 ;;===============================================================================
                             123 ;; Entity Component IDs
                             124 ;;===============================================================================
-   2478                     125 DefEnum e_cmpID
+   247B                     125 DefEnum e_cmpID
                      0000     1     e_cmpID_offset = 0
    0000                     126 Enum e_cmpID Render
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 20.
@@ -6015,67 +6015,67 @@ Hexadecimal [16-Bits]
                              37 
    0000                      38 player1Tpl::
    0000                      39 DefineEntity e_cmp_paddle, #0000, e_type_player, 15, 10, 80, 1, 20, 0x00, 0x00, 0x00, 0x00, 0000, 0000, 0000, 1, 0, 0000, 0
-   2478 00 00                 1     .dw #0000
-   247A 47                    2     .db e_cmp_paddle
-   247B 01                    3     .db e_type_player
-   247C 0F                    4     .db 15
-   247D 0A 00                 5     .dw 10
-   247F 50 00                 6     .dw 80
-   2481 01                    7     .db 1
-   2482 14                    8     .db 20
-   2483 0B                    9     .db 10+1
-   2484 64                   10     .db 80+20
-   2485 00                   11     .db #0
-   2486 00                   12     .db #0
-   2487 00                   13     .db 0x00
-   2488 00                   14     .db 0x00
-   2489 00                   15     .db 0x00
-   248A 00                   16     .db 0x00
-   248B 00 00                17     .dw 0000
-   248D 00 00                18     .dw 0000
-   248F 00 00                19     .dw 0000
-   2491 01                   20     .db 1
-   2492 00                   21     .db 0 ;; 0: right, 1:left
-   2493 00                   22     .db #0           ;; dashing
-   2494 00 00                23     .dw 0000
-   2496 00                   24     .db 0
-   2497 01                   25     .db #1           ;; moved 1 default
-   2498                      40 ballTpl:: 
+   247B 00 00                 1     .dw #0000
+   247D 47                    2     .db e_cmp_paddle
+   247E 01                    3     .db e_type_player
+   247F 0F                    4     .db 15
+   2480 0A 00                 5     .dw 10
+   2482 50 00                 6     .dw 80
+   2484 01                    7     .db 1
+   2485 14                    8     .db 20
+   2486 0B                    9     .db 10+1
+   2487 64                   10     .db 80+20
+   2488 00                   11     .db #0
+   2489 00                   12     .db #0
+   248A 00                   13     .db 0x00
+   248B 00                   14     .db 0x00
+   248C 00                   15     .db 0x00
+   248D 00                   16     .db 0x00
+   248E 00 00                17     .dw 0000
+   2490 00 00                18     .dw 0000
+   2492 00 00                19     .dw 0000
+   2494 01                   20     .db 1
+   2495 00                   21     .db 0 ;; 0: right, 1:left
+   2496 00                   22     .db #0           ;; dashing
+   2497 00 00                23     .dw 0000
+   2499 00                   24     .db 0
+   249A 01                   25     .db #1           ;; moved 1 default
+   249B                      40 ballTpl:: 
                              41 ;;DefineEntity _cpms, _ptr, _type, _color, _x, _y, _w, _h, _vxh, _vxl _vyh, _vyl, _sprite, _address, _p_address, _on_platform, _orientation, _anim_ptr, _anim_status
    0020                      42 DefineEntity e_cpm_ball, #0000, e_type_ball, 2, 40, 80, 2, 4, 0xff, 0xBB, 0x00, 0x00, 0x0000, 0000, 0000, 1, 0, 0000, 0
-   2498 00 00                 1     .dw #0000
-   249A 87                    2     .db e_cpm_ball
-   249B 02                    3     .db e_type_ball
-   249C 02                    4     .db 2
-   249D 28 00                 5     .dw 40
-   249F 50 00                 6     .dw 80
-   24A1 02                    7     .db 2
-   24A2 04                    8     .db 4
-   24A3 2A                    9     .db 40+2
-   24A4 54                   10     .db 80+4
-   24A5 00                   11     .db #0
-   24A6 00                   12     .db #0
-   24A7 FF                   13     .db 0xff
-   24A8 BB                   14     .db 0xBB
+   249B 00 00                 1     .dw #0000
+   249D 87                    2     .db e_cpm_ball
+   249E 02                    3     .db e_type_ball
+   249F 02                    4     .db 2
+   24A0 28 00                 5     .dw 40
+   24A2 50 00                 6     .dw 80
+   24A4 02                    7     .db 2
+   24A5 04                    8     .db 4
+   24A6 2A                    9     .db 40+2
+   24A7 54                   10     .db 80+4
+   24A8 00                   11     .db #0
+   24A9 00                   12     .db #0
+   24AA FF                   13     .db 0xff
+   24AB BB                   14     .db 0xBB
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 117.
 Hexadecimal [16-Bits]
 
 
 
-   24A9 00                   15     .db 0x00
-   24AA 00                   16     .db 0x00
-   24AB 00 00                17     .dw 0x0000
-   24AD 00 00                18     .dw 0000
-   24AF 00 00                19     .dw 0000
-   24B1 01                   20     .db 1
-   24B2 00                   21     .db 0 ;; 0: right, 1:left
-   24B3 00                   22     .db #0           ;; dashing
-   24B4 00 00                23     .dw 0000
-   24B6 00                   24     .db 0
-   24B7 01                   25     .db #1           ;; moved 1 default
+   24AC 00                   15     .db 0x00
+   24AD 00                   16     .db 0x00
+   24AE 00 00                17     .dw 0x0000
+   24B0 00 00                18     .dw 0000
+   24B2 00 00                19     .dw 0000
+   24B4 01                   20     .db 1
+   24B5 00                   21     .db 0 ;; 0: right, 1:left
+   24B6 00                   22     .db #0           ;; dashing
+   24B7 00 00                23     .dw 0000
+   24B9 00                   24     .db 0
+   24BA 01                   25     .db #1           ;; moved 1 default
                              43 
                              44 
-   24B8 01                   45 game_state:: .db MAIN_MENU   ;; Game state ----- 0: Game loop, 1: Main menu, 2: Map loading, 3: Pause menu, 4: Game over, 5: Victory
+   24BB 01                   45 game_state:: .db MAIN_MENU   ;; Game state ----- 0: Game loop, 1: Main menu, 2: Map loading, 3: Pause menu, 4: Game over, 5: Victory
                              46 ;;
                              47 ;; Start of _CODE area
                              48 ;; 
@@ -6095,79 +6095,80 @@ Hexadecimal [16-Bits]
    0AF9 CD D6 09      [17]   62     call man_entity_init
                              63     
                              64     ;; Create a player entity in 100, 100
-   0AFC 21 78 24      [10]   65     ld hl, #player1Tpl                  ;; Template of the entity to create
+   0AFC 21 7B 24      [10]   65     ld hl, #player1Tpl                  ;; Template of the entity to create
    0AFF CD 44 0A      [17]   66     call man_entity_create              ;; Create new entity
                              67 
                              68     ;; Create an oponent entity in 140, 100
-   0B02 21 78 24      [10]   69     ld hl, #player1Tpl                  ;; Template of the entity to create
+   0B02 21 7B 24      [10]   69     ld hl, #player1Tpl                  ;; Template of the entity to create
    0B05 CD 44 0A      [17]   70     call man_entity_create              ;; Create new entity
    0B08 DD 36 05 3C   [19]   71     ld e_x(ix), #60                     ;; x = 60
    0B0C DD 36 04 01   [19]   72     ld e_color(ix), #1                  ;; color = pink 
                              73 
                              74     ;; Create a ball entity
-   0B10 21 98 24      [10]   75     ld hl, #ballTpl                     ;; Template of the ball
+   0B10 21 9B 24      [10]   75     ld hl, #ballTpl                     ;; Template of the ball
    0B13 CD 44 0A      [17]   76     call man_entity_create              ;; Create ball
                              77 
-   0B16 CD 50 0B      [17]   78     call sys_physics_init               ;; initilize physics system
-                             79     
-   0B19 C9            [10]   80     ret
-                             81 
-                             82 ;;-----------------------------------------------------------------
-                             83 ;;
-                             84 ;; man_game_update
-                             85 ;;
-                             86 ;;   
+   0B16 CD 53 0B      [17]   78     call sys_physics_init               ;; initialize physics system
+   0B19 CD 20 1D      [17]   79     call sys_collision_init             ;; initialize collision system
+                             80     
+   0B1C C9            [10]   81     ret
+                             82 
+                             83 ;;-----------------------------------------------------------------
+                             84 ;;
+                             85 ;; man_game_update
+                             86 ;;
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 118.
 Hexadecimal [16-Bits]
 
 
 
-                             87 ;;  Input: 
-                             88 ;;  Output: 
-                             89 ;;  Modified: AF, BC, DE, HL
-                             90 ;;
-   0B1A                      91 man_game_update::
-   0B1A CD B0 1E      [17]   92     call sys_input_player_update
-                             93 
-   0B1D CD A2 0A      [17]   94     call man_entity_getPlayerPosition
-   0B20 CD A7 0A      [17]   95     call man_entity_getOponentPosition
-                             96 
-                             97     ;; Copy player movements on Oponent
-   0B23 DD 7E 0F      [19]   98     ld a, e_vx(ix)
-   0B26 FD 77 0F      [19]   99     ld e_vx(iy), a
-   0B29 DD 7E 10      [19]  100     ld a, e_vx+1(ix)
-   0B2C FD 77 10      [19]  101     ld e_vx+1(iy), a
-                            102 
-   0B2F DD 7E 11      [19]  103     ld a, e_vy(ix)
-   0B32 FD 77 11      [19]  104     ld e_vy(iy), a
-   0B35 DD 7E 12      [19]  105     ld a, e_vy+1(ix)
-   0B38 FD 77 12      [19]  106     ld e_vy+1(iy), a
-                            107     ;; -----------------------------
-   0B3B                     108 _exit_clone_input:
-                            109 
-   0B3B CD 0A 0C      [17]  110     call sys_physics_update
-   0B3E CD 61 1D      [17]  111     call sys_collision_update
-   0B41 CD EC 0C      [17]  112     call sys_render_update
-   0B44 CD 01 0D      [17]  113     call sys_render_debug_entity
-                            114     ;;;;delay 
-                            115     ;;ld b, #5
-                            116     ;;call cpct_waitHalts_asm
-   0B47 C9            [10]  117     ret
-                            118 
-                            119 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-                            120 ;;  Gets the current state of the game loop
-                            121 ;;  MODIFIES:
-                            122 ;;      - A: Returns state
-                            123 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-   0B48                     124 man_game_get_state::
-   0B48 3A B8 24      [13]  125     ld a, (game_state)
-   0B4B C9            [10]  126     ret
-                            127 
-                            128 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-                            129 ;;  Sets the current state of the game loop
-                            130 ;;  MODIFIES:
-                            131 ;;      - A: Returns state
-                            132 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-   0B4C                     133 man_game_set_state::
-   0B4C 32 B8 24      [13]  134     ld (game_state), a
-   0B4F C9            [10]  135     ret
+                             87 ;;   
+                             88 ;;  Input: 
+                             89 ;;  Output: 
+                             90 ;;  Modified: AF, BC, DE, HL
+                             91 ;;
+   0B1D                      92 man_game_update::
+   0B1D CD B3 1E      [17]   93     call sys_input_player_update
+                             94 
+   0B20 CD A2 0A      [17]   95     call man_entity_getPlayerPosition
+   0B23 CD A7 0A      [17]   96     call man_entity_getOponentPosition
+                             97 
+                             98     ;; Copy player movements on Oponent
+   0B26 DD 7E 0F      [19]   99     ld a, e_vx(ix)
+   0B29 FD 77 0F      [19]  100     ld e_vx(iy), a
+   0B2C DD 7E 10      [19]  101     ld a, e_vx+1(ix)
+   0B2F FD 77 10      [19]  102     ld e_vx+1(iy), a
+                            103 
+   0B32 DD 7E 11      [19]  104     ld a, e_vy(ix)
+   0B35 FD 77 11      [19]  105     ld e_vy(iy), a
+   0B38 DD 7E 12      [19]  106     ld a, e_vy+1(ix)
+   0B3B FD 77 12      [19]  107     ld e_vy+1(iy), a
+                            108     ;; -----------------------------
+   0B3E                     109 _exit_clone_input:
+                            110 
+   0B3E CD 0D 0C      [17]  111     call sys_physics_update
+   0B41 CD 64 1D      [17]  112     call sys_collision_update
+   0B44 CD EF 0C      [17]  113     call sys_render_update
+   0B47 CD 04 0D      [17]  114     call sys_render_debug_entity
+                            115     ;;;;delay 
+                            116     ;;ld b, #5
+                            117     ;;call cpct_waitHalts_asm
+   0B4A C9            [10]  118     ret
+                            119 
+                            120 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                            121 ;;  Gets the current state of the game loop
+                            122 ;;  MODIFIES:
+                            123 ;;      - A: Returns state
+                            124 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+   0B4B                     125 man_game_get_state::
+   0B4B 3A BB 24      [13]  126     ld a, (game_state)
+   0B4E C9            [10]  127     ret
+                            128 
+                            129 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                            130 ;;  Sets the current state of the game loop
+                            131 ;;  MODIFIES:
+                            132 ;;      - A: Returns state
+                            133 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+   0B4F                     134 man_game_set_state::
+   0B4F 32 BB 24      [13]  135     ld (game_state), a
+   0B52 C9            [10]  136     ret

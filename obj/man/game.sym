@@ -67,7 +67,7 @@ Symbol Table
     PAUSE_ME=  0003 G   |     PPI_PORT=  00F5     |     SCORE_NU=  0004 
     STEP_HOR=  0018     |     STEP_VER=  0030     |     S_SMALL_=  0005 
     S_SMALL_=  0002     |     VICTORY =  0005 G   |     ZERO_KEY=  00FF 
-    _cpct_ke   **** GX  |   0 _exit_cl   0042 R   |     _g_palet   **** GX
+    _cpct_ke   **** GX  |   0 _exit_cl   0045 R   |     _g_palet   **** GX
     _s_font_   **** GX  |     _s_small   **** GX  |     _s_small   **** GX
     _s_small   **** GX  |     _s_small   **** GX  |     _s_small   **** GX
     _s_small   **** GX  |     _s_small   **** GX  |     _s_small   **** GX
@@ -103,8 +103,8 @@ Symbol Table
     man_enti   **** GX  |     man_enti   **** GX  |     man_enti   **** GX
     man_enti   **** GX  |     man_enti   **** GX  |     man_enti   **** GX
     man_enti   **** GX  |     man_enti   **** GX  |     man_enti   **** GX
-    man_enti   **** GX  |   0 man_game   004F GR  |   0 man_game   0000 GR
-  0 man_game   0053 GR  |   0 man_game   0021 GR  |     nullptr =  0000 
+    man_enti   **** GX  |   0 man_game   0052 GR  |   0 man_game   0000 GR
+  0 man_game   0056 GR  |   0 man_game   0024 GR  |     nullptr =  0000 
     opc_DI  =  00F3     |     opc_EI  =  00FB     |     opc_JR  =  0018 
     opc_LD_D=  0016     |   1 player1T   0000 GR  |     sizeof_e=  0020 
     sys_coll   **** GX  |     sys_coll   **** GX  |     sys_inpu   **** GX
@@ -120,6 +120,6 @@ Hexadecimal [16-Bits]
 
 Area Table
 
-   0 _CODE      size   57   flags    0
+   0 _CODE      size   5A   flags    0
    1 _DATA      size   41   flags    0
 

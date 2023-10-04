@@ -5381,9 +5381,9 @@ Hexadecimal [16-Bits]
                             122 ;;===============================================================================
                             123 ;; Entity Component IDs
                             124 ;;===============================================================================
-   24C9                     125 DefEnum e_cmpID
+   24CC                     125 DefEnum e_cmpID
                      0000     1     e_cmpID_offset = 0
-   0DEE                     126 Enum e_cmpID Render
+   0DF1                     126 Enum e_cmpID Render
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 102.
 Hexadecimal [16-Bits]
 
@@ -5587,13 +5587,13 @@ Hexadecimal [16-Bits]
                              49 ;;  bc, hl
                              50 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
    0000                      51 sys_text_reset_aux_txt::
-   0DEE 06 14         [ 7]   52     ld b, #20
-   0DF0 21 C9 24      [10]   53     ld hl, #aux_txt
-   0DF3                      54 _tr_loop:
-   0DF3 36 00         [10]   55     ld (hl), #0
-   0DF5 23            [ 6]   56     inc hl
-   0DF6 10 FB         [13]   57     djnz _tr_loop
-   0DF8 C9            [10]   58     ret
+   0DF1 06 14         [ 7]   52     ld b, #20
+   0DF3 21 CC 24      [10]   53     ld hl, #aux_txt
+   0DF6                      54 _tr_loop:
+   0DF6 36 00         [10]   55     ld (hl), #0
+   0DF8 23            [ 6]   56     inc hl
+   0DF9 10 FB         [13]   57     djnz _tr_loop
+   0DFB C9            [10]   58     ret
                              59 
                              60 
                              61 
@@ -5609,23 +5609,23 @@ Hexadecimal [16-Bits]
                              71 ;;      
                              72 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
                              73 
-   0DF9                      74 sys_text_str_length::
-   0DF9 06 00         [ 7]   75     ld b, #0
-   0DFB                      76 str_length_loop:
-   0DFB 7E            [ 7]   77     ld a, (hl)
-   0DFC B7            [ 4]   78     or a
-   0DFD 28 04         [12]   79     jr z, str_length_exit
+   0DFC                      74 sys_text_str_length::
+   0DFC 06 00         [ 7]   75     ld b, #0
+   0DFE                      76 str_length_loop:
+   0DFE 7E            [ 7]   77     ld a, (hl)
+   0DFF B7            [ 4]   78     or a
+   0E00 28 04         [12]   79     jr z, str_length_exit
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 107.
 Hexadecimal [16-Bits]
 
 
 
-   0DFF 04            [ 4]   80     inc b
-   0E00 23            [ 6]   81     inc hl
-   0E01 18 F8         [12]   82     jr str_length_loop
-   0E03                      83 str_length_exit:
-   0E03 78            [ 4]   84     ld a, b
-   0E04 C9            [10]   85     ret
+   0E02 04            [ 4]   80     inc b
+   0E03 23            [ 6]   81     inc hl
+   0E04 18 F8         [12]   82     jr str_length_loop
+   0E06                      83 str_length_exit:
+   0E06 78            [ 4]   84     ld a, b
+   0E07 C9            [10]   85     ret
                              86 
                              87 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
                              88 ;; str_copy
@@ -5640,15 +5640,15 @@ Hexadecimal [16-Bits]
                              97 ;;      
                              98 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
                              99 
-   0E05                     100 sys_text_str_copy::
-   0E05 22 0C 0E      [16]  101     ld (str_copy_savehl), hl    ;; [3] | Save HL before modifying them
-   0E08 CD F9 0D      [17]  102     call sys_text_str_length
+   0E08                     100 sys_text_str_copy::
+   0E08 22 0F 0E      [16]  101     ld (str_copy_savehl), hl    ;; [3] | Save HL before modifying them
+   0E0B CD FC 0D      [17]  102     call sys_text_str_length
                      001E   103 str_copy_savehl = .+1           ;; Constant to retrive HL value
-   0E0B 21 00 00      [10]  104     ld hl, #0000                ;; 0000 is a place holder for the original HL value
-   0E0E 06 00         [ 7]  105     ld b, #0                    ;; Store string length in BC
-   0E10 4F            [ 4]  106     ld c, a
-   0E11 ED B0         [21]  107     ldir                        ;; Copy from HL to DE
-   0E13 C9            [10]  108     ret
+   0E0E 21 00 00      [10]  104     ld hl, #0000                ;; 0000 is a place holder for the original HL value
+   0E11 06 00         [ 7]  105     ld b, #0                    ;; Store string length in BC
+   0E13 4F            [ 4]  106     ld c, a
+   0E14 ED B0         [21]  107     ldir                        ;; Copy from HL to DE
+   0E16 C9            [10]  108     ret
                             109 
                             110 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
                             111 ;; str_cmp
@@ -5664,35 +5664,35 @@ Hexadecimal [16-Bits]
                             121 ;;      
                             122 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
                             123 
-   0E14                     124 sys_text_str_cmp::
-   0E14 7E            [ 7]  125     ld a, (hl)
-   0E15 B7            [ 4]  126     or a
-   0E16 28 0D         [12]  127     jr z, str_cmp_check_last_pair
-   0E18 F5            [11]  128     push af
-   0E19 1A            [ 7]  129     ld a, (de)
-   0E1A B7            [ 4]  130     or a
-   0E1B 28 0F         [12]  131     jr z, str_cmp_exit_false
-   0E1D C1            [10]  132     pop bc
-   0E1E B8            [ 4]  133     cp b
-   0E1F 20 0B         [12]  134     jr nz, str_cmp_exit_false
+   0E17                     124 sys_text_str_cmp::
+   0E17 7E            [ 7]  125     ld a, (hl)
+   0E18 B7            [ 4]  126     or a
+   0E19 28 0D         [12]  127     jr z, str_cmp_check_last_pair
+   0E1B F5            [11]  128     push af
+   0E1C 1A            [ 7]  129     ld a, (de)
+   0E1D B7            [ 4]  130     or a
+   0E1E 28 0F         [12]  131     jr z, str_cmp_exit_false
+   0E20 C1            [10]  132     pop bc
+   0E21 B8            [ 4]  133     cp b
+   0E22 20 0B         [12]  134     jr nz, str_cmp_exit_false
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 108.
 Hexadecimal [16-Bits]
 
 
 
-   0E21 23            [ 6]  135     inc hl
-   0E22 13            [ 6]  136     inc de
-   0E23 18 EF         [12]  137     jr sys_text_str_cmp 
-   0E25                     138 str_cmp_check_last_pair:
-   0E25 1A            [ 7]  139     ld a, (de)
-   0E26 B7            [ 4]  140     or a
-   0E27 20 03         [12]  141     jr nz, str_cmp_exit_false
-   0E29                     142 str_cmp_exit_true:
-   0E29 3E 01         [ 7]  143     ld a, #1
-   0E2B C9            [10]  144     ret
-   0E2C                     145 str_cmp_exit_false:
-   0E2C AF            [ 4]  146     xor a
-   0E2D C9            [10]  147     ret
+   0E24 23            [ 6]  135     inc hl
+   0E25 13            [ 6]  136     inc de
+   0E26 18 EF         [12]  137     jr sys_text_str_cmp 
+   0E28                     138 str_cmp_check_last_pair:
+   0E28 1A            [ 7]  139     ld a, (de)
+   0E29 B7            [ 4]  140     or a
+   0E2A 20 03         [12]  141     jr nz, str_cmp_exit_false
+   0E2C                     142 str_cmp_exit_true:
+   0E2C 3E 01         [ 7]  143     ld a, #1
+   0E2E C9            [10]  144     ret
+   0E2F                     145 str_cmp_exit_false:
+   0E2F AF            [ 4]  146     xor a
+   0E30 C9            [10]  147     ret
                             148 
                             149 
                             150 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -5711,97 +5711,97 @@ Hexadecimal [16-Bits]
                             163 ;;  
                             164 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
                             165 
-   0E2E                     166 sys_text_draw_char::
-   0E2E D5            [11]  167     push de
-   0E2F C5            [11]  168     push bc
-   0E30 E5            [11]  169     push hl
+   0E31                     166 sys_text_draw_char::
+   0E31 D5            [11]  167     push de
+   0E32 C5            [11]  168     push bc
+   0E33 E5            [11]  169     push hl
                             170     ;; color
-   0E31 6F            [ 4]  171     ld l, a
-   0E32 CB 27         [ 8]  172     sla a
-   0E34 CB 27         [ 8]  173     sla a       ;; multiply color by 5 to get correct color index
-   0E36 85            [ 4]  174     add a, l
-   0E37 21 8E 0E      [10]  175     ld hl, #_swapColors
+   0E34 6F            [ 4]  171     ld l, a
+   0E35 CB 27         [ 8]  172     sla a
+   0E37 CB 27         [ 8]  173     sla a       ;; multiply color by 5 to get correct color index
+   0E39 85            [ 4]  174     add a, l
+   0E3A 21 91 0E      [10]  175     ld hl, #_swapColors
    004C                     176     add_hl_a    ;; add a to hl (swapcolors)
    004C                       1    add_REGPAIR_a  h, l
                               1    ;; First Perform RH = E + A
-   0E3A 85            [ 4]    2    add l    ;; [1] A' = RL + A 
-   0E3B 6F            [ 4]    3    ld  l, a ;; [1] RL' = A' = RL + A. It might generate Carry that must be added to RH
+   0E3D 85            [ 4]    2    add l    ;; [1] A' = RL + A 
+   0E3E 6F            [ 4]    3    ld  l, a ;; [1] RL' = A' = RL + A. It might generate Carry that must be added to RH
                               4    
                               5    ;; Then Perform RH = RH + Carry 
-   0E3C 8C            [ 4]    6    adc h    ;; [1] A'' = A' + RH + Carry = RL + A + RH + Carry
-   0E3D 95            [ 4]    7    sub l    ;; [1] Remove RL'. A''' = A'' - RL' = RL + A + RH + Carry - (RL + A) = RH + Carry
-   0E3E 67            [ 4]    8    ld  h, a ;; [1] Save into RH (RH' = A''' = RH + Carry)
-   0E3F E5            [11]  177     push hl 
-   0E40 DD E1         [14]  178     pop ix      ;; load hl data in ix
+   0E3F 8C            [ 4]    6    adc h    ;; [1] A'' = A' + RH + Carry = RL + A + RH + Carry
+   0E40 95            [ 4]    7    sub l    ;; [1] Remove RL'. A''' = A'' - RL' = RL + A + RH + Carry - (RL + A) = RH + Carry
+   0E41 67            [ 4]    8    ld  h, a ;; [1] Save into RH (RH' = A''' = RH + Carry)
+   0E42 E5            [11]  177     push hl 
+   0E43 DD E1         [14]  178     pop ix      ;; load hl data in ix
                             179     ;; size
-   0E42 61            [ 4]  180     ld h, c
+   0E45 61            [ 4]  180     ld h, c
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 109.
 Hexadecimal [16-Bits]
 
 
 
-   0E43 58            [ 4]  181     ld e, b
-   0E44 CD 71 0D      [17]  182     call sys_util_h_times_e      ;; multiply c x b
-   0E47 44            [ 4]  183     ld b, h            ;; load b with c x b
-   0E48 4D            [ 4]  184     ld c, l
-   0E49 E1            [10]  185     pop hl
-   0E4A 11 AC 0E      [10]  186     ld de, #_char_buffer
-   0E4D                     187 _loop:
-   0E4D 7E            [ 7]  188     ld a, (hl)
-   0E4E FE 55         [ 7]  189     cp #0x55
-   0E50 28 12         [12]  190     jr z, _first_byte
-   0E52 FE EE         [ 7]  191     cp #0xee
-   0E54 28 13         [12]  192     jr z, _second_byte
-   0E56 FE DD         [ 7]  193     cp #0xdd
-   0E58 28 14         [12]  194     jr z, _third_byte
-   0E5A FE FF         [ 7]  195     cp #0xff
-   0E5C 28 15         [12]  196     jr z, _forth_byte
-   0E5E FE AA         [ 7]  197     cp #0xaa
-   0E60 28 16         [12]  198     jr z, _fifth_byte
-   0E62 18 17         [12]  199     jr _continue
-   0E64                     200 _first_byte:
-   0E64 DD 7E 00      [19]  201     ld a, 0(ix)
-   0E67 18 12         [12]  202     jr _modified_byte
-   0E69                     203 _second_byte:
-   0E69 DD 7E 01      [19]  204     ld a, 1(ix)
-   0E6C 18 0D         [12]  205     jr _modified_byte
-   0E6E                     206 _third_byte:
-   0E6E DD 7E 02      [19]  207     ld a, 2(ix)
-   0E71 18 08         [12]  208     jr _modified_byte
-   0E73                     209 _forth_byte:
-   0E73 DD 7E 03      [19]  210     ld a, 3(ix)
-   0E76 18 03         [12]  211     jr _modified_byte
-   0E78                     212 _fifth_byte:
-   0E78 DD 7E 04      [19]  213     ld a, 4(ix)
-   0E7B                     214 _modified_byte:
+   0E46 58            [ 4]  181     ld e, b
+   0E47 CD 74 0D      [17]  182     call sys_util_h_times_e      ;; multiply c x b
+   0E4A 44            [ 4]  183     ld b, h            ;; load b with c x b
+   0E4B 4D            [ 4]  184     ld c, l
+   0E4C E1            [10]  185     pop hl
+   0E4D 11 AF 0E      [10]  186     ld de, #_char_buffer
+   0E50                     187 _loop:
+   0E50 7E            [ 7]  188     ld a, (hl)
+   0E51 FE 55         [ 7]  189     cp #0x55
+   0E53 28 12         [12]  190     jr z, _first_byte
+   0E55 FE EE         [ 7]  191     cp #0xee
+   0E57 28 13         [12]  192     jr z, _second_byte
+   0E59 FE DD         [ 7]  193     cp #0xdd
+   0E5B 28 14         [12]  194     jr z, _third_byte
+   0E5D FE FF         [ 7]  195     cp #0xff
+   0E5F 28 15         [12]  196     jr z, _forth_byte
+   0E61 FE AA         [ 7]  197     cp #0xaa
+   0E63 28 16         [12]  198     jr z, _fifth_byte
+   0E65 18 17         [12]  199     jr _continue
+   0E67                     200 _first_byte:
+   0E67 DD 7E 00      [19]  201     ld a, 0(ix)
+   0E6A 18 12         [12]  202     jr _modified_byte
+   0E6C                     203 _second_byte:
+   0E6C DD 7E 01      [19]  204     ld a, 1(ix)
+   0E6F 18 0D         [12]  205     jr _modified_byte
+   0E71                     206 _third_byte:
+   0E71 DD 7E 02      [19]  207     ld a, 2(ix)
+   0E74 18 08         [12]  208     jr _modified_byte
+   0E76                     209 _forth_byte:
+   0E76 DD 7E 03      [19]  210     ld a, 3(ix)
+   0E79 18 03         [12]  211     jr _modified_byte
+   0E7B                     212 _fifth_byte:
+   0E7B DD 7E 04      [19]  213     ld a, 4(ix)
+   0E7E                     214 _modified_byte:
                             215 
-   0E7B                     216 _continue:
-   0E7B 12            [ 7]  217     ld (de), a
-   0E7C 23            [ 6]  218     inc hl
-   0E7D 13            [ 6]  219     inc de
-   0E7E 0D            [ 4]  220     dec c
-   0E7F 79            [ 4]  221     ld a,c
-   0E80 B7            [ 4]  222     or a
-   0E81 20 CA         [12]  223     jr nz, _loop
-   0E83 C1            [10]  224     pop bc
-   0E84 D1            [10]  225     pop de
-   0E85 21 AC 0E      [10]  226     ld hl, #_char_buffer
-   0E88 CD 31 1F      [17]  227     call cpct_drawSprite_asm
-   0E8B C9            [10]  228     ret
-   0E8C 00 00               229 _color_ptr: .dw nullptr
-   0E8E                     230 _swapColors: 
-   0E8E 55 EE DD FF AA      231     .db 0x55, 0xee, 0xdd, 0xff, 0xaa   ;; Bright White 
-   0E93 14 6C 9C 3C 28      232     .db 0x14, 0x6c, 0x9c, 0x3c, 0x28   ;; Bright Yellow
-   0E98 50 E4 D8 F0 A0      233     .db 0x50, 0xe4, 0xd8, 0xf0, 0xa0   ;; Orange
-   0E9D 11 66 99 33 22      234     .db 0x11, 0x66, 0x99, 0x33, 0x22   ;; Blue
-   0EA2 10 35 3A 30 20      235     .db 0x10, 0x35, 0x3a, 0x30, 0x20   ;; Bright Red
+   0E7E                     216 _continue:
+   0E7E 12            [ 7]  217     ld (de), a
+   0E7F 23            [ 6]  218     inc hl
+   0E80 13            [ 6]  219     inc de
+   0E81 0D            [ 4]  220     dec c
+   0E82 79            [ 4]  221     ld a,c
+   0E83 B7            [ 4]  222     or a
+   0E84 20 CA         [12]  223     jr nz, _loop
+   0E86 C1            [10]  224     pop bc
+   0E87 D1            [10]  225     pop de
+   0E88 21 AF 0E      [10]  226     ld hl, #_char_buffer
+   0E8B CD 34 1F      [17]  227     call cpct_drawSprite_asm
+   0E8E C9            [10]  228     ret
+   0E8F 00 00               229 _color_ptr: .dw nullptr
+   0E91                     230 _swapColors: 
+   0E91 55 EE DD FF AA      231     .db 0x55, 0xee, 0xdd, 0xff, 0xaa   ;; Bright White 
+   0E96 14 6C 9C 3C 28      232     .db 0x14, 0x6c, 0x9c, 0x3c, 0x28   ;; Bright Yellow
+   0E9B 50 E4 D8 F0 A0      233     .db 0x50, 0xe4, 0xd8, 0xf0, 0xa0   ;; Orange
+   0EA0 11 66 99 33 22      234     .db 0x11, 0x66, 0x99, 0x33, 0x22   ;; Blue
+   0EA5 10 35 3A 30 20      235     .db 0x10, 0x35, 0x3a, 0x30, 0x20   ;; Bright Red
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 110.
 Hexadecimal [16-Bits]
 
 
 
-   0EA7 45 CE CD CF 84      236     .db 0x45, 0xce, 0xcd, 0xcf, 0x84   ;; Mauve
-   0EAC 00 00 00 00 00 00   237 _char_buffer: .db 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+   0EAA 45 CE CD CF 84      236     .db 0x45, 0xce, 0xcd, 0xcf, 0x84   ;; Mauve
+   0EAF 00 00 00 00 00 00   237 _char_buffer: .db 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
         00 00 00 00 00 00
         00 00 00 00 00 00
                             238 
@@ -5819,13 +5819,13 @@ Hexadecimal [16-Bits]
                             250 ;;      
                             251 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
                             252 
-   0EBE                     253 sys_text_draw_string::
+   0EC1                     253 sys_text_draw_string::
    00D0                     254     cpctm_push ix, iy
                      0002     1    .narg v
                      0001     2    .if v
-   0EBE DD E5         [15]    3    push ix
+   0EC1 DD E5         [15]    3    push ix
                      0001     4    .if v-1
-   0EC0 FD E5         [15]    5    push iy
+   0EC3 FD E5         [15]    5    push iy
                      0000     6    .if v-2
                               7    push 
                               8    .if v-3
@@ -5845,15 +5845,15 @@ Hexadecimal [16-Bits]
                              22    .endif
                      0001    23    .else
                              24    .mexit
-   0EC2 79            [ 4]  255     ld a,c
-   0EC3 32 0C 0F      [13]  256     ld (_string_color),a            ;; store color in memory
-   0EC6                     257 draw_string_2:
+   0EC5 79            [ 4]  255     ld a,c
+   0EC6 32 0F 0F      [13]  256     ld (_string_color),a            ;; store color in memory
+   0EC9                     257 draw_string_2:
    00D8                     258     cpctm_push de, hl 
                      0002     1    .narg v
                      0001     2    .if v
-   0EC6 D5            [11]    3    push de
+   0EC9 D5            [11]    3    push de
                      0001     4    .if v-1
-   0EC7 E5            [11]    5    push hl
+   0ECA E5            [11]    5    push hl
                      0000     6    .if v-2
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 111.
 Hexadecimal [16-Bits]
@@ -5878,61 +5878,61 @@ Hexadecimal [16-Bits]
                              22    .endif
                      0001    23    .else
                              24    .mexit
-   0EC8 7E            [ 7]  259     ld a, (hl)                      ;; load a with the char to draw
-   0EC9 B7            [ 4]  260     or a
-   0ECA 28 39         [12]  261     jr z, _draw_string_exit         ;; if char == 0 return
-   0ECC FE 20         [ 7]  262     cp #32                          ;; if char = " " go to next char
-   0ECE 28 2E         [12]  263     jr z, _next_char                
-   0ED0 FE 21         [ 7]  264     cp #33                          ;; exclamation sign
-   0ED2 28 08         [12]  265     jr z, _exclamation         
-   0ED4 FE 3A         [ 7]  266     cp #58                          ;; numbers
-   0ED6 38 08         [12]  267     jr c, _numbers
-   0ED8                     268 _rest_of_chars:    
-   0ED8 D6 2C         [ 7]  269     sub #44                         ;; chars from ? to Z
-   0EDA 18 06         [12]  270     jr _draw_char                   
-   0EDC                     271 _exclamation:
-   0EDC 3E 00         [ 7]  272     ld a, #0
-   0EDE 18 02         [12]  273     jr _draw_char
-   0EE0                     274 _numbers:
-   0EE0 D6 27         [ 7]  275     sub #39
-   0EE2                     276 _draw_char:
-   0EE2 D5            [11]  277     push de
-   0EE3 26 02         [ 7]  278     ld h, #FONT_WIDTH               ;; copy FONT WIDTH in l
-   0EE5 1E 09         [ 7]  279     ld e, #FONT_HEIGHT              ;; copy FONT HEIGHT in e
-   0EE7 CD 71 0D      [17]  280     call sys_util_h_times_e         ;; hl = WIDTH * HEIGHT
-   0EEA 5F            [ 4]  281     ld e, a                         ;; copy char position in e
-   0EEB 65            [ 4]  282     ld h, l                         ;; copy WIDTH*HEIGHT in h
-   0EEC CD 71 0D      [17]  283     call sys_util_h_times_e                  ;; hl = WIDTH * HEIGHT * char position
-   0EEF 11 64 02      [10]  284     ld de, #_s_font_0           ;; add the begining of the font set to the offset
-   0EF2 19            [11]  285     add hl, de                      ;; final address of the sprite to draw
-   0EF3 D1            [10]  286     pop de                          ;; video memory address
-   0EF4 0E 02         [ 7]  287     ld c, #FONT_WIDTH               ;; width of the char
-   0EF6 06 09         [ 7]  288     ld b, #FONT_HEIGHT              ;; height of the char
-   0EF8 3A 0C 0F      [13]  289     ld a, (_string_color)
-   0EFB CD 2E 0E      [17]  290     call sys_text_draw_char
-   0EFE                     291 _next_char:
-   0EFE E1            [10]  292     pop hl
-   0EFF 23            [ 6]  293     inc hl
-   0F00 D1            [10]  294     pop de
-   0F01 13            [ 6]  295     inc de
+   0ECB 7E            [ 7]  259     ld a, (hl)                      ;; load a with the char to draw
+   0ECC B7            [ 4]  260     or a
+   0ECD 28 39         [12]  261     jr z, _draw_string_exit         ;; if char == 0 return
+   0ECF FE 20         [ 7]  262     cp #32                          ;; if char = " " go to next char
+   0ED1 28 2E         [12]  263     jr z, _next_char                
+   0ED3 FE 21         [ 7]  264     cp #33                          ;; exclamation sign
+   0ED5 28 08         [12]  265     jr z, _exclamation         
+   0ED7 FE 3A         [ 7]  266     cp #58                          ;; numbers
+   0ED9 38 08         [12]  267     jr c, _numbers
+   0EDB                     268 _rest_of_chars:    
+   0EDB D6 2C         [ 7]  269     sub #44                         ;; chars from ? to Z
+   0EDD 18 06         [12]  270     jr _draw_char                   
+   0EDF                     271 _exclamation:
+   0EDF 3E 00         [ 7]  272     ld a, #0
+   0EE1 18 02         [12]  273     jr _draw_char
+   0EE3                     274 _numbers:
+   0EE3 D6 27         [ 7]  275     sub #39
+   0EE5                     276 _draw_char:
+   0EE5 D5            [11]  277     push de
+   0EE6 26 02         [ 7]  278     ld h, #FONT_WIDTH               ;; copy FONT WIDTH in l
+   0EE8 1E 09         [ 7]  279     ld e, #FONT_HEIGHT              ;; copy FONT HEIGHT in e
+   0EEA CD 74 0D      [17]  280     call sys_util_h_times_e         ;; hl = WIDTH * HEIGHT
+   0EED 5F            [ 4]  281     ld e, a                         ;; copy char position in e
+   0EEE 65            [ 4]  282     ld h, l                         ;; copy WIDTH*HEIGHT in h
+   0EEF CD 74 0D      [17]  283     call sys_util_h_times_e                  ;; hl = WIDTH * HEIGHT * char position
+   0EF2 11 64 02      [10]  284     ld de, #_s_font_0           ;; add the begining of the font set to the offset
+   0EF5 19            [11]  285     add hl, de                      ;; final address of the sprite to draw
+   0EF6 D1            [10]  286     pop de                          ;; video memory address
+   0EF7 0E 02         [ 7]  287     ld c, #FONT_WIDTH               ;; width of the char
+   0EF9 06 09         [ 7]  288     ld b, #FONT_HEIGHT              ;; height of the char
+   0EFB 3A 0F 0F      [13]  289     ld a, (_string_color)
+   0EFE CD 31 0E      [17]  290     call sys_text_draw_char
+   0F01                     291 _next_char:
+   0F01 E1            [10]  292     pop hl
+   0F02 23            [ 6]  293     inc hl
+   0F03 D1            [10]  294     pop de
+   0F04 13            [ 6]  295     inc de
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 112.
 Hexadecimal [16-Bits]
 
 
 
-   0F02 13            [ 6]  296     inc de
-   0F03 18 C1         [12]  297     jr draw_string_2
-   0F05                     298 _draw_string_exit:
+   0F05 13            [ 6]  296     inc de
+   0F06 18 C1         [12]  297     jr draw_string_2
+   0F08                     298 _draw_string_exit:
    0117                     299     cpctm_pop hl, de, iy, ix
                      0004     1    .narg v
                      0001     2    .if v
-   0F05 E1            [10]    3    pop hl
+   0F08 E1            [10]    3    pop hl
                      0001     4    .if v-1
-   0F06 D1            [10]    5    pop de
+   0F09 D1            [10]    5    pop de
                      0001     6    .if v-2
-   0F07 FD E1         [14]    7    pop iy
+   0F0A FD E1         [14]    7    pop iy
                      0001     8    .if v-3
-   0F09 DD E1         [14]    9    pop ix
+   0F0C DD E1         [14]    9    pop ix
                      0000    10    .if v-4
                              11    pop 
                              12    .if v-5
@@ -5942,8 +5942,8 @@ Hexadecimal [16-Bits]
                              16    .endif
                      0001    17    .else
                              18    .mexit
-   0F0B C9            [10]  300     ret
-   0F0C 00                  301 _string_color: .db 0
+   0F0E C9            [10]  300     ret
+   0F0F 00                  301 _string_color: .db 0
                             302 
                             303 
                             304 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -5959,28 +5959,28 @@ Hexadecimal [16-Bits]
                             314 ;;  af, bc, hl, de
                             315 ;;      
                             316 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-   0F0D                     317 sys_text_num2str8::
-   0F0D 01 9C FF      [10]  318     ld	bc,#-100
-   0F10 CD 19 0F      [17]  319 	call _ns8_Num1
-   0F13 0E F6         [ 7]  320 	ld	c,#-10
-   0F15 CD 19 0F      [17]  321 	call _ns8_Num1
-   0F18 48            [ 4]  322 	ld	c,b
-   0F19                     323 _ns8_Num1:	
-   0F19 3E 2F         [ 7]  324     ld	a,#('0'-1)
-   0F1B                     325 _ns8_Num2:
-   0F1B 3C            [ 4]  326     inc	a
-   0F1C 09            [11]  327 	add	hl,bc
-   0F1D 38 FC         [12]  328 	jr	c,_ns8_Num2
-   0F1F ED 42         [15]  329 	sbc	hl,bc
+   0F10                     317 sys_text_num2str8::
+   0F10 01 9C FF      [10]  318     ld	bc,#-100
+   0F13 CD 1C 0F      [17]  319 	call _ns8_Num1
+   0F16 0E F6         [ 7]  320 	ld	c,#-10
+   0F18 CD 1C 0F      [17]  321 	call _ns8_Num1
+   0F1B 48            [ 4]  322 	ld	c,b
+   0F1C                     323 _ns8_Num1:	
+   0F1C 3E 2F         [ 7]  324     ld	a,#('0'-1)
+   0F1E                     325 _ns8_Num2:
+   0F1E 3C            [ 4]  326     inc	a
+   0F1F 09            [11]  327 	add	hl,bc
+   0F20 38 FC         [12]  328 	jr	c,_ns8_Num2
+   0F22 ED 42         [15]  329 	sbc	hl,bc
                             330 
-   0F21 12            [ 7]  331 	ld	(de),a
-   0F22 13            [ 6]  332 	inc	de
+   0F24 12            [ 7]  331 	ld	(de),a
+   0F25 13            [ 6]  332 	inc	de
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 113.
 Hexadecimal [16-Bits]
 
 
 
-   0F23 C9            [10]  333 	ret
+   0F26 C9            [10]  333 	ret
                             334 
                             335 
                             336 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -5996,20 +5996,20 @@ Hexadecimal [16-Bits]
                             346 ;;  af, bc, hl, de
                             347 ;;      
                             348 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-   0F24                     349 sys_text_draw_small_char_number::
-   0F24 D5            [11]  350     push de                             ;; save de for later
-   0F25 26 0A         [ 7]  351     ld h, #10                           ;; calculate the offset from the first char
-   0F27 5F            [ 4]  352     ld e, a                             ;;
-   0F28 CD 71 0D      [17]  353     call sys_util_h_times_e             ;; l = 20 * number
-   0F2B 06 00         [ 7]  354     ld b, #0                            ;;
-   0F2D 4D            [ 4]  355     ld c, l                             ;;
-   0F2E 21 00 02      [10]  356     ld hl, #_s_small_numbers_00         ;; point hl to the start of the numbers
-   0F31 09            [11]  357     add hl, bc                          ;; address of the number to show
-   0F32 D1            [10]  358     pop de                              ;; retreive de
-   0F33 0E 02         [ 7]  359     ld c, #S_SMALL_NUMBERS_WIDTH
-   0F35 06 05         [ 7]  360     ld b, #S_SMALL_NUMBERS_HEIGHT
-   0F37 CD 31 1F      [17]  361     call cpct_drawSprite_asm            ;; draw the number
-   0F3A C9            [10]  362     ret
+   0F27                     349 sys_text_draw_small_char_number::
+   0F27 D5            [11]  350     push de                             ;; save de for later
+   0F28 26 0A         [ 7]  351     ld h, #10                           ;; calculate the offset from the first char
+   0F2A 5F            [ 4]  352     ld e, a                             ;;
+   0F2B CD 74 0D      [17]  353     call sys_util_h_times_e             ;; l = 20 * number
+   0F2E 06 00         [ 7]  354     ld b, #0                            ;;
+   0F30 4D            [ 4]  355     ld c, l                             ;;
+   0F31 21 00 02      [10]  356     ld hl, #_s_small_numbers_00         ;; point hl to the start of the numbers
+   0F34 09            [11]  357     add hl, bc                          ;; address of the number to show
+   0F35 D1            [10]  358     pop de                              ;; retreive de
+   0F36 0E 02         [ 7]  359     ld c, #S_SMALL_NUMBERS_WIDTH
+   0F38 06 05         [ 7]  360     ld b, #S_SMALL_NUMBERS_HEIGHT
+   0F3A CD 34 1F      [17]  361     call cpct_drawSprite_asm            ;; draw the number
+   0F3D C9            [10]  362     ret
                             363 
                             364 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
                             365 ;; sys_text_draw_small_number
@@ -6026,38 +6026,38 @@ Hexadecimal [16-Bits]
                             376 ;;  Routine adapted from WikiTI (https://wikiti.brandonw.net/index.php?title=Z80_Routines:Other:DispHL)
                             377 ;;
                             378 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-   0F3B                     379 sys_text_draw_small_number::
-   0F3B 7D            [ 4]  380     ld a, l
-   0F3C 32 67 0F      [13]  381     ld (_original_number), a
-   0F3F 01 9C FF      [10]  382     ld	bc, #-100
-   0F42 FE 64         [ 7]  383     cp #100                      ;; check if number is lower than 100
-   0F44 D4 53 0F      [17]  384     call nc,	_dsn_Num1
-   0F47 01 F6 FF      [10]  385     ld bc, #-10
-   0F4A 3A 67 0F      [13]  386     ld a, (_original_number)
-   0F4D FE 0A         [ 7]  387     cp #10                      ;; check if number is lower than 10
+   0F3E                     379 sys_text_draw_small_number::
+   0F3E 7D            [ 4]  380     ld a, l
+   0F3F 32 6A 0F      [13]  381     ld (_original_number), a
+   0F42 01 9C FF      [10]  382     ld	bc, #-100
+   0F45 FE 64         [ 7]  383     cp #100                      ;; check if number is lower than 100
+   0F47 D4 56 0F      [17]  384     call nc,	_dsn_Num1
+   0F4A 01 F6 FF      [10]  385     ld bc, #-10
+   0F4D 3A 6A 0F      [13]  386     ld a, (_original_number)
+   0F50 FE 0A         [ 7]  387     cp #10                      ;; check if number is lower than 10
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 114.
 Hexadecimal [16-Bits]
 
 
 
-   0F4F D4 53 0F      [17]  388 	call nc, _dsn_Num1           ;; if number is upper 9 then call
-   0F52 48            [ 4]  389 	ld	c,b
-   0F53                     390 _dsn_Num1:	
-   0F53 3E FF         [ 7]  391     ld a, #-1                           
-   0F55                     392 _dsn_Num2:
-   0F55 3C            [ 4]  393     inc	a
-   0F56 09            [11]  394 	add	hl,bc
-   0F57 38 FC         [12]  395 	jr	c,_dsn_Num2
-   0F59 ED 42         [15]  396 	sbc	hl,bc
+   0F52 D4 56 0F      [17]  388 	call nc, _dsn_Num1           ;; if number is upper 9 then call
+   0F55 48            [ 4]  389 	ld	c,b
+   0F56                     390 _dsn_Num1:	
+   0F56 3E FF         [ 7]  391     ld a, #-1                           
+   0F58                     392 _dsn_Num2:
+   0F58 3C            [ 4]  393     inc	a
+   0F59 09            [11]  394 	add	hl,bc
+   0F5A 38 FC         [12]  395 	jr	c,_dsn_Num2
+   0F5C ED 42         [15]  396 	sbc	hl,bc
                             397 
    016D                     398     cpctm_push de, hl, bc
                      0003     1    .narg v
                      0001     2    .if v
-   0F5B D5            [11]    3    push de
+   0F5E D5            [11]    3    push de
                      0001     4    .if v-1
-   0F5C E5            [11]    5    push hl
+   0F5F E5            [11]    5    push hl
                      0001     6    .if v-2
-   0F5D C5            [11]    7    push bc
+   0F60 C5            [11]    7    push bc
                      0000     8    .if v-3
                               9    push 
                              10    .if v-4
@@ -6072,15 +6072,15 @@ Hexadecimal [16-Bits]
                              19    .endif
                      0001    20    .else
                              21    .mexit
-   0F5E CD 24 0F      [17]  399     call sys_text_draw_small_char_number
+   0F61 CD 27 0F      [17]  399     call sys_text_draw_small_char_number
    0173                     400     cpctm_pop bc, hl, de
                      0003     1    .narg v
                      0001     2    .if v
-   0F61 C1            [10]    3    pop bc
+   0F64 C1            [10]    3    pop bc
                      0001     4    .if v-1
-   0F62 E1            [10]    5    pop hl
+   0F65 E1            [10]    5    pop hl
                      0001     6    .if v-2
-   0F63 D1            [10]    7    pop de
+   0F66 D1            [10]    7    pop de
                      0000     8    .if v-3
                               9    pop 
                              10    .if v-4
@@ -6101,9 +6101,9 @@ Hexadecimal [16-Bits]
 
 
                             401 
-   0F64 13            [ 6]  402     inc de                      ;; go to the next screen address
-   0F65 13            [ 6]  403     inc de                      ;;
+   0F67 13            [ 6]  402     inc de                      ;; go to the next screen address
+   0F68 13            [ 6]  403     inc de                      ;;
                             404     
-   0F66 C9            [10]  405     ret
+   0F69 C9            [10]  405     ret
                             406 
-   0F67 00                  407 _original_number: .db #0    
+   0F6A 00                  407 _original_number: .db #0    

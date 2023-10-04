@@ -165,9 +165,9 @@
 ;;  Defines the structure of the entity array.
 .mdelete DefineComponentArrayStructure_Size
 .macro DefineComponentArrayStructure_Size _Tname, _N, _ComponentSize
-    _Tname'_num:         .db 0
-    _Tname'_list:        .dw nullptr
-    _Tname'_free_list:   .dw _Tname'_array
+    _Tname'_num::         .db 0
+    _Tname'_list::        .dw nullptr
+    _Tname'_free_list::   .dw _Tname'_array
     _Tname'_array::
         .ds _N * _ComponentSize
 .endm

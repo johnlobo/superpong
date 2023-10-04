@@ -335,14 +335,14 @@ man_entity_create::
 
 	_noAI:
 	ld a, e_cmps(ix)
-	and #e_cmp_collisionable
-	jr z, _noCollisionable
+	and #e_cmp_collider
+	jr z, _noCollider
 
-	_Collisionable:
+	_Collider:
 	ld a, #e_cmpID_Collision
 	call man_components_add
 
-	_noCollisionable:
+	_noCollider:
 	ld a, e_cmps(ix)
 	and #e_cmp_physics
 	jr z, _noPhysics

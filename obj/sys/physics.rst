@@ -453,7 +453,7 @@ Hexadecimal [16-Bits]
                             122 ;;===============================================================================
                             123 ;; Entity Component IDs
                             124 ;;===============================================================================
-   0B50                     125 DefEnum e_cmpID
+   0B53                     125 DefEnum e_cmpID
                      0000     1     e_cmpID_offset = 0
    0000                     126 Enum e_cmpID Render
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 11.
@@ -5608,11 +5608,11 @@ Hexadecimal [16-Bits]
                              50 ;;
    0000                      51 sys_physics_init::
                              52     ;; set pointer array address 
-   0B50 3E 01         [ 7]   53     ld a, #e_cmpID_Physics
-   0B52 CD 9A 06      [17]   54     call man_components_getArrayHL
-   0B55 22 0B 0C      [16]   55     ld  (_ent_array_ptr), hl
+   0B53 3E 01         [ 7]   53     ld a, #e_cmpID_Physics
+   0B55 CD 9A 06      [17]   54     call man_components_getArrayHL
+   0B58 22 0E 0C      [16]   55     ld  (_ent_array_ptr), hl
                              56 
-   0B58 C9            [10]   57     ret
+   0B5B C9            [10]   57     ret
                              58 
                              59 ;;-----------------------------------------------------------------
                              60 ;;
@@ -5623,14 +5623,14 @@ Hexadecimal [16-Bits]
                              65 ;;  Output: 
                              66 ;;  Modified: AF, BC, DE, HL
                              67 ;;
-   0B59                      68 sys_physics_apply_gravity::
-   0B59 01 24 00      [10]   69     ld bc, #GRAVITY
-   0B5C DD 66 11      [19]   70     ld h, e_vy(ix)
-   0B5F DD 6E 12      [19]   71     ld l, e_vy+1(ix)
-   0B62 ED 4A         [15]   72     adc hl, bc
-   0B64 DD 74 11      [19]   73     ld e_vy(ix), h              ;; restore updated vy
-   0B67 DD 75 12      [19]   74     ld e_vy+1(ix), l            ;; 
-   0B6A C9            [10]   75     ret 
+   0B5C                      68 sys_physics_apply_gravity::
+   0B5C 01 24 00      [10]   69     ld bc, #GRAVITY
+   0B5F DD 66 11      [19]   70     ld h, e_vy(ix)
+   0B62 DD 6E 12      [19]   71     ld l, e_vy+1(ix)
+   0B65 ED 4A         [15]   72     adc hl, bc
+   0B67 DD 74 11      [19]   73     ld e_vy(ix), h              ;; restore updated vy
+   0B6A DD 75 12      [19]   74     ld e_vy+1(ix), l            ;; 
+   0B6D C9            [10]   75     ret 
                              76 
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 108.
 Hexadecimal [16-Bits]
@@ -5646,28 +5646,28 @@ Hexadecimal [16-Bits]
                              83 ;;  Output: 
                              84 ;;  Modified: AF, BC, DE, HL
                              85 ;;
-   0B6B                      86 sys_physics_apply_friction_vx::
-   0B6B 01 16 00      [10]   87     ld bc, #COF                 ;; Coeficient of friction
-   0B6E DD 66 0F      [19]   88     ld h, e_vx(ix)
-   0B71 DD 6E 10      [19]   89     ld l, e_vx+1(ix)
-   0B74 CB 7C         [ 8]   90     bit 7, h                    ;; test if vx is positive or negative
-   0B76 20 0B         [12]   91     jr nz, _vx_negative         ;; if bit 7 is set, z is not set and vx is positive
+   0B6E                      86 sys_physics_apply_friction_vx::
+   0B6E 01 16 00      [10]   87     ld bc, #COF                 ;; Coeficient of friction
+   0B71 DD 66 0F      [19]   88     ld h, e_vx(ix)
+   0B74 DD 6E 10      [19]   89     ld l, e_vx+1(ix)
+   0B77 CB 7C         [ 8]   90     bit 7, h                    ;; test if vx is positive or negative
+   0B79 20 0B         [12]   91     jr nz, _vx_negative         ;; if bit 7 is set, z is not set and vx is positive
                              92                                 ;; so the COF should be substracted
-   0B78 B7            [ 4]   93     or a                        ;; reset c
-   0B79 ED 42         [15]   94     sbc hl,bc                   ;; substract bc from hl
-   0B7B F2 8B 0B      [10]   95     jp p, _vx_restore           ;;
-   0B7E 26 00         [ 7]   96     ld h, #0                    ;; if vx has gone negative vx = 0
-   0B80 6C            [ 4]   97     ld l, h                     ;;
-   0B81 18 08         [12]   98     jr _vx_restore
-   0B83                      99 _vx_negative:
-   0B83 ED 4A         [15]  100     adc hl, bc                  ;; add COF to vx
-   0B85 FA 8B 0B      [10]  101     jp m, _vx_restore           ;;
-   0B88 26 00         [ 7]  102     ld h, #0                    ;; if vx has gone positive vx = 0
-   0B8A 6C            [ 4]  103     ld l, h                     ;;
-   0B8B                     104 _vx_restore:
-   0B8B DD 74 0F      [19]  105     ld e_vx(ix), h              ;; restore updated vx
-   0B8E DD 75 10      [19]  106     ld e_vx+1(ix), l            ;; restore updated vx
-   0B91 C9            [10]  107     ret
+   0B7B B7            [ 4]   93     or a                        ;; reset c
+   0B7C ED 42         [15]   94     sbc hl,bc                   ;; substract bc from hl
+   0B7E F2 8E 0B      [10]   95     jp p, _vx_restore           ;;
+   0B81 26 00         [ 7]   96     ld h, #0                    ;; if vx has gone negative vx = 0
+   0B83 6C            [ 4]   97     ld l, h                     ;;
+   0B84 18 08         [12]   98     jr _vx_restore
+   0B86                      99 _vx_negative:
+   0B86 ED 4A         [15]  100     adc hl, bc                  ;; add COF to vx
+   0B88 FA 8E 0B      [10]  101     jp m, _vx_restore           ;;
+   0B8B 26 00         [ 7]  102     ld h, #0                    ;; if vx has gone positive vx = 0
+   0B8D 6C            [ 4]  103     ld l, h                     ;;
+   0B8E                     104 _vx_restore:
+   0B8E DD 74 0F      [19]  105     ld e_vx(ix), h              ;; restore updated vx
+   0B91 DD 75 10      [19]  106     ld e_vx+1(ix), l            ;; restore updated vx
+   0B94 C9            [10]  107     ret
                             108 
                             109 ;;-----------------------------------------------------------------
                             110 ;;
@@ -5678,33 +5678,33 @@ Hexadecimal [16-Bits]
                             115 ;;  Output: 
                             116 ;;  Modified: AF, BC, DE, HL
                             117 ;;
-   0B92                     118 sys_physics_apply_friction_vy::
-   0B92 01 16 00      [10]  119     ld bc, #COF                 ;; Coeficient of friction
-   0B95 DD 66 11      [19]  120     ld h, e_vy(ix)
-   0B98 DD 6E 12      [19]  121     ld l, e_vy+1(ix)
-   0B9B CB 7C         [ 8]  122     bit 7, h                    ;; test if vx is positive or negative
-   0B9D 20 0B         [12]  123     jr nz, _vy_negative         ;; if bit 7 is set, z is not set and vx is positive
+   0B95                     118 sys_physics_apply_friction_vy::
+   0B95 01 16 00      [10]  119     ld bc, #COF                 ;; Coeficient of friction
+   0B98 DD 66 11      [19]  120     ld h, e_vy(ix)
+   0B9B DD 6E 12      [19]  121     ld l, e_vy+1(ix)
+   0B9E CB 7C         [ 8]  122     bit 7, h                    ;; test if vx is positive or negative
+   0BA0 20 0B         [12]  123     jr nz, _vy_negative         ;; if bit 7 is set, z is not set and vx is positive
                             124                                 ;; so the COF should be substracted
-   0B9F B7            [ 4]  125     or a                        ;; reset c
-   0BA0 ED 42         [15]  126     sbc hl,bc                   ;; substract bc from hl
-   0BA2 F2 B2 0B      [10]  127     jp p, _vy_restore           ;;
-   0BA5 26 00         [ 7]  128     ld h, #0                    ;; if vx has gone negative vx = 0
-   0BA7 6C            [ 4]  129     ld l, h                     ;;
-   0BA8 18 08         [12]  130     jr _vy_restore
-   0BAA                     131 _vy_negative:
+   0BA2 B7            [ 4]  125     or a                        ;; reset c
+   0BA3 ED 42         [15]  126     sbc hl,bc                   ;; substract bc from hl
+   0BA5 F2 B5 0B      [10]  127     jp p, _vy_restore           ;;
+   0BA8 26 00         [ 7]  128     ld h, #0                    ;; if vx has gone negative vx = 0
+   0BAA 6C            [ 4]  129     ld l, h                     ;;
+   0BAB 18 08         [12]  130     jr _vy_restore
+   0BAD                     131 _vy_negative:
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 109.
 Hexadecimal [16-Bits]
 
 
 
-   0BAA ED 4A         [15]  132     adc hl, bc                  ;; add COF to vx
-   0BAC FA B2 0B      [10]  133     jp m, _vy_restore           ;;
-   0BAF 26 00         [ 7]  134     ld h, #0                    ;; if vx has gone positive vx = 0
-   0BB1 6C            [ 4]  135     ld l, h                     ;;
-   0BB2                     136 _vy_restore:
-   0BB2 DD 74 11      [19]  137     ld e_vy(ix), h              ;; restore updated vx
-   0BB5 DD 75 12      [19]  138     ld e_vy+1(ix), l            ;; restore updated vx
-   0BB8 C9            [10]  139     ret
+   0BAD ED 4A         [15]  132     adc hl, bc                  ;; add COF to vx
+   0BAF FA B5 0B      [10]  133     jp m, _vy_restore           ;;
+   0BB2 26 00         [ 7]  134     ld h, #0                    ;; if vx has gone positive vx = 0
+   0BB4 6C            [ 4]  135     ld l, h                     ;;
+   0BB5                     136 _vy_restore:
+   0BB5 DD 74 11      [19]  137     ld e_vy(ix), h              ;; restore updated vx
+   0BB8 DD 75 12      [19]  138     ld e_vy+1(ix), l            ;; restore updated vx
+   0BBB C9            [10]  139     ret
                             140 
                             141 ;;-----------------------------------------------------------------
                             142 ;;
@@ -5715,57 +5715,57 @@ Hexadecimal [16-Bits]
                             147 ;;  Output: 
                             148 ;;  Modified: AF, BC, HL
                             149 ;;
-   0BB9                     150 sys_physics_update_one_entity::
+   0BBC                     150 sys_physics_update_one_entity::
                             151     ;; update x coord with vx
-   0BB9 DD 7E 0F      [19]  152     ld a, e_vx(ix)              ;; check if the speed in x is 0
-   0BBC DD 4E 10      [19]  153     ld c, e_vx+1(ix)            ;;
-   0BBF B1            [ 4]  154     or c                        ;; check if vx == 0
-   0BC0 28 19         [12]  155     jr z, spuoe_yCoord          ;; move to y coord if vx === 0
+   0BBC DD 7E 0F      [19]  152     ld a, e_vx(ix)              ;; check if the speed in x is 0
+   0BBF DD 4E 10      [19]  153     ld c, e_vx+1(ix)            ;;
+   0BC2 B1            [ 4]  154     or c                        ;; check if vx == 0
+   0BC3 28 19         [12]  155     jr z, spuoe_yCoord          ;; move to y coord if vx === 0
                             156 
-   0BC2 DD 46 0F      [19]  157     ld b, e_vx(ix)              ;; lower part of the vx speed c, so bc = vx
-   0BC5 DD 66 05      [19]  158     ld h, e_x(ix)               ;; get the x coord in hl
-   0BC8 DD 6E 06      [19]  159     ld l, e_x+1(ix)             ;; 
-   0BCB 7C            [ 4]  160     ld a, h                     ;; save h value in a
-   0BCC ED 4A         [15]  161     adc hl, bc                  ;; add x+vx
-   0BCE DD 74 05      [19]  162     ld e_x(ix), h               ;; update entity with new position
-   0BD1 DD 75 06      [19]  163     ld e_x+1(ix), l             ;;
+   0BC5 DD 46 0F      [19]  157     ld b, e_vx(ix)              ;; lower part of the vx speed c, so bc = vx
+   0BC8 DD 66 05      [19]  158     ld h, e_x(ix)               ;; get the x coord in hl
+   0BCB DD 6E 06      [19]  159     ld l, e_x+1(ix)             ;; 
+   0BCE 7C            [ 4]  160     ld a, h                     ;; save h value in a
+   0BCF ED 4A         [15]  161     adc hl, bc                  ;; add x+vx
+   0BD1 DD 74 05      [19]  162     ld e_x(ix), h               ;; update entity with new position
+   0BD4 DD 75 06      [19]  163     ld e_x+1(ix), l             ;;
                             164     ;; check if screen coord has changed to update moved.
-   0BD4 BC            [ 4]  165     cp h                        ;; if h has changed (high value)moved = true
-   0BD5 28 04         [12]  166     jr z, spuoe_yCoord          ;;
-   0BD7 DD 36 1F 01   [19]  167     ld e_moved(ix), #1          ;; flag the entity as moved
+   0BD7 BC            [ 4]  165     cp h                        ;; if h has changed (high value)moved = true
+   0BD8 28 04         [12]  166     jr z, spuoe_yCoord          ;;
+   0BDA DD 36 1F 01   [19]  167     ld e_moved(ix), #1          ;; flag the entity as moved
                             168     
-   0BDB                     169 spuoe_yCoord:
+   0BDE                     169 spuoe_yCoord:
                             170     ;; update y coord with vy
-   0BDB DD 7E 11      [19]  171     ld a, e_vy(ix)              ;; check if the speed in y is 0
-   0BDE DD 4E 12      [19]  172     ld c, e_vy+1(ix)            ;;
-   0BE1 B1            [ 4]  173     or c                        ;; check if vx == 0
-   0BE2 28 19         [12]  174     jr z, spuoe_exit            ;; move to ret coord if vx === 0
+   0BDE DD 7E 11      [19]  171     ld a, e_vy(ix)              ;; check if the speed in y is 0
+   0BE1 DD 4E 12      [19]  172     ld c, e_vy+1(ix)            ;;
+   0BE4 B1            [ 4]  173     or c                        ;; check if vx == 0
+   0BE5 28 19         [12]  174     jr z, spuoe_exit            ;; move to ret coord if vx === 0
                             175     
-   0BE4 DD 46 11      [19]  176     ld b, e_vy(ix)              ;; lower part of the vy speed c, so bc = vy
-   0BE7 DD 66 07      [19]  177     ld h, e_y(ix)               ;; get the y coord in hl
-   0BEA DD 6E 08      [19]  178     ld l, e_y+1(ix)             ;; 
-   0BED 7C            [ 4]  179     ld a, h                     ;; save h value in a
-   0BEE ED 4A         [15]  180     adc hl, bc                  ;; add y+vy
-   0BF0 DD 74 07      [19]  181     ld e_y(ix), h               ;; update entity with new position
-   0BF3 DD 75 08      [19]  182     ld e_y+1(ix), l             ;;
+   0BE7 DD 46 11      [19]  176     ld b, e_vy(ix)              ;; lower part of the vy speed c, so bc = vy
+   0BEA DD 66 07      [19]  177     ld h, e_y(ix)               ;; get the y coord in hl
+   0BED DD 6E 08      [19]  178     ld l, e_y+1(ix)             ;; 
+   0BF0 7C            [ 4]  179     ld a, h                     ;; save h value in a
+   0BF1 ED 4A         [15]  180     adc hl, bc                  ;; add y+vy
+   0BF3 DD 74 07      [19]  181     ld e_y(ix), h               ;; update entity with new position
+   0BF6 DD 75 08      [19]  182     ld e_y+1(ix), l             ;;
                             183     ;; check if screen coord has changed to update moved.
-   0BF6 BC            [ 4]  184     cp h                        ;; if h has changed (high value)moved = true
-   0BF7 28 04         [12]  185     jr z, spuoe_exit            ;; screen coord has not changed->check the ground
-   0BF9 DD 36 1F 01   [19]  186     ld e_moved(ix), #1          ;; flag the entity as moved
+   0BF9 BC            [ 4]  184     cp h                        ;; if h has changed (high value)moved = true
+   0BFA 28 04         [12]  185     jr z, spuoe_exit            ;; screen coord has not changed->check the ground
+   0BFC DD 36 1F 01   [19]  186     ld e_moved(ix), #1          ;; flag the entity as moved
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 110.
 Hexadecimal [16-Bits]
 
 
 
                             187 
-   0BFD                     188 spuoe_exit:
+   0C00                     188 spuoe_exit:
                             189     ;; Friction & Gravity
-   0BFD DD 7E 03      [19]  190     ld a, e_type(ix)             ;; only apply frcition to player paddles 
-   0C00 FE 01         [ 7]  191     cp #1                       ;;
-   0C02 C0            [11]  192     ret nz                      ;; return otherwise
-   0C03 CD 6B 0B      [17]  193     call sys_physics_apply_friction_vx  
-   0C06 CD 92 0B      [17]  194     call sys_physics_apply_friction_vy  
-   0C09 C9            [10]  195     ret
+   0C00 DD 7E 03      [19]  190     ld a, e_type(ix)             ;; only apply frcition to player paddles 
+   0C03 FE 01         [ 7]  191     cp #1                       ;;
+   0C05 C0            [11]  192     ret nz                      ;; return otherwise
+   0C06 CD 6E 0B      [17]  193     call sys_physics_apply_friction_vx  
+   0C09 CD 95 0B      [17]  194     call sys_physics_apply_friction_vy  
+   0C0C C9            [10]  195     ret
                             196 
                             197 ;;-----------------------------------------------------------------
                             198 ;;
@@ -5777,35 +5777,35 @@ Hexadecimal [16-Bits]
                             204 ;;  Modified: AF, BC, DE, HL
                             205 ;;
                             206 
-   0C0A                     207 sys_physics_update::
+   0C0D                     207 sys_physics_update::
                             208 
                      00BB   209 _ent_array_ptr = . + 1
-   0C0A 21 00 00      [10]  210     ld  hl, #0x0000
+   0C0D 21 00 00      [10]  210     ld  hl, #0x0000
                             211 
-   0C0D                     212     _loop:
+   0C10                     212     _loop:
                             213     ;;  Select the pointer to the entity with AI and prepare the next position for the next iteration.
-   0C0D 5E            [ 7]  214     ld e, (hl)
-   0C0E 23            [ 6]  215     inc hl
-   0C0F 56            [ 7]  216     ld d, (hl)
-   0C10 23            [ 6]  217     inc hl
+   0C10 5E            [ 7]  214     ld e, (hl)
+   0C11 23            [ 6]  215     inc hl
+   0C12 56            [ 7]  216     ld d, (hl)
+   0C13 23            [ 6]  217     inc hl
                             218 
                             219     ;;  The entities are finished traversing when find a pointer to null.
-   0C11 7B            [ 4]  220     ld a, e
-   0C12 B2            [ 4]  221     or d
-   0C13 C8            [11]  222     ret z
+   0C14 7B            [ 4]  220     ld a, e
+   0C15 B2            [ 4]  221     or d
+   0C16 C8            [11]  222     ret z
                             223 
-   0C14 E5            [11]  224     push hl
+   0C17 E5            [11]  224     push hl
                             225 
    00C5                     226     ld__ixl_e
-   0C15 DD 6B                 1    .dw #0x6BDD  ;; Opcode for ld ixl, e
+   0C18 DD 6B                 1    .dw #0x6BDD  ;; Opcode for ld ixl, e
    00C7                     227     ld__ixh_d
-   0C17 DD 62                 1    .dw #0x62DD  ;; Opcode for ld ixh, d
+   0C1A DD 62                 1    .dw #0x62DD  ;; Opcode for ld ixh, d
                             228 
-   0C19 CD B9 0B      [17]  229     call sys_physics_update_one_entity
+   0C1C CD BC 0B      [17]  229     call sys_physics_update_one_entity
                             230 
-   0C1C E1            [10]  231 	pop hl
+   0C1F E1            [10]  231 	pop hl
                             232 
-   0C1D 18 EE         [12]  233     jr _loop
+   0C20 18 EE         [12]  233     jr _loop
                             234 
-   0C1F C9            [10]  235     ret
+   0C22 C9            [10]  235     ret
                             236     
