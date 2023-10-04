@@ -121,12 +121,12 @@
     .dw _sprite
     .dw _address
     .dw _p_address
-    .db #1           ;; moved 1 default
     .db _on_platform
     .db _orientation ;; 0: right, 1:left
     .db #0           ;; dashing
     .dw _anim_ptr
     .db _anim_status
+    .db #1           ;; moved 1 default
 .endm
 
 ;;==============================================================================================================================

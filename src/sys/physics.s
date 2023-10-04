@@ -187,6 +187,9 @@ spuoe_yCoord:
 
 spuoe_exit:
     ;; Friction & Gravity
+    ld a, e_type(ix)             ;; only apply frcition to player paddles 
+    cp #1                       ;;
+    ret nz                      ;; return otherwise
     call sys_physics_apply_friction_vx  
     call sys_physics_apply_friction_vy  
     ret

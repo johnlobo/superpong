@@ -219,7 +219,7 @@ sys_render_erase_one_entity::
 ;;  Output: 
 ;;  Modified: AF, BC, DE, HL
 ;;
-sys_render_draw_one_player_entity::
+sys_render_draw_one_vector_entity::
     ld h, e_color(ix)
     ld l, e_color(ix)
     call cpct_px2byteM0_asm
@@ -239,7 +239,7 @@ sys_render_draw_one_player_entity::
 ;;  Output: 
 ;;  Modified: AF, BC, DE, HL
 ;;
-sys_render_draw_sprite_one_entity::
+sys_render_draw_one_sprite_entity::
     ld e, e_address(ix)
     ld d, e_address+1(ix)
     ld l, e_sprite(ix)
@@ -281,14 +281,14 @@ sys_render_update_one_entity::
     ld e_address(ix), l
     ld e_address+1(ix), h
 
-	ld a, e_type(ix)
-	and #e_type_player
-	jr z, _not_player
-    call sys_render_draw_one_player_entity
+	;;ld a, e_type(ix)
+	;;and #e_type_player 
+	;;jr z, _not_player
+    call sys_render_draw_one_vector_entity
     jr _exit_sruoe
 
-_not_player:
-    call sys_render_draw_sprite_one_entity
+;;_not_player:
+ ;;   call sys_render_draw_sprite_one_entity
 
 _exit_sruoe:
     ld e_moved(ix), #0              ;; reset moved flag

@@ -28,8 +28,10 @@
 .globl man_entity_init
 .globl man_entity_create
 .globl man_entity_getEntityArrayIX
+.globl man_entity_getEntityArrayIY
 .globl man_entity_getPlayerPosition
 .globl man_entity_getOponentPosition
 .globl man_entity_set4destruction
 .globl man_entity_update
 .globl man_entity_deleteEverythingExceptPlayer
+.globl man_entity_forall_matching_iy

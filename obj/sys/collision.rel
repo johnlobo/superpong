@@ -1,0 +1,94 @@
+XL2
+H 2 areas 3D global symbols
+M physics_system
+S cpct_setInterruptHandler_asm Ref0000
+S man_entity_forall_matching_iy Ref0000
+S cpct_getScreenToSprite_asm Ref0000
+S cpct_isKeyPressed_asm Ref0000
+S cpct_setPalette_asm Ref0000
+S man_components_removePtr Ref0000
+S man_entity_deleteEverythingExceptPlayer Ref0000
+S cpct_setPALColour_asm Ref0000
+S man_entity_set4destruction Ref0000
+S man_entity_create Ref0000
+S man_entity_init Ref0000
+S cpct_drawSprite_asm Ref0000
+S man_entity_getOponentPosition Ref0000
+S cpct_etm_drawTileBox2x4_asm Ref0000
+S cpct_etm_drawTilemap4x8_ag_asm Ref0000
+S man_components_getArrayHL Ref0000
+S _g_palette Ref0000
+S _cpct_keyboardStatusBuffer Ref0000
+S man_entity_getPlayerPosition Ref0000
+S cpct_waitHalts_asm Ref0000
+S man_entity_update Ref0000
+S cpct_setSeed_mxor_asm Ref0000
+S .__.ABS. Def0000
+S cpct_setSeed_xsp40_u8_asm Ref0000
+S cpct_setVideoMemoryPage_asm Ref0000
+S cpct_memset_f64_asm Ref0000
+S _s_small_numbers_00 Ref0000
+S _s_small_numbers_01 Ref0000
+S _s_small_numbers_02 Ref0000
+S _s_small_numbers_03 Ref0000
+S _s_small_numbers_04 Ref0000
+S _s_small_numbers_05 Ref0000
+S man_components_add Ref0000
+S _s_small_numbers_06 Ref0000
+S _s_small_numbers_07 Ref0000
+S cpct_isAnyKeyPressed_asm Ref0000
+S _s_small_numbers_08 Ref0000
+S cpct_scanKeyboard_if_asm Ref0000
+S _s_small_numbers_09 Ref0000
+S cpct_waitVSYNC_asm Ref0000
+S cpct_setVideoMode_asm Ref0000
+S cpct_px2byteM0_asm Ref0000
+S cpct_getRandom_xsp40_u8_asm Ref0000
+S cpct_memset_asm Ref0000
+S man_entity_getEntityArrayIX Ref0000
+S man_components_init Ref0000
+S man_entity_getEntityArrayIY Ref0000
+S _s_font_0 Ref0000
+S cpct_disableFirmware_asm Ref0000
+S cpct_getRandom_mxor_u8_asm Ref0000
+S cpct_drawSolidBox_asm Ref0000
+S cpct_drawSpriteBlended_asm Ref0000
+S man_components_getComponentPtrHL Ref0000
+S cpct_etm_setDrawTilemap4x8_ag_asm Ref0000
+S cpct_waitVSYNCStart_asm Ref0000
+S cpct_scanKeyboard_asm Ref0000
+S cpct_getScreenPtr_asm Ref0000
+A _CODE size 5A flags 0 addr 0
+S sys_collision_collider_colisionable Def0009
+S sys_collision_init Def0000
+S sys_collision_update Def0044
+S sys_collision_update_one_collider Def003B
+A _DATA size 0 flags 0 addr 0
+T 00 00
+R 00 00 00 00
+T 00 00 3E 04 CD 00 00 22 45 00 C9
+R 00 00 00 00 02 05 0F 00 00 08 00 00
+T 09 00
+R 00 00 00 00
+T 09 00 AF 32 00 C0 FD 7E 05 47 FD 86 09 3D DD 4E
+R 00 00 00 00
+T 17 00 05 91 D8 79 DD 86 09 3D 90 D8 FD 7E 07 47
+R 00 00 00 00
+T 25 00 FD 86 0A 3D DD 4E 07 91 D8 79 DD 86 0A 3D
+R 00 00 00 00
+T 33 00 90 D8 3E FF 32 00 C0 C9
+R 00 00 00 00
+T 3B 00
+R 00 00 00 00
+T 3B 00 21 09 00 3E 80 CD 00 00 C9
+R 00 00 00 00 00 03 00 00 02 08 01 00
+T 44 00
+R 00 00 00 00
+T 44 00 21 00 00
+R 00 00 00 00
+T 47 00
+R 00 00 00 00
+T 47 00 5E 23 56 23 7B B2 C8 E5 DD 6B DD 62 CD
+R 00 00 00 00
+T 54 00 3B 00 E1 18 EE C9
+R 00 00 00 00 00 02 00 00

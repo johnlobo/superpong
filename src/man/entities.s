@@ -483,5 +483,5 @@ man_entity_forall_matching_iy::
     jr nz, loop_forall_matching
 
     final_matching:
-        call man_entity_first_entity
+        call man_entity_getEntityArrayIY
 ret

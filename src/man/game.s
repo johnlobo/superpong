@@ -21,6 +21,7 @@
 .include "sys/render.h.s"
 .include "sys/physics.h.s"
 .include "sys/input.h.s"
+.include "sys/collision.h.s"
 .include "common.h.s"
 .include "cpctelera.h.s"
 
@@ -35,9 +36,9 @@
 .area _DATA
 
 player1Tpl::
-DefineEntity e_cmp_default, #0000, e_type_player, 15, 10, 80, 1, 20, 0, 0, #0000, #0000, #0000, 1, 0, #0000, 0
+DefineEntity e_cmp_paddle, #0000, e_type_player, 15, 10, 80, 1, 20, 0x0000, 0x0000, #0000, #0000, #0000, 1, 0, #0000, 0
 ballTpl:: 
-DefineEntity e_cmp_default, #0000, e_type_ball, 15, 40, 80, 1, 2, 0, 0, #0000, #0000, #0000, 1, 0, #0000, 0
+DefineEntity e_cpm_ball, #0000, e_type_ball, 2, 40, 80, 1, 2, 0xffff, 0x0000, #0000, #0000, #0000, 1, 0, #0000, 0
 
 
 game_state:: .db MAIN_MENU   ;; Game state ----- 0: Game loop, 1: Main menu, 2: Map loading, 3: Pause menu, 4: Game over, 5: Victory
@@ -59,15 +60,19 @@ man_game_init::
 
     call man_entity_init
     
-    ;; Create an entity in 100, 100
+    ;; Create a player entity in 100, 100
     ld hl, #player1Tpl                  ;; Template of the entity to create
     call man_entity_create              ;; Create new entity
 
-    ;; Create an entity in 140, 100
+    ;; Create an oponent entity in 140, 100
     ld hl, #player1Tpl                  ;; Template of the entity to create
     call man_entity_create              ;; Create new entity
     ld e_x(ix), #60                     ;; x = 60
     ld e_color(ix), #1                  ;; color = pink 
+
+    ;; Create a ball entity
+    ld hl, #ballTpl                     ;; Template of the ball
+    call man_entity_create              ;; Create ball
 
     call sys_physics_init               ;; initilize physics system
     
@@ -102,10 +107,11 @@ man_game_update::
 _exit_clone_input:
 
     call sys_physics_update
+    call sys_collision_update
     call sys_render_update
     call sys_render_debug_entity
-    ;;delay 
-    ;;ld b, #10
+    ;;;;delay 
+    ;;ld b, #5
     ;;call cpct_waitHalts_asm
     ret
 

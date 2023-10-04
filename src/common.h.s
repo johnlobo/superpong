@@ -116,7 +116,8 @@ e_cmp_ai       = 0x10   ;;entidad controlable con ia
 e_cmp_animated = 0x20   ;;entidad animada
 e_cmp_collider = 0x40   ;;entidad que puede colisionar
 e_cmp_collisionable = 0x80   ;;entidad que puede ser colisionada
-e_cmp_default = e_cmp_alive | e_cmp_render | e_cmp_physics | e_cmp_collider  ;;componente por defecto
+e_cmp_paddle = e_cmp_alive | e_cmp_render | e_cmp_physics | e_cmp_collider  ;;componente por defecto
+e_cpm_ball = e_cmp_alive | e_cmp_render | e_cmp_physics | e_cmp_collisionable
 
 ;;===============================================================================
 ;; Entity Component IDs
@@ -167,12 +168,12 @@ Field e, vy                 , 2
 Field e, sprite             , 2
 Field e, address            , 2
 Field e, p_address          , 2
-Field e, moved              , 1
 Field e, on_platform        , 1
 Field e, orientation        , 1
 Field e, dashing            , 1
 Field e, animation_ptr      , 2
 Field e, animation_status   , 1
+Field e, moved              , 1
 EndStruct e
 
 ;;===============================================================================

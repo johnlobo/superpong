@@ -1,0 +1,230 @@
+XL2
+H 2 areas 43 global symbols
+M input_system
+S cpct_setInterruptHandler_asm Ref0000
+S man_entity_forall_matching_iy Ref0000
+S cpct_getScreenToSprite_asm Ref0000
+S cpct_isKeyPressed_asm Ref0000
+S cpct_setPalette_asm Ref0000
+S man_entity_deleteEverythingExceptPlayer Ref0000
+S cpct_setPALColour_asm Ref0000
+S man_entity_set4destruction Ref0000
+S man_entity_create Ref0000
+S man_entity_init Ref0000
+S cpct_drawSprite_asm Ref0000
+S man_entity_getOponentPosition Ref0000
+S cpct_etm_drawTileBox2x4_asm Ref0000
+S cpct_etm_drawTilemap4x8_ag_asm Ref0000
+S _g_palette Ref0000
+S _cpct_keyboardStatusBuffer Ref0000
+S man_entity_getPlayerPosition Ref0000
+S cpct_waitHalts_asm Ref0000
+S man_entity_update Ref0000
+S cpct_setSeed_mxor_asm Ref0000
+S .__.ABS. Def0000
+S cpct_setSeed_xsp40_u8_asm Ref0000
+S cpct_setVideoMemoryPage_asm Ref0000
+S cpct_memset_f64_asm Ref0000
+S _s_small_numbers_00 Ref0000
+S _s_small_numbers_01 Ref0000
+S _s_small_numbers_02 Ref0000
+S _s_small_numbers_03 Ref0000
+S _s_small_numbers_04 Ref0000
+S _s_small_numbers_05 Ref0000
+S _s_small_numbers_06 Ref0000
+S _s_small_numbers_07 Ref0000
+S cpct_isAnyKeyPressed_asm Ref0000
+S _s_small_numbers_08 Ref0000
+S cpct_scanKeyboard_if_asm Ref0000
+S _s_small_numbers_09 Ref0000
+S cpct_waitVSYNC_asm Ref0000
+S cpct_setVideoMode_asm Ref0000
+S cpct_px2byteM0_asm Ref0000
+S cpct_getRandom_xsp40_u8_asm Ref0000
+S cpct_memset_asm Ref0000
+S man_entity_getEntityArrayIX Ref0000
+S man_entity_getEntityArrayIY Ref0000
+S _s_font_0 Ref0000
+S cpct_disableFirmware_asm Ref0000
+S cpct_getRandom_mxor_u8_asm Ref0000
+S cpct_drawSolidBox_asm Ref0000
+S cpct_drawSpriteBlended_asm Ref0000
+S cpct_etm_setDrawTilemap4x8_ag_asm Ref0000
+S cpct_waitVSYNCStart_asm Ref0000
+S cpct_scanKeyboard_asm Ref0000
+S cpct_getScreenPtr_asm Ref0000
+A _CODE size 148 flags 0 addr 0
+S sys_input_init Def0052
+S sys_input_waitKeyPressed Def003E
+S sys_input_wait4anykey Def0006
+S sys_input_generic_update Def0053
+S sys_input_getKeyPressed Def0018
+S sys_input_player_right Def00A4
+S sys_input_player_up Def00CC
+S sys_input_player_left Def007B
+S sys_input_main_menu_update Def0073
+S sys_input_clean_buffer Def0000
+S sys_input_player_down Def00F5
+S sys_input_player_jump Def011D
+S sys_input_player_update Def0139
+A _DATA size 18 flags 0 addr 0
+S sys_input_main_menu_actions Def0000
+S sys_input_player_actions Def0002
+T 00 00
+R 00 00 01 00
+T 00 00 00 00
+R 00 00 01 00
+T 02 00
+R 00 00 01 00
+T 02 00 04 04 7B 00 03 08 A4 00 05 80 1D 01 08 08
+R 00 00 01 00 00 04 00 00 00 08 00 00 00 0C 00 00
+T 10 00 CC 00 08 20 F5 00 00 00
+R 00 00 01 00 00 02 00 00 00 06 00 00
+T 00 00
+R 00 00 00 00
+T 00 00 CD 00 00 20 FB C9
+R 00 00 00 00 02 03 20 00
+T 06 00
+R 00 00 00 00
+T 06 00 21 00 00
+R 00 00 00 00
+T 09 00
+R 00 00 00 00
+T 09 00 E5 CD 00 00 B7 E1 23 28 F7 E5 CD 00 00 E1
+R 00 00 00 00 02 04 20 00 00 0D 00 00
+T 17 00 C9
+R 00 00 00 00
+T 18 00
+R 00 00 00 00
+T 18 00 21 00 00 AF
+R 00 00 00 00 02 03 0F 00
+T 1C 00
+R 00 00 00 00
+T 1C 00 FE 0A 28 14 32 30 00 7E EE FF 28 06 67 3A
+R 00 00 00 00 00 07 00 00
+T 2A 00 30 00 6F C9
+R 00 00 00 00 00 02 00 00
+T 2E 00
+R 00 00 00 00
+T 2E 00 23 3E 00 3C 18 E8
+R 00 00 00 00
+T 34 00
+R 00 00 00 00
+T 34 00 21 00 00 3E 00 32 3D 00 C9
+R 00 00 00 00 00 08 00 00
+T 3D 00
+R 00 00 00 00
+T 3D 00 00
+R 00 00 00 00
+T 3E 00
+R 00 00 00 00
+T 3E 00 CD 18 00 3A 3D 00 B7 20 F7 AF B4 B5 28 F2
+R 00 00 00 00 00 03 00 00 00 06 00 00
+T 4C 00 3E 01 32 3D 00 C9
+R 00 00 00 00 00 05 00 00
+T 52 00
+R 00 00 00 00
+T 52 00 C9
+R 00 00 00 00
+T 53 00
+R 00 00 00 00
+T 53 00 18 05
+R 00 00 00 00
+T 55 00
+R 00 00 00 00
+T 55 00 01 04 00 FD 09
+R 00 00 00 00
+T 5A 00
+R 00 00 00 00
+T 5A 00 FD 6E 00 FD 66 01 7D B4 C8 CD 00 00 28 ED
+R 00 00 00 00 02 0C 03 00
+T 68 00 21 55 00 E5 FD 6E 02 FD 66 03 E9
+R 00 00 00 00 00 03 00 00
+T 73 00
+R 00 00 00 00
+T 73 00 FD 21 00 00 CD 53 00 C9
+R 00 00 00 00 00 04 01 00 00 07 00 00
+T 7B 00
+R 00 00 00 00
+T 7B 00 DD 66 0F DD 6E 10 01 18 00 B7 ED 42 01
+R 00 00 00 00
+T 88 00 00 FF B7 22 93 00 ED 42 38 0B
+R 00 00 00 00 00 06 00 00
+T 92 00
+R 00 00 00 00
+T 92 00 21 00 00 DD 74 0F DD 75 10 18 06
+R 00 00 00 00
+T 9D 00
+R 00 00 00 00
+T 9D 00 DD 70 0F DD 71 10
+R 00 00 00 00
+T A3 00
+R 00 00 00 00
+T A3 00 C9
+R 00 00 00 00
+T A4 00
+R 00 00 00 00
+T A4 00 DD 66 0F DD 6E 10 01 18 00 ED 4A 01 00 01
+R 00 00 00 00
+T B2 00 B7 22 BB 00 ED 42 30 0B
+R 00 00 00 00 00 04 00 00
+T BA 00
+R 00 00 00 00
+T BA 00 21 00 00 DD 74 0F DD 75 10 18 06
+R 00 00 00 00
+T C5 00
+R 00 00 00 00
+T C5 00 DD 70 0F DD 71 10
+R 00 00 00 00
+T CB 00
+R 00 00 00 00
+T CB 00 C9
+R 00 00 00 00
+T CC 00
+R 00 00 00 00
+T CC 00 DD 66 11 DD 6E 12 01 30 00 B7 ED 42 01
+R 00 00 00 00
+T D9 00 00 FE B7 22 E4 00 ED 42 38 0B
+R 00 00 00 00 00 06 00 00
+T E3 00
+R 00 00 00 00
+T E3 00 21 00 00 DD 74 11 DD 75 12 18 06
+R 00 00 00 00
+T EE 00
+R 00 00 00 00
+T EE 00 DD 70 11 DD 71 12
+R 00 00 00 00
+T F4 00
+R 00 00 00 00
+T F4 00 C9
+R 00 00 00 00
+T F5 00
+R 00 00 00 00
+T F5 00 DD 66 11 DD 6E 12 01 30 00 ED 4A 01 00 02
+R 00 00 00 00
+T 03 01 B7 22 0C 01 ED 42 30 0B
+R 00 00 00 00 00 04 00 00
+T 0B 01
+R 00 00 00 00
+T 0B 01 21 00 00 DD 74 11 DD 75 12 18 06
+R 00 00 00 00
+T 16 01
+R 00 00 00 00
+T 16 01 DD 70 11 DD 71 12
+R 00 00 00 00
+T 1C 01
+R 00 00 00 00
+T 1C 01 C9
+R 00 00 00 00
+T 1D 01
+R 00 00 00 00
+T 1D 01 DD 7E 19 B7 C8 DD 66 11 DD 6E 12 01 00 03
+R 00 00 00 00
+T 2B 01 B7 ED 42 DD 74 11 DD 75 12 DD 36 19 00 C9
+R 00 00 00 00
+T 39 01
+R 00 00 00 00
+T 39 01 DD E5 CD 00 00 FD 21 02 00 CD 53 00 DD E1
+R 00 00 00 00 02 05 10 00 00 09 01 00 00 0C 00 00
+T 47 01 C9
+R 00 00 00 00

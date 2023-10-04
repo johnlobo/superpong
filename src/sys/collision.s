@@ -17,6 +17,7 @@
 
 .include "sys/collision.h.s"
 .include "man/components.h.s"
+.include "man/entities.h.s"
 .include "common.h.s"
 .include "cpctelera.h.s"
 
@@ -52,6 +53,60 @@ sys_collision_init::
     ld  (_ent_array_ptr), hl
     ret
 
+
+;;-----------------------------------------------------------------
+;;
+;; sys_collision_update_one_entity
+;;
+;;  Initilizes render system
+;;  Input: ix : pointer to the colider entity
+;;  Input: iy : pointer to the collisionable entity
+;;  Output: carry activated if no collision
+;;  Modified: AF, BC, HL
+;;
+;;  Code copied from lronaldo (https://www.youtube.com/watch?v=f-4F7SoaHFQ)
+sys_collision_collider_colisionable::
+    xor a
+    ld (#0xc000), a
+    
+    ;; x axis collision
+    ;; case 1
+    ld a, e_x(iy)                   ;; a = iy.x
+    ld b, a                         ;; b = a = iy.x
+    add e_w(iy)                     ;; a = iy.x + iy.w
+    dec a                           ;; a = iy.x + iy.w - 1
+    ld c, e_x(ix)                   ;; c = ix.x
+    sub c                           ;; a = iy.x + iy.w - 1 - ix.x
+    ret c                           ;; return if no collision
+    ;; case 2
+    ld a, c                         ;; a = ix.x
+    add e_w(ix)                     ;; a = ix.x + ix.w
+    dec a                           ;; a = ix.x + ix.w - 1
+    sub b                           ;; a = iy.x + ix.w - 1 - iy.x
+    ret c                           ;; return if no collision
+
+    ;; y axis collision
+    ;; case 3
+    ld a, e_y(iy)                   ;; a = iy.y
+    ld b, a                         ;; b = a = iy.y
+    add e_h(iy)                     ;; a = iy.y + iy.y
+    dec a                           ;; a = iy.y + iy.y - 1
+    ld c, e_y(ix)                   ;; c = ix.y
+    sub c                           ;; a = iy.y + iy.y - 1 - ix.y
+    ret c                           ;; return if no collision
+    ;; case 4
+    ld a, c                         ;; a = ix.y
+    add e_h(ix)                     ;; a = ix.y + ix.y
+    dec a                           ;; a = ix.y + ix.y - 1
+    sub b                           ;; a = iy.y + ix.y - 1 - iy.y
+    ret c                           ;; return if no collision - unncessary
+
+    ;; There is collision
+    ld a, #0xff
+    ld (#0xc000), a
+
+    ret
+
 ;;-----------------------------------------------------------------
 ;;
 ;; sys_collision_update_one_entity
@@ -61,7 +116,10 @@ sys_collision_init::
 ;;  Output: 
 ;;  Modified: AF, BC, HL
 ;;
-sys_collision_update_one_entity::
+sys_collision_update_one_collider::
+    ld hl, #sys_collision_collider_colisionable
+    ld a, #e_cmp_collisionable
+    call man_entity_forall_matching_iy
     ret
 
 ;;-----------------------------------------------------------------
@@ -96,7 +154,7 @@ _ent_array_ptr = . + 1
     ld__ixl_e
     ld__ixh_d
 
-    call sys_collision_update_one_entity
+    call sys_collision_update_one_collider
 
 	pop hl
 
