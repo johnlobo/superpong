@@ -38,3 +38,4 @@ Hexadecimal [16-Bits]
                              33 .globl sys_util_BCD_Compare
                              34 .globl sys_util_get_random_number
                              35 .globl sys_util_delay
+                             36 .globl sys_util_negHL

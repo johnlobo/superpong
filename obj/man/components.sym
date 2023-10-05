@@ -108,6 +108,7 @@ Symbol Table
     string_b   **** GX  |     sys_util   **** GX  |     sys_util   **** GX
     sys_util   **** GX  |     sys_util   **** GX  |     sys_util   **** GX
     sys_util   **** GX  |     sys_util   **** GX  |     sys_util   **** GX
+    sys_util   **** GX
 
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 3.
 Hexadecimal [16-Bits]

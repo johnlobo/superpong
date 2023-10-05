@@ -45,13 +45,13 @@ Symbol Table
   0 random_m=  0069 R   |     sizeof_e=  0020     |   1 string_b   0000 GR
   0 sys_util   0046 GR  |   0 sys_util   0050 GR  |   0 sys_util   003B GR
   0 sys_util   0031 GR  |   0 sys_util   0075 GR  |   0 sys_util   005F GR
-  0 sys_util   0000 GR  |   0 sys_util   0024 GR
+  0 sys_util   0000 GR  |   0 sys_util   0024 GR  |   0 sys_util   007D GR
 
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 2.
 Hexadecimal [16-Bits]
 
 Area Table
 
-   0 _CODE      size   7D   flags    0
+   0 _CODE      size   84   flags    0
    1 _DATA      size    B   flags    0
 

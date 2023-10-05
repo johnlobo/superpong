@@ -779,3 +779,19 @@ Hexadecimal [16-Bits]
    0079 C1            [10]  245   pop bc
    007A 10 F9         [13]  246   djnz sys_util_delay
    007C C9            [10]  247   ret
+                            248 
+                            249 
+                            250 ;;-----------------------------------------------------------------
+                            251 ;;  negate hl
+                            252 ;;  input: hl
+                            253 ;;  ouput: hl negated
+                            254 ;;  destroys a
+                            255 ;; WikiTI code (https://wikiti.brandonw.net/index.php?title=Z80_Routines:Math:Signed_Math)
+   007D                     256 sys_util_negHL::
+   007D AF            [ 4]  257 	xor a
+   007E 95            [ 4]  258 	sub l
+   007F 6F            [ 4]  259 	ld l,a
+   0080 9F            [ 4]  260 	sbc a,a
+   0081 94            [ 4]  261 	sub h
+   0082 67            [ 4]  262 	ld h,a
+   0083 C9            [10]  263 	ret

@@ -245,3 +245,19 @@ sys_util_delay::
   pop bc
   djnz sys_util_delay
   ret
+
+
+;;-----------------------------------------------------------------
+;;  negate hl
+;;  input: hl
+;;  ouput: hl negated
+;;  destroys a
+;; WikiTI code (https://wikiti.brandonw.net/index.php?title=Z80_Routines:Math:Signed_Math)
+sys_util_negHL::
+	xor a
+	sub l
+	ld l,a
+	sbc a,a
+	sub h
+	ld h,a
+	ret

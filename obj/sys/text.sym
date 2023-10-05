@@ -115,7 +115,8 @@ Symbol Table
   0 sys_text   0026 GR  |   0 sys_text   0017 GR  |   0 sys_text   000B GR
     sys_util   **** GX  |     sys_util   **** GX  |     sys_util   **** GX
     sys_util   **** GX  |     sys_util   **** GX  |     sys_util   **** GX
-    sys_util   **** GX  |     sys_util   **** GX  |     v       =  0003 
+    sys_util   **** GX  |     sys_util   **** GX  |     sys_util   **** GX
+    v       =  0003 
 
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 3.
 Hexadecimal [16-Bits]

@@ -123,11 +123,12 @@ Hexadecimal [16-Bits]
 
 Symbol Table
 
-    sys_util   **** GX  |     sys_util   **** GX  |     transpar   **** GX
-    v       =  0002     |     w_addres=  0000     |     w_h     =  0005 
-    w_messag=  0006     |     w_w     =  0004     |     w_wait_f=  0008 
-    w_x     =  0002     |     w_y     =  0003     |   0 wait_for   00FA R
-  0 width      0182 R   |   0 width_ok   0027 R   |   0 y_coord    00D2 R
+    sys_util   **** GX  |     sys_util   **** GX  |     sys_util   **** GX
+    transpar   **** GX  |     v       =  0002     |     w_addres=  0000 
+    w_h     =  0005     |     w_messag=  0006     |     w_w     =  0004 
+    w_wait_f=  0008     |     w_x     =  0002     |     w_y     =  0003 
+  0 wait_for   00FA R   |   0 width      0182 R   |   0 width_ok   0027 R
+  0 y_coord    00D2 R
 
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 4.
 Hexadecimal [16-Bits]

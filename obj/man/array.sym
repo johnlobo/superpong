@@ -115,7 +115,8 @@ Symbol Table
     sizeof_a=  0008     |     sizeof_e=  0020     |     string_b   **** GX
     sys_util   **** GX  |     sys_util   **** GX  |     sys_util   **** GX
     sys_util   **** GX  |     sys_util   **** GX  |     sys_util   **** GX
-    sys_util   **** GX  |     sys_util   **** GX  |     v       =  0001 
+    sys_util   **** GX  |     sys_util   **** GX  |     sys_util   **** GX
+    v       =  0001 
 
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 3.
 Hexadecimal [16-Bits]

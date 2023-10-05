@@ -1,5 +1,5 @@
 XL2
-H 2 areas 33 global symbols
+H 2 areas 34 global symbols
 M sys_util
 S cpct_setInterruptHandler_asm Ref0000
 S cpct_getScreenToSprite_asm Ref0000
@@ -43,13 +43,14 @@ S cpct_etm_setDrawTilemap4x8_ag_asm Ref0000
 S cpct_waitVSYNCStart_asm Ref0000
 S cpct_scanKeyboard_asm Ref0000
 S cpct_getScreenPtr_asm Ref0000
-A _CODE size 7D flags 0 addr 0
+A _CODE size 84 flags 0 addr 0
 S sys_util_h_times_e Def0000
 S sys_util_BCD_Compare Def0050
 S sys_util_BCD_Add Def0046
 S sys_util_hl_div_c Def0024
 S sys_util_get_random_number Def005F
 S sys_util_absHL Def0031
+S sys_util_negHL Def007D
 S sys_util_delay Def0075
 S sys_util_BCD_GetEnd Def003B
 A _DATA size B flags 0 addr 0
@@ -104,3 +105,7 @@ T 75 00
 R 00 00 00 00
 T 75 00 C5 CD 00 00 C1 10 F9 C9
 R 00 00 00 00 02 04 27 00
+T 7D 00
+R 00 00 00 00
+T 7D 00 AF 95 6F 9F 94 67 C9
+R 00 00 00 00

@@ -65,8 +65,8 @@ Symbol Table
 
     SCORE_NU=  0004     |     STEP_HOR=  0018     |     STEP_VER=  0030 
     S_SMALL_=  0005     |     S_SMALL_=  0002     |     ZERO_KEY=  00FF 
-    _cpct_ke   **** GX  |   0 _ent_arr=  0045 R   |     _g_palet   **** GX
-  0 _loop      0047 R   |     _s_font_   **** GX  |     _s_small   **** GX
+    _cpct_ke   **** GX  |   0 _ent_arr=  0053 R   |     _g_palet   **** GX
+  0 _loop      0055 R   |     _s_font_   **** GX  |     _s_small   **** GX
     _s_small   **** GX  |     _s_small   **** GX  |     _s_small   **** GX
     _s_small   **** GX  |     _s_small   **** GX  |     _s_small   **** GX
     _s_small   **** GX  |     _s_small   **** GX  |     _s_small   **** GX
@@ -104,14 +104,18 @@ Symbol Table
     man_enti   **** GX  |     man_enti   **** GX  |     man_enti   **** GX
     man_enti   **** GX  |     man_enti   **** GX  |     nullptr =  0000 
     opc_DI  =  00F3     |     opc_EI  =  00FB     |     opc_JR  =  0018 
-    opc_LD_D=  0016     |     sizeof_e=  0020     |   0 sys_coll   0009 GR
-  0 sys_coll   0000 GR  |   0 sys_coll   0044 GR  |   0 sys_coll   003B GR
+    opc_LD_D=  0016     |     sizeof_e=  0020     |     string_b   **** GX
+  0 sys_coll   0009 GR  |   0 sys_coll   0031 GR  |   0 sys_coll   0000 GR
+  0 sys_coll   0052 GR  |   0 sys_coll   0049 GR  |     sys_util   **** GX
+    sys_util   **** GX  |     sys_util   **** GX  |     sys_util   **** GX
+    sys_util   **** GX  |     sys_util   **** GX  |     sys_util   **** GX
+    sys_util   **** GX  |     sys_util   **** GX
 
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 3.
 Hexadecimal [16-Bits]
 
 Area Table
 
-   0 _CODE      size   5A   flags    0
+   0 _CODE      size   68   flags    0
    1 _DATA      size    0   flags    0
 

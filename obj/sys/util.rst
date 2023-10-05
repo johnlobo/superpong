@@ -541,7 +541,7 @@ Hexadecimal [16-Bits]
                              28 .area _DATA
                              29 
                              30 
-   24C1 20 20 20 20 20 20    31 string_buffer:: .asciz "          "
+   24D3 20 20 20 20 20 20    31 string_buffer:: .asciz "          "
         20 20 20 20 00
                              32 
                              33 
@@ -566,39 +566,39 @@ Hexadecimal [16-Bits]
                              52 ;; Credits:
                              53 ;;  Z80Heaven (http://z80-heaven.wikidot.com/advanced-math#toc9)
                              54 
-   0C2F                      55 sys_util_h_times_e::
-   0C2F 16 00         [ 7]   56   ld d,#0
-   0C31 6A            [ 4]   57   ld l,d
-   0C32 CB 24         [ 8]   58   sla h 
-   0C34 30 01         [12]   59   jr nc,.+3 
-   0C36 6B            [ 4]   60   ld l,e
-   0C37 29            [11]   61   add hl,hl 
-   0C38 30 01         [12]   62   jr nc,.+3 
-   0C3A 19            [11]   63   add hl,de
-   0C3B 29            [11]   64   add hl,hl 
-   0C3C 30 01         [12]   65   jr nc,.+3 
-   0C3E 19            [11]   66   add hl,de
-   0C3F 29            [11]   67   add hl,hl 
-   0C40 30 01         [12]   68   jr nc,.+3 
-   0C42 19            [11]   69   add hl,de
-   0C43 29            [11]   70   add hl,hl 
-   0C44 30 01         [12]   71   jr nc,.+3 
-   0C46 19            [11]   72   add hl,de
-   0C47 29            [11]   73   add hl,hl 
-   0C48 30 01         [12]   74   jr nc,.+3 
-   0C4A 19            [11]   75   add hl,de
+   0C2C                      55 sys_util_h_times_e::
+   0C2C 16 00         [ 7]   56   ld d,#0
+   0C2E 6A            [ 4]   57   ld l,d
+   0C2F CB 24         [ 8]   58   sla h 
+   0C31 30 01         [12]   59   jr nc,.+3 
+   0C33 6B            [ 4]   60   ld l,e
+   0C34 29            [11]   61   add hl,hl 
+   0C35 30 01         [12]   62   jr nc,.+3 
+   0C37 19            [11]   63   add hl,de
+   0C38 29            [11]   64   add hl,hl 
+   0C39 30 01         [12]   65   jr nc,.+3 
+   0C3B 19            [11]   66   add hl,de
+   0C3C 29            [11]   67   add hl,hl 
+   0C3D 30 01         [12]   68   jr nc,.+3 
+   0C3F 19            [11]   69   add hl,de
+   0C40 29            [11]   70   add hl,hl 
+   0C41 30 01         [12]   71   jr nc,.+3 
+   0C43 19            [11]   72   add hl,de
+   0C44 29            [11]   73   add hl,hl 
+   0C45 30 01         [12]   74   jr nc,.+3 
+   0C47 19            [11]   75   add hl,de
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 13.
 Hexadecimal [16-Bits]
 
 
 
-   0C4B 29            [11]   76   add hl,hl 
-   0C4C 30 01         [12]   77   jr nc,.+3 
-   0C4E 19            [11]   78   add hl,de
-   0C4F 29            [11]   79   add hl,hl 
-   0C50 D0            [11]   80   ret nc 
-   0C51 19            [11]   81   add hl,de
-   0C52 C9            [10]   82   ret
+   0C48 29            [11]   76   add hl,hl 
+   0C49 30 01         [12]   77   jr nc,.+3 
+   0C4B 19            [11]   78   add hl,de
+   0C4C 29            [11]   79   add hl,hl 
+   0C4D D0            [11]   80   ret nc 
+   0C4E 19            [11]   81   add hl,de
+   0C4F C9            [10]   82   ret
                              83 
                              84 ;;-----------------------------------------------------------------;; 
                              85 ;;  sys_util_hl_div_c
@@ -613,17 +613,17 @@ Hexadecimal [16-Bits]
                              94 ;;     DE is not changed
                              95 ;;     HL is the quotient
                              96 ;;
-   0C53                      97 sys_util_hl_div_c::
-   0C53 06 10         [ 7]   98        ld b,#16
-   0C55 AF            [ 4]   99        xor a
-   0C56 29            [11]  100          add hl,hl
-   0C57 17            [ 4]  101          rla
-   0C58 B9            [ 4]  102          cp c
-   0C59 38 02         [12]  103          jr c,.+4
-   0C5B 2C            [ 4]  104            inc l
-   0C5C 91            [ 4]  105            sub c
-   0C5D 10 F7         [13]  106          djnz .-7
-   0C5F C9            [10]  107        ret
+   0C50                      97 sys_util_hl_div_c::
+   0C50 06 10         [ 7]   98        ld b,#16
+   0C52 AF            [ 4]   99        xor a
+   0C53 29            [11]  100          add hl,hl
+   0C54 17            [ 4]  101          rla
+   0C55 B9            [ 4]  102          cp c
+   0C56 38 02         [12]  103          jr c,.+4
+   0C58 2C            [ 4]  104            inc l
+   0C59 91            [ 4]  105            sub c
+   0C5A 10 F7         [13]  106          djnz .-7
+   0C5C C9            [10]  107        ret
                             108 
                             109 ;;-----------------------------------------------------------------
                             110 ;;
@@ -636,16 +636,16 @@ Hexadecimal [16-Bits]
                             117 ;;
                             118 ;;  Cemetech code (https://learn.cemetech.net/index.php?title=Z80:Math_Routines#absHL)
                             119 ;;
-   0C60                     120 sys_util_absHL::
-   0C60 CB 7C         [ 8]  121   bit #7,h
-   0C62 C8            [11]  122   ret z
-   0C63 AF            [ 4]  123   xor a
-   0C64 95            [ 4]  124   sub l
-   0C65 6F            [ 4]  125   ld l,a
-   0C66 9F            [ 4]  126   sbc a,a
-   0C67 94            [ 4]  127   sub h
-   0C68 67            [ 4]  128   ld h,a
-   0C69 C9            [10]  129   ret
+   0C5D                     120 sys_util_absHL::
+   0C5D CB 7C         [ 8]  121   bit #7,h
+   0C5F C8            [11]  122   ret z
+   0C60 AF            [ 4]  123   xor a
+   0C61 95            [ 4]  124   sub l
+   0C62 6F            [ 4]  125   ld l,a
+   0C63 9F            [ 4]  126   sbc a,a
+   0C64 94            [ 4]  127   sub h
+   0C65 67            [ 4]  128   ld h,a
+   0C66 C9            [10]  129   ret
                             130 
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 14.
 Hexadecimal [16-Bits]
@@ -665,19 +665,19 @@ Hexadecimal [16-Bits]
                             141 ;;
                             142 ;;  Chibi Akumas BCD code (https://www.chibiakumas.com/z80/advanced.php#LessonA1)
                             143 ;;
-   0C6A                     144 sys_util_BCD_GetEnd::
+   0C67                     144 sys_util_BCD_GetEnd::
                             145 ;Some of our commands need to start from the most significant byte
                             146 ;This will shift HL and DE along b bytes
-   0C6A C5            [11]  147 	push bc
-   0C6B 48            [ 4]  148 	ld c,b	;We want to add BC, but we need to add one less than the number of bytes
-   0C6C 0D            [ 4]  149 	dec c
-   0C6D 06 00         [ 7]  150 	ld b,#0
-   0C6F 09            [11]  151 	add hl,bc
-   0C70 EB            [ 4]  152 	ex de, hl	;We've done HL, but we also want to do DE
-   0C71 09            [11]  153 	add hl,bc
-   0C72 EB            [ 4]  154 	ex de, hl
-   0C73 C1            [10]  155 	pop bc
-   0C74 C9            [10]  156 	ret
+   0C67 C5            [11]  147 	push bc
+   0C68 48            [ 4]  148 	ld c,b	;We want to add BC, but we need to add one less than the number of bytes
+   0C69 0D            [ 4]  149 	dec c
+   0C6A 06 00         [ 7]  150 	ld b,#0
+   0C6C 09            [11]  151 	add hl,bc
+   0C6D EB            [ 4]  152 	ex de, hl	;We've done HL, but we also want to do DE
+   0C6E 09            [11]  153 	add hl,bc
+   0C6F EB            [ 4]  154 	ex de, hl
+   0C70 C1            [10]  155 	pop bc
+   0C71 C9            [10]  156 	ret
                             157 
                             158 ;;-----------------------------------------------------------------
                             159 ;;
@@ -691,17 +691,17 @@ Hexadecimal [16-Bits]
                             167 ;;
                             168 ;;  Chibi Akumas BCD code (https://www.chibiakumas.com/z80/advanced.php#LessonA1)
                             169 ;;
-   0C75                     170 sys_util_BCD_Add::
-   0C75 B7            [ 4]  171     or a
-   0C76                     172 BCD_Add_Again:
-   0C76 1A            [ 7]  173     ld a, (de)
-   0C77 8E            [ 7]  174     adc (hl)
-   0C78 27            [ 4]  175     daa
-   0C79 12            [ 7]  176     ld (de), a
-   0C7A 13            [ 6]  177     inc de
-   0C7B 23            [ 6]  178     inc hl
-   0C7C 10 F8         [13]  179     djnz BCD_Add_Again
-   0C7E C9            [10]  180     ret
+   0C72                     170 sys_util_BCD_Add::
+   0C72 B7            [ 4]  171     or a
+   0C73                     172 BCD_Add_Again:
+   0C73 1A            [ 7]  173     ld a, (de)
+   0C74 8E            [ 7]  174     adc (hl)
+   0C75 27            [ 4]  175     daa
+   0C76 12            [ 7]  176     ld (de), a
+   0C77 13            [ 6]  177     inc de
+   0C78 23            [ 6]  178     inc hl
+   0C79 10 F8         [13]  179     djnz BCD_Add_Again
+   0C7B C9            [10]  180     ret
                             181   
                             182 ;;-----------------------------------------------------------------
                             183 ;;
@@ -720,19 +720,19 @@ Hexadecimal [16-Bits]
                             191 ;;
                             192 ;;  Chibi Akumas BCD code (https://www.chibiakumas.com/z80/advanced.php#LessonA1)
                             193 ;;
-   0C7F                     194 sys_util_BCD_Compare::
-   0C7F 06 04         [ 7]  195   ld b, #SCORE_NUM_BYTES
-   0C81 CD 6A 0C      [17]  196   call sys_util_BCD_GetEnd
-   0C84                     197 BCD_cp_direct:
-   0C84 1A            [ 7]  198   ld a, (de)
-   0C85 BE            [ 7]  199   cp (hl)
-   0C86 D8            [11]  200   ret c
-   0C87 C0            [11]  201   ret nz
-   0C88 1B            [ 6]  202   dec de
-   0C89 2B            [ 6]  203   dec hl
-   0C8A 10 F8         [13]  204   djnz BCD_cp_direct
-   0C8C B7            [ 4]  205   or a                    ;; Clear carry
-   0C8D C9            [10]  206   ret
+   0C7C                     194 sys_util_BCD_Compare::
+   0C7C 06 04         [ 7]  195   ld b, #SCORE_NUM_BYTES
+   0C7E CD 67 0C      [17]  196   call sys_util_BCD_GetEnd
+   0C81                     197 BCD_cp_direct:
+   0C81 1A            [ 7]  198   ld a, (de)
+   0C82 BE            [ 7]  199   cp (hl)
+   0C83 D8            [11]  200   ret c
+   0C84 C0            [11]  201   ret nz
+   0C85 1B            [ 6]  202   dec de
+   0C86 2B            [ 6]  203   dec hl
+   0C87 10 F8         [13]  204   djnz BCD_cp_direct
+   0C89 B7            [ 4]  205   or a                    ;; Clear carry
+   0C8A C9            [10]  206   ret
                             207 
                             208 ;;-----------------------------------------------------------------
                             209 ;;
@@ -743,21 +743,21 @@ Hexadecimal [16-Bits]
                             214 ;;  Output: a: random number
                             215 ;;  Destroyed: af, bc,de, hl
                             216 
-   0C8E                     217 sys_util_get_random_number::
-   0C8E 32 98 0C      [13]  218   ld (#random_max_number), a
-   0C91 CD C9 21      [17]  219   call cpct_getRandom_mxor_u8_asm
-   0C94 7D            [ 4]  220   ld a, l                             ;; Calculates a pseudo modulus of max number
-   0C95 26 00         [ 7]  221   ld h,#0                             ;; Load hl with the random number
+   0C8B                     217 sys_util_get_random_number::
+   0C8B 32 95 0C      [13]  218   ld (#random_max_number), a
+   0C8E CD DB 21      [17]  219   call cpct_getRandom_mxor_u8_asm
+   0C91 7D            [ 4]  220   ld a, l                             ;; Calculates a pseudo modulus of max number
+   0C92 26 00         [ 7]  221   ld h,#0                             ;; Load hl with the random number
                      0069   222 random_max_number = .+1
-   0C97 0E 00         [ 7]  223   ld c, #0                            ;; Load c with the max number
-   0C99 06 00         [ 7]  224   ld b, #0
-   0C9B                     225 _random_mod_loop:
-   0C9B B7            [ 4]  226   or a                                ;; ??
-   0C9C ED 42         [15]  227   sbc hl,bc                           ;; hl = hl - bc
-   0C9E F2 9B 0C      [10]  228   jp p, _random_mod_loop              ;; Jump back if hl > 0
-   0CA1 09            [11]  229   add hl,bc                           ;; Adds MAX_MODEL_CARD to hl back to get back to positive values
-   0CA2 7D            [ 4]  230   ld a,l                              ;; loads the normalized random number in a
-   0CA3 C9            [10]  231 ret
+   0C94 0E 00         [ 7]  223   ld c, #0                            ;; Load c with the max number
+   0C96 06 00         [ 7]  224   ld b, #0
+   0C98                     225 _random_mod_loop:
+   0C98 B7            [ 4]  226   or a                                ;; ??
+   0C99 ED 42         [15]  227   sbc hl,bc                           ;; hl = hl - bc
+   0C9B F2 98 0C      [10]  228   jp p, _random_mod_loop              ;; Jump back if hl > 0
+   0C9E 09            [11]  229   add hl,bc                           ;; Adds MAX_MODEL_CARD to hl back to get back to positive values
+   0C9F 7D            [ 4]  230   ld a,l                              ;; loads the normalized random number in a
+   0CA0 C9            [10]  231 ret
                             232 
                             233 ;;-----------------------------------------------------------------
                             234 ;;
@@ -773,9 +773,25 @@ Hexadecimal [16-Bits]
 
 
                             241 ;;
-   0CA4                     242 sys_util_delay::
-   0CA4 C5            [11]  243   push bc
-   0CA5 CD 7A 22      [17]  244   call cpct_waitVSYNCStart_asm
-   0CA8 C1            [10]  245   pop bc
-   0CA9 10 F9         [13]  246   djnz sys_util_delay
-   0CAB C9            [10]  247   ret
+   0CA1                     242 sys_util_delay::
+   0CA1 C5            [11]  243   push bc
+   0CA2 CD 8C 22      [17]  244   call cpct_waitVSYNCStart_asm
+   0CA5 C1            [10]  245   pop bc
+   0CA6 10 F9         [13]  246   djnz sys_util_delay
+   0CA8 C9            [10]  247   ret
+                            248 
+                            249 
+                            250 ;;-----------------------------------------------------------------
+                            251 ;;  negate hl
+                            252 ;;  input: hl
+                            253 ;;  ouput: hl negated
+                            254 ;;  destroys a
+                            255 ;; WikiTI code (https://wikiti.brandonw.net/index.php?title=Z80_Routines:Math:Signed_Math)
+   0CA9                     256 sys_util_negHL::
+   0CA9 AF            [ 4]  257 	xor a
+   0CAA 95            [ 4]  258 	sub l
+   0CAB 6F            [ 4]  259 	ld l,a
+   0CAC 9F            [ 4]  260 	sbc a,a
+   0CAD 94            [ 4]  261 	sub h
+   0CAE 67            [ 4]  262 	ld h,a
+   0CAF C9            [10]  263 	ret

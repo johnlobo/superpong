@@ -6266,32 +6266,33 @@ Hexadecimal [16-Bits]
 
 
                              24    .mexit
-                            410 
-                            411 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-                            412 ;;	ENTITY_MANAGER::GetPlayerPositionIY
-                            413 ;;		Returns a pointer to the player for input system
-                            414 ;;	INPUT:
-                            415 ;;	MODIFY:
-                            416 ;;		HL
-                            417 ;;	   
-   0127                     418 man_entity_getPlayerPosition::
-   0127 DD 21 05 00   [14]  419 	ld ix, #_entity_array
-   012B C9            [10]  420 	ret
-                            421 
-                            422 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-                            423 ;;	ENTITY_MANAGER::GetPlayerPositionIY
-                            424 ;;		Returns a pointer to the player for input system
-                            425 ;;	INPUT:
-                            426 ;;	MODIFY:
-                            427 ;;		HL
-                            428 ;;	   
-   012C                     429 man_entity_getOponentPosition::
-   012C                     430 	cpctm_push hl, bc
+   0127 C9            [10]  410 	ret
+                            411 
+                            412 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                            413 ;;	ENTITY_MANAGER::GetPlayerPositionIY
+                            414 ;;		Returns a pointer to the player for input system
+                            415 ;;	INPUT:
+                            416 ;;	MODIFY:
+                            417 ;;		HL
+                            418 ;;	   
+   0128                     419 man_entity_getPlayerPosition::
+   0128 DD 21 05 00   [14]  420 	ld ix, #_entity_array
+   012C C9            [10]  421 	ret
+                            422 
+                            423 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                            424 ;;	ENTITY_MANAGER::GetPlayerPositionIY
+                            425 ;;		Returns a pointer to the player for input system
+                            426 ;;	INPUT:
+                            427 ;;	MODIFY:
+                            428 ;;		HL
+                            429 ;;	   
+   012D                     430 man_entity_getOponentPosition::
+   012D                     431 	cpctm_push hl, bc
                      0002     1    .narg v
                      0001     2    .if v
-   012C E5            [11]    3    push hl
+   012D E5            [11]    3    push hl
                      0001     4    .if v-1
-   012D C5            [11]    5    push bc
+   012E C5            [11]    5    push bc
                      0000     6    .if v-2
                               7    push 
                               8    .if v-3
@@ -6311,22 +6312,22 @@ Hexadecimal [16-Bits]
                              22    .endif
                      0001    23    .else
                              24    .mexit
-   012E 21 05 00      [10]  431 	ld hl, #_entity_array
-   0131 01 20 00      [10]  432 	ld bc, #sizeof_e
-   0134 09            [11]  433 	add hl, bc
-   0135 E5            [11]  434 	push hl
-   0136 FD E1         [14]  435 	pop iy
-   0138                     436 	cpctm_pop bc, hl
+   012F 21 05 00      [10]  432 	ld hl, #_entity_array
+   0132 01 20 00      [10]  433 	ld bc, #sizeof_e
+   0135 09            [11]  434 	add hl, bc
+   0136 E5            [11]  435 	push hl
+   0137 FD E1         [14]  436 	pop iy
+   0139                     437 	cpctm_pop bc, hl
                      0002     1    .narg v
                      0001     2    .if v
-   0138 C1            [10]    3    pop bc
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 119.
 Hexadecimal [16-Bits]
 
 
 
+   0139 C1            [10]    3    pop bc
                      0001     4    .if v-1
-   0139 E1            [10]    5    pop hl
+   013A E1            [10]    5    pop hl
                      0000     6    .if v-2
                               7    pop 
                               8    .if v-3
@@ -6346,77 +6347,75 @@ Hexadecimal [16-Bits]
                              22    .endif
                      0001    23    .else
                              24    .mexit
-   013A C9            [10]  437 	ret
-                            438 
-                            439 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-                            440 ;;	ENTITY_MANAGER::deleteEverythingExceptPlayer
-                            441 ;;		Remove all entities except the player'.
-                            442 ;;	INPUT:
-                            443 ;;	MODIFY:
-                            444 ;;		A
-                            445 ;;	   
-   013B                     446 man_entity_deleteEverythingExceptPlayer::
-   013B CD 09 01      [17]  447 	call man_entity_getEntityArrayIX
-                            448 
-   013E                     449 	__loop:
-                            450 	;;	If the pointer to the next element in the list is null the entity is the player
-                            451 	;; 	and the loop is terminated.
-   013E DD 7E 00      [19]  452 	ld a, e_ptr(ix)
-   0141 4F            [ 4]  453 	ld c, a
-   0142 DD 46 01      [19]  454 	ld b, e_ptr+1(ix)
-   0145 B1            [ 4]  455 	or c
-   0146 C8            [11]  456 	ret z
-                            457 
-                            458 	;;	The entity is marked for deletion.
-   0147 CD 94 00      [17]  459 	call man_entity_set4destruction
-                            460 
-   014A                     461 	ld__ixl_c
-   014A DD 69                 1    .dw #0x69DD  ;; Opcode for ld ixl, c
-   014C                     462 	ld__ixh_b
-   014C DD 60                 1    .dw #0x60DD  ;; Opcode for ld ixh, b
-   014E 18 EE         [12]  463 	jr __loop
-                            464 
-                            465 ;; Pointer to function
-   0150 00 00               466 function_for_all: .db #0x00, #0x00
-                            467 
-                            468 ;; ---------------------------------------------
+   013B C9            [10]  438 	ret
+                            439 
+                            440 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                            441 ;;	ENTITY_MANAGER::deleteEverythingExceptPlayer
+                            442 ;;		Remove all entities except the player'.
+                            443 ;;	INPUT:
+                            444 ;;	MODIFY:
+                            445 ;;		A
+                            446 ;;	   
+   013C                     447 man_entity_deleteEverythingExceptPlayer::
+   013C CD 09 01      [17]  448 	call man_entity_getEntityArrayIX
+                            449 
+   013F                     450 	__loop:
+                            451 	;;	If the pointer to the next element in the list is null the entity is the player
+                            452 	;; 	and the loop is terminated.
+   013F DD 7E 00      [19]  453 	ld a, e_ptr(ix)
+   0142 4F            [ 4]  454 	ld c, a
+   0143 DD 46 01      [19]  455 	ld b, e_ptr+1(ix)
+   0146 B1            [ 4]  456 	or c
+   0147 C8            [11]  457 	ret z
+                            458 
+                            459 	;;	The entity is marked for deletion.
+   0148 CD 94 00      [17]  460 	call man_entity_set4destruction
+                            461 
+   014B                     462 	ld__ixl_c
+   014B DD 69                 1    .dw #0x69DD  ;; Opcode for ld ixl, c
+   014D                     463 	ld__ixh_b
+   014D DD 60                 1    .dw #0x60DD  ;; Opcode for ld ixh, b
+   014F 18 EE         [12]  464 	jr __loop
+                            465 
+                            466 ;; Pointer to function
+   0151 00 00               467 function_for_all: .db #0x00, #0x00
+                            468 
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 120.
 Hexadecimal [16-Bits]
 
 
 
-                            469 ;; Applies a function filtering specific criteria
-                            470 ;; B -> Mask of bytes (e_cmps)
-                            471 ;; ---------------------------------------------
-   0152                     472 man_entity_forall_matching_iy::
-   0152 22 50 01      [16]  473     ld (function_for_all), hl
-   0155 CD 11 01      [17]  474     call man_entity_getEntityArrayIY ;; IY points to the first entity
-                            475 
-   0158 FD 7E 02      [19]  476     ld a,e_cmps(iy) ;;si la primera entidad es invalida, salimos de la funcion
-   015B E6 FF         [ 7]  477     and #0xFF
-   015D 28 1B         [12]  478     jr z, final_matching
-                            479 
-   015F                     480     loop_forall_matching:
-   015F C5            [11]  481         push bc ;;guardo mascara de bytes
-   0160 FD 7E 02      [19]  482         ld a, e_cmps(iy)
-   0163 A0            [ 4]  483         and b
-   0164 B8            [ 4]  484         cp b
-   0165 20 08         [12]  485         jr nz, afterjp_matching
-                            486    
-   0167 21 6F 01      [10]  487         ld hl, #afterjp_matching
-   016A E5            [11]  488         push hl
-                            489 
-   016B 2A 50 01      [16]  490         ld hl, (function_for_all)
-   016E E9            [ 4]  491         jp (hl)
-                            492 
-   016F                     493     afterjp_matching:
-   016F CD 19 01      [17]  494         call man_next_entity_iy
-                            495         
-   0172 FD 7E 02      [19]  496         ld a,e_cmps(iy)
-   0175 E6 FF         [ 7]  497         and #0xFF
-   0177 C1            [10]  498         pop bc
-   0178 20 E5         [12]  499     jr nz, loop_forall_matching
-                            500 
-   017A                     501     final_matching:
-   017A CD 11 01      [17]  502         call man_entity_getEntityArrayIY
-   017D C9            [10]  503 ret
+                            469 ;; ---------------------------------------------
+                            470 ;; Applies a function filtering specific criteria
+                            471 ;; B -> Mask of bytes (e_cmps)
+                            472 ;; ---------------------------------------------
+   0153                     473 man_entity_forall_matching_iy::
+   0153 22 51 01      [16]  474     ld (function_for_all), hl
+   0156 CD 11 01      [17]  475     call man_entity_getEntityArrayIY ;; IY points to the first entity
+                            476 
+   0159 FD 7E 02      [19]  477     ld a,e_cmps(iy) ;;si la primera entidad es invalida, salimos de la funcion
+   015C E6 FF         [ 7]  478     and #0xFF
+   015E C8            [11]  479     ret z
+                            480 
+   015F                     481     loop_forall_matching:
+   015F C5            [11]  482         push bc ;;guardo mascara de bytes
+   0160 FD 7E 02      [19]  483         ld a, e_cmps(iy)
+   0163 A0            [ 4]  484         and b
+   0164 B8            [ 4]  485         cp b
+   0165 20 08         [12]  486         jr nz, afterjp_matching
+                            487    
+   0167 21 6F 01      [10]  488         ld hl, #afterjp_matching
+   016A E5            [11]  489         push hl
+                            490 
+   016B 2A 51 01      [16]  491         ld hl, (function_for_all)
+   016E E9            [ 4]  492         jp (hl)
+                            493 
+   016F                     494     afterjp_matching:
+   016F CD 19 01      [17]  495         call man_next_entity_iy
+                            496         
+   0172 FD 7E 02      [19]  497         ld a,e_cmps(iy)
+   0175 E6 FF         [ 7]  498         and #0xff
+   0177 C1            [10]  499         pop bc
+   0178 20 E5         [12]  500     jr nz, loop_forall_matching
+                            501 
+   017A C9            [10]  502 	ret

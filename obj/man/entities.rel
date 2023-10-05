@@ -48,15 +48,15 @@ S cpct_etm_setDrawTilemap4x8_ag_asm Ref0000
 S cpct_waitVSYNCStart_asm Ref0000
 S cpct_scanKeyboard_asm Ref0000
 S cpct_getScreenPtr_asm Ref0000
-A _CODE size 17E flags 0 addr 0
-S man_entity_forall_matching_iy Def0152
-S man_entity_deleteEverythingExceptPlayer Def013B
+A _CODE size 17B flags 0 addr 0
+S man_entity_forall_matching_iy Def0153
+S man_entity_deleteEverythingExceptPlayer Def013C
 S man_entity_create Def00C9
 S man_entity_set4destruction Def0094
 S man_entity_init Def005B
-S man_entity_getOponentPosition Def012C
+S man_entity_getOponentPosition Def012D
 S man_next_entity_iy Def0119
-S man_entity_getPlayerPosition Def0127
+S man_entity_getPlayerPosition Def0128
 S man_entity_update Def00A2
 S man_entity_new Def003A
 S man_entity_destroy Def0000
@@ -210,41 +210,39 @@ T 19 01
 R 00 00 00 00
 T 19 01 E5 C5 FD E5 E1 01 20 00 09 E5 FD E1 C1 E1
 R 00 00 00 00
-T 27 01
+T 27 01 C9
 R 00 00 00 00
-T 27 01 DD 21 05 00 C9
+T 28 01
+R 00 00 00 00
+T 28 01 DD 21 05 00 C9
 R 00 00 00 00 00 04 01 00
-T 2C 01
+T 2D 01
 R 00 00 00 00
-T 2C 01 E5 C5 21 05 00 01 20 00 09 E5 FD E1 C1 E1
+T 2D 01 E5 C5 21 05 00 01 20 00 09 E5 FD E1 C1 E1
 R 00 00 00 00 00 05 01 00
-T 3A 01 C9
+T 3B 01 C9
 R 00 00 00 00
-T 3B 01
+T 3C 01
 R 00 00 00 00
-T 3B 01 CD 09 01
+T 3C 01 CD 09 01
 R 00 00 00 00 00 03 00 00
-T 3E 01
+T 3F 01
 R 00 00 00 00
-T 3E 01 DD 7E 00 4F DD 46 01 B1 C8 CD 94 00 DD 69
+T 3F 01 DD 7E 00 4F DD 46 01 B1 C8 CD 94 00 DD 69
 R 00 00 00 00 00 0C 00 00
-T 4C 01 DD 60 18 EE 00 00
+T 4D 01 DD 60 18 EE 00 00
 R 00 00 00 00
-T 52 01
+T 53 01
 R 00 00 00 00
-T 52 01 22 50 01 CD 11 01 FD 7E 02 E6 FF 28 1B
+T 53 01 22 51 01 CD 11 01 FD 7E 02 E6 FF C8
 R 00 00 00 00 00 03 00 00 00 06 00 00
 T 5F 01
 R 00 00 00 00
 T 5F 01 C5 FD 7E 02 A0 B8 20 08 21 6F 01 E5 2A
 R 00 00 00 00 00 0B 00 00
-T 6C 01 50 01 E9
+T 6C 01 51 01 E9
 R 00 00 00 00 00 02 00 00
 T 6F 01
 R 00 00 00 00
-T 6F 01 CD 19 01 FD 7E 02 E6 FF C1 20 E5
-R 00 00 00 00 00 03 00 00
-T 7A 01
-R 00 00 00 00
-T 7A 01 CD 11 01 C9
+T 6F 01 CD 19 01 FD 7E 02 E6 FF C1 20 E5 C9
 R 00 00 00 00 00 03 00 00

@@ -18,6 +18,7 @@
 .include "sys/collision.h.s"
 .include "man/components.h.s"
 .include "man/entities.h.s"
+.include "sys/util.h.s"
 .include "common.h.s"
 .include "cpctelera.h.s"
 
@@ -56,7 +57,7 @@ sys_collision_init::
 
 ;;-----------------------------------------------------------------
 ;;
-;; sys_collision_update_one_entity
+;; sys_collision_check_collider_colisionable
 ;;
 ;;  Initilizes render system
 ;;  Input: ix : pointer to the colider entity
@@ -65,10 +66,7 @@ sys_collision_init::
 ;;  Modified: AF, BC, HL
 ;;
 ;;  Code copied from lronaldo (https://www.youtube.com/watch?v=f-4F7SoaHFQ)
-sys_collision_collider_colisionable::
-    xor a
-    ld (#0xc000), a
-    
+sys_collision_check_collider_colisionable::
     ;; x axis collision
     ;; case 1
     ld a, e_x(iy)                   ;; a = iy.x
@@ -99,13 +97,32 @@ sys_collision_collider_colisionable::
     add e_h(ix)                     ;; a = ix.y + ix.y
     dec a                           ;; a = ix.y + ix.y - 1
     sub b                           ;; a = iy.y + ix.y - 1 - iy.y
-    ret c                           ;; return if no collision - unncessary
+    ;;ret c                           ;; return if no collision - unncessary
+    ret
 
-    ;; There is collision
-    ld a, #0xff
-    ld (#0xc000), a
+;;-----------------------------------------------------------------
+;;
+;; sys_collision_update_one_entity
+;;
+;;  Initilizes render system
+;;  Input: ix : pointer to the entity
+;;  Output: 
+;;  Modified: AF, BC, HL
+;;
+sys_collision_collider_colisionable::
+    call sys_collision_check_collider_colisionable  ;; check if there is a collision
+    ret c                                           ;; return if there is no collisión between ix and iy
+
+    ;; change x velocity because of the collision
+    ld h, e_vx(iy)
+    ld l, e_vx+1(iy)
+    call sys_util_negHL
+    ld e_vx(iy), h
+    ld e_vx+1(iy), l
+    ld e_moved(iy), #1
 
     ret
+
 
 ;;-----------------------------------------------------------------
 ;;

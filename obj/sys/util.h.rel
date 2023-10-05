@@ -1,5 +1,5 @@
 XL2
-H 1 areas A global symbols
+H 1 areas B global symbols
 S sys_util_h_times_e Ref0000
 S sys_util_BCD_Compare Ref0000
 S sys_util_BCD_Add Ref0000
@@ -7,6 +7,7 @@ S sys_util_hl_div_c Ref0000
 S .__.ABS. Def0000
 S sys_util_get_random_number Ref0000
 S sys_util_absHL Ref0000
+S sys_util_negHL Ref0000
 S sys_util_delay Ref0000
 S string_buffer Ref0000
 S sys_util_BCD_GetEnd Ref0000

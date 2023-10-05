@@ -407,6 +407,7 @@ man_next_entity_iy::
 	push hl
 	pop iy
 	cpctm_pop bc, hl
+	ret
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;	ENTITY_MANAGER::GetPlayerPositionIY
@@ -475,7 +476,7 @@ man_entity_forall_matching_iy::
 
     ld a,e_cmps(iy) ;;si la primera entidad es invalida, salimos de la funcion
     and #0xFF
-    jr z, final_matching
+    ret z
 
     loop_forall_matching:
         push bc ;;guardo mascara de bytes
@@ -494,10 +495,8 @@ man_entity_forall_matching_iy::
         call man_next_entity_iy
         
         ld a,e_cmps(iy)
-        and #0xFF
+        and #0xff
         pop bc
     jr nz, loop_forall_matching
 
-    final_matching:
-        call man_entity_getEntityArrayIY
-ret
+	ret

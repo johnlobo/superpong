@@ -1,5 +1,5 @@
 XL2
-H 2 areas 3C global symbols
+H 2 areas 3D global symbols
 M array_manager
 S cpct_setInterruptHandler_asm Ref0000
 S cpct_getScreenToSprite_asm Ref0000
@@ -28,6 +28,7 @@ S _s_small_numbers_01 Ref0000
 S _s_small_numbers_02 Ref0000
 S _s_small_numbers_03 Ref0000
 S _s_small_numbers_04 Ref0000
+S sys_util_negHL Ref0000
 S _s_small_numbers_05 Ref0000
 S sys_util_delay Ref0000
 S _s_small_numbers_06 Ref0000
