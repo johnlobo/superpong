@@ -235,9 +235,9 @@ Hexadecimal [16-Bits]
                             165 ;;  Defines the structure of the entity array.
                             166 .mdelete DefineComponentArrayStructure_Size
                             167 .macro DefineComponentArrayStructure_Size _Tname, _N, _ComponentSize
-                            168     _Tname'_num:         .db 0
-                            169     _Tname'_list:        .dw nullptr
-                            170     _Tname'_free_list:   .dw _Tname'_array
+                            168     _Tname'_num::         .db 0
+                            169     _Tname'_list::        .dw nullptr
+                            170     _Tname'_free_list::   .dw _Tname'_array
                             171     _Tname'_array::
                             172         .ds _N * _ComponentSize
                             173 .endm
@@ -717,9 +717,9 @@ Hexadecimal [16-Bits]
                             165 ;;  Defines the structure of the entity array.
                             166 .mdelete DefineComponentArrayStructure_Size
                             167 .macro DefineComponentArrayStructure_Size _Tname, _N, _ComponentSize
-                            168     _Tname'_num:         .db 0
-                            169     _Tname'_list:        .dw nullptr
-                            170     _Tname'_free_list:   .dw _Tname'_array
+                            168     _Tname'_num::         .db 0
+                            169     _Tname'_list::        .dw nullptr
+                            170     _Tname'_free_list::   .dw _Tname'_array
                             171     _Tname'_array::
                             172         .ds _N * _ComponentSize
                             173 .endm
@@ -6090,28 +6090,28 @@ Hexadecimal [16-Bits]
                              57 ;;  Output: 
                              58 ;;  Modified: AF, BC, DE, HL
                              59 ;;
-   0AF9                      60 man_game_init::
+   09B4                      60 man_game_init::
                              61 
-   0AF9 CD D6 09      [17]   62     call man_entity_init
+   09B4 CD 91 08      [17]   62     call man_entity_init
                              63     
                              64     ;; Create a player entity in 100, 100
-   0AFC 21 7B 24      [10]   65     ld hl, #player1Tpl                  ;; Template of the entity to create
-   0AFF CD 44 0A      [17]   66     call man_entity_create              ;; Create new entity
+   09B7 21 7B 24      [10]   65     ld hl, #player1Tpl                  ;; Template of the entity to create
+   09BA CD FF 08      [17]   66     call man_entity_create              ;; Create new entity
                              67 
                              68     ;; Create an oponent entity in 140, 100
-   0B02 21 7B 24      [10]   69     ld hl, #player1Tpl                  ;; Template of the entity to create
-   0B05 CD 44 0A      [17]   70     call man_entity_create              ;; Create new entity
-   0B08 DD 36 05 3C   [19]   71     ld e_x(ix), #60                     ;; x = 60
-   0B0C DD 36 04 01   [19]   72     ld e_color(ix), #1                  ;; color = pink 
+   09BD 21 7B 24      [10]   69     ld hl, #player1Tpl                  ;; Template of the entity to create
+   09C0 CD FF 08      [17]   70     call man_entity_create              ;; Create new entity
+   09C3 DD 36 05 3C   [19]   71     ld e_x(ix), #60                     ;; x = 60
+   09C7 DD 36 04 01   [19]   72     ld e_color(ix), #1                  ;; color = pink 
                              73 
                              74     ;; Create a ball entity
-   0B10 21 9B 24      [10]   75     ld hl, #ballTpl                     ;; Template of the ball
-   0B13 CD 44 0A      [17]   76     call man_entity_create              ;; Create ball
+   09CB 21 9B 24      [10]   75     ld hl, #ballTpl                     ;; Template of the ball
+   09CE CD FF 08      [17]   76     call man_entity_create              ;; Create ball
                              77 
-   0B16 CD 53 0B      [17]   78     call sys_physics_init               ;; initialize physics system
-   0B19 CD 20 1D      [17]   79     call sys_collision_init             ;; initialize collision system
+   09D1 CD 0E 0A      [17]   78     call sys_physics_init               ;; initialize physics system
+   09D4 CD DB 1B      [17]   79     call sys_collision_init             ;; initialize collision system
                              80     
-   0B1C C9            [10]   81     ret
+   09D7 C9            [10]   81     ret
                              82 
                              83 ;;-----------------------------------------------------------------
                              84 ;;
@@ -6127,48 +6127,48 @@ Hexadecimal [16-Bits]
                              89 ;;  Output: 
                              90 ;;  Modified: AF, BC, DE, HL
                              91 ;;
-   0B1D                      92 man_game_update::
-   0B1D CD B3 1E      [17]   93     call sys_input_player_update
+   09D8                      92 man_game_update::
+   09D8 CD 6E 1D      [17]   93     call sys_input_player_update
                              94 
-   0B20 CD A2 0A      [17]   95     call man_entity_getPlayerPosition
-   0B23 CD A7 0A      [17]   96     call man_entity_getOponentPosition
+   09DB CD 5D 09      [17]   95     call man_entity_getPlayerPosition
+   09DE CD 62 09      [17]   96     call man_entity_getOponentPosition
                              97 
                              98     ;; Copy player movements on Oponent
-   0B26 DD 7E 0F      [19]   99     ld a, e_vx(ix)
-   0B29 FD 77 0F      [19]  100     ld e_vx(iy), a
-   0B2C DD 7E 10      [19]  101     ld a, e_vx+1(ix)
-   0B2F FD 77 10      [19]  102     ld e_vx+1(iy), a
+   09E1 DD 7E 0F      [19]   99     ld a, e_vx(ix)
+   09E4 FD 77 0F      [19]  100     ld e_vx(iy), a
+   09E7 DD 7E 10      [19]  101     ld a, e_vx+1(ix)
+   09EA FD 77 10      [19]  102     ld e_vx+1(iy), a
                             103 
-   0B32 DD 7E 11      [19]  104     ld a, e_vy(ix)
-   0B35 FD 77 11      [19]  105     ld e_vy(iy), a
-   0B38 DD 7E 12      [19]  106     ld a, e_vy+1(ix)
-   0B3B FD 77 12      [19]  107     ld e_vy+1(iy), a
+   09ED DD 7E 11      [19]  104     ld a, e_vy(ix)
+   09F0 FD 77 11      [19]  105     ld e_vy(iy), a
+   09F3 DD 7E 12      [19]  106     ld a, e_vy+1(ix)
+   09F6 FD 77 12      [19]  107     ld e_vy+1(iy), a
                             108     ;; -----------------------------
-   0B3E                     109 _exit_clone_input:
+   09F9                     109 _exit_clone_input:
                             110 
-   0B3E CD 0D 0C      [17]  111     call sys_physics_update
-   0B41 CD 64 1D      [17]  112     call sys_collision_update
-   0B44 CD EF 0C      [17]  113     call sys_render_update
-   0B47 CD 04 0D      [17]  114     call sys_render_debug_entity
+   09F9 CD C8 0A      [17]  111     call sys_physics_update
+   09FC CD 1F 1C      [17]  112     call sys_collision_update
+   09FF CD AA 0B      [17]  113     call sys_render_update
+   0A02 CD BF 0B      [17]  114     call sys_render_debug_entity
                             115     ;;;;delay 
                             116     ;;ld b, #5
                             117     ;;call cpct_waitHalts_asm
-   0B4A C9            [10]  118     ret
+   0A05 C9            [10]  118     ret
                             119 
                             120 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
                             121 ;;  Gets the current state of the game loop
                             122 ;;  MODIFIES:
                             123 ;;      - A: Returns state
                             124 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-   0B4B                     125 man_game_get_state::
-   0B4B 3A BB 24      [13]  126     ld a, (game_state)
-   0B4E C9            [10]  127     ret
+   0A06                     125 man_game_get_state::
+   0A06 3A BB 24      [13]  126     ld a, (game_state)
+   0A09 C9            [10]  127     ret
                             128 
                             129 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
                             130 ;;  Sets the current state of the game loop
                             131 ;;  MODIFIES:
                             132 ;;      - A: Returns state
                             133 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-   0B4F                     134 man_game_set_state::
-   0B4F 32 BB 24      [13]  135     ld (game_state), a
-   0B52 C9            [10]  136     ret
+   0A0A                     134 man_game_set_state::
+   0A0A 32 BB 24      [13]  135     ld (game_state), a
+   0A0D C9            [10]  136     ret

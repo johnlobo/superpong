@@ -300,9 +300,9 @@ Hexadecimal [16-Bits]
                             165 ;;  Defines the structure of the entity array.
                             166 .mdelete DefineComponentArrayStructure_Size
                             167 .macro DefineComponentArrayStructure_Size _Tname, _N, _ComponentSize
-                            168     _Tname'_num:         .db 0
-                            169     _Tname'_list:        .dw nullptr
-                            170     _Tname'_free_list:   .dw _Tname'_array
+                            168     _Tname'_num::         .db 0
+                            169     _Tname'_list::        .dw nullptr
+                            170     _Tname'_free_list::   .dw _Tname'_array
                             171     _Tname'_array::
                             172         .ds _N * _ComponentSize
                             173 .endm

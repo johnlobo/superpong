@@ -118,7 +118,7 @@ sys_collision_collider_colisionable::
 ;;
 sys_collision_update_one_collider::
     ld hl, #sys_collision_collider_colisionable
-    ld a, #e_cmp_collisionable
+    ld b, #e_cmp_collisionable
     call man_entity_forall_matching_iy
     ret
 

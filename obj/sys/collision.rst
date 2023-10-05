@@ -337,9 +337,9 @@ Hexadecimal [16-Bits]
                             165 ;;  Defines the structure of the entity array.
                             166 .mdelete DefineComponentArrayStructure_Size
                             167 .macro DefineComponentArrayStructure_Size _Tname, _N, _ComponentSize
-                            168     _Tname'_num:         .db 0
-                            169     _Tname'_list:        .dw nullptr
-                            170     _Tname'_free_list:   .dw _Tname'_array
+                            168     _Tname'_num::         .db 0
+                            169     _Tname'_list::        .dw nullptr
+                            170     _Tname'_free_list::   .dw _Tname'_array
                             171     _Tname'_array::
                             172         .ds _N * _ComponentSize
                             173 .endm
@@ -498,7 +498,7 @@ Hexadecimal [16-Bits]
                             122 ;;===============================================================================
                             123 ;; Entity Component IDs
                             124 ;;===============================================================================
-   1D20                     125 DefEnum e_cmpID
+   1BDB                     125 DefEnum e_cmpID
                      0000     1     e_cmpID_offset = 0
    0000                     126 Enum e_cmpID Render
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 12.
@@ -5650,10 +5650,10 @@ Hexadecimal [16-Bits]
                              48 ;;
    0000                      49 sys_collision_init::
                              50     ;; set pointer array address 
-   1D20 3E 04         [ 7]   51     ld a, #e_cmpID_Collision
-   1D22 CD 9A 06      [17]   52     call man_components_getArrayHL
-   1D25 22 65 1D      [16]   53     ld  (_ent_array_ptr), hl
-   1D28 C9            [10]   54     ret
+   1BDB 3E 04         [ 7]   51     ld a, #e_cmpID_Collision
+   1BDD CD 9A 06      [17]   52     call man_components_getArrayHL
+   1BE0 22 20 1C      [16]   53     ld  (_ent_array_ptr), hl
+   1BE3 C9            [10]   54     ret
                              55 
                              56 
                              57 ;;-----------------------------------------------------------------
@@ -5667,52 +5667,52 @@ Hexadecimal [16-Bits]
                              65 ;;  Modified: AF, BC, HL
                              66 ;;
                              67 ;;  Code copied from lronaldo (https://www.youtube.com/watch?v=f-4F7SoaHFQ)
-   1D29                      68 sys_collision_collider_colisionable::
-   1D29 AF            [ 4]   69     xor a
-   1D2A 32 00 C0      [13]   70     ld (#0xc000), a
+   1BE4                      68 sys_collision_collider_colisionable::
+   1BE4 AF            [ 4]   69     xor a
+   1BE5 32 00 C0      [13]   70     ld (#0xc000), a
                              71     
                              72     ;; x axis collision
                              73     ;; case 1
-   1D2D FD 7E 05      [19]   74     ld a, e_x(iy)                   ;; a = iy.x
-   1D30 47            [ 4]   75     ld b, a                         ;; b = a = iy.x
-   1D31 FD 86 09      [19]   76     add e_w(iy)                     ;; a = iy.x + iy.w
-   1D34 3D            [ 4]   77     dec a                           ;; a = iy.x + iy.w - 1
+   1BE8 FD 7E 05      [19]   74     ld a, e_x(iy)                   ;; a = iy.x
+   1BEB 47            [ 4]   75     ld b, a                         ;; b = a = iy.x
+   1BEC FD 86 09      [19]   76     add e_w(iy)                     ;; a = iy.x + iy.w
+   1BEF 3D            [ 4]   77     dec a                           ;; a = iy.x + iy.w - 1
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 109.
 Hexadecimal [16-Bits]
 
 
 
-   1D35 DD 4E 05      [19]   78     ld c, e_x(ix)                   ;; c = ix.x
-   1D38 91            [ 4]   79     sub c                           ;; a = iy.x + iy.w - 1 - ix.x
-   1D39 D8            [11]   80     ret c                           ;; return if no collision
+   1BF0 DD 4E 05      [19]   78     ld c, e_x(ix)                   ;; c = ix.x
+   1BF3 91            [ 4]   79     sub c                           ;; a = iy.x + iy.w - 1 - ix.x
+   1BF4 D8            [11]   80     ret c                           ;; return if no collision
                              81     ;; case 2
-   1D3A 79            [ 4]   82     ld a, c                         ;; a = ix.x
-   1D3B DD 86 09      [19]   83     add e_w(ix)                     ;; a = ix.x + ix.w
-   1D3E 3D            [ 4]   84     dec a                           ;; a = ix.x + ix.w - 1
-   1D3F 90            [ 4]   85     sub b                           ;; a = iy.x + ix.w - 1 - iy.x
-   1D40 D8            [11]   86     ret c                           ;; return if no collision
+   1BF5 79            [ 4]   82     ld a, c                         ;; a = ix.x
+   1BF6 DD 86 09      [19]   83     add e_w(ix)                     ;; a = ix.x + ix.w
+   1BF9 3D            [ 4]   84     dec a                           ;; a = ix.x + ix.w - 1
+   1BFA 90            [ 4]   85     sub b                           ;; a = iy.x + ix.w - 1 - iy.x
+   1BFB D8            [11]   86     ret c                           ;; return if no collision
                              87 
                              88     ;; y axis collision
                              89     ;; case 3
-   1D41 FD 7E 07      [19]   90     ld a, e_y(iy)                   ;; a = iy.y
-   1D44 47            [ 4]   91     ld b, a                         ;; b = a = iy.y
-   1D45 FD 86 0A      [19]   92     add e_h(iy)                     ;; a = iy.y + iy.y
-   1D48 3D            [ 4]   93     dec a                           ;; a = iy.y + iy.y - 1
-   1D49 DD 4E 07      [19]   94     ld c, e_y(ix)                   ;; c = ix.y
-   1D4C 91            [ 4]   95     sub c                           ;; a = iy.y + iy.y - 1 - ix.y
-   1D4D D8            [11]   96     ret c                           ;; return if no collision
+   1BFC FD 7E 07      [19]   90     ld a, e_y(iy)                   ;; a = iy.y
+   1BFF 47            [ 4]   91     ld b, a                         ;; b = a = iy.y
+   1C00 FD 86 0A      [19]   92     add e_h(iy)                     ;; a = iy.y + iy.y
+   1C03 3D            [ 4]   93     dec a                           ;; a = iy.y + iy.y - 1
+   1C04 DD 4E 07      [19]   94     ld c, e_y(ix)                   ;; c = ix.y
+   1C07 91            [ 4]   95     sub c                           ;; a = iy.y + iy.y - 1 - ix.y
+   1C08 D8            [11]   96     ret c                           ;; return if no collision
                              97     ;; case 4
-   1D4E 79            [ 4]   98     ld a, c                         ;; a = ix.y
-   1D4F DD 86 0A      [19]   99     add e_h(ix)                     ;; a = ix.y + ix.y
-   1D52 3D            [ 4]  100     dec a                           ;; a = ix.y + ix.y - 1
-   1D53 90            [ 4]  101     sub b                           ;; a = iy.y + ix.y - 1 - iy.y
-   1D54 D8            [11]  102     ret c                           ;; return if no collision - unncessary
+   1C09 79            [ 4]   98     ld a, c                         ;; a = ix.y
+   1C0A DD 86 0A      [19]   99     add e_h(ix)                     ;; a = ix.y + ix.y
+   1C0D 3D            [ 4]  100     dec a                           ;; a = ix.y + ix.y - 1
+   1C0E 90            [ 4]  101     sub b                           ;; a = iy.y + ix.y - 1 - iy.y
+   1C0F D8            [11]  102     ret c                           ;; return if no collision - unncessary
                             103 
                             104     ;; There is collision
-   1D55 3E FF         [ 7]  105     ld a, #0xff
-   1D57 32 00 C0      [13]  106     ld (#0xc000), a
+   1C10 3E FF         [ 7]  105     ld a, #0xff
+   1C12 32 00 C0      [13]  106     ld (#0xc000), a
                             107 
-   1D5A C9            [10]  108     ret
+   1C15 C9            [10]  108     ret
                             109 
                             110 ;;-----------------------------------------------------------------
                             111 ;;
@@ -5723,11 +5723,11 @@ Hexadecimal [16-Bits]
                             116 ;;  Output: 
                             117 ;;  Modified: AF, BC, HL
                             118 ;;
-   1D5B                     119 sys_collision_update_one_collider::
-   1D5B 21 29 1D      [10]  120     ld hl, #sys_collision_collider_colisionable
-   1D5E 3E 80         [ 7]  121     ld a, #e_cmp_collisionable
-   1D60 CD CD 0A      [17]  122     call man_entity_forall_matching_iy
-   1D63 C9            [10]  123     ret
+   1C16                     119 sys_collision_update_one_collider::
+   1C16 21 E4 1B      [10]  120     ld hl, #sys_collision_collider_colisionable
+   1C19 06 80         [ 7]  121     ld b, #e_cmp_collisionable
+   1C1B CD 88 09      [17]  122     call man_entity_forall_matching_iy
+   1C1E C9            [10]  123     ret
                             124 
                             125 ;;-----------------------------------------------------------------
                             126 ;;
@@ -5744,34 +5744,34 @@ Hexadecimal [16-Bits]
 
                             133 ;;
                             134 
-   1D64                     135 sys_collision_update::
+   1C1F                     135 sys_collision_update::
                             136 
                      0045   137 _ent_array_ptr = . + 1
-   1D64 21 00 00      [10]  138     ld  hl, #0x0000
+   1C1F 21 00 00      [10]  138     ld  hl, #0x0000
                             139 
-   1D67                     140     _loop:
+   1C22                     140     _loop:
                             141     ;;  Select the pointer to the entity with collision and prepare the next position for the next iteration.
-   1D67 5E            [ 7]  142     ld e, (hl)
-   1D68 23            [ 6]  143     inc hl
-   1D69 56            [ 7]  144     ld d, (hl)
-   1D6A 23            [ 6]  145     inc hl
+   1C22 5E            [ 7]  142     ld e, (hl)
+   1C23 23            [ 6]  143     inc hl
+   1C24 56            [ 7]  144     ld d, (hl)
+   1C25 23            [ 6]  145     inc hl
                             146 
                             147     ;;  The entities are finished traversing when find a pointer to null.
-   1D6B 7B            [ 4]  148     ld a, e
-   1D6C B2            [ 4]  149     or d
-   1D6D C8            [11]  150     ret z
+   1C26 7B            [ 4]  148     ld a, e
+   1C27 B2            [ 4]  149     or d
+   1C28 C8            [11]  150     ret z
                             151 
-   1D6E E5            [11]  152     push hl
+   1C29 E5            [11]  152     push hl
                             153 
    004F                     154     ld__ixl_e
-   1D6F DD 6B                 1    .dw #0x6BDD  ;; Opcode for ld ixl, e
+   1C2A DD 6B                 1    .dw #0x6BDD  ;; Opcode for ld ixl, e
    0051                     155     ld__ixh_d
-   1D71 DD 62                 1    .dw #0x62DD  ;; Opcode for ld ixh, d
+   1C2C DD 62                 1    .dw #0x62DD  ;; Opcode for ld ixh, d
                             156 
-   1D73 CD 5B 1D      [17]  157     call sys_collision_update_one_collider
+   1C2E CD 16 1C      [17]  157     call sys_collision_update_one_collider
                             158 
-   1D76 E1            [10]  159 	pop hl
+   1C31 E1            [10]  159 	pop hl
                             160 
-   1D77 18 EE         [12]  161     jr _loop
+   1C32 18 EE         [12]  161     jr _loop
                             162 
-   1D79 C9            [10]  163     ret
+   1C34 C9            [10]  163     ret

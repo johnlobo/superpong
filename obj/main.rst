@@ -233,9 +233,9 @@ Hexadecimal [16-Bits]
                             165 ;;  Defines the structure of the entity array.
                             166 .mdelete DefineComponentArrayStructure_Size
                             167 .macro DefineComponentArrayStructure_Size _Tname, _N, _ComponentSize
-                            168     _Tname'_num:         .db 0
-                            169     _Tname'_list:        .dw nullptr
-                            170     _Tname'_free_list:   .dw _Tname'_array
+                            168     _Tname'_num::         .db 0
+                            169     _Tname'_list::        .dw nullptr
+                            170     _Tname'_free_list::   .dw _Tname'_array
                             171     _Tname'_array::
                             172         .ds _N * _ComponentSize
                             173 .endm
@@ -5869,9 +5869,9 @@ Hexadecimal [16-Bits]
                             165 ;;  Defines the structure of the entity array.
                             166 .mdelete DefineComponentArrayStructure_Size
                             167 .macro DefineComponentArrayStructure_Size _Tname, _N, _ComponentSize
-                            168     _Tname'_num:         .db 0
-                            169     _Tname'_list:        .dw nullptr
-                            170     _Tname'_free_list:   .dw _Tname'_array
+                            168     _Tname'_num::         .db 0
+                            169     _Tname'_list::        .dw nullptr
+                            170     _Tname'_free_list::   .dw _Tname'_array
                             171     _Tname'_array::
                             172         .ds _N * _ComponentSize
                             173 .endm
@@ -5957,7 +5957,7 @@ Hexadecimal [16-Bits]
                              36 ;;
                              37 .area _DATA
                              38 
-   242F 20 47 41 4D 45 20    39 _game_loaded_string: .asciz " GAME LOADED - V.001"      ;;27 chars, 54 bytes
+   22EA 20 47 41 4D 45 20    39 _game_loaded_string: .asciz " GAME LOADED - V.001"      ;;27 chars, 54 bytes
         4C 4F 41 44 45 44
         20 2D 20 56 2E 30
         30 31 00
@@ -5981,19 +5981,19 @@ Hexadecimal [16-Bits]
                              57 
                              58 ;;   call sys_audio_init
                              59 ;;
-   05C2 CD 58 0C      [17]   60    call sys_render_init
+   05C2 CD 13 0B      [17]   60    call sys_render_init
                              61 
    05C5 1E 06         [ 7]   62    ld e, #6                           ;; x
    05C7 16 4E         [ 7]   63    ld d, #78                           ;; y
    05C9 06 2C         [ 7]   64    ld b, #44                           ;; h
    05CB 0E 3C         [ 7]   65    ld c, #60                           ;; w
-   05CD 21 2F 24      [10]   66    ld hl, #_game_loaded_string         ;; message
+   05CD 21 EA 22      [10]   66    ld hl, #_game_loaded_string         ;; message
    05D0 3E 01         [ 7]   67    ld a, #1                            ;; wait for a key
-   05D2 CD 09 10      [17]   68    call sys_messages_show
+   05D2 CD C4 0E      [17]   68    call sys_messages_show
                              69 
                              70    ;; set random seed using hl form message show
                              71 
-   05D5 CD 07 21      [17]   72    call cpct_setSeed_mxor_asm
+   05D5 CD C2 1F      [17]   72    call cpct_setSeed_mxor_asm
                              73      
    05D8 C9            [10]   74    ret
                              75    
@@ -6011,17 +6011,17 @@ Hexadecimal [16-Bits]
                              82 
    05D9 31 00 80      [10]   83    ld sp, #0x8000                               ;; Move the stack to 0x8000
                              84    
-   05DC CD 0E 1D      [17]   85    call sys_system_disable_firmware
+   05DC CD C9 1B      [17]   85    call sys_system_disable_firmware
                              86 
    05DF CD C2 05      [17]   87    call main_init
                              88 
    05E2                      89 start:
                              90 
-   05E2 CD F9 0A      [17]   91    call man_game_init
+   05E2 CD B4 09      [17]   91    call man_game_init
                              92 
                              93 ;; Loop forever
    05E5                      94 loop:
                              95    
-   05E5 CD 1D 0B      [17]   96    call man_game_update
+   05E5 CD D8 09      [17]   96    call man_game_update
                              97    
    05E8 18 FB         [12]   98    jr    loop

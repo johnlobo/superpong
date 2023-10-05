@@ -337,9 +337,9 @@ Hexadecimal [16-Bits]
                             165 ;;  Defines the structure of the entity array.
                             166 .mdelete DefineComponentArrayStructure_Size
                             167 .macro DefineComponentArrayStructure_Size _Tname, _N, _ComponentSize
-                            168     _Tname'_num:         .db 0
-                            169     _Tname'_list:        .dw nullptr
-                            170     _Tname'_free_list:   .dw _Tname'_array
+                            168     _Tname'_num::         .db 0
+                            169     _Tname'_list::        .dw nullptr
+                            170     _Tname'_free_list::   .dw _Tname'_array
                             171     _Tname'_array::
                             172         .ds _N * _ComponentSize
                             173 .endm
@@ -5725,7 +5725,7 @@ Hexadecimal [16-Bits]
                             118 ;;
    003B                     119 sys_collision_update_one_collider::
    003B 21 09 00      [10]  120     ld hl, #sys_collision_collider_colisionable
-   003E 3E 80         [ 7]  121     ld a, #e_cmp_collisionable
+   003E 06 80         [ 7]  121     ld b, #e_cmp_collisionable
    0040 CD 00 00      [17]  122     call man_entity_forall_matching_iy
    0043 C9            [10]  123     ret
                             124 

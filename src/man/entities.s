@@ -30,7 +30,20 @@
 
 .module Entity_Manager
 
+;;
+;; Start of _DATA area 
+;;  SDCC requires at least _DATA and _CODE areas to be declared, but you may use
+;;  any one of them for any purpose. Usually, compiler puts _DATA area contents
+;;  right after _CODE area contents.
+;;
+.area _DATA
+
 DefineComponentArrayStructure_Size _entity, MAX_ENTITIES, sizeof_e
+
+;;
+;; Start of _CODE area
+;; 
+.area _CODE
 
 ;;==============================================================================================================================
 ;;==============================================================================================================================
@@ -112,9 +125,12 @@ __is_the_last_entity:
 ;;       HL, BC, DE
 ;;	   
 man_entity_new::
+
+	;; Increment number of templates
 	ld hl, #_entity_num
 	inc (hl)
 
+	;; updates pointer to free space
 	ld hl, (_entity_free_list)	;; HL = Pointer to free space.
 
 	push hl
@@ -134,6 +150,7 @@ man_entity_new::
 	ld e, l								;;	\	Save the pointer where the new entity will be positioned in DE increasing two
 	ld d, h								;;	/	so as not to delete the pointer to the next entity.
 
+	;; Update the pointer to the next entity
 	ld (_entity_list), hl				;;	\	Assign to _entity_list the pointer of the new position that will host an entity.
 	ld (hl), c							;;	|	If it's the first entity that is created, DE will contain a pointer to null, otherwise,
 	inc hl								;;	|	the pointer to the next entity.
@@ -314,9 +331,8 @@ man_entity_create::
 	inc de
 	ldir
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;	ASSIGN ENTITY TO VECTOR OF POINTERS	- OPTIMIZE
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;	
+	;;	ASSIGN ENTITY TO VECTOR OF POINTERS
+
 	ld a, e_cmps(ix)
 	and a, #e_cmp_render
 	jr z, _noRender
@@ -361,7 +377,7 @@ man_entity_create::
 ;;       IX, A
 ;;	   
 man_entity_getEntityArrayIX::
-	ld ix, (_entity_list)
+	ld ix, #_entity_array
 	ld a, (_entity_num)
 	ret
 
@@ -373,7 +389,7 @@ man_entity_getEntityArrayIX::
 ;;       IX, A
 ;;	   
 man_entity_getEntityArrayIY::
-	ld ix, (_entity_list)
+	ld iy, #_entity_array
 	ld a, (_entity_num)
 	ret
 
