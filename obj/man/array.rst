@@ -182,7 +182,7 @@ Hexadecimal [16-Bits]
                             103 ;; ENTITY DEFINITION MACRO
                             104 ;;===============================================================================
                             105 .mdelete DefineEntity
-                            106 .macro DefineEntity _cpms, _ptr, _type, _color, _x, _y, _w, _h, _vxh, _vxl _vyh, _vyl, _sprite, _address, _p_address, _collsion_callback
+                            106 .macro DefineEntity _cpms, _ptr, _type, _color, _x, _y, _w, _h, _vxh, _vxl _vyh, _vyl, _sprite, _address, _p_address, _collsion_callback, _ai_callback
                             107     .dw _ptr
                             108     .db _cpms
                             109     .db _type
@@ -209,92 +209,94 @@ Hexadecimal [16-Bits]
                             125     .dw _p_address
                             126     .db #0
                             127     .dw _collsion_callback
-                            128     .db #1           ;; moved 1 default
-                            129 .endm
-                            130 
-                            131 ;;==============================================================================================================================
-                            132 ;;==============================================================================================================================
-                            133 ;;  MACRO FOR ENUM DEFINITIONS
+                            128     .db #0
+                            129     .dw _ai_callback
+                            130     .db #1           ;; moved 1 default
+                            131 .endm
+                            132 
+                            133 ;;==============================================================================================================================
                             134 ;;==============================================================================================================================
-                            135 ;;==============================================================================================================================
-                            136 .mdelete DefEnum
-                            137 .macro DefEnum _name
-                            138     _name'_offset = 0
-                            139 .endm
-                            140 
-                            141 ;;  Define enumeration element for an enumeration name.
-                            142 .mdelete Enum
-                            143 .macro Enum _enumname, _element
-                            144     _enumname'_'_element = _enumname'_offset
-                            145     _enumname'_offset = _enumname'_offset + 1
-                            146 .endm
-                            147 
-                            148 ;;==============================================================================================================================
-                            149 ;;==============================================================================================================================
-                            150 ;;  DEFINE LINKED LIST STRUCTURE
+                            135 ;;  MACRO FOR ENUM DEFINITIONS
+                            136 ;;==============================================================================================================================
+                            137 ;;==============================================================================================================================
+                            138 .mdelete DefEnum
+                            139 .macro DefEnum _name
+                            140     _name'_offset = 0
+                            141 .endm
+                            142 
+                            143 ;;  Define enumeration element for an enumeration name.
+                            144 .mdelete Enum
+                            145 .macro Enum _enumname, _element
+                            146     _enumname'_'_element = _enumname'_offset
+                            147     _enumname'_offset = _enumname'_offset + 1
+                            148 .endm
+                            149 
+                            150 ;;==============================================================================================================================
                             151 ;;==============================================================================================================================
-                            152 ;;==============================================================================================================================
-                            153 
-                            154 ;;  Defines the structure for a basic memory manager.
-                            155 .mdelete DefineBasicStructureArray_Size
-                            156 .macro DefineBasicStructureArray_Size _Tname, _N, _ComponentSize
-                            157     _Tname'_array::
-                            158         .ds _N * _ComponentSize
-                            159 .endm
-                            160 
-                            161 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-                            162 ;;  Defines the structure of the entity array.
-                            163 .mdelete DefineComponentArrayStructure_Size
-                            164 .macro DefineComponentArrayStructure_Size _Tname, _N, _ComponentSize
+                            152 ;;  DEFINE LINKED LIST STRUCTURE
+                            153 ;;==============================================================================================================================
+                            154 ;;==============================================================================================================================
+                            155 
+                            156 ;;  Defines the structure for a basic memory manager.
+                            157 .mdelete DefineBasicStructureArray_Size
+                            158 .macro DefineBasicStructureArray_Size _Tname, _N, _ComponentSize
+                            159     _Tname'_array::
+                            160         .ds _N * _ComponentSize
+                            161 .endm
+                            162 
+                            163 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                            164 ;;  Defines the structure of the entity array.
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 7.
 Hexadecimal [16-Bits]
 
 
 
-                            165     _Tname'_num::         .db 0
-                            166     _Tname'_list::        .dw nullptr
-                            167     _Tname'_free_list::   .dw _Tname'_array
-                            168     _Tname'_array::
-                            169         .ds _N * _ComponentSize
-                            170 .endm
-                            171 
-                            172 
-                            173 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-                            174 ;;  Defines the structure for the component handler.
-                            175 .mdelete DefineComponentPointerTable
-                            176 .macro DefineComponentPointerTable _Tname, _N_Cmps, _N
-                            177     _c = 0
-                            178     ;;  Array containing pointers to component pointer arrays.
-                            179     _Tname'_access_table::
-                            180     .rept _N_Cmps
-                            181         DefineComponentPointerAccessTable _Tname, \_c, _N, _N_Cmps
-                            182         _c = _c + 1
-                            183     .endm
-                            184     ;;  Zero-fill the component array with two additional words for the
-                            185     ;;  next free position and a null pointer fot he end of the array.
-                            186     _Tname'_components::
-                            187    .rept _N_Cmps
-                            188         DefineComponentArray _N
-                            189         .dw 0x0000
-                            190         .dw 0x0000
-                            191     .endm
-                            192 .endm
-                            193 
-                            194 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-                            195 ;;  Defines the pointers of the componente array pointer access table.
-                            196 .mdelete DefineComponentPointerAccessTable
-                            197 .macro DefineComponentPointerAccessTable _Tname, _suf, _N, _N_Cmps
-                            198     _Tname'_components'_suf'_ptr_pend::    .dw . + 2*_N_Cmps+ + _suf*2*_N + 2*_suf
-                            199 .endm
-                            200 
-                            201 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-                            202 ;;  Zero-pad an array of size n.
-                            203 .mdelete DefineComponentArray
-                            204 .macro DefineComponentArray _N
-                            205     .rept _N
-                            206         .dw 0x0000
-                            207     .endm
-                            208 .endm
+                            165 .mdelete DefineComponentArrayStructure_Size
+                            166 .macro DefineComponentArrayStructure_Size _Tname, _N, _ComponentSize
+                            167     _Tname'_num::         .db 0
+                            168     _Tname'_list::        .dw nullptr
+                            169     _Tname'_free_list::   .dw _Tname'_array
+                            170     _Tname'_array::
+                            171         .ds _N * _ComponentSize
+                            172 .endm
+                            173 
+                            174 
+                            175 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                            176 ;;  Defines the structure for the component handler.
+                            177 .mdelete DefineComponentPointerTable
+                            178 .macro DefineComponentPointerTable _Tname, _N_Cmps, _N
+                            179     _c = 0
+                            180     ;;  Array containing pointers to component pointer arrays.
+                            181     _Tname'_access_table::
+                            182     .rept _N_Cmps
+                            183         DefineComponentPointerAccessTable _Tname, \_c, _N, _N_Cmps
+                            184         _c = _c + 1
+                            185     .endm
+                            186     ;;  Zero-fill the component array with two additional words for the
+                            187     ;;  next free position and a null pointer fot he end of the array.
+                            188     _Tname'_components::
+                            189    .rept _N_Cmps
+                            190         DefineComponentArray _N
+                            191         .dw 0x0000
+                            192         .dw 0x0000
+                            193     .endm
+                            194 .endm
+                            195 
+                            196 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                            197 ;;  Defines the pointers of the componente array pointer access table.
+                            198 .mdelete DefineComponentPointerAccessTable
+                            199 .macro DefineComponentPointerAccessTable _Tname, _suf, _N, _N_Cmps
+                            200     _Tname'_components'_suf'_ptr_pend::    .dw . + 2*_N_Cmps+ + _suf*2*_N + 2*_suf
+                            201 .endm
+                            202 
+                            203 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                            204 ;;  Zero-pad an array of size n.
+                            205 .mdelete DefineComponentArray
+                            206 .macro DefineComponentArray _N
+                            207     .rept _N
+                            208         .dw 0x0000
+                            209     .endm
+                            210 .endm
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 8.
 Hexadecimal [16-Bits]
 
@@ -385,14 +387,14 @@ Hexadecimal [16-Bits]
                              95 ;;  ENTITY TYPE MASKS AND BITS
                              96 ;;==============================================================================================================================
                              97 ;;==============================================================================================================================
-                     0000    98 e_type_default          = 0x00
-                     0001    99 e_type_player           = 0x01
-                     0002   100 e_type_ball             = 0x02
-                     0004   101 e_type_life_potion      = 0x04
-                     0008   102 e_type_mob              = 0x08
-                     0010   103 e_type_shield           = 0x10
-                     0020   104 e_type_dead             = 0x20
-                     00FF   105 e_type_invalid          = 0xff
+                     0000    98 e_type_default              = 0x00
+                     0001    99 e_type_player               = 0x01
+                     0002   100 e_type_ball                 = 0x02
+                     0004   101 e_type_wall                 = 0x04
+                     0008   102 e_type_mob                  = 0x08
+                     0010   103 e_type_shield               = 0x10
+                     0020   104 e_type_dead                 = 0x20
+                     00FF   105 e_type_invalid              = 0xff
                             106 
                             107 ;;===============================================================================
                             108 ;;COMPONENT TYPES
@@ -407,144 +409,152 @@ Hexadecimal [16-Bits]
                      0040   117 e_cmp_collider = 0x40   ;;entidad que puede colisionar
                      0080   118 e_cmp_collisionable = 0x80   ;;entidad que puede ser colisionada
                      0047   119 e_cmp_paddle = e_cmp_alive | e_cmp_render | e_cmp_physics | e_cmp_collider  ;;componente por defecto
-                     0087   120 e_cpm_ball = e_cmp_alive | e_cmp_render | e_cmp_physics | e_cmp_collisionable
-                            121 
-                            122 ;;===============================================================================
-                            123 ;;COLISION TYPES
+                     0057   120 e_cmp_oponent_paddle = e_cmp_alive | e_cmp_render | e_cmp_physics | e_cmp_collider | e_cmp_ai ;;componente por defecto
+                     0087   121 e_cpm_ball = e_cmp_alive | e_cmp_render | e_cmp_physics | e_cmp_collisionable
+                     0041   122 e_cmp_border_wall = e_cmp_alive | e_cmp_collider
+                            123 
                             124 ;;===============================================================================
-                     0000   125 e_col_null = 0
-                     0001   126 e_col_left  = 0x01
-                     0002   127 e_col_right = 0x02
+                            125 ;;COLISION TYPES
+                            126 ;;===============================================================================
+                     0000   127 e_col_null = 0
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 10.
 Hexadecimal [16-Bits]
 
 
 
-                     0004   128 e_col_up    = 0x04
-                     0008   129 e_col_down  = 0x08
-                            130 
-                            131 ;;===============================================================================
-                            132 ;; Entity Component IDs
+                     0001   128 e_col_left  = 0x01
+                     0002   129 e_col_right = 0x02
+                     0004   130 e_col_up    = 0x04
+                     0008   131 e_col_down  = 0x08
+                            132 
                             133 ;;===============================================================================
-   0000                     134 DefEnum e_cmpID
+                            134 ;; Entity Component IDs
+                            135 ;;===============================================================================
+   0000                     136 DefEnum e_cmpID
                      0000     1     e_cmpID_offset = 0
-   0000                     135 Enum e_cmpID Render
+   0000                     137 Enum e_cmpID Render
                      0000     1     e_cmpID_Render = e_cmpID_offset
                      0001     2     e_cmpID_offset = e_cmpID_offset + 1
-   0000                     136 Enum e_cmpID Physics
+   0000                     138 Enum e_cmpID Physics
                      0001     1     e_cmpID_Physics = e_cmpID_offset
                      0002     2     e_cmpID_offset = e_cmpID_offset + 1
-   0000                     137 Enum e_cmpID AI
+   0000                     139 Enum e_cmpID AI
                      0002     1     e_cmpID_AI = e_cmpID_offset
                      0003     2     e_cmpID_offset = e_cmpID_offset + 1
-   0000                     138 Enum e_cmpID Animation
+   0000                     140 Enum e_cmpID Animation
                      0003     1     e_cmpID_Animation = e_cmpID_offset
                      0004     2     e_cmpID_offset = e_cmpID_offset + 1
-   0000                     139 Enum e_cmpID Collision
+   0000                     141 Enum e_cmpID Collision
                      0004     1     e_cmpID_Collision = e_cmpID_offset
                      0005     2     e_cmpID_offset = e_cmpID_offset + 1
-   0000                     140 Enum e_cmpID Num_Components
+   0000                     142 Enum e_cmpID Num_Components
                      0005     1     e_cmpID_Num_Components = e_cmpID_offset
                      0006     2     e_cmpID_offset = e_cmpID_offset + 1
-                            141 
-                            142 
                             143 
-                            144 ;; Keyboard constants
-                     000A   145 BUFFER_SIZE = 10
-                     00FF   146 ZERO_KEYS_ACTIVATED = #0xFF
-                            147 
-                            148 ;; Score constants
-                     0004   149 SCORE_NUM_BYTES = 4
-                            150 
-                            151 ;; SMALL NUMBERS CONSTANTS
-                     0002   152 S_SMALL_NUMBERS_WIDTH = 2
-                     0005   153 S_SMALL_NUMBERS_HEIGHT = 5
-                            154 ;; Font constants
-                     0002   155 FONT_WIDTH = 2
-                     0009   156 FONT_HEIGHT = 9
-                            157 
-                            158 
-                            159 ;;===============================================================================
-                            160 ;; ENTITIY SCTRUCTURE CREATION
+                            144 
+                            145 
+                            146 ;; Keyboard constants
+                     000A   147 BUFFER_SIZE = 10
+                     00FF   148 ZERO_KEYS_ACTIVATED = #0xFF
+                            149 
+                            150 ;; Score constants
+                     0004   151 SCORE_NUM_BYTES = 4
+                            152 
+                            153 ;; SMALL NUMBERS CONSTANTS
+                     0002   154 S_SMALL_NUMBERS_WIDTH = 2
+                     0005   155 S_SMALL_NUMBERS_HEIGHT = 5
+                            156 ;; Font constants
+                     0002   157 FONT_WIDTH = 2
+                     0009   158 FONT_HEIGHT = 9
+                            159 
+                            160 
                             161 ;;===============================================================================
-   0000                     162 BeginStruct e
+                            162 ;; ENTITIY SCTRUCTURE CREATION
+                            163 ;;===============================================================================
+   0000                     164 BeginStruct e
                      0000     1     e_offset = 0
-   0000                     163 Field e, ptr                , 2
+   0000                     165 Field e, ptr                , 2
                      0000     1     e_ptr = e_offset
                      0002     2     e_offset = e_offset + 2
-   0000                     164 Field e, cmps               , 1
-                     0002     1     e_cmps = e_offset
-                     0003     2     e_offset = e_offset + 1
+   0000                     166 Field e, cmps               , 1
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 11.
 Hexadecimal [16-Bits]
 
 
 
-   0000                     165 Field e, type               , 1
+                     0002     1     e_cmps = e_offset
+                     0003     2     e_offset = e_offset + 1
+   0000                     167 Field e, type               , 1
                      0003     1     e_type = e_offset
                      0004     2     e_offset = e_offset + 1
-   0000                     166 Field e, color              , 1
+   0000                     168 Field e, color              , 1
                      0004     1     e_color = e_offset
                      0005     2     e_offset = e_offset + 1
-   0000                     167 Field e, x                  , 2
+   0000                     169 Field e, x                  , 2
                      0005     1     e_x = e_offset
                      0007     2     e_offset = e_offset + 2
-   0000                     168 Field e, y                  , 2
+   0000                     170 Field e, y                  , 2
                      0007     1     e_y = e_offset
                      0009     2     e_offset = e_offset + 2
-   0000                     169 Field e, w                  , 1
+   0000                     171 Field e, w                  , 1
                      0009     1     e_w = e_offset
                      000A     2     e_offset = e_offset + 1
-   0000                     170 Field e, h                  , 1
+   0000                     172 Field e, h                  , 1
                      000A     1     e_h = e_offset
                      000B     2     e_offset = e_offset + 1
-   0000                     171 Field e, end_x              , 1
+   0000                     173 Field e, end_x              , 1
                      000B     1     e_end_x = e_offset
                      000C     2     e_offset = e_offset + 1
-   0000                     172 Field e, end_y              , 1
+   0000                     174 Field e, end_y              , 1
                      000C     1     e_end_y = e_offset
                      000D     2     e_offset = e_offset + 1
-   0000                     173 Field e, last_x             , 1
+   0000                     175 Field e, last_x             , 1
                      000D     1     e_last_x = e_offset
                      000E     2     e_offset = e_offset + 1
-   0000                     174 Field e, last_y             , 1
+   0000                     176 Field e, last_y             , 1
                      000E     1     e_last_y = e_offset
                      000F     2     e_offset = e_offset + 1
-   0000                     175 Field e, vx                 , 2
+   0000                     177 Field e, vx                 , 2
                      000F     1     e_vx = e_offset
                      0011     2     e_offset = e_offset + 2
-   0000                     176 Field e, vy                 , 2
+   0000                     178 Field e, vy                 , 2
                      0011     1     e_vy = e_offset
                      0013     2     e_offset = e_offset + 2
-   0000                     177 Field e, sprite             , 2
+   0000                     179 Field e, sprite             , 2
                      0013     1     e_sprite = e_offset
                      0015     2     e_offset = e_offset + 2
-   0000                     178 Field e, address            , 2
+   0000                     180 Field e, address            , 2
                      0015     1     e_address = e_offset
                      0017     2     e_offset = e_offset + 2
-   0000                     179 Field e, p_address          , 2
+   0000                     181 Field e, p_address          , 2
                      0017     1     e_p_address = e_offset
                      0019     2     e_offset = e_offset + 2
-   0000                     180 Field e, collision_status   , 1
+   0000                     182 Field e, collision_status   , 1
                      0019     1     e_collision_status = e_offset
                      001A     2     e_offset = e_offset + 1
-   0000                     181 Field e, collision_callback , 2
+   0000                     183 Field e, collision_callback , 2
                      001A     1     e_collision_callback = e_offset
                      001C     2     e_offset = e_offset + 2
-   0000                     182 Field e, moved              , 1
-                     001C     1     e_moved = e_offset
-                     001D     2     e_offset = e_offset + 1
-   0000                     183 EndStruct e
+   0000                     184 Field e, ai_status          , 1
+                     001C     1     e_ai_status = e_offset
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 12.
 Hexadecimal [16-Bits]
 
 
 
-                     001D     1     sizeof_e = e_offset
-                            184 
-                            185 ;;===============================================================================
-                            186 ;; GLOBAL VARIABLES
-                            187 ;;===============================================================================
+                     001D     2     e_offset = e_offset + 1
+   0000                     185 Field e, ai_callback        , 2
+                     001D     1     e_ai_callback = e_offset
+                     001F     2     e_offset = e_offset + 2
+   0000                     186 Field e, moved              , 1
+                     001F     1     e_moved = e_offset
+                     0020     2     e_offset = e_offset + 1
+   0000                     187 EndStruct e
+                     0020     1     sizeof_e = e_offset
+                            188 
+                            189 ;;===============================================================================
+                            190 ;; GLOBAL VARIABLES
+                            191 ;;===============================================================================
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 13.
 Hexadecimal [16-Bits]
 
@@ -5742,7 +5752,7 @@ Hexadecimal [16-Bits]
                             103 ;; ENTITY DEFINITION MACRO
                             104 ;;===============================================================================
                             105 .mdelete DefineEntity
-                            106 .macro DefineEntity _cpms, _ptr, _type, _color, _x, _y, _w, _h, _vxh, _vxl _vyh, _vyl, _sprite, _address, _p_address, _collsion_callback
+                            106 .macro DefineEntity _cpms, _ptr, _type, _color, _x, _y, _w, _h, _vxh, _vxl _vyh, _vyl, _sprite, _address, _p_address, _collsion_callback, _ai_callback
                             107     .dw _ptr
                             108     .db _cpms
                             109     .db _type
@@ -5769,92 +5779,94 @@ Hexadecimal [16-Bits]
                             125     .dw _p_address
                             126     .db #0
                             127     .dw _collsion_callback
-                            128     .db #1           ;; moved 1 default
-                            129 .endm
-                            130 
-                            131 ;;==============================================================================================================================
-                            132 ;;==============================================================================================================================
-                            133 ;;  MACRO FOR ENUM DEFINITIONS
+                            128     .db #0
+                            129     .dw _ai_callback
+                            130     .db #1           ;; moved 1 default
+                            131 .endm
+                            132 
+                            133 ;;==============================================================================================================================
                             134 ;;==============================================================================================================================
-                            135 ;;==============================================================================================================================
-                            136 .mdelete DefEnum
-                            137 .macro DefEnum _name
-                            138     _name'_offset = 0
-                            139 .endm
-                            140 
-                            141 ;;  Define enumeration element for an enumeration name.
-                            142 .mdelete Enum
-                            143 .macro Enum _enumname, _element
-                            144     _enumname'_'_element = _enumname'_offset
-                            145     _enumname'_offset = _enumname'_offset + 1
-                            146 .endm
-                            147 
-                            148 ;;==============================================================================================================================
-                            149 ;;==============================================================================================================================
-                            150 ;;  DEFINE LINKED LIST STRUCTURE
+                            135 ;;  MACRO FOR ENUM DEFINITIONS
+                            136 ;;==============================================================================================================================
+                            137 ;;==============================================================================================================================
+                            138 .mdelete DefEnum
+                            139 .macro DefEnum _name
+                            140     _name'_offset = 0
+                            141 .endm
+                            142 
+                            143 ;;  Define enumeration element for an enumeration name.
+                            144 .mdelete Enum
+                            145 .macro Enum _enumname, _element
+                            146     _enumname'_'_element = _enumname'_offset
+                            147     _enumname'_offset = _enumname'_offset + 1
+                            148 .endm
+                            149 
+                            150 ;;==============================================================================================================================
                             151 ;;==============================================================================================================================
-                            152 ;;==============================================================================================================================
-                            153 
-                            154 ;;  Defines the structure for a basic memory manager.
-                            155 .mdelete DefineBasicStructureArray_Size
-                            156 .macro DefineBasicStructureArray_Size _Tname, _N, _ComponentSize
-                            157     _Tname'_array::
-                            158         .ds _N * _ComponentSize
-                            159 .endm
-                            160 
-                            161 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-                            162 ;;  Defines the structure of the entity array.
-                            163 .mdelete DefineComponentArrayStructure_Size
-                            164 .macro DefineComponentArrayStructure_Size _Tname, _N, _ComponentSize
+                            152 ;;  DEFINE LINKED LIST STRUCTURE
+                            153 ;;==============================================================================================================================
+                            154 ;;==============================================================================================================================
+                            155 
+                            156 ;;  Defines the structure for a basic memory manager.
+                            157 .mdelete DefineBasicStructureArray_Size
+                            158 .macro DefineBasicStructureArray_Size _Tname, _N, _ComponentSize
+                            159     _Tname'_array::
+                            160         .ds _N * _ComponentSize
+                            161 .endm
+                            162 
+                            163 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                            164 ;;  Defines the structure of the entity array.
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 112.
 Hexadecimal [16-Bits]
 
 
 
-                            165     _Tname'_num::         .db 0
-                            166     _Tname'_list::        .dw nullptr
-                            167     _Tname'_free_list::   .dw _Tname'_array
-                            168     _Tname'_array::
-                            169         .ds _N * _ComponentSize
-                            170 .endm
-                            171 
-                            172 
-                            173 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-                            174 ;;  Defines the structure for the component handler.
-                            175 .mdelete DefineComponentPointerTable
-                            176 .macro DefineComponentPointerTable _Tname, _N_Cmps, _N
-                            177     _c = 0
-                            178     ;;  Array containing pointers to component pointer arrays.
-                            179     _Tname'_access_table::
-                            180     .rept _N_Cmps
-                            181         DefineComponentPointerAccessTable _Tname, \_c, _N, _N_Cmps
-                            182         _c = _c + 1
-                            183     .endm
-                            184     ;;  Zero-fill the component array with two additional words for the
-                            185     ;;  next free position and a null pointer fot he end of the array.
-                            186     _Tname'_components::
-                            187    .rept _N_Cmps
-                            188         DefineComponentArray _N
-                            189         .dw 0x0000
-                            190         .dw 0x0000
-                            191     .endm
-                            192 .endm
-                            193 
-                            194 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-                            195 ;;  Defines the pointers of the componente array pointer access table.
-                            196 .mdelete DefineComponentPointerAccessTable
-                            197 .macro DefineComponentPointerAccessTable _Tname, _suf, _N, _N_Cmps
-                            198     _Tname'_components'_suf'_ptr_pend::    .dw . + 2*_N_Cmps+ + _suf*2*_N + 2*_suf
-                            199 .endm
-                            200 
-                            201 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-                            202 ;;  Zero-pad an array of size n.
-                            203 .mdelete DefineComponentArray
-                            204 .macro DefineComponentArray _N
-                            205     .rept _N
-                            206         .dw 0x0000
-                            207     .endm
-                            208 .endm
+                            165 .mdelete DefineComponentArrayStructure_Size
+                            166 .macro DefineComponentArrayStructure_Size _Tname, _N, _ComponentSize
+                            167     _Tname'_num::         .db 0
+                            168     _Tname'_list::        .dw nullptr
+                            169     _Tname'_free_list::   .dw _Tname'_array
+                            170     _Tname'_array::
+                            171         .ds _N * _ComponentSize
+                            172 .endm
+                            173 
+                            174 
+                            175 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                            176 ;;  Defines the structure for the component handler.
+                            177 .mdelete DefineComponentPointerTable
+                            178 .macro DefineComponentPointerTable _Tname, _N_Cmps, _N
+                            179     _c = 0
+                            180     ;;  Array containing pointers to component pointer arrays.
+                            181     _Tname'_access_table::
+                            182     .rept _N_Cmps
+                            183         DefineComponentPointerAccessTable _Tname, \_c, _N, _N_Cmps
+                            184         _c = _c + 1
+                            185     .endm
+                            186     ;;  Zero-fill the component array with two additional words for the
+                            187     ;;  next free position and a null pointer fot he end of the array.
+                            188     _Tname'_components::
+                            189    .rept _N_Cmps
+                            190         DefineComponentArray _N
+                            191         .dw 0x0000
+                            192         .dw 0x0000
+                            193     .endm
+                            194 .endm
+                            195 
+                            196 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                            197 ;;  Defines the pointers of the componente array pointer access table.
+                            198 .mdelete DefineComponentPointerAccessTable
+                            199 .macro DefineComponentPointerAccessTable _Tname, _suf, _N, _N_Cmps
+                            200     _Tname'_components'_suf'_ptr_pend::    .dw . + 2*_N_Cmps+ + _suf*2*_N + 2*_suf
+                            201 .endm
+                            202 
+                            203 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                            204 ;;  Zero-pad an array of size n.
+                            205 .mdelete DefineComponentArray
+                            206 .macro DefineComponentArray _N
+                            207     .rept _N
+                            208         .dw 0x0000
+                            209     .endm
+                            210 .endm
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 113.
 Hexadecimal [16-Bits]
 
@@ -5945,14 +5957,14 @@ Hexadecimal [16-Bits]
                              95 ;;  ENTITY TYPE MASKS AND BITS
                              96 ;;==============================================================================================================================
                              97 ;;==============================================================================================================================
-                     0000    98 e_type_default          = 0x00
-                     0001    99 e_type_player           = 0x01
-                     0002   100 e_type_ball             = 0x02
-                     0004   101 e_type_life_potion      = 0x04
-                     0008   102 e_type_mob              = 0x08
-                     0010   103 e_type_shield           = 0x10
-                     0020   104 e_type_dead             = 0x20
-                     00FF   105 e_type_invalid          = 0xff
+                     0000    98 e_type_default              = 0x00
+                     0001    99 e_type_player               = 0x01
+                     0002   100 e_type_ball                 = 0x02
+                     0004   101 e_type_wall                 = 0x04
+                     0008   102 e_type_mob                  = 0x08
+                     0010   103 e_type_shield               = 0x10
+                     0020   104 e_type_dead                 = 0x20
+                     00FF   105 e_type_invalid              = 0xff
                             106 
                             107 ;;===============================================================================
                             108 ;;COMPONENT TYPES
@@ -5967,144 +5979,152 @@ Hexadecimal [16-Bits]
                      0040   117 e_cmp_collider = 0x40   ;;entidad que puede colisionar
                      0080   118 e_cmp_collisionable = 0x80   ;;entidad que puede ser colisionada
                      0047   119 e_cmp_paddle = e_cmp_alive | e_cmp_render | e_cmp_physics | e_cmp_collider  ;;componente por defecto
-                     0087   120 e_cpm_ball = e_cmp_alive | e_cmp_render | e_cmp_physics | e_cmp_collisionable
-                            121 
-                            122 ;;===============================================================================
-                            123 ;;COLISION TYPES
+                     0057   120 e_cmp_oponent_paddle = e_cmp_alive | e_cmp_render | e_cmp_physics | e_cmp_collider | e_cmp_ai ;;componente por defecto
+                     0087   121 e_cpm_ball = e_cmp_alive | e_cmp_render | e_cmp_physics | e_cmp_collisionable
+                     0041   122 e_cmp_border_wall = e_cmp_alive | e_cmp_collider
+                            123 
                             124 ;;===============================================================================
-                     0000   125 e_col_null = 0
-                     0001   126 e_col_left  = 0x01
-                     0002   127 e_col_right = 0x02
+                            125 ;;COLISION TYPES
+                            126 ;;===============================================================================
+                     0000   127 e_col_null = 0
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 115.
 Hexadecimal [16-Bits]
 
 
 
-                     0004   128 e_col_up    = 0x04
-                     0008   129 e_col_down  = 0x08
-                            130 
-                            131 ;;===============================================================================
-                            132 ;; Entity Component IDs
+                     0001   128 e_col_left  = 0x01
+                     0002   129 e_col_right = 0x02
+                     0004   130 e_col_up    = 0x04
+                     0008   131 e_col_down  = 0x08
+                            132 
                             133 ;;===============================================================================
-   0000                     134 DefEnum e_cmpID
+                            134 ;; Entity Component IDs
+                            135 ;;===============================================================================
+   0000                     136 DefEnum e_cmpID
                      0000     1     e_cmpID_offset = 0
-   0000                     135 Enum e_cmpID Render
+   0000                     137 Enum e_cmpID Render
                      0000     1     e_cmpID_Render = e_cmpID_offset
                      0001     2     e_cmpID_offset = e_cmpID_offset + 1
-   0000                     136 Enum e_cmpID Physics
+   0000                     138 Enum e_cmpID Physics
                      0001     1     e_cmpID_Physics = e_cmpID_offset
                      0002     2     e_cmpID_offset = e_cmpID_offset + 1
-   0000                     137 Enum e_cmpID AI
+   0000                     139 Enum e_cmpID AI
                      0002     1     e_cmpID_AI = e_cmpID_offset
                      0003     2     e_cmpID_offset = e_cmpID_offset + 1
-   0000                     138 Enum e_cmpID Animation
+   0000                     140 Enum e_cmpID Animation
                      0003     1     e_cmpID_Animation = e_cmpID_offset
                      0004     2     e_cmpID_offset = e_cmpID_offset + 1
-   0000                     139 Enum e_cmpID Collision
+   0000                     141 Enum e_cmpID Collision
                      0004     1     e_cmpID_Collision = e_cmpID_offset
                      0005     2     e_cmpID_offset = e_cmpID_offset + 1
-   0000                     140 Enum e_cmpID Num_Components
+   0000                     142 Enum e_cmpID Num_Components
                      0005     1     e_cmpID_Num_Components = e_cmpID_offset
                      0006     2     e_cmpID_offset = e_cmpID_offset + 1
-                            141 
-                            142 
                             143 
-                            144 ;; Keyboard constants
-                     000A   145 BUFFER_SIZE = 10
-                     00FF   146 ZERO_KEYS_ACTIVATED = #0xFF
-                            147 
-                            148 ;; Score constants
-                     0004   149 SCORE_NUM_BYTES = 4
-                            150 
-                            151 ;; SMALL NUMBERS CONSTANTS
-                     0002   152 S_SMALL_NUMBERS_WIDTH = 2
-                     0005   153 S_SMALL_NUMBERS_HEIGHT = 5
-                            154 ;; Font constants
-                     0002   155 FONT_WIDTH = 2
-                     0009   156 FONT_HEIGHT = 9
-                            157 
-                            158 
-                            159 ;;===============================================================================
-                            160 ;; ENTITIY SCTRUCTURE CREATION
+                            144 
+                            145 
+                            146 ;; Keyboard constants
+                     000A   147 BUFFER_SIZE = 10
+                     00FF   148 ZERO_KEYS_ACTIVATED = #0xFF
+                            149 
+                            150 ;; Score constants
+                     0004   151 SCORE_NUM_BYTES = 4
+                            152 
+                            153 ;; SMALL NUMBERS CONSTANTS
+                     0002   154 S_SMALL_NUMBERS_WIDTH = 2
+                     0005   155 S_SMALL_NUMBERS_HEIGHT = 5
+                            156 ;; Font constants
+                     0002   157 FONT_WIDTH = 2
+                     0009   158 FONT_HEIGHT = 9
+                            159 
+                            160 
                             161 ;;===============================================================================
-   0000                     162 BeginStruct e
+                            162 ;; ENTITIY SCTRUCTURE CREATION
+                            163 ;;===============================================================================
+   0000                     164 BeginStruct e
                      0000     1     e_offset = 0
-   0000                     163 Field e, ptr                , 2
+   0000                     165 Field e, ptr                , 2
                      0000     1     e_ptr = e_offset
                      0002     2     e_offset = e_offset + 2
-   0000                     164 Field e, cmps               , 1
-                     0002     1     e_cmps = e_offset
-                     0003     2     e_offset = e_offset + 1
+   0000                     166 Field e, cmps               , 1
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 116.
 Hexadecimal [16-Bits]
 
 
 
-   0000                     165 Field e, type               , 1
+                     0002     1     e_cmps = e_offset
+                     0003     2     e_offset = e_offset + 1
+   0000                     167 Field e, type               , 1
                      0003     1     e_type = e_offset
                      0004     2     e_offset = e_offset + 1
-   0000                     166 Field e, color              , 1
+   0000                     168 Field e, color              , 1
                      0004     1     e_color = e_offset
                      0005     2     e_offset = e_offset + 1
-   0000                     167 Field e, x                  , 2
+   0000                     169 Field e, x                  , 2
                      0005     1     e_x = e_offset
                      0007     2     e_offset = e_offset + 2
-   0000                     168 Field e, y                  , 2
+   0000                     170 Field e, y                  , 2
                      0007     1     e_y = e_offset
                      0009     2     e_offset = e_offset + 2
-   0000                     169 Field e, w                  , 1
+   0000                     171 Field e, w                  , 1
                      0009     1     e_w = e_offset
                      000A     2     e_offset = e_offset + 1
-   0000                     170 Field e, h                  , 1
+   0000                     172 Field e, h                  , 1
                      000A     1     e_h = e_offset
                      000B     2     e_offset = e_offset + 1
-   0000                     171 Field e, end_x              , 1
+   0000                     173 Field e, end_x              , 1
                      000B     1     e_end_x = e_offset
                      000C     2     e_offset = e_offset + 1
-   0000                     172 Field e, end_y              , 1
+   0000                     174 Field e, end_y              , 1
                      000C     1     e_end_y = e_offset
                      000D     2     e_offset = e_offset + 1
-   0000                     173 Field e, last_x             , 1
+   0000                     175 Field e, last_x             , 1
                      000D     1     e_last_x = e_offset
                      000E     2     e_offset = e_offset + 1
-   0000                     174 Field e, last_y             , 1
+   0000                     176 Field e, last_y             , 1
                      000E     1     e_last_y = e_offset
                      000F     2     e_offset = e_offset + 1
-   0000                     175 Field e, vx                 , 2
+   0000                     177 Field e, vx                 , 2
                      000F     1     e_vx = e_offset
                      0011     2     e_offset = e_offset + 2
-   0000                     176 Field e, vy                 , 2
+   0000                     178 Field e, vy                 , 2
                      0011     1     e_vy = e_offset
                      0013     2     e_offset = e_offset + 2
-   0000                     177 Field e, sprite             , 2
+   0000                     179 Field e, sprite             , 2
                      0013     1     e_sprite = e_offset
                      0015     2     e_offset = e_offset + 2
-   0000                     178 Field e, address            , 2
+   0000                     180 Field e, address            , 2
                      0015     1     e_address = e_offset
                      0017     2     e_offset = e_offset + 2
-   0000                     179 Field e, p_address          , 2
+   0000                     181 Field e, p_address          , 2
                      0017     1     e_p_address = e_offset
                      0019     2     e_offset = e_offset + 2
-   0000                     180 Field e, collision_status   , 1
+   0000                     182 Field e, collision_status   , 1
                      0019     1     e_collision_status = e_offset
                      001A     2     e_offset = e_offset + 1
-   0000                     181 Field e, collision_callback , 2
+   0000                     183 Field e, collision_callback , 2
                      001A     1     e_collision_callback = e_offset
                      001C     2     e_offset = e_offset + 2
-   0000                     182 Field e, moved              , 1
-                     001C     1     e_moved = e_offset
-                     001D     2     e_offset = e_offset + 1
-   0000                     183 EndStruct e
+   0000                     184 Field e, ai_status          , 1
+                     001C     1     e_ai_status = e_offset
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 117.
 Hexadecimal [16-Bits]
 
 
 
-                     001D     1     sizeof_e = e_offset
-                            184 
-                            185 ;;===============================================================================
-                            186 ;; GLOBAL VARIABLES
-                            187 ;;===============================================================================
+                     001D     2     e_offset = e_offset + 1
+   0000                     185 Field e, ai_callback        , 2
+                     001D     1     e_ai_callback = e_offset
+                     001F     2     e_offset = e_offset + 2
+   0000                     186 Field e, moved              , 1
+                     001F     1     e_moved = e_offset
+                     0020     2     e_offset = e_offset + 1
+   0000                     187 EndStruct e
+                     0020     1     sizeof_e = e_offset
+                            188 
+                            189 ;;===============================================================================
+                            190 ;; GLOBAL VARIABLES
+                            191 ;;===============================================================================
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 118.
 Hexadecimal [16-Bits]
 
@@ -6160,12 +6180,12 @@ Hexadecimal [16-Bits]
                              29 ;;  right after _CODE area contents.
                              30 ;;
                              31 .area _DATA
-   23A8 00 00                32 routine:        .dw #0000
-   23AA 00                   33 comp_size:      .db #0
-   23AB 00                   34 comp_type:      .db #0
-   23AC 00 00                35 routine_iY:     .dw #0000
-   23AE 00                   36 comp_size_iY:   .db #0
-   23AF 00                   37 comp_type_iY:   .db #0
+   242C 00 00                32 routine:        .dw #0000
+   242E 00                   33 comp_size:      .db #0
+   242F 00                   34 comp_type:      .db #0
+   2430 00 00                35 routine_iY:     .dw #0000
+   2432 00                   36 comp_size_iY:   .db #0
+   2433 00                   37 comp_type_iY:   .db #0
                              38 
                              39 
                              40 ;;
@@ -6398,7 +6418,7 @@ Hexadecimal [16-Bits]
    0788 DD 7E 00      [19]  229     ld a, a_count(ix)               ;; load max number in a
                      00B4   230     SUB_OFFSET = . +1
    078B D6 00         [ 7]  231     sub #0x00
-   078D CD 77 0C      [17]  232     call sys_util_get_random_number
+   078D CD 95 0C      [17]  232     call sys_util_get_random_number
                      00B9   233     ADD_OFFSET = . +1
    0790 C6 00         [ 7]  234     add #0x00
    0792 32 99 07      [13]  235     ld (_r_e_output), a             ;; save the random number in the output variable
@@ -6471,10 +6491,10 @@ Hexadecimal [16-Bits]
                             297 
    07CA 47            [ 4]  298     ld b, a                 ;; move the number of elements to b for indexing djnz
                             299 
-   07CB 22 A8 23      [16]  300     ld (routine), hl        ;; store routine in memory
+   07CB 22 2C 24      [16]  300     ld (routine), hl        ;; store routine in memory
                             301 
    07CE DD 7E 02      [19]  302     ld a, a_component_size(ix)  ;; store component_size in memory
-   07D1 32 AA 23      [13]  303     ld (comp_size), a       ;;    
+   07D1 32 2E 24      [13]  303     ld (comp_size), a       ;;    
                             304     
    07D4 CD 2C 08      [17]  305     call man_array_first_element ;; load start of array in hl
                             306     
@@ -6486,12 +6506,12 @@ Hexadecimal [16-Bits]
    07DB 21 E3 07      [10]  312     ld hl, #return_point    ;;
    07DE E5            [11]  313     push hl                 ;; set the return point in the stack
                             314 
-   07DF 2A A8 23      [16]  315     ld hl, (routine)        ;; Move routine to hl
+   07DF 2A 2C 24      [16]  315     ld hl, (routine)        ;; Move routine to hl
    07E2 E9            [ 4]  316     jp (hl)                 ;; jump to the routine
                             317 
    07E3                     318 return_point:
    07E3 16 00         [ 7]  319     ld d, #0                ;; retrieve component_size
-   07E5 3A AA 23      [13]  320     ld a, (comp_size)       ;;
+   07E5 3A 2E 24      [13]  320     ld a, (comp_size)       ;;
    07E8 5F            [ 4]  321     ld e, a                 ;;
                             322 
    07E9 DD 19         [15]  323     add ix, de              ;; move ix to the next element
@@ -6522,7 +6542,7 @@ Hexadecimal [16-Bits]
                             343 ;;
    07F1                     344 man_array_execute_each_matching::
    07F1 DD E5         [15]  345     push ix                             ;; save ix 
-   07F3 32 AB 23      [13]  346     ld (comp_type), a                   ;; save component to match for later
+   07F3 32 2F 24      [13]  346     ld (comp_type), a                   ;; save component to match for later
                             347 
    07F6 DD 7E 00      [19]  348     ld a, a_count(ix)                   ;; retrieve number of elements in the array
    07F9 B7            [ 4]  349     or a                                ;; If no elements in arrary return
@@ -6530,10 +6550,10 @@ Hexadecimal [16-Bits]
                             351 
    07FB 47            [ 4]  352     ld b, a                             ;; move the number of elements to b for indexing djnz
                             353 
-   07FC 22 A8 23      [16]  354     ld (routine), hl                    ;; store routine in memory
+   07FC 22 2C 24      [16]  354     ld (routine), hl                    ;; store routine in memory
                             355 
    07FF DD 7E 02      [19]  356     ld a, a_component_size(ix)          ;; store component_size in memory
-   0802 32 AA 23      [13]  357     ld (comp_size), a                   ;;    
+   0802 32 2E 24      [13]  357     ld (comp_size), a                   ;;    
                             358     
    0805 CD 2C 08      [17]  359     call man_array_first_element        ;; load start of array in hl
                             360     
@@ -6543,7 +6563,7 @@ Hexadecimal [16-Bits]
    080B                     364 matching_loop_each:
    080B C5            [11]  365     push bc                             ;; save index in stack
                             366 
-   080C 3A AB 23      [13]  367     ld a, (comp_type)                   ;; Retrieve the component type to match
+   080C 3A 2F 24      [13]  367     ld a, (comp_type)                   ;; Retrieve the component type to match
    080F 47            [ 4]  368     ld b, a                             ;;
    0810 DD 7E 00      [19]  369     ld a, e_cmp(ix)                    ;; retrieve the type of the current component
    0813 A0            [ 4]  370     and b                               ;; Compare if they match
@@ -6552,12 +6572,12 @@ Hexadecimal [16-Bits]
    0816 21 1E 08      [10]  373     ld hl, #matching_return_point       ;;
    0819 E5            [11]  374     push hl                             ;; set the return point in the stack
                             375 
-   081A 2A A8 23      [16]  376     ld hl, (routine)                    ;; Move routine to hl
+   081A 2A 2C 24      [16]  376     ld hl, (routine)                    ;; Move routine to hl
    081D E9            [ 4]  377     jp (hl)                             ;; jump to the routine
                             378 
    081E                     379 matching_return_point:
    081E 16 00         [ 7]  380     ld d, #0                            ;; retrieve component_size
-   0820 3A AA 23      [13]  381     ld a, (comp_size)                   ;;
+   0820 3A 2E 24      [13]  381     ld a, (comp_size)                   ;;
    0823 5F            [ 4]  382     ld e, a                             ;;
                             383 
    0824 DD 19         [15]  384     add ix, de                          ;; move ix to the next element

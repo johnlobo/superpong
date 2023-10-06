@@ -71,7 +71,7 @@ Symbol Table
     _s_small   **** GX  |     _s_small   **** GX  |     _s_small   **** GX
     _s_small   **** GX  |     _s_small   **** GX  |     _s_small   **** GX
     _s_small   **** GX  |     _s_small   **** GX  |     _s_small   **** GX
-    _s_small   **** GX  |   1 ballTpl    001D GR  |     cpct_dis   **** GX
+    _s_small   **** GX  |   1 ballTpl    0040 GR  |     cpct_dis   **** GX
     cpct_dra   **** GX  |     cpct_dra   **** GX  |     cpct_dra   **** GX
     cpct_etm   **** GX  |     cpct_etm   **** GX  |     cpct_etm   **** GX
     cpct_get   **** GX  |     cpct_get   **** GX  |     cpct_get   **** GX
@@ -82,45 +82,54 @@ Symbol Table
     cpct_set   **** GX  |     cpct_set   **** GX  |     cpct_set   **** GX
     cpct_set   **** GX  |     cpct_set   **** GX  |     cpct_set   **** GX
     cpct_set   **** GX  |     cpct_wai   **** GX  |     cpct_wai   **** GX
-    cpct_wai   **** GX  |     e_addres=  0015     |     e_cmp   =  0000 
-    e_cmpID_=  0002     |     e_cmpID_=  0003     |     e_cmpID_=  0004 
-    e_cmpID_=  0005     |     e_cmpID_=  0001     |     e_cmpID_=  0000 
-    e_cmpID_=  0006     |     e_cmp_ai=  0010     |     e_cmp_al=  0001 
-    e_cmp_an=  0020     |     e_cmp_co=  0040     |     e_cmp_co=  0080 
-    e_cmp_in=  0008     |     e_cmp_pa=  0047     |     e_cmp_ph=  0004 
-    e_cmp_re=  0002     |     e_cmps  =  0002     |     e_col_do=  0008 
-    e_col_le=  0001     |     e_col_nu=  0000     |     e_col_ri=  0002 
-    e_col_up=  0004     |     e_collis=  001A     |     e_collis=  0019 
-    e_color =  0004     |     e_cpm_ba=  0087     |     e_end_x =  000B 
-    e_end_y =  000C     |     e_h     =  000A     |     e_last_x=  000D 
-    e_last_y=  000E     |     e_moved =  001C     |     e_offset=  001D 
-    e_p_addr=  0017     |     e_ptr   =  0000     |     e_sprite=  0013 
-    e_type  =  0003     |     e_type_b=  0002     |     e_type_d=  0020 
-    e_type_d=  0000     |     e_type_i=  00FF     |     e_type_l=  0004 
+    cpct_wai   **** GX  |     e_addres=  0015     |     e_ai_cal=  001D 
+    e_ai_sta=  001C     |     e_cmp   =  0000     |     e_cmpID_=  0002 
+    e_cmpID_=  0003     |     e_cmpID_=  0004     |     e_cmpID_=  0005 
+    e_cmpID_=  0001     |     e_cmpID_=  0000     |     e_cmpID_=  0006 
+    e_cmp_ai=  0010     |     e_cmp_al=  0001     |     e_cmp_an=  0020 
+    e_cmp_bo=  0041     |     e_cmp_co=  0040     |     e_cmp_co=  0080 
+    e_cmp_in=  0008     |     e_cmp_op=  0057     |     e_cmp_pa=  0047 
+    e_cmp_ph=  0004     |     e_cmp_re=  0002     |     e_cmps  =  0002 
+    e_col_do=  0008     |     e_col_le=  0001     |     e_col_nu=  0000 
+    e_col_ri=  0002     |     e_col_up=  0004     |     e_collis=  001A 
+    e_collis=  0019     |     e_color =  0004     |     e_cpm_ba=  0087 
+    e_end_x =  000B     |     e_end_y =  000C     |     e_h     =  000A 
+    e_last_x=  000D     |     e_last_y=  000E     |     e_moved =  001F 
+    e_offset=  0020     |     e_p_addr=  0017     |     e_ptr   =  0000 
+    e_sprite=  0013     |     e_type  =  0003     |     e_type_b=  0002 
+    e_type_d=  0020     |     e_type_d=  0000     |     e_type_i=  00FF 
     e_type_m=  0008     |     e_type_p=  0001     |     e_type_s=  0010 
-    e_vx    =  000F     |     e_vy    =  0011     |     e_w     =  0009 
-    e_x     =  0005     |     e_y     =  0007     |     firmware=  0038 
-  1 game_sta   003A GR  |     man_enti   **** GX  |     man_enti   **** GX
+    e_type_w=  0004     |     e_vx    =  000F     |     e_vy    =  0011 
+    e_w     =  0009     |     e_x     =  0005     |     e_y     =  0007 
+    firmware=  0038     |   1 game_sta   0080 GR  |     man_enti   **** GX
     man_enti   **** GX  |     man_enti   **** GX  |     man_enti   **** GX
     man_enti   **** GX  |     man_enti   **** GX  |     man_enti   **** GX
     man_enti   **** GX  |     man_enti   **** GX  |     man_enti   **** GX
-  0 man_game   0031 GR  |   0 man_game   0000 GR  |   0 man_game   0035 GR
-  0 man_game   0024 GR  |     nullptr =  0000     |     opc_DI  =  00F3 
-    opc_EI  =  00FB     |     opc_JR  =  0018     |     opc_LD_D=  0016 
-  1 player1T   0000 GR  |     sizeof_e=  001D     |     sys_coll   **** GX
-    sys_coll   **** GX  |     sys_coll   **** GX  |     sys_inpu   **** GX
+    man_enti   **** GX  |     man_enti   **** GX  |   0 man_game   003F GR
+  0 man_game   0000 GR  |   0 man_game   0043 GR  |   0 man_game   002F GR
+    nullptr =  0000     |     opc_DI  =  00F3     |     opc_EI  =  00FB 
+    opc_JR  =  0018     |     opc_LD_D=  0016     |   1 oponentT   0020 GR
+  1 player1T   0000 GR  |     sizeof_e=  0020     |     sys_ai_i   **** GX
+    sys_ai_p   **** GX  |     sys_ai_u   **** GX  |     sys_coll   **** GX
+    sys_coll   **** GX  |     sys_coll   **** GX  |     sys_coll   **** GX
     sys_inpu   **** GX  |     sys_inpu   **** GX  |     sys_inpu   **** GX
     sys_inpu   **** GX  |     sys_inpu   **** GX  |     sys_inpu   **** GX
-    sys_inpu   **** GX  |     sys_inpu   **** GX  |     sys_phys   **** GX
-    sys_phys   **** GX  |     sys_rend   **** GX  |     sys_rend   **** GX
+    sys_inpu   **** GX  |     sys_inpu   **** GX  |     sys_inpu   **** GX
+    sys_phys   **** GX  |     sys_phys   **** GX  |     sys_rend   **** GX
     sys_rend   **** GX  |     sys_rend   **** GX  |     sys_rend   **** GX
-    sys_rend   **** GX  |     transpar   **** GX
-
+    sys_rend   **** GX  |     sys_rend   **** GX  |     transpar   **** GX
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 3.
+Hexadecimal [16-Bits]
+
+Symbol Table
+
+  1 wallUpTp   0060 GR
+
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 4.
 Hexadecimal [16-Bits]
 
 Area Table
 
-   0 _CODE      size   39   flags    0
-   1 _DATA      size   3B   flags    0
+   0 _CODE      size   47   flags    0
+   1 _DATA      size   81   flags    0
 

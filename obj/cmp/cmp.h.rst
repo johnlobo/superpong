@@ -135,7 +135,7 @@ Hexadecimal [16-Bits]
                             103 ;; ENTITY DEFINITION MACRO
                             104 ;;===============================================================================
                             105 .mdelete DefineEntity
-                            106 .macro DefineEntity _cpms, _ptr, _type, _color, _x, _y, _w, _h, _vxh, _vxl _vyh, _vyl, _sprite, _address, _p_address, _collsion_callback
+                            106 .macro DefineEntity _cpms, _ptr, _type, _color, _x, _y, _w, _h, _vxh, _vxl _vyh, _vyl, _sprite, _address, _p_address, _collsion_callback, _ai_callback
                             107     .dw _ptr
                             108     .db _cpms
                             109     .db _type
@@ -162,92 +162,94 @@ Hexadecimal [16-Bits]
                             125     .dw _p_address
                             126     .db #0
                             127     .dw _collsion_callback
-                            128     .db #1           ;; moved 1 default
-                            129 .endm
-                            130 
-                            131 ;;==============================================================================================================================
-                            132 ;;==============================================================================================================================
-                            133 ;;  MACRO FOR ENUM DEFINITIONS
+                            128     .db #0
+                            129     .dw _ai_callback
+                            130     .db #1           ;; moved 1 default
+                            131 .endm
+                            132 
+                            133 ;;==============================================================================================================================
                             134 ;;==============================================================================================================================
-                            135 ;;==============================================================================================================================
-                            136 .mdelete DefEnum
-                            137 .macro DefEnum _name
-                            138     _name'_offset = 0
-                            139 .endm
-                            140 
-                            141 ;;  Define enumeration element for an enumeration name.
-                            142 .mdelete Enum
-                            143 .macro Enum _enumname, _element
-                            144     _enumname'_'_element = _enumname'_offset
-                            145     _enumname'_offset = _enumname'_offset + 1
-                            146 .endm
-                            147 
-                            148 ;;==============================================================================================================================
-                            149 ;;==============================================================================================================================
-                            150 ;;  DEFINE LINKED LIST STRUCTURE
+                            135 ;;  MACRO FOR ENUM DEFINITIONS
+                            136 ;;==============================================================================================================================
+                            137 ;;==============================================================================================================================
+                            138 .mdelete DefEnum
+                            139 .macro DefEnum _name
+                            140     _name'_offset = 0
+                            141 .endm
+                            142 
+                            143 ;;  Define enumeration element for an enumeration name.
+                            144 .mdelete Enum
+                            145 .macro Enum _enumname, _element
+                            146     _enumname'_'_element = _enumname'_offset
+                            147     _enumname'_offset = _enumname'_offset + 1
+                            148 .endm
+                            149 
+                            150 ;;==============================================================================================================================
                             151 ;;==============================================================================================================================
-                            152 ;;==============================================================================================================================
-                            153 
-                            154 ;;  Defines the structure for a basic memory manager.
-                            155 .mdelete DefineBasicStructureArray_Size
-                            156 .macro DefineBasicStructureArray_Size _Tname, _N, _ComponentSize
-                            157     _Tname'_array::
-                            158         .ds _N * _ComponentSize
-                            159 .endm
-                            160 
-                            161 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-                            162 ;;  Defines the structure of the entity array.
-                            163 .mdelete DefineComponentArrayStructure_Size
-                            164 .macro DefineComponentArrayStructure_Size _Tname, _N, _ComponentSize
+                            152 ;;  DEFINE LINKED LIST STRUCTURE
+                            153 ;;==============================================================================================================================
+                            154 ;;==============================================================================================================================
+                            155 
+                            156 ;;  Defines the structure for a basic memory manager.
+                            157 .mdelete DefineBasicStructureArray_Size
+                            158 .macro DefineBasicStructureArray_Size _Tname, _N, _ComponentSize
+                            159     _Tname'_array::
+                            160         .ds _N * _ComponentSize
+                            161 .endm
+                            162 
+                            163 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                            164 ;;  Defines the structure of the entity array.
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 5.
 Hexadecimal [16-Bits]
 
 
 
-                            165     _Tname'_num::         .db 0
-                            166     _Tname'_list::        .dw nullptr
-                            167     _Tname'_free_list::   .dw _Tname'_array
-                            168     _Tname'_array::
-                            169         .ds _N * _ComponentSize
-                            170 .endm
-                            171 
-                            172 
-                            173 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-                            174 ;;  Defines the structure for the component handler.
-                            175 .mdelete DefineComponentPointerTable
-                            176 .macro DefineComponentPointerTable _Tname, _N_Cmps, _N
-                            177     _c = 0
-                            178     ;;  Array containing pointers to component pointer arrays.
-                            179     _Tname'_access_table::
-                            180     .rept _N_Cmps
-                            181         DefineComponentPointerAccessTable _Tname, \_c, _N, _N_Cmps
-                            182         _c = _c + 1
-                            183     .endm
-                            184     ;;  Zero-fill the component array with two additional words for the
-                            185     ;;  next free position and a null pointer fot he end of the array.
-                            186     _Tname'_components::
-                            187    .rept _N_Cmps
-                            188         DefineComponentArray _N
-                            189         .dw 0x0000
-                            190         .dw 0x0000
-                            191     .endm
-                            192 .endm
-                            193 
-                            194 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-                            195 ;;  Defines the pointers of the componente array pointer access table.
-                            196 .mdelete DefineComponentPointerAccessTable
-                            197 .macro DefineComponentPointerAccessTable _Tname, _suf, _N, _N_Cmps
-                            198     _Tname'_components'_suf'_ptr_pend::    .dw . + 2*_N_Cmps+ + _suf*2*_N + 2*_suf
-                            199 .endm
-                            200 
-                            201 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-                            202 ;;  Zero-pad an array of size n.
-                            203 .mdelete DefineComponentArray
-                            204 .macro DefineComponentArray _N
-                            205     .rept _N
-                            206         .dw 0x0000
-                            207     .endm
-                            208 .endm
+                            165 .mdelete DefineComponentArrayStructure_Size
+                            166 .macro DefineComponentArrayStructure_Size _Tname, _N, _ComponentSize
+                            167     _Tname'_num::         .db 0
+                            168     _Tname'_list::        .dw nullptr
+                            169     _Tname'_free_list::   .dw _Tname'_array
+                            170     _Tname'_array::
+                            171         .ds _N * _ComponentSize
+                            172 .endm
+                            173 
+                            174 
+                            175 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                            176 ;;  Defines the structure for the component handler.
+                            177 .mdelete DefineComponentPointerTable
+                            178 .macro DefineComponentPointerTable _Tname, _N_Cmps, _N
+                            179     _c = 0
+                            180     ;;  Array containing pointers to component pointer arrays.
+                            181     _Tname'_access_table::
+                            182     .rept _N_Cmps
+                            183         DefineComponentPointerAccessTable _Tname, \_c, _N, _N_Cmps
+                            184         _c = _c + 1
+                            185     .endm
+                            186     ;;  Zero-fill the component array with two additional words for the
+                            187     ;;  next free position and a null pointer fot he end of the array.
+                            188     _Tname'_components::
+                            189    .rept _N_Cmps
+                            190         DefineComponentArray _N
+                            191         .dw 0x0000
+                            192         .dw 0x0000
+                            193     .endm
+                            194 .endm
+                            195 
+                            196 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                            197 ;;  Defines the pointers of the componente array pointer access table.
+                            198 .mdelete DefineComponentPointerAccessTable
+                            199 .macro DefineComponentPointerAccessTable _Tname, _suf, _N, _N_Cmps
+                            200     _Tname'_components'_suf'_ptr_pend::    .dw . + 2*_N_Cmps+ + _suf*2*_N + 2*_suf
+                            201 .endm
+                            202 
+                            203 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                            204 ;;  Zero-pad an array of size n.
+                            205 .mdelete DefineComponentArray
+                            206 .macro DefineComponentArray _N
+                            207     .rept _N
+                            208         .dw 0x0000
+                            209     .endm
+                            210 .endm
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 6.
 Hexadecimal [16-Bits]
 

@@ -86,49 +86,51 @@ Symbol Table
     cpct_set   **** GX  |     cpct_wai   **** GX  |     cpct_wai   **** GX
     cpct_wai   **** GX  |   0 down_lin   016D R   |   0 draw_bor   0158 R
   0 draw_bor   0161 R   |   0 draw_lin   0165 R   |     e_addres=  0015 
-    e_cmp   =  0000     |     e_cmpID_=  0002     |     e_cmpID_=  0003 
-    e_cmpID_=  0004     |     e_cmpID_=  0005     |     e_cmpID_=  0001 
-    e_cmpID_=  0000     |     e_cmpID_=  0006     |     e_cmp_ai=  0010 
-    e_cmp_al=  0001     |     e_cmp_an=  0020     |     e_cmp_co=  0040 
-    e_cmp_co=  0080     |     e_cmp_in=  0008     |     e_cmp_pa=  0047 
-    e_cmp_ph=  0004     |     e_cmp_re=  0002     |     e_cmps  =  0002 
-    e_col_do=  0008     |     e_col_le=  0001     |     e_col_nu=  0000 
-    e_col_ri=  0002     |     e_col_up=  0004     |     e_collis=  001A 
-    e_collis=  0019     |     e_color =  0004     |     e_cpm_ba=  0087 
-    e_end_x =  000B     |     e_end_y =  000C     |     e_h     =  000A 
-    e_last_x=  000D     |     e_last_y=  000E     |     e_moved =  001C 
-    e_offset=  001D     |     e_p_addr=  0017     |     e_ptr   =  0000 
-    e_sprite=  0013     |     e_type  =  0003     |     e_type_b=  0002 
-    e_type_d=  0020     |     e_type_d=  0000     |     e_type_i=  00FF 
-    e_type_l=  0004     |     e_type_m=  0008     |     e_type_p=  0001 
-    e_type_s=  0010     |     e_vx    =  000F     |     e_vy    =  0011 
-    e_w     =  0009     |     e_x     =  0005     |     e_y     =  0007 
-    firmware=  0038     |   0 height     0183 R   |   0 message_   0184 R
-  0 next_lin   014A R   |   0 no_wait4   00D0 R   |     nullptr =  0000 
-    opc_DI  =  00F3     |     opc_EI  =  00FB     |     opc_JR  =  0018 
-    opc_LD_D=  0016     |     sizeof_e=  001D     |   0 smdb_emp   0137 R
-    string_b   **** GX  |     sys_inpu   **** GX  |     sys_inpu   **** GX
+    e_ai_cal=  001D     |     e_ai_sta=  001C     |     e_cmp   =  0000 
+    e_cmpID_=  0002     |     e_cmpID_=  0003     |     e_cmpID_=  0004 
+    e_cmpID_=  0005     |     e_cmpID_=  0001     |     e_cmpID_=  0000 
+    e_cmpID_=  0006     |     e_cmp_ai=  0010     |     e_cmp_al=  0001 
+    e_cmp_an=  0020     |     e_cmp_bo=  0041     |     e_cmp_co=  0040 
+    e_cmp_co=  0080     |     e_cmp_in=  0008     |     e_cmp_op=  0057 
+    e_cmp_pa=  0047     |     e_cmp_ph=  0004     |     e_cmp_re=  0002 
+    e_cmps  =  0002     |     e_col_do=  0008     |     e_col_le=  0001 
+    e_col_nu=  0000     |     e_col_ri=  0002     |     e_col_up=  0004 
+    e_collis=  001A     |     e_collis=  0019     |     e_color =  0004 
+    e_cpm_ba=  0087     |     e_end_x =  000B     |     e_end_y =  000C 
+    e_h     =  000A     |     e_last_x=  000D     |     e_last_y=  000E 
+    e_moved =  001F     |     e_offset=  0020     |     e_p_addr=  0017 
+    e_ptr   =  0000     |     e_sprite=  0013     |     e_type  =  0003 
+    e_type_b=  0002     |     e_type_d=  0020     |     e_type_d=  0000 
+    e_type_i=  00FF     |     e_type_m=  0008     |     e_type_p=  0001 
+    e_type_s=  0010     |     e_type_w=  0004     |     e_vx    =  000F 
+    e_vy    =  0011     |     e_w     =  0009     |     e_x     =  0005 
+    e_y     =  0007     |     firmware=  0038     |   0 height     0183 R
+  0 message_   0184 R   |   0 next_lin   014A R   |   0 no_wait4   00D0 R
+    nullptr =  0000     |     opc_DI  =  00F3     |     opc_EI  =  00FB 
+    opc_JR  =  0018     |     opc_LD_D=  0016     |     sizeof_e=  0020 
+  0 smdb_emp   0137 R   |     string_b   **** GX  |     sys_inpu   **** GX
     sys_inpu   **** GX  |     sys_inpu   **** GX  |     sys_inpu   **** GX
     sys_inpu   **** GX  |     sys_inpu   **** GX  |     sys_inpu   **** GX
-    sys_inpu   **** GX  |   0 sys_mess   0129 GR  |   0 sys_mess   0055 GR
-  0 sys_mess   0000 GR  |   0 sys_mess   008B GR  |   0 sys_mess   009E GR
+    sys_inpu   **** GX  |     sys_inpu   **** GX  |   0 sys_mess   0129 GR
+  0 sys_mess   0055 GR  |   0 sys_mess   0000 GR  |   0 sys_mess   008B GR
+  0 sys_mess   009E GR  |     sys_rend   **** GX  |     sys_rend   **** GX
     sys_rend   **** GX  |     sys_rend   **** GX  |     sys_rend   **** GX
-    sys_rend   **** GX  |     sys_rend   **** GX  |     sys_rend   **** GX
+    sys_rend   **** GX  |     sys_text   **** GX  |     sys_text   **** GX
     sys_text   **** GX  |     sys_text   **** GX  |     sys_text   **** GX
     sys_text   **** GX  |     sys_text   **** GX  |     sys_text   **** GX
-    sys_text   **** GX  |     sys_text   **** GX  |     sys_util   **** GX
-    sys_util   **** GX  |     sys_util   **** GX  |     sys_util   **** GX
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 3.
 Hexadecimal [16-Bits]
 
 Symbol Table
 
     sys_util   **** GX  |     sys_util   **** GX  |     sys_util   **** GX
-    sys_util   **** GX  |     sys_util   **** GX  |     transpar   **** GX
-    v       =  0002     |     w_addres=  0000     |     w_h     =  0005 
-    w_messag=  0006     |     w_w     =  0004     |     w_wait_f=  0008 
-    w_x     =  0002     |     w_y     =  0003     |   0 wait_for   00FA R
-  0 width      0182 R   |   0 width_ok   0027 R   |   0 y_coord    00D2 R
+    sys_util   **** GX  |     sys_util   **** GX  |     sys_util   **** GX
+    sys_util   **** GX  |     sys_util   **** GX  |     sys_util   **** GX
+    transpar   **** GX  |     v       =  0002     |     w_addres=  0000 
+    w_h     =  0005     |     w_messag=  0006     |     w_w     =  0004 
+    w_wait_f=  0008     |     w_x     =  0002     |     w_y     =  0003 
+  0 wait_for   00FA R   |   0 width      0182 R   |   0 width_ok   0027 R
+  0 y_coord    00D2 R
 
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 4.
 Hexadecimal [16-Bits]

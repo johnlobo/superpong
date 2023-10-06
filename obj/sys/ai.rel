@@ -1,45 +1,67 @@
 XL2
-H 3 areas 35 global symbols
-M physics_system
+H 2 areas 48 global symbols
+M ai_system
 S cpct_setInterruptHandler_asm Ref0000
+S man_entity_forall_matching_iy Ref0000
 S cpct_getScreenToSprite_asm Ref0000
 S cpct_isKeyPressed_asm Ref0000
 S cpct_setPalette_asm Ref0000
 S man_components_removePtr Ref0000
+S man_entity_deleteEverythingExceptPlayer Ref0000
 S cpct_setPALColour_asm Ref0000
+S sys_util_h_times_e Ref0000
+S man_entity_getBallPositionIY Ref0000
+S sys_util_BCD_Compare Ref0000
+S man_entity_set4destruction Ref0000
+S man_entity_create Ref0000
+S man_entity_init Ref0000
+S sys_util_BCD_Add Ref0000
 S cpct_drawSprite_asm Ref0000
+S man_entity_getOponentPosition Ref0000
 S cpct_etm_drawTileBox2x4_asm Ref0000
 S cpct_etm_drawTilemap4x8_ag_asm Ref0000
+S sys_util_hl_div_c Ref0000
+S man_entity_next_entity_iy Ref0000
 S man_components_getArrayHL Ref0000
 S _g_palette Ref0000
 S _cpct_keyboardStatusBuffer Ref0000
+S man_entity_getPlayerPosition Ref0000
 S cpct_waitHalts_asm Ref0000
+S man_entity_update Ref0000
 S cpct_setSeed_mxor_asm Ref0000
 S .__.ABS. Def0000
 S cpct_setSeed_xsp40_u8_asm Ref0000
 S cpct_setVideoMemoryPage_asm Ref0000
 S cpct_memset_f64_asm Ref0000
+S sys_util_get_random_number Ref0000
 S _s_small_numbers_00 Ref0000
 S _s_small_numbers_01 Ref0000
+S sys_util_absHL Ref0000
 S _s_small_numbers_02 Ref0000
 S _s_small_numbers_03 Ref0000
 S _s_small_numbers_04 Ref0000
 S _s_small_numbers_05 Ref0000
+S sys_util_negHL Ref0000
 S man_components_add Ref0000
 S _s_small_numbers_06 Ref0000
+S sys_util_delay Ref0000
 S _s_small_numbers_07 Ref0000
 S cpct_isAnyKeyPressed_asm Ref0000
 S _s_small_numbers_08 Ref0000
 S cpct_scanKeyboard_if_asm Ref0000
 S _s_small_numbers_09 Ref0000
+S string_buffer Ref0000
 S cpct_waitVSYNC_asm Ref0000
 S cpct_setVideoMode_asm Ref0000
 S cpct_px2byteM0_asm Ref0000
 S cpct_getRandom_xsp40_u8_asm Ref0000
 S cpct_memset_asm Ref0000
+S man_entity_getEntityArrayIX Ref0000
 S man_components_init Ref0000
+S man_entity_getEntityArrayIY Ref0000
 S _s_font_0 Ref0000
 S cpct_disableFirmware_asm Ref0000
+S sys_util_BCD_GetEnd Ref0000
 S cpct_getRandom_mxor_u8_asm Ref0000
 S cpct_drawSolidBox_asm Ref0000
 S cpct_drawSpriteBlended_asm Ref0000
@@ -48,80 +70,38 @@ S cpct_etm_setDrawTilemap4x8_ag_asm Ref0000
 S cpct_waitVSYNCStart_asm Ref0000
 S cpct_scanKeyboard_asm Ref0000
 S cpct_getScreenPtr_asm Ref0000
-A _CODE size D0 flags 0 addr 0
-S sys_physics_update_one_entity Def0069
-S sys_physics_apply_friction_vx Def001B
-S sys_physics_apply_friction_vy Def0042
-S sys_physics_init Def0000
-S sys_physics_update Def00BA
-S sys_physics_apply_gravity Def0009
+A _CODE size 4E flags 0 addr 0
+S sys_ai_paddle Def0009
+S sys_ai_init Def0000
+S sys_ai_update Def0030
 A _DATA size 0 flags 0 addr 0
-A _ABS size 0 flags 8 addr 0
 T 00 00
 R 00 00 00 00
-T 00 00 3E 01 CD 00 00 22 BB 00 C9
-R 00 00 00 00 02 05 09 00 00 08 00 00
+T 00 00 3E 02 CD 00 00 22 31 00 C9
+R 00 00 00 00 02 05 15 00 00 08 00 00
 T 09 00
 R 00 00 00 00
-T 09 00 01 24 00 DD 66 11 DD 6E 12 ED 4A DD 74 11
+T 09 00 CD 00 00 FD 7E 0F CB 7F C0 DD 7E 07 D6 0F
+R 00 00 00 00 02 03 09 00
+T 17 00 FD 46 07 B8 C8 38 09 DD 36 11 00 DD 36 12
 R 00 00 00 00
-T 17 00 DD 75 12 C9
+T 25 00 26 C9
 R 00 00 00 00
-T 1B 00
+T 27 00
 R 00 00 00 00
-T 1B 00 01 16 00 DD 66 0F DD 6E 10 CB 7C 20 0B B7
+T 27 00 DD 36 11 FF DD 36 12 D9 C9
 R 00 00 00 00
-T 29 00 ED 42 F2 3B 00 26 00 6C 18 08
-R 00 00 00 00 00 05 00 00
+T 30 00
+R 00 00 00 00
+T 30 00 21 00 00
+R 00 00 00 00
 T 33 00
 R 00 00 00 00
-T 33 00 ED 4A FA 3B 00 26 00 6C
-R 00 00 00 00 00 05 00 00
-T 3B 00
+T 33 00 5E 23 56 23 7B B2 C8 E5 DD 6B DD 62 DD 6E
 R 00 00 00 00
-T 3B 00 DD 74 0F DD 75 10 C9
+T 41 00 1D DD 66 1E 01 4A 00 C5 E9
+R 00 00 00 00 00 07 00 00
+T 4A 00
 R 00 00 00 00
-T 42 00
+T 4A 00 E1 18 E6 C9
 R 00 00 00 00
-T 42 00 01 16 00 DD 66 11 DD 6E 12 CB 7C 20 0B B7
-R 00 00 00 00
-T 50 00 ED 42 F2 62 00 26 00 6C 18 08
-R 00 00 00 00 00 05 00 00
-T 5A 00
-R 00 00 00 00
-T 5A 00 ED 4A FA 62 00 26 00 6C
-R 00 00 00 00 00 05 00 00
-T 62 00
-R 00 00 00 00
-T 62 00 DD 74 11 DD 75 12 C9
-R 00 00 00 00
-T 69 00
-R 00 00 00 00
-T 69 00 DD 7E 0F DD 4E 10 B1 28 19 DD 46 0F DD 66
-R 00 00 00 00
-T 77 00 05 DD 6E 06 7C ED 4A DD 74 05 DD 75 06 BC
-R 00 00 00 00
-T 85 00 28 04 DD 36 1F 01
-R 00 00 00 00
-T 8B 00
-R 00 00 00 00
-T 8B 00 DD 7E 11 DD 4E 12 B1 28 19 DD 46 11 DD 66
-R 00 00 00 00
-T 99 00 07 DD 6E 08 7C ED 4A DD 74 07 DD 75 08 BC
-R 00 00 00 00
-T A7 00 28 04 DD 36 1F 01
-R 00 00 00 00
-T AD 00
-R 00 00 00 00
-T AD 00 DD 7E 03 FE 01 C0 CD 1B 00 CD 42 00 C9
-R 00 00 00 00 00 09 00 00 00 0C 00 00
-T BA 00
-R 00 00 00 00
-T BA 00 21 00 00
-R 00 00 00 00
-T BD 00
-R 00 00 00 00
-T BD 00 5E 23 56 23 7B B2 C8 E5 DD 6B DD 62 CD
-R 00 00 00 00
-T CA 00 69 00 E1 18 EE C9
-R 00 00 00 00 00 02 00 00

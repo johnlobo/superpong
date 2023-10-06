@@ -1,5 +1,5 @@
 XL2
-H 2 areas 43 global symbols
+H 2 areas 44 global symbols
 M input_system
 S cpct_setInterruptHandler_asm Ref0000
 S man_entity_forall_matching_iy Ref0000
@@ -8,6 +8,7 @@ S cpct_isKeyPressed_asm Ref0000
 S cpct_setPalette_asm Ref0000
 S man_entity_deleteEverythingExceptPlayer Ref0000
 S cpct_setPALColour_asm Ref0000
+S man_entity_getBallPositionIY Ref0000
 S man_entity_set4destruction Ref0000
 S man_entity_create Ref0000
 S man_entity_init Ref0000
@@ -83,7 +84,7 @@ R 00 00 01 00 00 02 00 00
 T 00 00
 R 00 00 00 00
 T 00 00 CD 00 00 20 FB C9
-R 00 00 00 00 02 03 21 00
+R 00 00 00 00 02 03 22 00
 T 06 00
 R 00 00 00 00
 T 06 00 21 00 00
@@ -91,13 +92,13 @@ R 00 00 00 00
 T 09 00
 R 00 00 00 00
 T 09 00 E5 CD 00 00 B7 E1 23 28 F7 E5 CD 00 00 E1
-R 00 00 00 00 02 04 21 00 00 0D 00 00
+R 00 00 00 00 02 04 22 00 00 0D 00 00
 T 17 00 C9
 R 00 00 00 00
 T 18 00
 R 00 00 00 00
 T 18 00 21 00 00 AF
-R 00 00 00 00 02 03 10 00
+R 00 00 00 00 02 03 11 00
 T 1C 00
 R 00 00 00 00
 T 1C 00 FE 0A 28 14 32 30 00 7E EE FF 28 06 67 3A
@@ -219,6 +220,6 @@ R 00 00 00 00
 T 1D 01
 R 00 00 00 00
 T 1D 01 DD E5 CD 00 00 FD 21 02 00 CD 53 00 DD E1
-R 00 00 00 00 02 05 11 00 00 09 01 00 00 0C 00 00
+R 00 00 00 00 02 05 12 00 00 09 01 00 00 0C 00 00
 T 2B 01 C9
 R 00 00 00 00

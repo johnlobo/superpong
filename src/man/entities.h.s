@@ -32,6 +32,7 @@
 .globl man_entity_next_entity_iy
 .globl man_entity_getPlayerPosition
 .globl man_entity_getOponentPosition
+.globl man_entity_getBallPositionIY
 .globl man_entity_set4destruction
 .globl man_entity_update
 .globl man_entity_deleteEverythingExceptPlayer

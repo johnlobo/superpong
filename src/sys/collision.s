@@ -13,7 +13,7 @@
 ;;  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ;;-------------------------------------------------------------------------------
 
-.module physics_system
+.module collisions_system
 
 .include "sys/collision.h.s"
 .include "man/components.h.s"
@@ -112,6 +112,57 @@ sys_collision_check_collider_colisionable_X::
     sub b                           ;; a = iy.x + ix.w - 1 - iy.x
     ret
 
+
+;;-----------------------------------------------------------------
+;;
+;; sys_collision_reverse_hor_speed
+;;
+;;  Handles the collision with the paddle
+;;  Input:  ix : pointer to the entity
+;;          iy: pointer to the colisionable
+;;  Output: 
+;;  Modified: AF, BC, HL
+;;
+sys_collision_reverse_hor_speed::
+    ld h, e_vx(iy)
+    ld l, e_vx+1(iy)
+    call sys_util_negHL
+    ld e_vx(iy), h
+    ld e_vx+1(iy), l
+    ret
+
+;;-----------------------------------------------------------------
+;;
+;; sys_collision_reverse_ver_speed
+;;
+;;  Handles the collision with the paddle
+;;  Input:  ix : pointer to the entity
+;;          iy: pointer to the colisionable
+;;  Output: 
+;;  Modified: AF, BC, HL
+;;
+sys_collision_reverse_ver_speed::
+    ld h, e_vy(iy)
+    ld l, e_vy+1(iy)
+    call sys_util_negHL
+    ld e_vy(iy), h
+    ld e_vy+1(iy), l
+    ret
+
+;;-----------------------------------------------------------------
+;;
+;; sys_collision_wall_up
+;;
+;;  Handles the collision with the paddle
+;;  Input:  ix : pointer to the entity
+;;          iy: pointer to the colisionable
+;;  Output: 
+;;  Modified: AF, BC, HL
+;;
+sys_collision_wall_up::
+    call sys_collision_reverse_ver_speed
+    ret
+
 ;;-----------------------------------------------------------------
 ;;
 ;; sys_collision_paddle
@@ -133,11 +184,7 @@ _left_collision:
     dec e_x(iy)                     ;; reposition ball to the left to avoid overlap
     ;; change speed because of the collision
 _reverse_horizontal_speed:
-    ld h, e_vx(iy)
-    ld l, e_vx+1(iy)
-    call sys_util_negHL
-    ld e_vx(iy), h
-    ld e_vx+1(iy), l
+    call sys_collision_reverse_hor_speed    ;; Reverse horizontal ball speed
     ;; change vertical speed
     ld b, e_y(ix)
     ld a, e_y(iy)

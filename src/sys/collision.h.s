@@ -13,8 +13,6 @@
 ;;  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ;;-------------------------------------------------------------------------------
 
-.module collision_system
-
 
 ;;===============================================================================
 ;; PUBLIC VARIABLES
@@ -27,3 +25,4 @@
 .globl sys_collision_init
 .globl sys_collision_update
 .globl sys_collision_paddle
+.globl sys_collision_wall_up

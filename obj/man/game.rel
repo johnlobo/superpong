@@ -1,5 +1,5 @@
 XL2
-H 2 areas 57 global symbols
+H 2 areas 5E global symbols
 M game_manager
 S cpct_setInterruptHandler_asm Ref0000
 S sys_input_waitKeyPressed Ref0000
@@ -13,6 +13,7 @@ S man_entity_deleteEverythingExceptPlayer Ref0000
 S cpct_setPALColour_asm Ref0000
 S sys_input_wait4anykey Ref0000
 S sys_render_back_buffer Ref0000
+S man_entity_getBallPositionIY Ref0000
 S man_entity_set4destruction Ref0000
 S man_entity_create Ref0000
 S man_entity_init Ref0000
@@ -20,6 +21,7 @@ S sys_input_getKeyPressed Ref0000
 S cpct_drawSprite_asm Ref0000
 S man_entity_getOponentPosition Ref0000
 S cpct_etm_drawTileBox2x4_asm Ref0000
+S sys_ai_paddle Ref0000
 S sys_render_init Ref0000
 S PAUSE_MENU Def0003
 S cpct_etm_drawTilemap4x8_ag_asm Ref0000
@@ -34,6 +36,8 @@ S man_entity_getPlayerPosition Ref0000
 S cpct_waitHalts_asm Ref0000
 S man_entity_update Ref0000
 S cpct_setSeed_mxor_asm Ref0000
+S sys_ai_init Ref0000
+S sys_collision_wall_up Ref0000
 S sys_collision_init Ref0000
 S MAP_LOAD Def0002
 S .__.ABS. Def0000
@@ -54,6 +58,7 @@ S sys_input_main_menu_update Ref0000
 S _s_small_numbers_05 Ref0000
 S sys_input_clean_buffer Ref0000
 S _s_small_numbers_06 Ref0000
+S sys_ai_update Ref0000
 S _s_small_numbers_07 Ref0000
 S cpct_isAnyKeyPressed_asm Ref0000
 S _s_small_numbers_08 Ref0000
@@ -81,52 +86,72 @@ S cpct_etm_setDrawTilemap4x8_ag_asm Ref0000
 S cpct_waitVSYNCStart_asm Ref0000
 S cpct_scanKeyboard_asm Ref0000
 S cpct_getScreenPtr_asm Ref0000
-A _CODE size 39 flags 0 addr 0
+A _CODE size 47 flags 0 addr 0
 S man_game_init Def0000
-S man_game_get_state Def0031
-S man_game_update Def0024
-S man_game_set_state Def0035
-A _DATA size 3B flags 0 addr 0
-S ballTpl Def001D
-S game_state Def003A
+S man_game_get_state Def003F
+S man_game_update Def002F
+S man_game_set_state Def0043
+A _DATA size 81 flags 0 addr 0
+S ballTpl Def0040
+S game_state Def0080
+S wallUpTpl Def0060
 S player1Tpl Def0000
+S oponentTpl Def0020
 T 00 00
 R 00 00 01 00
 T 00 00 00 00 47 01 0F 0A 00 50 00 01 1E 0B 6E 00
 R 00 00 01 00
 T 0E 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-R 00 00 01 00 02 0E 16 00
-T 1C 00 01
+R 00 00 01 00 02 0E 18 00
+T 1C 00 00 00 00 01
 R 00 00 01 00
-T 1D 00
+T 20 00
 R 00 00 01 00
-T 1D 00 00 00 87 02 02 3A 00 50 00 02 04 3C 54 00
+T 20 00 00 00 57 01 01 3C 00 50 00 01 1E 3D 6E 00
 R 00 00 01 00
-T 2B 00 00 FF F0 00 01 00 00 00 00 00 00 00 00 00
+T 2E 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+R 00 00 01 00 02 0E 18 00
+T 3C 00 00 00 00 01
+R 00 00 01 00 02 03 14 00
+T 40 00
 R 00 00 01 00
-T 39 00 01 01
+T 40 00 00 00 87 02 02 3A 00 50 00 02 04 3C 54 00
+R 00 00 01 00
+T 4E 00 00 FF F0 00 01 00 00 00 00 00 00 00 00 00
+R 00 00 01 00
+T 5C 00 00 00 00 01
+R 00 00 01 00
+T 60 00
+R 00 00 01 00
+T 60 00 00 00 41 04 00 00 00 00 00 50 01 50 01 00
+R 00 00 01 00
+T 6E 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+R 00 00 01 00 02 0E 24 00
+T 7C 00 00 00 00 01 01
 R 00 00 01 00
 T 00 00
 R 00 00 00 00
 T 00 00 CD 00 00 21 00 00 CD 00 00 21
-R 00 00 00 00 02 03 0E 00 00 06 01 00 02 09 0D 00
-T 0A 00 00 00 CD 00 00 DD 36 05 3C DD 36 04 01 21
-R 00 00 00 00 00 02 01 00 02 05 0D 00
-T 18 00 1D 00 CD 00 00 CD 00 00 CD
-R 00 00 00 00 00 02 01 00 02 05 0D 00 02 08 19 00
-T 21 00 00 00 C9
-R 00 00 00 00 02 02 21 00
-T 24 00
+R 00 00 00 00 02 03 0F 00 00 06 01 00 02 09 0E 00
+T 0A 00 20 00 CD 00 00 21 40 00 CD
+R 00 00 00 00 00 02 01 00 02 05 0E 00 00 08 01 00
+T 13 00 00 00 21 60 00 CD 00 00 21
+R 00 00 00 00 02 02 0E 00 00 05 01 00 02 08 0E 00
+T 1C 00 60 00 CD 00 00 DD 36 07 C7 CD 00 00 CD
+R 00 00 00 00 00 02 01 00 02 05 0E 00 02 0C 25 00
+T 29 00 00 00 CD 00 00 C9
+R 00 00 00 00 02 02 23 00 02 05 1B 00
+T 2F 00
 R 00 00 00 00
-T 24 00 CD 00 00 CD 00 00 CD 00 00 CD
-R 00 00 00 00 02 03 4B 00 02 06 2A 00 02 09 38 00
-T 2E 00 00 00 C9
-R 00 00 00 00 02 02 27 00
-T 31 00
+T 2F 00 CD 00 00 CD 00 00 CD 00 00 CD
+R 00 00 00 00 02 03 50 00 02 06 39 00 02 09 2E 00
+T 39 00 00 00 CD 00 00 C9
+R 00 00 00 00 02 02 3D 00 02 05 2B 00
+T 3F 00
 R 00 00 00 00
-T 31 00 3A 3A 00 C9
+T 3F 00 3A 80 00 C9
 R 00 00 00 00 00 03 01 00
-T 35 00
+T 43 00
 R 00 00 00 00
-T 35 00 32 3A 00 C9
+T 43 00 32 80 00 C9
 R 00 00 00 00 00 03 01 00

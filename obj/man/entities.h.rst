@@ -37,7 +37,8 @@ Hexadecimal [16-Bits]
                              32 .globl man_entity_next_entity_iy
                              33 .globl man_entity_getPlayerPosition
                              34 .globl man_entity_getOponentPosition
-                             35 .globl man_entity_set4destruction
-                             36 .globl man_entity_update
-                             37 .globl man_entity_deleteEverythingExceptPlayer
-                             38 .globl man_entity_forall_matching_iy
+                             35 .globl man_entity_getBallPositionIY
+                             36 .globl man_entity_set4destruction
+                             37 .globl man_entity_update
+                             38 .globl man_entity_deleteEverythingExceptPlayer
+                             39 .globl man_entity_forall_matching_iy

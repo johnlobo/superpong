@@ -163,7 +163,7 @@ Hexadecimal [16-Bits]
                             103 ;; ENTITY DEFINITION MACRO
                             104 ;;===============================================================================
                             105 .mdelete DefineEntity
-                            106 .macro DefineEntity _cpms, _ptr, _type, _color, _x, _y, _w, _h, _vxh, _vxl _vyh, _vyl, _sprite, _address, _p_address, _collsion_callback
+                            106 .macro DefineEntity _cpms, _ptr, _type, _color, _x, _y, _w, _h, _vxh, _vxl _vyh, _vyl, _sprite, _address, _p_address, _collsion_callback, _ai_callback
                             107     .dw _ptr
                             108     .db _cpms
                             109     .db _type
@@ -190,92 +190,94 @@ Hexadecimal [16-Bits]
                             125     .dw _p_address
                             126     .db #0
                             127     .dw _collsion_callback
-                            128     .db #1           ;; moved 1 default
-                            129 .endm
-                            130 
-                            131 ;;==============================================================================================================================
-                            132 ;;==============================================================================================================================
-                            133 ;;  MACRO FOR ENUM DEFINITIONS
+                            128     .db #0
+                            129     .dw _ai_callback
+                            130     .db #1           ;; moved 1 default
+                            131 .endm
+                            132 
+                            133 ;;==============================================================================================================================
                             134 ;;==============================================================================================================================
-                            135 ;;==============================================================================================================================
-                            136 .mdelete DefEnum
-                            137 .macro DefEnum _name
-                            138     _name'_offset = 0
-                            139 .endm
-                            140 
-                            141 ;;  Define enumeration element for an enumeration name.
-                            142 .mdelete Enum
-                            143 .macro Enum _enumname, _element
-                            144     _enumname'_'_element = _enumname'_offset
-                            145     _enumname'_offset = _enumname'_offset + 1
-                            146 .endm
-                            147 
-                            148 ;;==============================================================================================================================
-                            149 ;;==============================================================================================================================
-                            150 ;;  DEFINE LINKED LIST STRUCTURE
+                            135 ;;  MACRO FOR ENUM DEFINITIONS
+                            136 ;;==============================================================================================================================
+                            137 ;;==============================================================================================================================
+                            138 .mdelete DefEnum
+                            139 .macro DefEnum _name
+                            140     _name'_offset = 0
+                            141 .endm
+                            142 
+                            143 ;;  Define enumeration element for an enumeration name.
+                            144 .mdelete Enum
+                            145 .macro Enum _enumname, _element
+                            146     _enumname'_'_element = _enumname'_offset
+                            147     _enumname'_offset = _enumname'_offset + 1
+                            148 .endm
+                            149 
+                            150 ;;==============================================================================================================================
                             151 ;;==============================================================================================================================
-                            152 ;;==============================================================================================================================
-                            153 
-                            154 ;;  Defines the structure for a basic memory manager.
-                            155 .mdelete DefineBasicStructureArray_Size
-                            156 .macro DefineBasicStructureArray_Size _Tname, _N, _ComponentSize
-                            157     _Tname'_array::
-                            158         .ds _N * _ComponentSize
-                            159 .endm
-                            160 
-                            161 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-                            162 ;;  Defines the structure of the entity array.
-                            163 .mdelete DefineComponentArrayStructure_Size
-                            164 .macro DefineComponentArrayStructure_Size _Tname, _N, _ComponentSize
+                            152 ;;  DEFINE LINKED LIST STRUCTURE
+                            153 ;;==============================================================================================================================
+                            154 ;;==============================================================================================================================
+                            155 
+                            156 ;;  Defines the structure for a basic memory manager.
+                            157 .mdelete DefineBasicStructureArray_Size
+                            158 .macro DefineBasicStructureArray_Size _Tname, _N, _ComponentSize
+                            159     _Tname'_array::
+                            160         .ds _N * _ComponentSize
+                            161 .endm
+                            162 
+                            163 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                            164 ;;  Defines the structure of the entity array.
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 6.
 Hexadecimal [16-Bits]
 
 
 
-                            165     _Tname'_num::         .db 0
-                            166     _Tname'_list::        .dw nullptr
-                            167     _Tname'_free_list::   .dw _Tname'_array
-                            168     _Tname'_array::
-                            169         .ds _N * _ComponentSize
-                            170 .endm
-                            171 
-                            172 
-                            173 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-                            174 ;;  Defines the structure for the component handler.
-                            175 .mdelete DefineComponentPointerTable
-                            176 .macro DefineComponentPointerTable _Tname, _N_Cmps, _N
-                            177     _c = 0
-                            178     ;;  Array containing pointers to component pointer arrays.
-                            179     _Tname'_access_table::
-                            180     .rept _N_Cmps
-                            181         DefineComponentPointerAccessTable _Tname, \_c, _N, _N_Cmps
-                            182         _c = _c + 1
-                            183     .endm
-                            184     ;;  Zero-fill the component array with two additional words for the
-                            185     ;;  next free position and a null pointer fot he end of the array.
-                            186     _Tname'_components::
-                            187    .rept _N_Cmps
-                            188         DefineComponentArray _N
-                            189         .dw 0x0000
-                            190         .dw 0x0000
-                            191     .endm
-                            192 .endm
-                            193 
-                            194 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-                            195 ;;  Defines the pointers of the componente array pointer access table.
-                            196 .mdelete DefineComponentPointerAccessTable
-                            197 .macro DefineComponentPointerAccessTable _Tname, _suf, _N, _N_Cmps
-                            198     _Tname'_components'_suf'_ptr_pend::    .dw . + 2*_N_Cmps+ + _suf*2*_N + 2*_suf
-                            199 .endm
-                            200 
-                            201 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-                            202 ;;  Zero-pad an array of size n.
-                            203 .mdelete DefineComponentArray
-                            204 .macro DefineComponentArray _N
-                            205     .rept _N
-                            206         .dw 0x0000
-                            207     .endm
-                            208 .endm
+                            165 .mdelete DefineComponentArrayStructure_Size
+                            166 .macro DefineComponentArrayStructure_Size _Tname, _N, _ComponentSize
+                            167     _Tname'_num::         .db 0
+                            168     _Tname'_list::        .dw nullptr
+                            169     _Tname'_free_list::   .dw _Tname'_array
+                            170     _Tname'_array::
+                            171         .ds _N * _ComponentSize
+                            172 .endm
+                            173 
+                            174 
+                            175 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                            176 ;;  Defines the structure for the component handler.
+                            177 .mdelete DefineComponentPointerTable
+                            178 .macro DefineComponentPointerTable _Tname, _N_Cmps, _N
+                            179     _c = 0
+                            180     ;;  Array containing pointers to component pointer arrays.
+                            181     _Tname'_access_table::
+                            182     .rept _N_Cmps
+                            183         DefineComponentPointerAccessTable _Tname, \_c, _N, _N_Cmps
+                            184         _c = _c + 1
+                            185     .endm
+                            186     ;;  Zero-fill the component array with two additional words for the
+                            187     ;;  next free position and a null pointer fot he end of the array.
+                            188     _Tname'_components::
+                            189    .rept _N_Cmps
+                            190         DefineComponentArray _N
+                            191         .dw 0x0000
+                            192         .dw 0x0000
+                            193     .endm
+                            194 .endm
+                            195 
+                            196 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                            197 ;;  Defines the pointers of the componente array pointer access table.
+                            198 .mdelete DefineComponentPointerAccessTable
+                            199 .macro DefineComponentPointerAccessTable _Tname, _suf, _N, _N_Cmps
+                            200     _Tname'_components'_suf'_ptr_pend::    .dw . + 2*_N_Cmps+ + _suf*2*_N + 2*_suf
+                            201 .endm
+                            202 
+                            203 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                            204 ;;  Zero-pad an array of size n.
+                            205 .mdelete DefineComponentArray
+                            206 .macro DefineComponentArray _N
+                            207     .rept _N
+                            208         .dw 0x0000
+                            209     .endm
+                            210 .endm
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 7.
 Hexadecimal [16-Bits]
 
@@ -343,10 +345,11 @@ Hexadecimal [16-Bits]
                              32 .globl man_entity_next_entity_iy
                              33 .globl man_entity_getPlayerPosition
                              34 .globl man_entity_getOponentPosition
-                             35 .globl man_entity_set4destruction
-                             36 .globl man_entity_update
-                             37 .globl man_entity_deleteEverythingExceptPlayer
-                             38 .globl man_entity_forall_matching_iy
+                             35 .globl man_entity_getBallPositionIY
+                             36 .globl man_entity_set4destruction
+                             37 .globl man_entity_update
+                             38 .globl man_entity_deleteEverythingExceptPlayer
+                             39 .globl man_entity_forall_matching_iy
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 9.
 Hexadecimal [16-Bits]
 
@@ -476,7 +479,7 @@ Hexadecimal [16-Bits]
 
 
 
-                             24 .include "sys/collision.h.s"
+                             24 .include "sys/ai.h.s"
                               1 ;;-----------------------------LICENSE NOTICE------------------------------------
                               2 ;;  This program is free software: you can redistribute it and/or modify
                               3 ;;  it under the terms of the GNU Lesser General Public License as published by
@@ -492,26 +495,58 @@ Hexadecimal [16-Bits]
                              13 ;;  along with this program.  If not, see <http://www.gnu.org/licenses/>.
                              14 ;;-------------------------------------------------------------------------------
                              15 
-                             16 .module collision_system
-                             17 
-                             18 
+                             16 
+                             17 ;;===============================================================================
+                             18 ;; PUBLIC VARIABLES
                              19 ;;===============================================================================
-                             20 ;; PUBLIC VARIABLES
-                             21 ;;===============================================================================
-                             22 
-                             23 
+                             20 
+                             21 
+                             22 ;;===============================================================================
+                             23 ;; PUBLIC METHODS
                              24 ;;===============================================================================
-                             25 ;; PUBLIC METHODS
-                             26 ;;===============================================================================
-                             27 .globl sys_collision_init
-                             28 .globl sys_collision_update
-                             29 .globl sys_collision_paddle
+                             25 .globl sys_ai_init
+                             26 .globl sys_ai_update
+                             27 .globl sys_ai_paddle
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 13.
 Hexadecimal [16-Bits]
 
 
 
-                             25 .include "common.h.s"
+                             25 .include "sys/collision.h.s"
+                              1 ;;-----------------------------LICENSE NOTICE------------------------------------
+                              2 ;;  This program is free software: you can redistribute it and/or modify
+                              3 ;;  it under the terms of the GNU Lesser General Public License as published by
+                              4 ;;  the Free Software Foundation, either version 3 of the License, or
+                              5 ;;  (at your option) any later version.
+                              6 ;;
+                              7 ;;  This program is distributed in the hope that it will be useful,
+                              8 ;;  but WITHOUT ANY WARRANTY; without even the implied warranty of
+                              9 ;;  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+                             10 ;;  GNU Lesser General Public License for more details.
+                             11 ;;
+                             12 ;;  You should have received a copy of the GNU Lesser General Public License
+                             13 ;;  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+                             14 ;;-------------------------------------------------------------------------------
+                             15 
+                             16 
+                             17 ;;===============================================================================
+                             18 ;; PUBLIC VARIABLES
+                             19 ;;===============================================================================
+                             20 
+                             21 
+                             22 ;;===============================================================================
+                             23 ;; PUBLIC METHODS
+                             24 ;;===============================================================================
+                             25 .globl sys_collision_init
+                             26 .globl sys_collision_update
+                             27 .globl sys_collision_paddle
+                             28 .globl sys_collision_wall_up
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 14.
+Hexadecimal [16-Bits]
+
+
+
+                             26 .include "common.h.s"
                               1 ;;-----------------------------LICENSE NOTICE------------------------------------
                               2 ;;
                               3 ;;  This program is free software: you can redistribute it and/or modify
@@ -528,7 +563,7 @@ Hexadecimal [16-Bits]
                              14 ;;  along with this program.  If not, see <http://www.gnu.org/licenses/>.
                              15 ;;-------------------------------------------------------------------------------
                              16 
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 14.
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 15.
 Hexadecimal [16-Bits]
 
 
@@ -588,7 +623,7 @@ Hexadecimal [16-Bits]
                              52 .macro ld_de_backbuffer
                              53    ld   a, (sys_render_back_buffer)          ;; DE = Pointer to start of the screen
                              54    ld   d, a
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 15.
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 16.
 Hexadecimal [16-Bits]
 
 
@@ -644,11 +679,11 @@ Hexadecimal [16-Bits]
                             103 ;; ENTITY DEFINITION MACRO
                             104 ;;===============================================================================
                             105 .mdelete DefineEntity
-                            106 .macro DefineEntity _cpms, _ptr, _type, _color, _x, _y, _w, _h, _vxh, _vxl _vyh, _vyl, _sprite, _address, _p_address, _collsion_callback
+                            106 .macro DefineEntity _cpms, _ptr, _type, _color, _x, _y, _w, _h, _vxh, _vxl _vyh, _vyl, _sprite, _address, _p_address, _collsion_callback, _ai_callback
                             107     .dw _ptr
                             108     .db _cpms
                             109     .db _type
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 16.
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 17.
 Hexadecimal [16-Bits]
 
 
@@ -671,93 +706,95 @@ Hexadecimal [16-Bits]
                             125     .dw _p_address
                             126     .db #0
                             127     .dw _collsion_callback
-                            128     .db #1           ;; moved 1 default
-                            129 .endm
-                            130 
-                            131 ;;==============================================================================================================================
-                            132 ;;==============================================================================================================================
-                            133 ;;  MACRO FOR ENUM DEFINITIONS
+                            128     .db #0
+                            129     .dw _ai_callback
+                            130     .db #1           ;; moved 1 default
+                            131 .endm
+                            132 
+                            133 ;;==============================================================================================================================
                             134 ;;==============================================================================================================================
-                            135 ;;==============================================================================================================================
-                            136 .mdelete DefEnum
-                            137 .macro DefEnum _name
-                            138     _name'_offset = 0
-                            139 .endm
-                            140 
-                            141 ;;  Define enumeration element for an enumeration name.
-                            142 .mdelete Enum
-                            143 .macro Enum _enumname, _element
-                            144     _enumname'_'_element = _enumname'_offset
-                            145     _enumname'_offset = _enumname'_offset + 1
-                            146 .endm
-                            147 
-                            148 ;;==============================================================================================================================
-                            149 ;;==============================================================================================================================
-                            150 ;;  DEFINE LINKED LIST STRUCTURE
+                            135 ;;  MACRO FOR ENUM DEFINITIONS
+                            136 ;;==============================================================================================================================
+                            137 ;;==============================================================================================================================
+                            138 .mdelete DefEnum
+                            139 .macro DefEnum _name
+                            140     _name'_offset = 0
+                            141 .endm
+                            142 
+                            143 ;;  Define enumeration element for an enumeration name.
+                            144 .mdelete Enum
+                            145 .macro Enum _enumname, _element
+                            146     _enumname'_'_element = _enumname'_offset
+                            147     _enumname'_offset = _enumname'_offset + 1
+                            148 .endm
+                            149 
+                            150 ;;==============================================================================================================================
                             151 ;;==============================================================================================================================
-                            152 ;;==============================================================================================================================
-                            153 
-                            154 ;;  Defines the structure for a basic memory manager.
-                            155 .mdelete DefineBasicStructureArray_Size
-                            156 .macro DefineBasicStructureArray_Size _Tname, _N, _ComponentSize
-                            157     _Tname'_array::
-                            158         .ds _N * _ComponentSize
-                            159 .endm
-                            160 
-                            161 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-                            162 ;;  Defines the structure of the entity array.
-                            163 .mdelete DefineComponentArrayStructure_Size
-                            164 .macro DefineComponentArrayStructure_Size _Tname, _N, _ComponentSize
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 17.
+                            152 ;;  DEFINE LINKED LIST STRUCTURE
+                            153 ;;==============================================================================================================================
+                            154 ;;==============================================================================================================================
+                            155 
+                            156 ;;  Defines the structure for a basic memory manager.
+                            157 .mdelete DefineBasicStructureArray_Size
+                            158 .macro DefineBasicStructureArray_Size _Tname, _N, _ComponentSize
+                            159     _Tname'_array::
+                            160         .ds _N * _ComponentSize
+                            161 .endm
+                            162 
+                            163 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                            164 ;;  Defines the structure of the entity array.
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 18.
 Hexadecimal [16-Bits]
 
 
 
-                            165     _Tname'_num::         .db 0
-                            166     _Tname'_list::        .dw nullptr
-                            167     _Tname'_free_list::   .dw _Tname'_array
-                            168     _Tname'_array::
-                            169         .ds _N * _ComponentSize
-                            170 .endm
-                            171 
-                            172 
-                            173 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-                            174 ;;  Defines the structure for the component handler.
-                            175 .mdelete DefineComponentPointerTable
-                            176 .macro DefineComponentPointerTable _Tname, _N_Cmps, _N
-                            177     _c = 0
-                            178     ;;  Array containing pointers to component pointer arrays.
-                            179     _Tname'_access_table::
-                            180     .rept _N_Cmps
-                            181         DefineComponentPointerAccessTable _Tname, \_c, _N, _N_Cmps
-                            182         _c = _c + 1
-                            183     .endm
-                            184     ;;  Zero-fill the component array with two additional words for the
-                            185     ;;  next free position and a null pointer fot he end of the array.
-                            186     _Tname'_components::
-                            187    .rept _N_Cmps
-                            188         DefineComponentArray _N
-                            189         .dw 0x0000
-                            190         .dw 0x0000
-                            191     .endm
-                            192 .endm
-                            193 
-                            194 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-                            195 ;;  Defines the pointers of the componente array pointer access table.
-                            196 .mdelete DefineComponentPointerAccessTable
-                            197 .macro DefineComponentPointerAccessTable _Tname, _suf, _N, _N_Cmps
-                            198     _Tname'_components'_suf'_ptr_pend::    .dw . + 2*_N_Cmps+ + _suf*2*_N + 2*_suf
-                            199 .endm
-                            200 
-                            201 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-                            202 ;;  Zero-pad an array of size n.
-                            203 .mdelete DefineComponentArray
-                            204 .macro DefineComponentArray _N
-                            205     .rept _N
-                            206         .dw 0x0000
-                            207     .endm
-                            208 .endm
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 18.
+                            165 .mdelete DefineComponentArrayStructure_Size
+                            166 .macro DefineComponentArrayStructure_Size _Tname, _N, _ComponentSize
+                            167     _Tname'_num::         .db 0
+                            168     _Tname'_list::        .dw nullptr
+                            169     _Tname'_free_list::   .dw _Tname'_array
+                            170     _Tname'_array::
+                            171         .ds _N * _ComponentSize
+                            172 .endm
+                            173 
+                            174 
+                            175 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                            176 ;;  Defines the structure for the component handler.
+                            177 .mdelete DefineComponentPointerTable
+                            178 .macro DefineComponentPointerTable _Tname, _N_Cmps, _N
+                            179     _c = 0
+                            180     ;;  Array containing pointers to component pointer arrays.
+                            181     _Tname'_access_table::
+                            182     .rept _N_Cmps
+                            183         DefineComponentPointerAccessTable _Tname, \_c, _N, _N_Cmps
+                            184         _c = _c + 1
+                            185     .endm
+                            186     ;;  Zero-fill the component array with two additional words for the
+                            187     ;;  next free position and a null pointer fot he end of the array.
+                            188     _Tname'_components::
+                            189    .rept _N_Cmps
+                            190         DefineComponentArray _N
+                            191         .dw 0x0000
+                            192         .dw 0x0000
+                            193     .endm
+                            194 .endm
+                            195 
+                            196 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                            197 ;;  Defines the pointers of the componente array pointer access table.
+                            198 .mdelete DefineComponentPointerAccessTable
+                            199 .macro DefineComponentPointerAccessTable _Tname, _suf, _N, _N_Cmps
+                            200     _Tname'_components'_suf'_ptr_pend::    .dw . + 2*_N_Cmps+ + _suf*2*_N + 2*_suf
+                            201 .endm
+                            202 
+                            203 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                            204 ;;  Zero-pad an array of size n.
+                            205 .mdelete DefineComponentArray
+                            206 .macro DefineComponentArray _N
+                            207     .rept _N
+                            208         .dw 0x0000
+                            209     .endm
+                            210 .endm
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 19.
 Hexadecimal [16-Bits]
 
 
@@ -817,7 +854,7 @@ Hexadecimal [16-Bits]
                              70 ;;===============================================================================
                              71 ;; DEFINED CONSTANTS
                              72 ;;===============================================================================
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 19.
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 20.
 Hexadecimal [16-Bits]
 
 
@@ -847,14 +884,14 @@ Hexadecimal [16-Bits]
                              95 ;;  ENTITY TYPE MASKS AND BITS
                              96 ;;==============================================================================================================================
                              97 ;;==============================================================================================================================
-                     0000    98 e_type_default          = 0x00
-                     0001    99 e_type_player           = 0x01
-                     0002   100 e_type_ball             = 0x02
-                     0004   101 e_type_life_potion      = 0x04
-                     0008   102 e_type_mob              = 0x08
-                     0010   103 e_type_shield           = 0x10
-                     0020   104 e_type_dead             = 0x20
-                     00FF   105 e_type_invalid          = 0xff
+                     0000    98 e_type_default              = 0x00
+                     0001    99 e_type_player               = 0x01
+                     0002   100 e_type_ball                 = 0x02
+                     0004   101 e_type_wall                 = 0x04
+                     0008   102 e_type_mob                  = 0x08
+                     0010   103 e_type_shield               = 0x10
+                     0020   104 e_type_dead                 = 0x20
+                     00FF   105 e_type_invalid              = 0xff
                             106 
                             107 ;;===============================================================================
                             108 ;;COMPONENT TYPES
@@ -869,150 +906,158 @@ Hexadecimal [16-Bits]
                      0040   117 e_cmp_collider = 0x40   ;;entidad que puede colisionar
                      0080   118 e_cmp_collisionable = 0x80   ;;entidad que puede ser colisionada
                      0047   119 e_cmp_paddle = e_cmp_alive | e_cmp_render | e_cmp_physics | e_cmp_collider  ;;componente por defecto
-                     0087   120 e_cpm_ball = e_cmp_alive | e_cmp_render | e_cmp_physics | e_cmp_collisionable
-                            121 
-                            122 ;;===============================================================================
-                            123 ;;COLISION TYPES
+                     0057   120 e_cmp_oponent_paddle = e_cmp_alive | e_cmp_render | e_cmp_physics | e_cmp_collider | e_cmp_ai ;;componente por defecto
+                     0087   121 e_cpm_ball = e_cmp_alive | e_cmp_render | e_cmp_physics | e_cmp_collisionable
+                     0041   122 e_cmp_border_wall = e_cmp_alive | e_cmp_collider
+                            123 
                             124 ;;===============================================================================
-                     0000   125 e_col_null = 0
-                     0001   126 e_col_left  = 0x01
-                     0002   127 e_col_right = 0x02
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 20.
-Hexadecimal [16-Bits]
-
-
-
-                     0004   128 e_col_up    = 0x04
-                     0008   129 e_col_down  = 0x08
-                            130 
-                            131 ;;===============================================================================
-                            132 ;; Entity Component IDs
-                            133 ;;===============================================================================
-   24D7                     134 DefEnum e_cmpID
-                     0000     1     e_cmpID_offset = 0
-   0000                     135 Enum e_cmpID Render
-                     0000     1     e_cmpID_Render = e_cmpID_offset
-                     0001     2     e_cmpID_offset = e_cmpID_offset + 1
-   0000                     136 Enum e_cmpID Physics
-                     0001     1     e_cmpID_Physics = e_cmpID_offset
-                     0002     2     e_cmpID_offset = e_cmpID_offset + 1
-   0000                     137 Enum e_cmpID AI
-                     0002     1     e_cmpID_AI = e_cmpID_offset
-                     0003     2     e_cmpID_offset = e_cmpID_offset + 1
-   0000                     138 Enum e_cmpID Animation
-                     0003     1     e_cmpID_Animation = e_cmpID_offset
-                     0004     2     e_cmpID_offset = e_cmpID_offset + 1
-   0000                     139 Enum e_cmpID Collision
-                     0004     1     e_cmpID_Collision = e_cmpID_offset
-                     0005     2     e_cmpID_offset = e_cmpID_offset + 1
-   0000                     140 Enum e_cmpID Num_Components
-                     0005     1     e_cmpID_Num_Components = e_cmpID_offset
-                     0006     2     e_cmpID_offset = e_cmpID_offset + 1
-                            141 
-                            142 
-                            143 
-                            144 ;; Keyboard constants
-                     000A   145 BUFFER_SIZE = 10
-                     00FF   146 ZERO_KEYS_ACTIVATED = #0xFF
-                            147 
-                            148 ;; Score constants
-                     0004   149 SCORE_NUM_BYTES = 4
-                            150 
-                            151 ;; SMALL NUMBERS CONSTANTS
-                     0002   152 S_SMALL_NUMBERS_WIDTH = 2
-                     0005   153 S_SMALL_NUMBERS_HEIGHT = 5
-                            154 ;; Font constants
-                     0002   155 FONT_WIDTH = 2
-                     0009   156 FONT_HEIGHT = 9
-                            157 
-                            158 
-                            159 ;;===============================================================================
-                            160 ;; ENTITIY SCTRUCTURE CREATION
-                            161 ;;===============================================================================
-   0000                     162 BeginStruct e
-                     0000     1     e_offset = 0
-   0000                     163 Field e, ptr                , 2
-                     0000     1     e_ptr = e_offset
-                     0002     2     e_offset = e_offset + 2
-   0000                     164 Field e, cmps               , 1
-                     0002     1     e_cmps = e_offset
-                     0003     2     e_offset = e_offset + 1
+                            125 ;;COLISION TYPES
+                            126 ;;===============================================================================
+                     0000   127 e_col_null = 0
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 21.
 Hexadecimal [16-Bits]
 
 
 
-   0000                     165 Field e, type               , 1
-                     0003     1     e_type = e_offset
-                     0004     2     e_offset = e_offset + 1
-   0000                     166 Field e, color              , 1
-                     0004     1     e_color = e_offset
-                     0005     2     e_offset = e_offset + 1
-   0000                     167 Field e, x                  , 2
-                     0005     1     e_x = e_offset
-                     0007     2     e_offset = e_offset + 2
-   0000                     168 Field e, y                  , 2
-                     0007     1     e_y = e_offset
-                     0009     2     e_offset = e_offset + 2
-   0000                     169 Field e, w                  , 1
-                     0009     1     e_w = e_offset
-                     000A     2     e_offset = e_offset + 1
-   0000                     170 Field e, h                  , 1
-                     000A     1     e_h = e_offset
-                     000B     2     e_offset = e_offset + 1
-   0000                     171 Field e, end_x              , 1
-                     000B     1     e_end_x = e_offset
-                     000C     2     e_offset = e_offset + 1
-   0000                     172 Field e, end_y              , 1
-                     000C     1     e_end_y = e_offset
-                     000D     2     e_offset = e_offset + 1
-   0000                     173 Field e, last_x             , 1
-                     000D     1     e_last_x = e_offset
-                     000E     2     e_offset = e_offset + 1
-   0000                     174 Field e, last_y             , 1
-                     000E     1     e_last_y = e_offset
-                     000F     2     e_offset = e_offset + 1
-   0000                     175 Field e, vx                 , 2
-                     000F     1     e_vx = e_offset
-                     0011     2     e_offset = e_offset + 2
-   0000                     176 Field e, vy                 , 2
-                     0011     1     e_vy = e_offset
-                     0013     2     e_offset = e_offset + 2
-   0000                     177 Field e, sprite             , 2
-                     0013     1     e_sprite = e_offset
-                     0015     2     e_offset = e_offset + 2
-   0000                     178 Field e, address            , 2
-                     0015     1     e_address = e_offset
-                     0017     2     e_offset = e_offset + 2
-   0000                     179 Field e, p_address          , 2
-                     0017     1     e_p_address = e_offset
-                     0019     2     e_offset = e_offset + 2
-   0000                     180 Field e, collision_status   , 1
-                     0019     1     e_collision_status = e_offset
-                     001A     2     e_offset = e_offset + 1
-   0000                     181 Field e, collision_callback , 2
-                     001A     1     e_collision_callback = e_offset
-                     001C     2     e_offset = e_offset + 2
-   0000                     182 Field e, moved              , 1
-                     001C     1     e_moved = e_offset
-                     001D     2     e_offset = e_offset + 1
-   0000                     183 EndStruct e
+                     0001   128 e_col_left  = 0x01
+                     0002   129 e_col_right = 0x02
+                     0004   130 e_col_up    = 0x04
+                     0008   131 e_col_down  = 0x08
+                            132 
+                            133 ;;===============================================================================
+                            134 ;; Entity Component IDs
+                            135 ;;===============================================================================
+   2579                     136 DefEnum e_cmpID
+                     0000     1     e_cmpID_offset = 0
+   0000                     137 Enum e_cmpID Render
+                     0000     1     e_cmpID_Render = e_cmpID_offset
+                     0001     2     e_cmpID_offset = e_cmpID_offset + 1
+   0000                     138 Enum e_cmpID Physics
+                     0001     1     e_cmpID_Physics = e_cmpID_offset
+                     0002     2     e_cmpID_offset = e_cmpID_offset + 1
+   0000                     139 Enum e_cmpID AI
+                     0002     1     e_cmpID_AI = e_cmpID_offset
+                     0003     2     e_cmpID_offset = e_cmpID_offset + 1
+   0000                     140 Enum e_cmpID Animation
+                     0003     1     e_cmpID_Animation = e_cmpID_offset
+                     0004     2     e_cmpID_offset = e_cmpID_offset + 1
+   0000                     141 Enum e_cmpID Collision
+                     0004     1     e_cmpID_Collision = e_cmpID_offset
+                     0005     2     e_cmpID_offset = e_cmpID_offset + 1
+   0000                     142 Enum e_cmpID Num_Components
+                     0005     1     e_cmpID_Num_Components = e_cmpID_offset
+                     0006     2     e_cmpID_offset = e_cmpID_offset + 1
+                            143 
+                            144 
+                            145 
+                            146 ;; Keyboard constants
+                     000A   147 BUFFER_SIZE = 10
+                     00FF   148 ZERO_KEYS_ACTIVATED = #0xFF
+                            149 
+                            150 ;; Score constants
+                     0004   151 SCORE_NUM_BYTES = 4
+                            152 
+                            153 ;; SMALL NUMBERS CONSTANTS
+                     0002   154 S_SMALL_NUMBERS_WIDTH = 2
+                     0005   155 S_SMALL_NUMBERS_HEIGHT = 5
+                            156 ;; Font constants
+                     0002   157 FONT_WIDTH = 2
+                     0009   158 FONT_HEIGHT = 9
+                            159 
+                            160 
+                            161 ;;===============================================================================
+                            162 ;; ENTITIY SCTRUCTURE CREATION
+                            163 ;;===============================================================================
+   0000                     164 BeginStruct e
+                     0000     1     e_offset = 0
+   0000                     165 Field e, ptr                , 2
+                     0000     1     e_ptr = e_offset
+                     0002     2     e_offset = e_offset + 2
+   0000                     166 Field e, cmps               , 1
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 22.
 Hexadecimal [16-Bits]
 
 
 
-                     001D     1     sizeof_e = e_offset
-                            184 
-                            185 ;;===============================================================================
-                            186 ;; GLOBAL VARIABLES
-                            187 ;;===============================================================================
+                     0002     1     e_cmps = e_offset
+                     0003     2     e_offset = e_offset + 1
+   0000                     167 Field e, type               , 1
+                     0003     1     e_type = e_offset
+                     0004     2     e_offset = e_offset + 1
+   0000                     168 Field e, color              , 1
+                     0004     1     e_color = e_offset
+                     0005     2     e_offset = e_offset + 1
+   0000                     169 Field e, x                  , 2
+                     0005     1     e_x = e_offset
+                     0007     2     e_offset = e_offset + 2
+   0000                     170 Field e, y                  , 2
+                     0007     1     e_y = e_offset
+                     0009     2     e_offset = e_offset + 2
+   0000                     171 Field e, w                  , 1
+                     0009     1     e_w = e_offset
+                     000A     2     e_offset = e_offset + 1
+   0000                     172 Field e, h                  , 1
+                     000A     1     e_h = e_offset
+                     000B     2     e_offset = e_offset + 1
+   0000                     173 Field e, end_x              , 1
+                     000B     1     e_end_x = e_offset
+                     000C     2     e_offset = e_offset + 1
+   0000                     174 Field e, end_y              , 1
+                     000C     1     e_end_y = e_offset
+                     000D     2     e_offset = e_offset + 1
+   0000                     175 Field e, last_x             , 1
+                     000D     1     e_last_x = e_offset
+                     000E     2     e_offset = e_offset + 1
+   0000                     176 Field e, last_y             , 1
+                     000E     1     e_last_y = e_offset
+                     000F     2     e_offset = e_offset + 1
+   0000                     177 Field e, vx                 , 2
+                     000F     1     e_vx = e_offset
+                     0011     2     e_offset = e_offset + 2
+   0000                     178 Field e, vy                 , 2
+                     0011     1     e_vy = e_offset
+                     0013     2     e_offset = e_offset + 2
+   0000                     179 Field e, sprite             , 2
+                     0013     1     e_sprite = e_offset
+                     0015     2     e_offset = e_offset + 2
+   0000                     180 Field e, address            , 2
+                     0015     1     e_address = e_offset
+                     0017     2     e_offset = e_offset + 2
+   0000                     181 Field e, p_address          , 2
+                     0017     1     e_p_address = e_offset
+                     0019     2     e_offset = e_offset + 2
+   0000                     182 Field e, collision_status   , 1
+                     0019     1     e_collision_status = e_offset
+                     001A     2     e_offset = e_offset + 1
+   0000                     183 Field e, collision_callback , 2
+                     001A     1     e_collision_callback = e_offset
+                     001C     2     e_offset = e_offset + 2
+   0000                     184 Field e, ai_status          , 1
+                     001C     1     e_ai_status = e_offset
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 23.
 Hexadecimal [16-Bits]
 
 
 
-                             26 .include "cpctelera.h.s"
+                     001D     2     e_offset = e_offset + 1
+   0000                     185 Field e, ai_callback        , 2
+                     001D     1     e_ai_callback = e_offset
+                     001F     2     e_offset = e_offset + 2
+   0000                     186 Field e, moved              , 1
+                     001F     1     e_moved = e_offset
+                     0020     2     e_offset = e_offset + 1
+   0000                     187 EndStruct e
+                     0020     1     sizeof_e = e_offset
+                            188 
+                            189 ;;===============================================================================
+                            190 ;; GLOBAL VARIABLES
+                            191 ;;===============================================================================
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 24.
+Hexadecimal [16-Bits]
+
+
+
+                             27 .include "cpctelera.h.s"
                               1 ;;-----------------------------LICENSE NOTICE------------------------------------
                               2 ;;  This file is part of CPCtelera: An Amstrad CPC Game Engine
                               3 ;;  Copyright (C) 2017 ronaldo / Fremos / Cheesetea / ByteRealms (@FranGallegoBR)
@@ -1032,7 +1077,7 @@ Hexadecimal [16-Bits]
                              17 ;;-------------------------------------------------------------------------------
                              18 
                              19 ;; All CPCtelera include files
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 24.
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 25.
 Hexadecimal [16-Bits]
 
 
@@ -1056,7 +1101,7 @@ Hexadecimal [16-Bits]
                              16 ;;  along with this program.  If not, see <http://www.gnu.org/licenses/>.
                              17 ;;-------------------------------------------------------------------------------
                              18 
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 25.
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 26.
 Hexadecimal [16-Bits]
 
 
@@ -1116,7 +1161,7 @@ Hexadecimal [16-Bits]
                              52 ;;    5 bytes
                              53 ;;
                              54 ;; Time Measures:
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 26.
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 27.
 Hexadecimal [16-Bits]
 
 
@@ -1176,7 +1221,7 @@ Hexadecimal [16-Bits]
                             107 ;; ------------------------------------
                             108 ;; (end code)
                             109 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 27.
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 28.
 Hexadecimal [16-Bits]
 
 
@@ -1236,7 +1281,7 @@ Hexadecimal [16-Bits]
                             162 ;;
                             163 ;; Parameters:
                             164 ;;    None
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 28.
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 29.
 Hexadecimal [16-Bits]
 
 
@@ -1296,7 +1341,7 @@ Hexadecimal [16-Bits]
                             217 ;; Return Value:
                             218 ;;    RH:RL - Holds the result of RH:RL - A
                             219 ;;
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 29.
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 30.
 Hexadecimal [16-Bits]
 
 
@@ -1356,7 +1401,7 @@ Hexadecimal [16-Bits]
                             272 ;; It uses only DE and A to perform the operation.
                             273 ;;
                             274 ;; Modified Registers: 
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 30.
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 31.
 Hexadecimal [16-Bits]
 
 
@@ -1416,7 +1461,7 @@ Hexadecimal [16-Bits]
                             327 .endm
                             328 
                             329 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 31.
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 32.
 Hexadecimal [16-Bits]
 
 
@@ -1456,7 +1501,7 @@ Hexadecimal [16-Bits]
                             362 .macro sub_bc_a
                             363    sub_REGPAIR_a  b, c
                             364 .endm
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 32.
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 33.
 Hexadecimal [16-Bits]
 
 
@@ -1502,7 +1547,7 @@ Hexadecimal [16-Bits]
                              38 ;; Constant: opc_DI
                              39 ;;    Opcode for "DI" instruction. 
                      00F3    40 opc_DI = 0xF3
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 33.
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 34.
 Hexadecimal [16-Bits]
 
 
@@ -1562,7 +1607,7 @@ Hexadecimal [16-Bits]
                              52 ;;    3. Combines both reorders into final result using a *SelectionMask*. Each 
                              53 ;; 0 bit from the selection mask means "select bit from A2", whereas each 1 bit
                              54 ;; means "select bit from TReg2".
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 34.
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 35.
 Hexadecimal [16-Bits]
 
 
@@ -1622,7 +1667,7 @@ Hexadecimal [16-Bits]
                             107    xor TReg          ;; [1]   A2 = [xxxxxxxx] final value: bits of A reversed and selected using *SelectionMask*
                             108 .endm
                             109 
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 35.
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 36.
 Hexadecimal [16-Bits]
 
 
@@ -1682,7 +1727,7 @@ Hexadecimal [16-Bits]
                             162 ;;
                             163 ;; Parameters:
                             164 ;;    TReg - An 8-bits register that will be used for intermediate calculations.
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 36.
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 37.
 Hexadecimal [16-Bits]
 
 
@@ -1742,7 +1787,7 @@ Hexadecimal [16-Bits]
                             217 ;; This register may be one of these: B, C, D, E, H, L
                             218 ;; 
                             219 ;; Input Registers: 
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 37.
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 38.
 Hexadecimal [16-Bits]
 
 
@@ -1791,7 +1836,7 @@ Hexadecimal [16-Bits]
                             261    xor TReg        ;; [1] |   A2 = [03254761]
                             262    rrca            ;; [1] Rotate right to get pixels reversed A = [10325476]
                             263 .endm
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 38.
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 39.
 Hexadecimal [16-Bits]
 
 
@@ -1851,7 +1896,7 @@ Hexadecimal [16-Bits]
                              52 .macro sll__c
                              53    .db #0xCB, #0x31  ;; Opcode for sll c
                              54 .endm
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 39.
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 40.
 Hexadecimal [16-Bits]
 
 
@@ -1911,7 +1956,7 @@ Hexadecimal [16-Bits]
                             107 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;,
                             108 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;,
                             109 
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 40.
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 41.
 Hexadecimal [16-Bits]
 
 
@@ -1971,7 +2016,7 @@ Hexadecimal [16-Bits]
                             162 ;;    Opcode for "LD ixl, IXH" instruction
                             163 ;; 
                             164 .mdelete  ld__ixl_ixh
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 41.
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 42.
 Hexadecimal [16-Bits]
 
 
@@ -2031,7 +2076,7 @@ Hexadecimal [16-Bits]
                             217 ;; Macro: sub__ixl
                             218 ;;    Opcode for "SUB ixl" instruction
                             219 ;; 
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 42.
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 43.
 Hexadecimal [16-Bits]
 
 
@@ -2091,7 +2136,7 @@ Hexadecimal [16-Bits]
                             272 
                             273 ;; Macro: dec__ixl
                             274 ;;    Opcode for "DEC ixl" instruction
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 43.
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 44.
 Hexadecimal [16-Bits]
 
 
@@ -2151,7 +2196,7 @@ Hexadecimal [16-Bits]
                             327 .macro ld__ixh_c
                             328    .dw #0x61DD  ;; Opcode for ld ixh, c
                             329 .endm
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 44.
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 45.
 Hexadecimal [16-Bits]
 
 
@@ -2211,7 +2256,7 @@ Hexadecimal [16-Bits]
                             382 .mdelete ld__d_ixh
                             383 .macro ld__d_ixh
                             384    .dw #0x54DD  ;; Opcode for ld d, ixh
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 45.
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 46.
 Hexadecimal [16-Bits]
 
 
@@ -2271,7 +2316,7 @@ Hexadecimal [16-Bits]
                             437 ;; 
                             438 .mdelete or__ixh
                             439 .macro or__ixh
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 46.
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 47.
 Hexadecimal [16-Bits]
 
 
@@ -2331,7 +2376,7 @@ Hexadecimal [16-Bits]
                             492 ;; Macro: ld__iyl_a
                             493 ;;    Opcode for "LD iyl, a" instruction
                             494 ;; 
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 47.
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 48.
 Hexadecimal [16-Bits]
 
 
@@ -2391,7 +2436,7 @@ Hexadecimal [16-Bits]
                             547 
                             548 ;; Macro: ld__b_iyl
                             549 ;;    Opcode for "LD B, iyl" instruction
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 48.
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 49.
 Hexadecimal [16-Bits]
 
 
@@ -2451,7 +2496,7 @@ Hexadecimal [16-Bits]
                             602 .endm
                             603 
                             604 ;; Macro: sbc__iyl
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 49.
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 50.
 Hexadecimal [16-Bits]
 
 
@@ -2511,7 +2556,7 @@ Hexadecimal [16-Bits]
                             657    .dw #0x2CFD  ;; Opcode for inc iyl
                             658 .endm
                             659 
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 50.
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 51.
 Hexadecimal [16-Bits]
 
 
@@ -2571,7 +2616,7 @@ Hexadecimal [16-Bits]
                             712 .mdelete ld__iyh_e
                             713 .macro ld__iyh_e
                             714    .dw #0x63FD  ;; Opcode for ld iyh, e
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 51.
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 52.
 Hexadecimal [16-Bits]
 
 
@@ -2631,7 +2676,7 @@ Hexadecimal [16-Bits]
                             767 ;; 
                             768 .mdelete add__iyh
                             769 .macro add__iyh
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 52.
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 53.
 Hexadecimal [16-Bits]
 
 
@@ -2691,7 +2736,7 @@ Hexadecimal [16-Bits]
                             822 ;;    Opcode for "CP iyh" instruction
                             823 ;; 
                             824 .mdelete cp__iyh
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 53.
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 54.
 Hexadecimal [16-Bits]
 
 
@@ -2715,7 +2760,7 @@ Hexadecimal [16-Bits]
                             841 .macro inc__iyh
                             842    .dw #0x24FD  ;; Opcode for inc iyh
                             843 .endm
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 54.
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 55.
 Hexadecimal [16-Bits]
 
 
@@ -2746,7 +2791,7 @@ Hexadecimal [16-Bits]
                              23 ;; For instance, macros to copy HL to DE or IX to DE, that require 2 or more 
                              24 ;; instructions but are commonly used.
                              25 ;;
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 55.
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 56.
 Hexadecimal [16-Bits]
 
 
@@ -2806,7 +2851,7 @@ Hexadecimal [16-Bits]
                              52 .macro sll__c
                              53    .db #0xCB, #0x31  ;; Opcode for sll c
                              54 .endm
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 56.
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 57.
 Hexadecimal [16-Bits]
 
 
@@ -2866,7 +2911,7 @@ Hexadecimal [16-Bits]
                             107 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;,
                             108 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;,
                             109 
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 57.
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 58.
 Hexadecimal [16-Bits]
 
 
@@ -2926,7 +2971,7 @@ Hexadecimal [16-Bits]
                             162 ;;    Opcode for "LD ixl, IXH" instruction
                             163 ;; 
                             164 .mdelete  ld__ixl_ixh
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 58.
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 59.
 Hexadecimal [16-Bits]
 
 
@@ -2986,7 +3031,7 @@ Hexadecimal [16-Bits]
                             217 ;; Macro: sub__ixl
                             218 ;;    Opcode for "SUB ixl" instruction
                             219 ;; 
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 59.
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 60.
 Hexadecimal [16-Bits]
 
 
@@ -3046,7 +3091,7 @@ Hexadecimal [16-Bits]
                             272 
                             273 ;; Macro: dec__ixl
                             274 ;;    Opcode for "DEC ixl" instruction
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 60.
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 61.
 Hexadecimal [16-Bits]
 
 
@@ -3106,7 +3151,7 @@ Hexadecimal [16-Bits]
                             327 .macro ld__ixh_c
                             328    .dw #0x61DD  ;; Opcode for ld ixh, c
                             329 .endm
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 61.
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 62.
 Hexadecimal [16-Bits]
 
 
@@ -3166,7 +3211,7 @@ Hexadecimal [16-Bits]
                             382 .mdelete ld__d_ixh
                             383 .macro ld__d_ixh
                             384    .dw #0x54DD  ;; Opcode for ld d, ixh
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 62.
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 63.
 Hexadecimal [16-Bits]
 
 
@@ -3226,7 +3271,7 @@ Hexadecimal [16-Bits]
                             437 ;; 
                             438 .mdelete or__ixh
                             439 .macro or__ixh
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 63.
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 64.
 Hexadecimal [16-Bits]
 
 
@@ -3286,7 +3331,7 @@ Hexadecimal [16-Bits]
                             492 ;; Macro: ld__iyl_a
                             493 ;;    Opcode for "LD iyl, a" instruction
                             494 ;; 
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 64.
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 65.
 Hexadecimal [16-Bits]
 
 
@@ -3346,7 +3391,7 @@ Hexadecimal [16-Bits]
                             547 
                             548 ;; Macro: ld__b_iyl
                             549 ;;    Opcode for "LD B, iyl" instruction
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 65.
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 66.
 Hexadecimal [16-Bits]
 
 
@@ -3406,7 +3451,7 @@ Hexadecimal [16-Bits]
                             602 .endm
                             603 
                             604 ;; Macro: sbc__iyl
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 66.
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 67.
 Hexadecimal [16-Bits]
 
 
@@ -3466,7 +3511,7 @@ Hexadecimal [16-Bits]
                             657    .dw #0x2CFD  ;; Opcode for inc iyl
                             658 .endm
                             659 
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 67.
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 68.
 Hexadecimal [16-Bits]
 
 
@@ -3526,7 +3571,7 @@ Hexadecimal [16-Bits]
                             712 .mdelete ld__iyh_e
                             713 .macro ld__iyh_e
                             714    .dw #0x63FD  ;; Opcode for ld iyh, e
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 68.
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 69.
 Hexadecimal [16-Bits]
 
 
@@ -3586,7 +3631,7 @@ Hexadecimal [16-Bits]
                             767 ;; 
                             768 .mdelete add__iyh
                             769 .macro add__iyh
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 69.
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 70.
 Hexadecimal [16-Bits]
 
 
@@ -3646,7 +3691,7 @@ Hexadecimal [16-Bits]
                             822 ;;    Opcode for "CP iyh" instruction
                             823 ;; 
                             824 .mdelete cp__iyh
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 70.
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 71.
 Hexadecimal [16-Bits]
 
 
@@ -3670,7 +3715,7 @@ Hexadecimal [16-Bits]
                             841 .macro inc__iyh
                             842    .dw #0x24FD  ;; Opcode for inc iyh
                             843 .endm
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 71.
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 72.
 Hexadecimal [16-Bits]
 
 
@@ -3730,7 +3775,7 @@ Hexadecimal [16-Bits]
                              79 ;; COST: 6 us (24 CPU Cycles)
                              80 ;; 
                              81 .macro ld__hl_ix
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 72.
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 73.
 Hexadecimal [16-Bits]
 
 
@@ -3790,7 +3835,7 @@ Hexadecimal [16-Bits]
                             134 .macro ld__de_iy
                             135    ;; LD DE, IY
                             136    ;;------------
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 73.
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 74.
 Hexadecimal [16-Bits]
 
 
@@ -3850,7 +3895,7 @@ Hexadecimal [16-Bits]
                             189    ld__iyh_b
                             190    ;;------------
                             191 .endm
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 74.
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 75.
 Hexadecimal [16-Bits]
 
 
@@ -3910,7 +3955,7 @@ Hexadecimal [16-Bits]
                             244    ;; EX DE, IX
                             245    ;;------------
                             246    ld a, e
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 75.
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 76.
 Hexadecimal [16-Bits]
 
 
@@ -3970,7 +4015,7 @@ Hexadecimal [16-Bits]
                             299    ld__e_iyl
                             300    ld__iyl_a
                             301    ld a, d
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 76.
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 77.
 Hexadecimal [16-Bits]
 
 
@@ -4014,7 +4059,7 @@ Hexadecimal [16-Bits]
                             338    pop   iy
                             339    ;;------------
                             340 .endm
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 77.
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 78.
 Hexadecimal [16-Bits]
 
 
@@ -4074,7 +4119,7 @@ Hexadecimal [16-Bits]
                              52 ;; (start code)
                              53 ;;  Case     | microSecs(us) | CPU Cycles
                              54 ;; ------------------------------------
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 78.
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 79.
 Hexadecimal [16-Bits]
 
 
@@ -4134,7 +4179,7 @@ Hexadecimal [16-Bits]
                             107 ;; Details:
                             108 ;;    This macro converts the list of 16-bit registers given as parameters into a list
                             109 ;; of 'pop' operations to pop all of them from the stack. The registers are poped
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 79.
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 80.
 Hexadecimal [16-Bits]
 
 
@@ -4194,7 +4239,7 @@ Hexadecimal [16-Bits]
                             162    .mexit
                             163    .endif
                             164 .endm
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 80.
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 81.
 Hexadecimal [16-Bits]
 
 
@@ -4254,7 +4299,7 @@ Hexadecimal [16-Bits]
                              52 ;;    AF, TR1, TR2
                              53 ;;
                              54 ;; Required memory:
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 81.
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 82.
 Hexadecimal [16-Bits]
 
 
@@ -4284,7 +4329,7 @@ Hexadecimal [16-Bits]
                              77     ld   a, (TR1'TR2)      ;; [2] A = Value stored at given index from the LUT 
                              78 .endm
                              79 
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 82.
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 83.
 Hexadecimal [16-Bits]
 
 
@@ -4341,7 +4386,7 @@ Hexadecimal [16-Bits]
                              75       halt
                              76    .endm
                              77 .endm
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 83.
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 84.
 Hexadecimal [16-Bits]
 
 
@@ -4401,7 +4446,7 @@ Hexadecimal [16-Bits]
                              52 ;;   0x4001 | Key_F2          ||  0x0205 | Key_7         ||  0x1008 |  Key_Tab
                              53 ;;   0x8001 | Key_F0          ||  0x0405 | Key_U         ||  0x2008 |  Key_A
                              54 ;;   0x0102 | Key_Clr         ||  0x0805 | Key_Y         ||  0x4008 |  Key_CapsLock
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 84.
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 85.
 Hexadecimal [16-Bits]
 
 
@@ -4461,7 +4506,7 @@ Hexadecimal [16-Bits]
                      0803   107 Key_P            = #0x0803
                      1003   108 Key_SemiColon    = #0x1003
                      2003   109 Key_Colon        = #0x2003
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 85.
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 86.
 Hexadecimal [16-Bits]
 
 
@@ -4521,7 +4566,7 @@ Hexadecimal [16-Bits]
                      4008   162 Key_CapsLock     = #0x4008
                      8008   163 Key_Z            = #0x8008
                             164 ;; Matrix Line 0x09
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 86.
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 87.
 Hexadecimal [16-Bits]
 
 
@@ -4534,7 +4579,7 @@ Hexadecimal [16-Bits]
                      2009   170 Joy0_Fire2       = #0x2009
                      4009   171 Joy0_Fire3       = #0x4009
                      8009   172 Key_Del          = #0x8009
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 87.
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 88.
 Hexadecimal [16-Bits]
 
 
@@ -4561,7 +4606,7 @@ Hexadecimal [16-Bits]
                              19 ;;
                              20 ;; Includes
                              21 ;;
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 88.
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 89.
 Hexadecimal [16-Bits]
 
 
@@ -4621,7 +4666,7 @@ Hexadecimal [16-Bits]
                      0030    52 cpct_pageC0_asm = 0x30
                      0020    53 cpct_page80_asm = 0x20
                      0010    54 cpct_page40_asm = 0x10
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 89.
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 90.
 Hexadecimal [16-Bits]
 
 
@@ -4681,7 +4726,7 @@ Hexadecimal [16-Bits]
                             107 ;; Parameters:
                             108 ;;    (__) REG16 - 16-bits register where the resulting value will be loaded
                             109 ;;    (2B) VMEM  - Start of video memory buffer where (*X*, *Y*) coordinates will be calculated
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 90.
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 91.
 Hexadecimal [16-Bits]
 
 
@@ -4741,7 +4786,7 @@ Hexadecimal [16-Bits]
                             162 ;; Macro: cpctm_screenPtrSym_asm
                             163 ;;
                             164 ;;    Macro that calculates the video memory location (byte pointer) of a 
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 91.
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 92.
 Hexadecimal [16-Bits]
 
 
@@ -4801,7 +4846,7 @@ Hexadecimal [16-Bits]
                             217 ;;    All constant values - Use this macro <cpctm_screenPtrSym_asm> or <cpctm_screenPtr_asm> 
                             218 ;;    Any variable value  - Use the function <cpct_getScreenPtr>
                             219 ;;
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 92.
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 93.
 Hexadecimal [16-Bits]
 
 
@@ -4861,7 +4906,7 @@ Hexadecimal [16-Bits]
                             272    ld    bc, #0xBD'HEXVAL  ;; [3] B=0xBD CRTC Set Register, C=Value to be set
                             273    out  (c), c             ;; [4] Set the value
                             274 .endm
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 93.
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 94.
 Hexadecimal [16-Bits]
 
 
@@ -4921,7 +4966,7 @@ Hexadecimal [16-Bits]
                             327    ld   hl, #0x'HWC'10         ;; [3]  H=Hardware value of desired colour, L=Border INK (16)
                             328    call cpct_setPALColour_asm  ;; [25] Set Palette colour of the border
                             329 .endm
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 94.
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 95.
 Hexadecimal [16-Bits]
 
 
@@ -4972,7 +5017,7 @@ Hexadecimal [16-Bits]
                             373    ld   (hl), #COL      ;; [3] First Byte = given Colour
                             374    ldir                 ;; [98297] Perform the copy
                             375 .endm
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 95.
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 96.
 Hexadecimal [16-Bits]
 
 
@@ -5032,7 +5077,7 @@ Hexadecimal [16-Bits]
                              52 ;;   | FW_BRIGHT_WHITE   | 26 |                   |    |
                              53 ;;   [=================================================]
                              54 ;; (end code)
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 96.
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 97.
 Hexadecimal [16-Bits]
 
 
@@ -5092,7 +5137,7 @@ Hexadecimal [16-Bits]
                             107 ;;   [=====================================================]
                             108 ;; (end code)
                             109 ;;
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 97.
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 98.
 Hexadecimal [16-Bits]
 
 
@@ -5124,7 +5169,7 @@ Hexadecimal [16-Bits]
                      000A   134 HW_BRIGHT_YELLOW  = 0x0A
                      0003   135 HW_PASTEL_YELLOW  = 0x03
                      000B   136 HW_BRIGHT_WHITE   = 0x0B
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 98.
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 99.
 Hexadecimal [16-Bits]
 
 
@@ -5140,7 +5185,7 @@ Hexadecimal [16-Bits]
                      00F5    32 PPI_PORT_B     = 0xF5    ;; Port B of the PPI, used to read Vsync/Jumpers/PrinterBusy/CasIn/Exp information
                      00BC    33 CRTC_SELECTREG = 0xBC    ;; CRTC Port and command "Select Register"
                      00BD    34 CRTC_SETVAL    = 0xBD    ;; CRTC Port and command "Set Value"
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 99.
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 100.
 Hexadecimal [16-Bits]
 
 
@@ -5171,7 +5216,7 @@ Hexadecimal [16-Bits]
                              23 ;;### in assembler code
                              24 ;;#####################################################################
                              25 
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 100.
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 101.
 Hexadecimal [16-Bits]
 
 
@@ -5231,7 +5276,7 @@ Hexadecimal [16-Bits]
                              52 ;;
                              53 ;; Returns:
                              54 ;; (start code)
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 101.
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 102.
 Hexadecimal [16-Bits]
 
 
@@ -5259,7 +5304,7 @@ Hexadecimal [16-Bits]
                              75 .macro cpctm_ld_spbloff REG, W, H
                              76    ld    REG, #W * (H-1)
                              77 .endm
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 102.
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 103.
 Hexadecimal [16-Bits]
 
 
@@ -5319,7 +5364,7 @@ Hexadecimal [16-Bits]
                              52 ;;    ;// Simple function that changes the Skin Colour 
                              53 ;;    ;// of a given Alien Sprite into Cyan (Alien Skin is yellow normally)  
                              54 ;;    ;// HL = Pointer to Alien Sprite
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 103.
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 104.
 Hexadecimal [16-Bits]
 
 
@@ -5379,7 +5424,7 @@ Hexadecimal [16-Bits]
                             107 ;;
                             108 ;;    For more details on this operations, consult <cpct_pens2pixelPatternPairM0> help.
                             109 ;;
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 104.
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 105.
 Hexadecimal [16-Bits]
 
 
@@ -5439,7 +5484,7 @@ Hexadecimal [16-Bits]
                             162 ;; precalculated byte in your final binary (if you use it with constant values).
                             163 ;;
                             164 ;;    For more details on this operations, consult <cpct_pen2pixelPatternM1> help.
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 105.
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 106.
 Hexadecimal [16-Bits]
 
 
@@ -5499,7 +5544,7 @@ Hexadecimal [16-Bits]
                             217 ;; Use <cpct_pen2pixelPatternM1> function for variables instead.
                             218 ;;
                             219 ;; Details:
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 106.
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 107.
 Hexadecimal [16-Bits]
 
 
@@ -5539,7 +5584,7 @@ Hexadecimal [16-Bits]
                             252    CPCTM_PEN2PIXELPATTERN_M1_ASM _Sym'__l, _NewPen
                             253    _Sym = (_Sym'__h << 8) | _Sym'__l
                             254 .endm  
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 107.
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 108.
 Hexadecimal [16-Bits]
 
 
@@ -5570,7 +5615,7 @@ Hexadecimal [16-Bits]
                              23 ;#####################################################################
                              24 ;
                              25 .module cpct_firmware
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 108.
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 109.
 Hexadecimal [16-Bits]
 
 
@@ -5630,7 +5675,7 @@ Hexadecimal [16-Bits]
                              52 ;; this macro, user is responsible for choosing which registers are saved. Be
                              53 ;; aware that in most cases all standard registers (AF BC DE HL IX IY) should be
                              54 ;; preserved.
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 109.
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 110.
 Hexadecimal [16-Bits]
 
 
@@ -5690,7 +5735,7 @@ Hexadecimal [16-Bits]
                             107 ;; (end code)
                             108 ;; * Saving no registers
                             109 ;;
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 110.
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 111.
 Hexadecimal [16-Bits]
 
 
@@ -5746,7 +5791,7 @@ Hexadecimal [16-Bits]
                             158 ;; (end code)
                             159 ;;
                             160 
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 111.
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 112.
 Hexadecimal [16-Bits]
 
 
@@ -5806,7 +5851,7 @@ Hexadecimal [16-Bits]
                              52 .endm
                              53 
                              54 .mdelete cpct_checkReg_hl
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 112.
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 113.
 Hexadecimal [16-Bits]
 
 
@@ -5866,7 +5911,7 @@ Hexadecimal [16-Bits]
                             107 
                             108 .mdelete cpct_saveReg_iy
                             109 .macro cpct_saveReg_iy
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 113.
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 114.
 Hexadecimal [16-Bits]
 
 
@@ -5926,7 +5971,7 @@ Hexadecimal [16-Bits]
                             162   cpct_checkReg_'R1
                             163   cpct_checkReg_'R2
                             164   cpct_checkReg_'R3
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 114.
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 115.
 Hexadecimal [16-Bits]
 
 
@@ -5972,7 +6017,7 @@ Hexadecimal [16-Bits]
                             203   ei         ;; [1] Reenable interrupts
                             204   reti       ;; [4] Return to main program
                             205 .endm
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 115.
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 116.
 Hexadecimal [16-Bits]
 
 
@@ -5993,155 +6038,231 @@ Hexadecimal [16-Bits]
                              40 ;;
                      0038    41 .equ firmware_RST_jp, 0x38  ;; Memory address were a jump (jp) to the firmware code is stored.
                      007F    42 .equ GA_port_byte,    0x7F  ;; 8-bit Port of the Gate Array
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 116.
-Hexadecimal [16-Bits]
-
-
-
-                             27 
-                             28 
-                             29 
-                             30 ;;
-                             31 ;; Start of _DATA area 
-                             32 ;;  SDCC requires at least _DATA and _CODE areas to be declared, but you may use
-                             33 ;;  any one of them for any purpose. Usually, compiler puts _DATA area contents
-                             34 ;;  right after _CODE area contents.
-                             35 ;;
-                             36 .area _DATA
-                             37 
-   0000                      38 player1Tpl::
-                             39 ;;DefineEntity _cpms, _ptr, _type,           _color, _x, _y, _w, _h, _vxh, _vxl _vyh, _vyl, _sprite, _address, _p_address, _collsion_callback
-   0000                      40 DefineEntity e_cmp_paddle, #0000, e_type_player, 15, 10, 80, 1, 30, 0x00, 0x00, 0x00, 0x00, 0x0000, 0x0000, 0x0000, sys_collision_paddle
-   24D7 00 00                 1     .dw #0000
-   24D9 47                    2     .db e_cmp_paddle
-   24DA 01                    3     .db e_type_player
-   24DB 0F                    4     .db 15
-   24DC 0A 00                 5     .dw 10
-   24DE 50 00                 6     .dw 80
-   24E0 01                    7     .db 1
-   24E1 1E                    8     .db 30
-   24E2 0B                    9     .db 10+1
-   24E3 6E                   10     .db 80+30
-   24E4 00                   11     .db #0
-   24E5 00                   12     .db #0
-   24E6 00                   13     .db 0x00
-   24E7 00                   14     .db 0x00
-   24E8 00                   15     .db 0x00
-   24E9 00                   16     .db 0x00
-   24EA 00 00                17     .dw 0x0000
-   24EC 00 00                18     .dw 0x0000
-   24EE 00 00                19     .dw 0x0000
-   24F0 00                   20     .db #0
-   24F1 FC 1B                21     .dw sys_collision_paddle
-   24F3 01                   22     .db #1           ;; moved 1 default
-   24F4                      41 ballTpl:: 
-                             42 ;;DefineEntity _cpms, _ptr, _type,       _color, _x, _y, _w, _h, _vxh, _vxl _vyh, _vyl, _sprite, _address, _p_address, _collsion_callback
-   001D                      43 DefineEntity e_cpm_ball, #0000, e_type_ball, 2, 58, 80, 2, 4, 0xff, 0xf0, 0x00, 0x01, 0x0000, 0x0000, 0x0000, 0x0000
-   24F4 00 00                 1     .dw #0000
-   24F6 87                    2     .db e_cpm_ball
-   24F7 02                    3     .db e_type_ball
-   24F8 02                    4     .db 2
-   24F9 3A 00                 5     .dw 58
-   24FB 50 00                 6     .dw 80
-   24FD 02                    7     .db 2
-   24FE 04                    8     .db 4
-   24FF 3C                    9     .db 58+2
-   2500 54                   10     .db 80+4
-   2501 00                   11     .db #0
-   2502 00                   12     .db #0
-   2503 FF                   13     .db 0xff
-   2504 F0                   14     .db 0xf0
-   2505 00                   15     .db 0x00
-   2506 01                   16     .db 0x01
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 117.
 Hexadecimal [16-Bits]
 
 
 
-   2507 00 00                17     .dw 0x0000
-   2509 00 00                18     .dw 0x0000
-   250B 00 00                19     .dw 0x0000
-   250D 00                   20     .db #0
-   250E 00 00                21     .dw 0x0000
-   2510 01                   22     .db #1           ;; moved 1 default
-                             44 
-                             45 
-   2511 01                   46 game_state:: .db MAIN_MENU   ;; Game state ----- 0: Game loop, 1: Main menu, 2: Map loading, 3: Pause menu, 4: Game over, 5: Victory
-                             47 ;;
-                             48 ;; Start of _CODE area
-                             49 ;; 
-                             50 .area _CODE
-                             51 
-                             52 ;;-----------------------------------------------------------------
-                             53 ;;
-                             54 ;; man_game_init
-                             55 ;;
-                             56 ;;  
-                             57 ;;  Input: 
-                             58 ;;  Output: 
-                             59 ;;  Modified: AF, BC, DE, HL
-                             60 ;;
-   09B1                      61 man_game_init::
-                             62 
-   09B1 CD 91 08      [17]   63     call man_entity_init
-                             64     
-                             65     ;; Create a player entity in 100, 100
-   09B4 21 D7 24      [10]   66     ld hl, #player1Tpl                  ;; Template of the entity to create
-   09B7 CD FF 08      [17]   67     call man_entity_create              ;; Create new entity
-                             68 
-                             69     ;; Create an oponent entity in 140, 100
-   09BA 21 D7 24      [10]   70     ld hl, #player1Tpl                  ;; Template of the entity to create
-   09BD CD FF 08      [17]   71     call man_entity_create              ;; Create new entity
-   09C0 DD 36 05 3C   [19]   72     ld e_x(ix), #60                     ;; x = 60
-   09C4 DD 36 04 01   [19]   73     ld e_color(ix), #1                  ;; color = pink 
-                             74 
-                             75     ;; Create a ball entity
-   09C8 21 F4 24      [10]   76     ld hl, #ballTpl                     ;; Template of the ball
-   09CB CD FF 08      [17]   77     call man_entity_create              ;; Create ball
-                             78 
-   09CE CD EA 09      [17]   79     call sys_physics_init               ;; initialize physics system
-   09D1 CD CB 1B      [17]   80     call sys_collision_init             ;; initialize collision system
-                             81     
-   09D4 C9            [10]   82     ret
-                             83 
-                             84 ;;-----------------------------------------------------------------
-                             85 ;;
-                             86 ;; man_game_update
-                             87 ;;
-                             88 ;;   
-                             89 ;;  Input: 
-                             90 ;;  Output: 
-                             91 ;;  Modified: AF, BC, DE, HL
-                             92 ;;
+                             28 
+                             29 
+                             30 
+                             31 ;;
+                             32 ;; Start of _DATA area 
+                             33 ;;  SDCC requires at least _DATA and _CODE areas to be declared, but you may use
+                             34 ;;  any one of them for any purpose. Usually, compiler puts _DATA area contents
+                             35 ;;  right after _CODE area contents.
+                             36 ;;
+                             37 .area _DATA
+                             38 
+   0000                      39 player1Tpl::
+                             40 ;;DefineEntity _cpms, _ptr, _type,           _color, _x, _y, _w, _h, _vxh, _vxl _vyh, _vyl, _sprite, _address, _p_address, _collsion_callback, ai_callback
+   0000                      41 DefineEntity e_cmp_paddle, #0000, e_type_player, 15, 10, 80, 1, 30, 0x00, 0x00, 0x00, 0x00, 0x0000, 0x0000, 0x0000, sys_collision_paddle, 0x0000
+   2579 00 00                 1     .dw #0000
+   257B 47                    2     .db e_cmp_paddle
+   257C 01                    3     .db e_type_player
+   257D 0F                    4     .db 15
+   257E 0A 00                 5     .dw 10
+   2580 50 00                 6     .dw 80
+   2582 01                    7     .db 1
+   2583 1E                    8     .db 30
+   2584 0B                    9     .db 10+1
+   2585 6E                   10     .db 80+30
+   2586 00                   11     .db #0
+   2587 00                   12     .db #0
+   2588 00                   13     .db 0x00
+   2589 00                   14     .db 0x00
+   258A 00                   15     .db 0x00
+   258B 00                   16     .db 0x00
+   258C 00 00                17     .dw 0x0000
+   258E 00 00                18     .dw 0x0000
+   2590 00 00                19     .dw 0x0000
+   2592 00                   20     .db #0
+   2593 8C 1C                21     .dw sys_collision_paddle
+   2595 00                   22     .db #0
+   2596 00 00                23     .dw 0x0000
+   2598 01                   24     .db #1           ;; moved 1 default
+                             42 
+   2599                      43 oponentTpl::
+                             44 ;;DefineEntity _cpms, _ptr, _type,           _color, _x, _y, _w, _h, _vxh, _vxl _vyh, _vyl, _sprite, _address, _p_address, _collsion_callback, ai_callback
+   0020                      45 DefineEntity e_cmp_oponent_paddle, #0000, e_type_player, 1, 60, 80, 1, 30, 0x00, 0x00, 0x00, 0x00, 0x0000, 0x0000, 0x0000, sys_collision_paddle, sys_ai_paddle
+   2599 00 00                 1     .dw #0000
+   259B 57                    2     .db e_cmp_oponent_paddle
+   259C 01                    3     .db e_type_player
+   259D 01                    4     .db 1
+   259E 3C 00                 5     .dw 60
+   25A0 50 00                 6     .dw 80
+   25A2 01                    7     .db 1
+   25A3 1E                    8     .db 30
+   25A4 3D                    9     .db 60+1
+   25A5 6E                   10     .db 80+30
+   25A6 00                   11     .db #0
+   25A7 00                   12     .db #0
+   25A8 00                   13     .db 0x00
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 118.
 Hexadecimal [16-Bits]
 
 
 
-   09D5                      93 man_game_update::
-   09D5 CD E8 1D      [17]   94     call sys_input_player_update
-   09D8 CD A4 0A      [17]   95     call sys_physics_update
-   09DB CD B5 1C      [17]   96     call sys_collision_update
-   09DE CD 86 0B      [17]   97     call sys_render_update
-                             98     ;;;;delay 
-                             99     ;;ld b, #6
-                            100     ;;call cpct_waitHalts_asm
-   09E1 C9            [10]  101     ret
+   25A9 00                   14     .db 0x00
+   25AA 00                   15     .db 0x00
+   25AB 00                   16     .db 0x00
+   25AC 00 00                17     .dw 0x0000
+   25AE 00 00                18     .dw 0x0000
+   25B0 00 00                19     .dw 0x0000
+   25B2 00                   20     .db #0
+   25B3 8C 1C                21     .dw sys_collision_paddle
+   25B5 00                   22     .db #0
+   25B6 C3 0C                23     .dw sys_ai_paddle
+   25B8 01                   24     .db #1           ;; moved 1 default
+                             46 
+   25B9                      47 ballTpl:: 
+                             48 ;;DefineEntity _cpms, _ptr, _type,       _color, _x, _y, _w, _h, _vxh, _vxl _vyh, _vyl, _sprite, _address, _p_address, _collsion_callback, ai_callback
+   0040                      49 DefineEntity e_cpm_ball, #0000, e_type_ball, 2, 58, 80, 2, 4, 0xff, 0xf0, 0x00, 0x01, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000
+   25B9 00 00                 1     .dw #0000
+   25BB 87                    2     .db e_cpm_ball
+   25BC 02                    3     .db e_type_ball
+   25BD 02                    4     .db 2
+   25BE 3A 00                 5     .dw 58
+   25C0 50 00                 6     .dw 80
+   25C2 02                    7     .db 2
+   25C3 04                    8     .db 4
+   25C4 3C                    9     .db 58+2
+   25C5 54                   10     .db 80+4
+   25C6 00                   11     .db #0
+   25C7 00                   12     .db #0
+   25C8 FF                   13     .db 0xff
+   25C9 F0                   14     .db 0xf0
+   25CA 00                   15     .db 0x00
+   25CB 01                   16     .db 0x01
+   25CC 00 00                17     .dw 0x0000
+   25CE 00 00                18     .dw 0x0000
+   25D0 00 00                19     .dw 0x0000
+   25D2 00                   20     .db #0
+   25D3 00 00                21     .dw 0x0000
+   25D5 00                   22     .db #0
+   25D6 00 00                23     .dw 0x0000
+   25D8 01                   24     .db #1           ;; moved 1 default
+                             50 
+   25D9                      51 wallUpTpl::
+                             52 ;;DefineEntity _cpms, _ptr, _type,             _color, _x, _y, _w, _h, _vxh, _vxl _vyh, _vyl, _sprite, _address, _p_address, _collsion_callback, ai_callback
+   0060                      53 DefineEntity e_cmp_border_wall, #0000, e_type_wall, 0, 0, 0, 80, 1, 0x00, 0x00, 0x00, 0x00, 0x0000, 0x0000, 0x0000, sys_collision_wall_up, 0x0000
+   25D9 00 00                 1     .dw #0000
+   25DB 41                    2     .db e_cmp_border_wall
+   25DC 04                    3     .db e_type_wall
+   25DD 00                    4     .db 0
+   25DE 00 00                 5     .dw 0
+   25E0 00 00                 6     .dw 0
+   25E2 50                    7     .db 80
+   25E3 01                    8     .db 1
+   25E4 50                    9     .db 0+80
+   25E5 01                   10     .db 0+1
+   25E6 00                   11     .db #0
+   25E7 00                   12     .db #0
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 119.
+Hexadecimal [16-Bits]
+
+
+
+   25E8 00                   13     .db 0x00
+   25E9 00                   14     .db 0x00
+   25EA 00                   15     .db 0x00
+   25EB 00                   16     .db 0x00
+   25EC 00 00                17     .dw 0x0000
+   25EE 00 00                18     .dw 0x0000
+   25F0 00 00                19     .dw 0x0000
+   25F2 00                   20     .db #0
+   25F3 88 1C                21     .dw sys_collision_wall_up
+   25F5 00                   22     .db #0
+   25F6 00 00                23     .dw 0x0000
+   25F8 01                   24     .db #1           ;; moved 1 default
+                             54 
+                             55 
+   25F9 01                   56 game_state:: .db MAIN_MENU   ;; Game state ----- 0: Game loop, 1: Main menu, 2: Map loading, 3: Pause menu, 4: Game over, 5: Victory
+                             57 ;;
+                             58 ;; Start of _CODE area
+                             59 ;; 
+                             60 .area _CODE
+                             61 
+                             62 ;;-----------------------------------------------------------------
+                             63 ;;
+                             64 ;; man_game_init
+                             65 ;;
+                             66 ;;  
+                             67 ;;  Input: 
+                             68 ;;  Output: 
+                             69 ;;  Modified: AF, BC, DE, HL
+                             70 ;;
+   09C1                      71 man_game_init::
+                             72 
+   09C1 CD 91 08      [17]   73     call man_entity_init
+                             74     
+                             75     ;; Create a player entity in 100, 100
+   09C4 21 79 25      [10]   76     ld hl, #player1Tpl                      ;; Template of the entity to create
+   09C7 CD FF 08      [17]   77     call man_entity_create                  ;; Create new entity
+                             78 
+                             79     ;; Create an oponent entity in 140, 100
+   09CA 21 99 25      [10]   80     ld hl, #oponentTpl                      ;; Template of the entity to create
+   09CD CD FF 08      [17]   81     call man_entity_create                  ;; Create new entity
+                             82 
+                             83     ;; Create a ball entity
+   09D0 21 B9 25      [10]   84     ld hl, #ballTpl                         ;; Template of the ball
+   09D3 CD FF 08      [17]   85     call man_entity_create                  ;; Create ball
+                             86 
+                             87     ;; Create a wall up collision entity
+   09D6 21 D9 25      [10]   88     ld hl, #wallUpTpl                       ;; Template of the entity to create
+   09D9 CD FF 08      [17]   89     call man_entity_create                  ;; Create new entity
+                             90 
+                             91     ;; Create a wall down collision entity
+   09DC 21 D9 25      [10]   92     ld hl, #wallUpTpl                       ;; Template of the entity to create
+   09DF CD FF 08      [17]   93     call man_entity_create                  ;; Create new entity
+   09E2 DD 36 07 C7   [19]   94     ld e_y(ix), #199                        ;; down edge
+                             95 
+                             96     ;; Initialize Systems
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 120.
+Hexadecimal [16-Bits]
+
+
+
+   09E6 CD 37 1C      [17]   97     call sys_collision_init                 ;; initialize collision system
+   09E9 CD BA 0C      [17]   98     call sys_ai_init                        ;; initialize collision system
+   09EC CD 08 0A      [17]   99     call sys_physics_init                   ;; initialize physics system
+                            100     
+   09EF C9            [10]  101     ret
                             102 
-                            103 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-                            104 ;;  Gets the current state of the game loop
-                            105 ;;  MODIFIES:
-                            106 ;;      - A: Returns state
-                            107 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-   09E2                     108 man_game_get_state::
-   09E2 3A 11 25      [13]  109     ld a, (game_state)
-   09E5 C9            [10]  110     ret
-                            111 
-                            112 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-                            113 ;;  Sets the current state of the game loop
-                            114 ;;  MODIFIES:
-                            115 ;;      - A: Returns state
-                            116 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-   09E6                     117 man_game_set_state::
-   09E6 32 11 25      [13]  118     ld (game_state), a
-   09E9 C9            [10]  119     ret
+                            103 ;;-----------------------------------------------------------------
+                            104 ;;
+                            105 ;; man_game_update
+                            106 ;;
+                            107 ;;   
+                            108 ;;  Input: 
+                            109 ;;  Output: 
+                            110 ;;  Modified: AF, BC, DE, HL
+                            111 ;;
+   09F0                     112 man_game_update::
+   09F0 CD 6C 1E      [17]  113     call sys_input_player_update
+   09F3 CD EA 0C      [17]  114     call sys_ai_update
+   09F6 CD C2 0A      [17]  115     call sys_physics_update
+   09F9 CD 39 1D      [17]  116     call sys_collision_update
+   09FC CD A4 0B      [17]  117     call sys_render_update
+                            118     ;;;;delay 
+                            119     ;;ld b, #6
+                            120     ;;call cpct_waitHalts_asm
+   09FF C9            [10]  121     ret
+                            122 
+                            123 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                            124 ;;  Gets the current state of the game loop
+                            125 ;;  MODIFIES:
+                            126 ;;      - A: Returns state
+                            127 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+   0A00                     128 man_game_get_state::
+   0A00 3A F9 25      [13]  129     ld a, (game_state)
+   0A03 C9            [10]  130     ret
+                            131 
+                            132 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                            133 ;;  Sets the current state of the game loop
+                            134 ;;  MODIFIES:
+                            135 ;;      - A: Returns state
+                            136 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+   0A04                     137 man_game_set_state::
+   0A04 32 F9 25      [13]  138     ld (game_state), a
+   0A07 C9            [10]  139     ret

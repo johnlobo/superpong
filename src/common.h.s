@@ -95,14 +95,14 @@ nullptr = 0x0000
 ;;  ENTITY TYPE MASKS AND BITS
 ;;==============================================================================================================================
 ;;==============================================================================================================================
-e_type_default          = 0x00
-e_type_player           = 0x01
-e_type_ball             = 0x02
-e_type_life_potion      = 0x04
-e_type_mob              = 0x08
-e_type_shield           = 0x10
-e_type_dead             = 0x20
-e_type_invalid          = 0xff
+e_type_default              = 0x00
+e_type_player               = 0x01
+e_type_ball                 = 0x02
+e_type_wall                 = 0x04
+e_type_mob                  = 0x08
+e_type_shield               = 0x10
+e_type_dead                 = 0x20
+e_type_invalid              = 0xff
 
 ;;===============================================================================
 ;;COMPONENT TYPES
@@ -117,7 +117,9 @@ e_cmp_animated = 0x20   ;;entidad animada
 e_cmp_collider = 0x40   ;;entidad que puede colisionar
 e_cmp_collisionable = 0x80   ;;entidad que puede ser colisionada
 e_cmp_paddle = e_cmp_alive | e_cmp_render | e_cmp_physics | e_cmp_collider  ;;componente por defecto
+e_cmp_oponent_paddle = e_cmp_alive | e_cmp_render | e_cmp_physics | e_cmp_collider | e_cmp_ai ;;componente por defecto
 e_cpm_ball = e_cmp_alive | e_cmp_render | e_cmp_physics | e_cmp_collisionable
+e_cmp_border_wall = e_cmp_alive | e_cmp_collider
 
 ;;===============================================================================
 ;;COLISION TYPES
@@ -179,6 +181,8 @@ Field e, address            , 2
 Field e, p_address          , 2
 Field e, collision_status   , 1
 Field e, collision_callback , 2
+Field e, ai_status          , 1
+Field e, ai_callback        , 2
 Field e, moved              , 1
 EndStruct e
 

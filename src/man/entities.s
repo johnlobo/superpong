@@ -410,7 +410,7 @@ man_entity_next_entity_iy::
 	ret
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;	ENTITY_MANAGER::GetPlayerPositionIY
+;;	ENTITY_MANAGER::man_entity_getPlayerPosition
 ;;		Returns a pointer to the player for input system
 ;;	INPUT:
 ;;	MODIFY:
@@ -421,8 +421,8 @@ man_entity_getPlayerPosition::
 	ret
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;	ENTITY_MANAGER::GetPlayerPositionIY
-;;		Returns a pointer to the player for input system
+;;	ENTITY_MANAGER::man_entity_getOponentPosition
+;;		Returns a pointer to the oponent
 ;;	INPUT:
 ;;	MODIFY:
 ;;		HL
@@ -431,6 +431,24 @@ man_entity_getOponentPosition::
 	cpctm_push hl, bc
 	ld hl, #_entity_array
 	ld bc, #sizeof_e
+	add hl, bc
+	push hl
+	pop iy
+	cpctm_pop bc, hl
+	ret
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;	ENTITY_MANAGER::man_entity_getBallPositionIY
+;;		Returns a pointer to the player for input system
+;;	INPUT:
+;;	MODIFY:
+;;		HL
+;;	   
+man_entity_getBallPositionIY::
+	cpctm_push hl, bc
+	ld hl, #_entity_array
+	ld bc, #sizeof_e
+	add hl, bc
 	add hl, bc
 	push hl
 	pop iy

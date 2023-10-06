@@ -31,6 +31,7 @@ obj/sys/util.rel
 obj/sys/system.h.rel
 obj/sys/text.h.rel
 obj/sys/ai_actions.rel
+obj/sys/ai.rel
 obj/sys/util.h.rel
 obj/sys/messages.h.rel
 obj/sys/text.rel

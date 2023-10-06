@@ -196,7 +196,7 @@ Hexadecimal [16-Bits]
                             103 ;; ENTITY DEFINITION MACRO
                             104 ;;===============================================================================
                             105 .mdelete DefineEntity
-                            106 .macro DefineEntity _cpms, _ptr, _type, _color, _x, _y, _w, _h, _vxh, _vxl _vyh, _vyl, _sprite, _address, _p_address, _collsion_callback
+                            106 .macro DefineEntity _cpms, _ptr, _type, _color, _x, _y, _w, _h, _vxh, _vxl _vyh, _vyl, _sprite, _address, _p_address, _collsion_callback, _ai_callback
                             107     .dw _ptr
                             108     .db _cpms
                             109     .db _type
@@ -223,92 +223,94 @@ Hexadecimal [16-Bits]
                             125     .dw _p_address
                             126     .db #0
                             127     .dw _collsion_callback
-                            128     .db #1           ;; moved 1 default
-                            129 .endm
-                            130 
-                            131 ;;==============================================================================================================================
-                            132 ;;==============================================================================================================================
-                            133 ;;  MACRO FOR ENUM DEFINITIONS
+                            128     .db #0
+                            129     .dw _ai_callback
+                            130     .db #1           ;; moved 1 default
+                            131 .endm
+                            132 
+                            133 ;;==============================================================================================================================
                             134 ;;==============================================================================================================================
-                            135 ;;==============================================================================================================================
-                            136 .mdelete DefEnum
-                            137 .macro DefEnum _name
-                            138     _name'_offset = 0
-                            139 .endm
-                            140 
-                            141 ;;  Define enumeration element for an enumeration name.
-                            142 .mdelete Enum
-                            143 .macro Enum _enumname, _element
-                            144     _enumname'_'_element = _enumname'_offset
-                            145     _enumname'_offset = _enumname'_offset + 1
-                            146 .endm
-                            147 
-                            148 ;;==============================================================================================================================
-                            149 ;;==============================================================================================================================
-                            150 ;;  DEFINE LINKED LIST STRUCTURE
+                            135 ;;  MACRO FOR ENUM DEFINITIONS
+                            136 ;;==============================================================================================================================
+                            137 ;;==============================================================================================================================
+                            138 .mdelete DefEnum
+                            139 .macro DefEnum _name
+                            140     _name'_offset = 0
+                            141 .endm
+                            142 
+                            143 ;;  Define enumeration element for an enumeration name.
+                            144 .mdelete Enum
+                            145 .macro Enum _enumname, _element
+                            146     _enumname'_'_element = _enumname'_offset
+                            147     _enumname'_offset = _enumname'_offset + 1
+                            148 .endm
+                            149 
+                            150 ;;==============================================================================================================================
                             151 ;;==============================================================================================================================
-                            152 ;;==============================================================================================================================
-                            153 
-                            154 ;;  Defines the structure for a basic memory manager.
-                            155 .mdelete DefineBasicStructureArray_Size
-                            156 .macro DefineBasicStructureArray_Size _Tname, _N, _ComponentSize
-                            157     _Tname'_array::
-                            158         .ds _N * _ComponentSize
-                            159 .endm
-                            160 
-                            161 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-                            162 ;;  Defines the structure of the entity array.
-                            163 .mdelete DefineComponentArrayStructure_Size
-                            164 .macro DefineComponentArrayStructure_Size _Tname, _N, _ComponentSize
+                            152 ;;  DEFINE LINKED LIST STRUCTURE
+                            153 ;;==============================================================================================================================
+                            154 ;;==============================================================================================================================
+                            155 
+                            156 ;;  Defines the structure for a basic memory manager.
+                            157 .mdelete DefineBasicStructureArray_Size
+                            158 .macro DefineBasicStructureArray_Size _Tname, _N, _ComponentSize
+                            159     _Tname'_array::
+                            160         .ds _N * _ComponentSize
+                            161 .endm
+                            162 
+                            163 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                            164 ;;  Defines the structure of the entity array.
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 7.
 Hexadecimal [16-Bits]
 
 
 
-                            165     _Tname'_num::         .db 0
-                            166     _Tname'_list::        .dw nullptr
-                            167     _Tname'_free_list::   .dw _Tname'_array
-                            168     _Tname'_array::
-                            169         .ds _N * _ComponentSize
-                            170 .endm
-                            171 
-                            172 
-                            173 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-                            174 ;;  Defines the structure for the component handler.
-                            175 .mdelete DefineComponentPointerTable
-                            176 .macro DefineComponentPointerTable _Tname, _N_Cmps, _N
-                            177     _c = 0
-                            178     ;;  Array containing pointers to component pointer arrays.
-                            179     _Tname'_access_table::
-                            180     .rept _N_Cmps
-                            181         DefineComponentPointerAccessTable _Tname, \_c, _N, _N_Cmps
-                            182         _c = _c + 1
-                            183     .endm
-                            184     ;;  Zero-fill the component array with two additional words for the
-                            185     ;;  next free position and a null pointer fot he end of the array.
-                            186     _Tname'_components::
-                            187    .rept _N_Cmps
-                            188         DefineComponentArray _N
-                            189         .dw 0x0000
-                            190         .dw 0x0000
-                            191     .endm
-                            192 .endm
-                            193 
-                            194 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-                            195 ;;  Defines the pointers of the componente array pointer access table.
-                            196 .mdelete DefineComponentPointerAccessTable
-                            197 .macro DefineComponentPointerAccessTable _Tname, _suf, _N, _N_Cmps
-                            198     _Tname'_components'_suf'_ptr_pend::    .dw . + 2*_N_Cmps+ + _suf*2*_N + 2*_suf
-                            199 .endm
-                            200 
-                            201 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-                            202 ;;  Zero-pad an array of size n.
-                            203 .mdelete DefineComponentArray
-                            204 .macro DefineComponentArray _N
-                            205     .rept _N
-                            206         .dw 0x0000
-                            207     .endm
-                            208 .endm
+                            165 .mdelete DefineComponentArrayStructure_Size
+                            166 .macro DefineComponentArrayStructure_Size _Tname, _N, _ComponentSize
+                            167     _Tname'_num::         .db 0
+                            168     _Tname'_list::        .dw nullptr
+                            169     _Tname'_free_list::   .dw _Tname'_array
+                            170     _Tname'_array::
+                            171         .ds _N * _ComponentSize
+                            172 .endm
+                            173 
+                            174 
+                            175 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                            176 ;;  Defines the structure for the component handler.
+                            177 .mdelete DefineComponentPointerTable
+                            178 .macro DefineComponentPointerTable _Tname, _N_Cmps, _N
+                            179     _c = 0
+                            180     ;;  Array containing pointers to component pointer arrays.
+                            181     _Tname'_access_table::
+                            182     .rept _N_Cmps
+                            183         DefineComponentPointerAccessTable _Tname, \_c, _N, _N_Cmps
+                            184         _c = _c + 1
+                            185     .endm
+                            186     ;;  Zero-fill the component array with two additional words for the
+                            187     ;;  next free position and a null pointer fot he end of the array.
+                            188     _Tname'_components::
+                            189    .rept _N_Cmps
+                            190         DefineComponentArray _N
+                            191         .dw 0x0000
+                            192         .dw 0x0000
+                            193     .endm
+                            194 .endm
+                            195 
+                            196 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                            197 ;;  Defines the pointers of the componente array pointer access table.
+                            198 .mdelete DefineComponentPointerAccessTable
+                            199 .macro DefineComponentPointerAccessTable _Tname, _suf, _N, _N_Cmps
+                            200     _Tname'_components'_suf'_ptr_pend::    .dw . + 2*_N_Cmps+ + _suf*2*_N + 2*_suf
+                            201 .endm
+                            202 
+                            203 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                            204 ;;  Zero-pad an array of size n.
+                            205 .mdelete DefineComponentArray
+                            206 .macro DefineComponentArray _N
+                            207     .rept _N
+                            208         .dw 0x0000
+                            209     .endm
+                            210 .endm
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 8.
 Hexadecimal [16-Bits]
 
@@ -399,14 +401,14 @@ Hexadecimal [16-Bits]
                              95 ;;  ENTITY TYPE MASKS AND BITS
                              96 ;;==============================================================================================================================
                              97 ;;==============================================================================================================================
-                     0000    98 e_type_default          = 0x00
-                     0001    99 e_type_player           = 0x01
-                     0002   100 e_type_ball             = 0x02
-                     0004   101 e_type_life_potion      = 0x04
-                     0008   102 e_type_mob              = 0x08
-                     0010   103 e_type_shield           = 0x10
-                     0020   104 e_type_dead             = 0x20
-                     00FF   105 e_type_invalid          = 0xff
+                     0000    98 e_type_default              = 0x00
+                     0001    99 e_type_player               = 0x01
+                     0002   100 e_type_ball                 = 0x02
+                     0004   101 e_type_wall                 = 0x04
+                     0008   102 e_type_mob                  = 0x08
+                     0010   103 e_type_shield               = 0x10
+                     0020   104 e_type_dead                 = 0x20
+                     00FF   105 e_type_invalid              = 0xff
                             106 
                             107 ;;===============================================================================
                             108 ;;COMPONENT TYPES
@@ -421,144 +423,152 @@ Hexadecimal [16-Bits]
                      0040   117 e_cmp_collider = 0x40   ;;entidad que puede colisionar
                      0080   118 e_cmp_collisionable = 0x80   ;;entidad que puede ser colisionada
                      0047   119 e_cmp_paddle = e_cmp_alive | e_cmp_render | e_cmp_physics | e_cmp_collider  ;;componente por defecto
-                     0087   120 e_cpm_ball = e_cmp_alive | e_cmp_render | e_cmp_physics | e_cmp_collisionable
-                            121 
-                            122 ;;===============================================================================
-                            123 ;;COLISION TYPES
+                     0057   120 e_cmp_oponent_paddle = e_cmp_alive | e_cmp_render | e_cmp_physics | e_cmp_collider | e_cmp_ai ;;componente por defecto
+                     0087   121 e_cpm_ball = e_cmp_alive | e_cmp_render | e_cmp_physics | e_cmp_collisionable
+                     0041   122 e_cmp_border_wall = e_cmp_alive | e_cmp_collider
+                            123 
                             124 ;;===============================================================================
-                     0000   125 e_col_null = 0
-                     0001   126 e_col_left  = 0x01
-                     0002   127 e_col_right = 0x02
+                            125 ;;COLISION TYPES
+                            126 ;;===============================================================================
+                     0000   127 e_col_null = 0
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 10.
 Hexadecimal [16-Bits]
 
 
 
-                     0004   128 e_col_up    = 0x04
-                     0008   129 e_col_down  = 0x08
-                            130 
-                            131 ;;===============================================================================
-                            132 ;; Entity Component IDs
+                     0001   128 e_col_left  = 0x01
+                     0002   129 e_col_right = 0x02
+                     0004   130 e_col_up    = 0x04
+                     0008   131 e_col_down  = 0x08
+                            132 
                             133 ;;===============================================================================
-   0000                     134 DefEnum e_cmpID
+                            134 ;; Entity Component IDs
+                            135 ;;===============================================================================
+   0000                     136 DefEnum e_cmpID
                      0000     1     e_cmpID_offset = 0
-   0000                     135 Enum e_cmpID Render
+   0000                     137 Enum e_cmpID Render
                      0000     1     e_cmpID_Render = e_cmpID_offset
                      0001     2     e_cmpID_offset = e_cmpID_offset + 1
-   0000                     136 Enum e_cmpID Physics
+   0000                     138 Enum e_cmpID Physics
                      0001     1     e_cmpID_Physics = e_cmpID_offset
                      0002     2     e_cmpID_offset = e_cmpID_offset + 1
-   0000                     137 Enum e_cmpID AI
+   0000                     139 Enum e_cmpID AI
                      0002     1     e_cmpID_AI = e_cmpID_offset
                      0003     2     e_cmpID_offset = e_cmpID_offset + 1
-   0000                     138 Enum e_cmpID Animation
+   0000                     140 Enum e_cmpID Animation
                      0003     1     e_cmpID_Animation = e_cmpID_offset
                      0004     2     e_cmpID_offset = e_cmpID_offset + 1
-   0000                     139 Enum e_cmpID Collision
+   0000                     141 Enum e_cmpID Collision
                      0004     1     e_cmpID_Collision = e_cmpID_offset
                      0005     2     e_cmpID_offset = e_cmpID_offset + 1
-   0000                     140 Enum e_cmpID Num_Components
+   0000                     142 Enum e_cmpID Num_Components
                      0005     1     e_cmpID_Num_Components = e_cmpID_offset
                      0006     2     e_cmpID_offset = e_cmpID_offset + 1
-                            141 
-                            142 
                             143 
-                            144 ;; Keyboard constants
-                     000A   145 BUFFER_SIZE = 10
-                     00FF   146 ZERO_KEYS_ACTIVATED = #0xFF
-                            147 
-                            148 ;; Score constants
-                     0004   149 SCORE_NUM_BYTES = 4
-                            150 
-                            151 ;; SMALL NUMBERS CONSTANTS
-                     0002   152 S_SMALL_NUMBERS_WIDTH = 2
-                     0005   153 S_SMALL_NUMBERS_HEIGHT = 5
-                            154 ;; Font constants
-                     0002   155 FONT_WIDTH = 2
-                     0009   156 FONT_HEIGHT = 9
-                            157 
-                            158 
-                            159 ;;===============================================================================
-                            160 ;; ENTITIY SCTRUCTURE CREATION
+                            144 
+                            145 
+                            146 ;; Keyboard constants
+                     000A   147 BUFFER_SIZE = 10
+                     00FF   148 ZERO_KEYS_ACTIVATED = #0xFF
+                            149 
+                            150 ;; Score constants
+                     0004   151 SCORE_NUM_BYTES = 4
+                            152 
+                            153 ;; SMALL NUMBERS CONSTANTS
+                     0002   154 S_SMALL_NUMBERS_WIDTH = 2
+                     0005   155 S_SMALL_NUMBERS_HEIGHT = 5
+                            156 ;; Font constants
+                     0002   157 FONT_WIDTH = 2
+                     0009   158 FONT_HEIGHT = 9
+                            159 
+                            160 
                             161 ;;===============================================================================
-   0000                     162 BeginStruct e
+                            162 ;; ENTITIY SCTRUCTURE CREATION
+                            163 ;;===============================================================================
+   0000                     164 BeginStruct e
                      0000     1     e_offset = 0
-   0000                     163 Field e, ptr                , 2
+   0000                     165 Field e, ptr                , 2
                      0000     1     e_ptr = e_offset
                      0002     2     e_offset = e_offset + 2
-   0000                     164 Field e, cmps               , 1
-                     0002     1     e_cmps = e_offset
-                     0003     2     e_offset = e_offset + 1
+   0000                     166 Field e, cmps               , 1
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 11.
 Hexadecimal [16-Bits]
 
 
 
-   0000                     165 Field e, type               , 1
+                     0002     1     e_cmps = e_offset
+                     0003     2     e_offset = e_offset + 1
+   0000                     167 Field e, type               , 1
                      0003     1     e_type = e_offset
                      0004     2     e_offset = e_offset + 1
-   0000                     166 Field e, color              , 1
+   0000                     168 Field e, color              , 1
                      0004     1     e_color = e_offset
                      0005     2     e_offset = e_offset + 1
-   0000                     167 Field e, x                  , 2
+   0000                     169 Field e, x                  , 2
                      0005     1     e_x = e_offset
                      0007     2     e_offset = e_offset + 2
-   0000                     168 Field e, y                  , 2
+   0000                     170 Field e, y                  , 2
                      0007     1     e_y = e_offset
                      0009     2     e_offset = e_offset + 2
-   0000                     169 Field e, w                  , 1
+   0000                     171 Field e, w                  , 1
                      0009     1     e_w = e_offset
                      000A     2     e_offset = e_offset + 1
-   0000                     170 Field e, h                  , 1
+   0000                     172 Field e, h                  , 1
                      000A     1     e_h = e_offset
                      000B     2     e_offset = e_offset + 1
-   0000                     171 Field e, end_x              , 1
+   0000                     173 Field e, end_x              , 1
                      000B     1     e_end_x = e_offset
                      000C     2     e_offset = e_offset + 1
-   0000                     172 Field e, end_y              , 1
+   0000                     174 Field e, end_y              , 1
                      000C     1     e_end_y = e_offset
                      000D     2     e_offset = e_offset + 1
-   0000                     173 Field e, last_x             , 1
+   0000                     175 Field e, last_x             , 1
                      000D     1     e_last_x = e_offset
                      000E     2     e_offset = e_offset + 1
-   0000                     174 Field e, last_y             , 1
+   0000                     176 Field e, last_y             , 1
                      000E     1     e_last_y = e_offset
                      000F     2     e_offset = e_offset + 1
-   0000                     175 Field e, vx                 , 2
+   0000                     177 Field e, vx                 , 2
                      000F     1     e_vx = e_offset
                      0011     2     e_offset = e_offset + 2
-   0000                     176 Field e, vy                 , 2
+   0000                     178 Field e, vy                 , 2
                      0011     1     e_vy = e_offset
                      0013     2     e_offset = e_offset + 2
-   0000                     177 Field e, sprite             , 2
+   0000                     179 Field e, sprite             , 2
                      0013     1     e_sprite = e_offset
                      0015     2     e_offset = e_offset + 2
-   0000                     178 Field e, address            , 2
+   0000                     180 Field e, address            , 2
                      0015     1     e_address = e_offset
                      0017     2     e_offset = e_offset + 2
-   0000                     179 Field e, p_address          , 2
+   0000                     181 Field e, p_address          , 2
                      0017     1     e_p_address = e_offset
                      0019     2     e_offset = e_offset + 2
-   0000                     180 Field e, collision_status   , 1
+   0000                     182 Field e, collision_status   , 1
                      0019     1     e_collision_status = e_offset
                      001A     2     e_offset = e_offset + 1
-   0000                     181 Field e, collision_callback , 2
+   0000                     183 Field e, collision_callback , 2
                      001A     1     e_collision_callback = e_offset
                      001C     2     e_offset = e_offset + 2
-   0000                     182 Field e, moved              , 1
-                     001C     1     e_moved = e_offset
-                     001D     2     e_offset = e_offset + 1
-   0000                     183 EndStruct e
+   0000                     184 Field e, ai_status          , 1
+                     001C     1     e_ai_status = e_offset
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 12.
 Hexadecimal [16-Bits]
 
 
 
-                     001D     1     sizeof_e = e_offset
-                            184 
-                            185 ;;===============================================================================
-                            186 ;; GLOBAL VARIABLES
-                            187 ;;===============================================================================
+                     001D     2     e_offset = e_offset + 1
+   0000                     185 Field e, ai_callback        , 2
+                     001D     1     e_ai_callback = e_offset
+                     001F     2     e_offset = e_offset + 2
+   0000                     186 Field e, moved              , 1
+                     001F     1     e_moved = e_offset
+                     0020     2     e_offset = e_offset + 1
+   0000                     187 EndStruct e
+                     0020     1     sizeof_e = e_offset
+                            188 
+                            189 ;;===============================================================================
+                            190 ;; GLOBAL VARIABLES
+                            191 ;;===============================================================================
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 13.
 Hexadecimal [16-Bits]
 
@@ -675,7 +685,7 @@ Hexadecimal [16-Bits]
                             103 ;; ENTITY DEFINITION MACRO
                             104 ;;===============================================================================
                             105 .mdelete DefineEntity
-                            106 .macro DefineEntity _cpms, _ptr, _type, _color, _x, _y, _w, _h, _vxh, _vxl _vyh, _vyl, _sprite, _address, _p_address, _collsion_callback
+                            106 .macro DefineEntity _cpms, _ptr, _type, _color, _x, _y, _w, _h, _vxh, _vxl _vyh, _vyl, _sprite, _address, _p_address, _collsion_callback, _ai_callback
                             107     .dw _ptr
                             108     .db _cpms
                             109     .db _type
@@ -702,92 +712,94 @@ Hexadecimal [16-Bits]
                             125     .dw _p_address
                             126     .db #0
                             127     .dw _collsion_callback
-                            128     .db #1           ;; moved 1 default
-                            129 .endm
-                            130 
-                            131 ;;==============================================================================================================================
-                            132 ;;==============================================================================================================================
-                            133 ;;  MACRO FOR ENUM DEFINITIONS
+                            128     .db #0
+                            129     .dw _ai_callback
+                            130     .db #1           ;; moved 1 default
+                            131 .endm
+                            132 
+                            133 ;;==============================================================================================================================
                             134 ;;==============================================================================================================================
-                            135 ;;==============================================================================================================================
-                            136 .mdelete DefEnum
-                            137 .macro DefEnum _name
-                            138     _name'_offset = 0
-                            139 .endm
-                            140 
-                            141 ;;  Define enumeration element for an enumeration name.
-                            142 .mdelete Enum
-                            143 .macro Enum _enumname, _element
-                            144     _enumname'_'_element = _enumname'_offset
-                            145     _enumname'_offset = _enumname'_offset + 1
-                            146 .endm
-                            147 
-                            148 ;;==============================================================================================================================
-                            149 ;;==============================================================================================================================
-                            150 ;;  DEFINE LINKED LIST STRUCTURE
+                            135 ;;  MACRO FOR ENUM DEFINITIONS
+                            136 ;;==============================================================================================================================
+                            137 ;;==============================================================================================================================
+                            138 .mdelete DefEnum
+                            139 .macro DefEnum _name
+                            140     _name'_offset = 0
+                            141 .endm
+                            142 
+                            143 ;;  Define enumeration element for an enumeration name.
+                            144 .mdelete Enum
+                            145 .macro Enum _enumname, _element
+                            146     _enumname'_'_element = _enumname'_offset
+                            147     _enumname'_offset = _enumname'_offset + 1
+                            148 .endm
+                            149 
+                            150 ;;==============================================================================================================================
                             151 ;;==============================================================================================================================
-                            152 ;;==============================================================================================================================
-                            153 
-                            154 ;;  Defines the structure for a basic memory manager.
-                            155 .mdelete DefineBasicStructureArray_Size
-                            156 .macro DefineBasicStructureArray_Size _Tname, _N, _ComponentSize
-                            157     _Tname'_array::
-                            158         .ds _N * _ComponentSize
-                            159 .endm
-                            160 
-                            161 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-                            162 ;;  Defines the structure of the entity array.
-                            163 .mdelete DefineComponentArrayStructure_Size
-                            164 .macro DefineComponentArrayStructure_Size _Tname, _N, _ComponentSize
+                            152 ;;  DEFINE LINKED LIST STRUCTURE
+                            153 ;;==============================================================================================================================
+                            154 ;;==============================================================================================================================
+                            155 
+                            156 ;;  Defines the structure for a basic memory manager.
+                            157 .mdelete DefineBasicStructureArray_Size
+                            158 .macro DefineBasicStructureArray_Size _Tname, _N, _ComponentSize
+                            159     _Tname'_array::
+                            160         .ds _N * _ComponentSize
+                            161 .endm
+                            162 
+                            163 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                            164 ;;  Defines the structure of the entity array.
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 16.
 Hexadecimal [16-Bits]
 
 
 
-                            165     _Tname'_num::         .db 0
-                            166     _Tname'_list::        .dw nullptr
-                            167     _Tname'_free_list::   .dw _Tname'_array
-                            168     _Tname'_array::
-                            169         .ds _N * _ComponentSize
-                            170 .endm
-                            171 
-                            172 
-                            173 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-                            174 ;;  Defines the structure for the component handler.
-                            175 .mdelete DefineComponentPointerTable
-                            176 .macro DefineComponentPointerTable _Tname, _N_Cmps, _N
-                            177     _c = 0
-                            178     ;;  Array containing pointers to component pointer arrays.
-                            179     _Tname'_access_table::
-                            180     .rept _N_Cmps
-                            181         DefineComponentPointerAccessTable _Tname, \_c, _N, _N_Cmps
-                            182         _c = _c + 1
-                            183     .endm
-                            184     ;;  Zero-fill the component array with two additional words for the
-                            185     ;;  next free position and a null pointer fot he end of the array.
-                            186     _Tname'_components::
-                            187    .rept _N_Cmps
-                            188         DefineComponentArray _N
-                            189         .dw 0x0000
-                            190         .dw 0x0000
-                            191     .endm
-                            192 .endm
-                            193 
-                            194 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-                            195 ;;  Defines the pointers of the componente array pointer access table.
-                            196 .mdelete DefineComponentPointerAccessTable
-                            197 .macro DefineComponentPointerAccessTable _Tname, _suf, _N, _N_Cmps
-                            198     _Tname'_components'_suf'_ptr_pend::    .dw . + 2*_N_Cmps+ + _suf*2*_N + 2*_suf
-                            199 .endm
-                            200 
-                            201 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-                            202 ;;  Zero-pad an array of size n.
-                            203 .mdelete DefineComponentArray
-                            204 .macro DefineComponentArray _N
-                            205     .rept _N
-                            206         .dw 0x0000
-                            207     .endm
-                            208 .endm
+                            165 .mdelete DefineComponentArrayStructure_Size
+                            166 .macro DefineComponentArrayStructure_Size _Tname, _N, _ComponentSize
+                            167     _Tname'_num::         .db 0
+                            168     _Tname'_list::        .dw nullptr
+                            169     _Tname'_free_list::   .dw _Tname'_array
+                            170     _Tname'_array::
+                            171         .ds _N * _ComponentSize
+                            172 .endm
+                            173 
+                            174 
+                            175 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                            176 ;;  Defines the structure for the component handler.
+                            177 .mdelete DefineComponentPointerTable
+                            178 .macro DefineComponentPointerTable _Tname, _N_Cmps, _N
+                            179     _c = 0
+                            180     ;;  Array containing pointers to component pointer arrays.
+                            181     _Tname'_access_table::
+                            182     .rept _N_Cmps
+                            183         DefineComponentPointerAccessTable _Tname, \_c, _N, _N_Cmps
+                            184         _c = _c + 1
+                            185     .endm
+                            186     ;;  Zero-fill the component array with two additional words for the
+                            187     ;;  next free position and a null pointer fot he end of the array.
+                            188     _Tname'_components::
+                            189    .rept _N_Cmps
+                            190         DefineComponentArray _N
+                            191         .dw 0x0000
+                            192         .dw 0x0000
+                            193     .endm
+                            194 .endm
+                            195 
+                            196 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                            197 ;;  Defines the pointers of the componente array pointer access table.
+                            198 .mdelete DefineComponentPointerAccessTable
+                            199 .macro DefineComponentPointerAccessTable _Tname, _suf, _N, _N_Cmps
+                            200     _Tname'_components'_suf'_ptr_pend::    .dw . + 2*_N_Cmps+ + _suf*2*_N + 2*_suf
+                            201 .endm
+                            202 
+                            203 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                            204 ;;  Zero-pad an array of size n.
+                            205 .mdelete DefineComponentArray
+                            206 .macro DefineComponentArray _N
+                            207     .rept _N
+                            208         .dw 0x0000
+                            209     .endm
+                            210 .endm
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 17.
 Hexadecimal [16-Bits]
 
@@ -5791,11 +5803,11 @@ Hexadecimal [16-Bits]
                              39 .area _DATA
                              40 
    0000                      41 DefineComponentArrayStructure_Size _entity, MAX_ENTITIES, sizeof_e
-   23B0 00                    1     _entity_num::         .db 0
-   23B1 00 00                 2     _entity_list::        .dw nullptr
-   23B3 B5 23                 3     _entity_free_list::   .dw _entity_array
-   23B5                       4     _entity_array::
-   23B5                       5         .ds MAX_ENTITIES * sizeof_e
+   2434 00                    1     _entity_num::         .db 0
+   2435 00 00                 2     _entity_list::        .dw nullptr
+   2437 39 24                 3     _entity_free_list::   .dw _entity_array
+   2439                       4     _entity_array::
+   2439                       5         .ds MAX_ENTITIES * sizeof_e
                              42 
                              43 ;;
                              44 ;; Start of _CODE area
@@ -5852,12 +5864,12 @@ Hexadecimal [16-Bits]
                              90 
    084F D1            [10]   91 	pop de
                              92 
-   0850 2A B3 23      [16]   93 	ld hl, (_entity_free_list)					;;	\	The free list will now start at the end pointer of
-   0853 DD 22 B3 23   [20]   94 	ld (_entity_free_list), ix					;;	|	the deleted entity and contain a pointers to its old
+   0850 2A 37 24      [16]   93 	ld hl, (_entity_free_list)					;;	\	The free list will now start at the end pointer of
+   0853 DD 22 37 24   [20]   94 	ld (_entity_free_list), ix					;;	|	the deleted entity and contain a pointers to its old
    0857 DD 75 00      [19]   95 	ld e_ptr(ix), l				    			;;	|	position.
    085A DD 74 01      [19]   96 	ld e_ptr+1(ix), h							;;	/
                              97 
-   085D 21 B0 23      [10]   98 	ld hl, #_entity_num
+   085D 21 34 24      [10]   98 	ld hl, #_entity_num
    0860 35            [11]   99 	dec (hl)
                             100 
    0861 7B            [ 4]  101 	ld a, e										;;	\	If DE points to null, it means it is the las entity
@@ -5874,7 +5886,7 @@ Hexadecimal [16-Bits]
    086A C9            [10]  112 	ret
                             113 
    086B                     114 __is_the_last_entity:
-   086B ED 43 B1 23   [20]  115 	ld (_entity_list), bc
+   086B ED 43 35 24   [20]  115 	ld (_entity_list), bc
                             116 
    086F C9            [10]  117 	ret
                             118 
@@ -5889,11 +5901,11 @@ Hexadecimal [16-Bits]
    0870                     127 man_entity_new::
                             128 
                             129 	;; Increment number of templates
-   0870 21 B0 23      [10]  130 	ld hl, #_entity_num
+   0870 21 34 24      [10]  130 	ld hl, #_entity_num
    0873 34            [11]  131 	inc (hl)
                             132 
                             133 	;; updates pointer to free space
-   0874 2A B3 23      [16]  134 	ld hl, (_entity_free_list)	;; HL = Pointer to free space.
+   0874 2A 37 24      [16]  134 	ld hl, (_entity_free_list)	;; HL = Pointer to free space.
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 112.
 Hexadecimal [16-Bits]
 
@@ -5905,9 +5917,9 @@ Hexadecimal [16-Bits]
    0878 5E            [ 7]  138 	ld e, (hl)							;;	\	Extract from HL the pointer to the next
    0879 23            [ 6]  139 	inc hl								;;	|	free element.
    087A 56            [ 7]  140 	ld d, (hl)							;;  |	Free space will now start on that element.
-   087B ED 53 B3 23   [20]  141 	ld (_entity_free_list), de			;;	/
+   087B ED 53 37 24   [20]  141 	ld (_entity_free_list), de			;;	/
                             142 
-   087F 2A B1 23      [16]  143 	ld hl, (_entity_list)				;;	HL = Pointer to the first item in the list.
+   087F 2A 35 24      [16]  143 	ld hl, (_entity_list)				;;	HL = Pointer to the first item in the list.
                             144 
    0882 4D            [ 4]  145 	ld c, l								;;	BC = HL
    0883 44            [ 4]  146 	ld b, h
@@ -5918,12 +5930,12 @@ Hexadecimal [16-Bits]
    0886 54            [ 4]  151 	ld d, h								;;	/	so as not to delete the pointer to the next entity.
                             152 
                             153 	;; Update the pointer to the next entity
-   0887 22 B1 23      [16]  154 	ld (_entity_list), hl				;;	\	Assign to _entity_list the pointer of the new position that will host an entity.
+   0887 22 35 24      [16]  154 	ld (_entity_list), hl				;;	\	Assign to _entity_list the pointer of the new position that will host an entity.
    088A 71            [ 7]  155 	ld (hl), c							;;	|	If it's the first entity that is created, DE will contain a pointer to null, otherwise,
    088B 23            [ 6]  156 	inc hl								;;	|	the pointer to the next entity.
    088C 70            [ 7]  157 	ld (hl), b							;;	/
                             158 
-   088D 01 1B 00      [10]  159 	ld bc, #sizeof_e - 2
+   088D 01 1E 00      [10]  159 	ld bc, #sizeof_e - 2
                             160 
    0890 C9            [10]  161 	ret
                             162 
@@ -5944,13 +5956,13 @@ Hexadecimal [16-Bits]
    0891 CD 6E 06      [17]  177 	call man_components_init
                             178 	
    0894 AF            [ 4]  179 	xor a
-   0895 32 B0 23      [13]  180 	ld (_entity_num), a
+   0895 32 34 24      [13]  180 	ld (_entity_num), a
                             181 
    0898 21 00 00      [10]  182 	ld hl, #nullptr
-   089B 22 B1 23      [16]  183 	ld (_entity_list), hl
+   089B 22 35 24      [16]  183 	ld (_entity_list), hl
                             184 
-   089E 21 B5 23      [10]  185 	ld hl, #_entity_array
-   08A1 22 B3 23      [16]  186 	ld (_entity_free_list), hl		;;	List of free entities.
+   089E 21 39 24      [10]  185 	ld hl, #_entity_array
+   08A1 22 37 24      [16]  186 	ld (_entity_free_list), hl		;;	List of free entities.
                             187 	
    08A4 E5            [11]  188 	push hl
                             189 
@@ -5963,7 +5975,7 @@ Hexadecimal [16-Bits]
    08A7 54            [ 4]  191 	ld 	d, h								;; 	|	elements to zero.
    08A8 5D            [ 4]  192 	ld	e, l								;; 	|
    08A9 13            [ 6]  193 	inc de									;; 	|
-   08AA 01 21 01      [10]  194 	ld bc, #MAX_ENTITIES * sizeof_e - 1		;; 	|
+   08AA 01 3F 01      [10]  194 	ld bc, #MAX_ENTITIES * sizeof_e - 1		;; 	|
    08AD ED B0         [21]  195 	ldir									;; 	/
                             196 
                             197 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -5988,7 +6000,7 @@ Hexadecimal [16-Bits]
    08AF 3E 09         [ 7]  216 	ld a, #MAX_ENTITIES - 1		;;	\	The entity counter is only necessary until the penultimate, 
    08B1 32 C2 08      [13]  217 	ld (_ent_counter), a		;;	/	since the las one haas to have a null value.
                             218 
-   08B4 01 1D 00      [10]  219 	ld bc, #sizeof_e
+   08B4 01 20 00      [10]  219 	ld bc, #sizeof_e
                             220 
    08B7 E1            [10]  221 	pop hl
                             222 
@@ -6172,8 +6184,8 @@ Hexadecimal [16-Bits]
                             377 ;;       IX, A
                             378 ;;	   
    093F                     379 man_entity_getEntityArrayIX::
-   093F DD 21 B5 23   [14]  380 	ld ix, #_entity_array
-   0943 3A B0 23      [13]  381 	ld a, (_entity_num)
+   093F DD 21 39 24   [14]  380 	ld ix, #_entity_array
+   0943 3A 34 24      [13]  381 	ld a, (_entity_num)
    0946 C9            [10]  382 	ret
                             383 
                             384 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -6184,8 +6196,8 @@ Hexadecimal [16-Bits]
                             389 ;;       IX, A
                             390 ;;	   
    0947                     391 man_entity_getEntityArrayIY::
-   0947 FD 21 B5 23   [14]  392 	ld iy, #_entity_array
-   094B 3A B0 23      [13]  393 	ld a, (_entity_num)
+   0947 FD 21 39 24   [14]  392 	ld iy, #_entity_array
+   094B 3A 34 24      [13]  393 	ld a, (_entity_num)
    094E C9            [10]  394 	ret
                             395 
                             396 ;;-----------------------------------------------------------------
@@ -6226,7 +6238,7 @@ Hexadecimal [16-Bits]
                              24    .mexit
    0951 FD E5         [15]  403 	push iy
    0953 E1            [10]  404 	pop hl
-   0954 01 1D 00      [10]  405 	ld bc, #sizeof_e
+   0954 01 20 00      [10]  405 	ld bc, #sizeof_e
    0957 09            [11]  406 	add hl, bc
    0958 E5            [11]  407 	push hl
    0959 FD E1         [14]  408 	pop iy
@@ -6263,19 +6275,19 @@ Hexadecimal [16-Bits]
    095D C9            [10]  410 	ret
                             411 
                             412 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-                            413 ;;	ENTITY_MANAGER::GetPlayerPositionIY
+                            413 ;;	ENTITY_MANAGER::man_entity_getPlayerPosition
                             414 ;;		Returns a pointer to the player for input system
                             415 ;;	INPUT:
                             416 ;;	MODIFY:
                             417 ;;		HL
                             418 ;;	   
    095E                     419 man_entity_getPlayerPosition::
-   095E DD 21 B5 23   [14]  420 	ld ix, #_entity_array
+   095E DD 21 39 24   [14]  420 	ld ix, #_entity_array
    0962 C9            [10]  421 	ret
                             422 
                             423 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-                            424 ;;	ENTITY_MANAGER::GetPlayerPositionIY
-                            425 ;;		Returns a pointer to the player for input system
+                            424 ;;	ENTITY_MANAGER::man_entity_getOponentPosition
+                            425 ;;		Returns a pointer to the oponent
                             426 ;;	INPUT:
                             427 ;;	MODIFY:
                             428 ;;		HL
@@ -6306,8 +6318,8 @@ Hexadecimal [16-Bits]
                              22    .endif
                      0001    23    .else
                              24    .mexit
-   0965 21 B5 23      [10]  432 	ld hl, #_entity_array
-   0968 01 1D 00      [10]  433 	ld bc, #sizeof_e
+   0965 21 39 24      [10]  432 	ld hl, #_entity_array
+   0968 01 20 00      [10]  433 	ld bc, #sizeof_e
    096B 09            [11]  434 	add hl, bc
    096C E5            [11]  435 	push hl
    096D FD E1         [14]  436 	pop iy
@@ -6344,72 +6356,143 @@ Hexadecimal [16-Bits]
    0971 C9            [10]  438 	ret
                             439 
                             440 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-                            441 ;;	ENTITY_MANAGER::deleteEverythingExceptPlayer
-                            442 ;;		Remove all entities except the player'.
+                            441 ;;	ENTITY_MANAGER::man_entity_getBallPositionIY
+                            442 ;;		Returns a pointer to the player for input system
                             443 ;;	INPUT:
                             444 ;;	MODIFY:
-                            445 ;;		A
+                            445 ;;		HL
                             446 ;;	   
-   0972                     447 man_entity_deleteEverythingExceptPlayer::
-   0972 CD 3F 09      [17]  448 	call man_entity_getEntityArrayIX
-                            449 
-   0975                     450 	__loop:
-                            451 	;;	If the pointer to the next element in the list is null the entity is the player
-                            452 	;; 	and the loop is terminated.
-   0975 DD 7E 00      [19]  453 	ld a, e_ptr(ix)
-   0978 4F            [ 4]  454 	ld c, a
-   0979 DD 46 01      [19]  455 	ld b, e_ptr+1(ix)
-   097C B1            [ 4]  456 	or c
-   097D C8            [11]  457 	ret z
-                            458 
-                            459 	;;	The entity is marked for deletion.
-   097E CD CA 08      [17]  460 	call man_entity_set4destruction
-                            461 
-   014B                     462 	ld__ixl_c
-   0981 DD 69                 1    .dw #0x69DD  ;; Opcode for ld ixl, c
-   014D                     463 	ld__ixh_b
-   0983 DD 60                 1    .dw #0x60DD  ;; Opcode for ld ixh, b
-   0985 18 EE         [12]  464 	jr __loop
-                            465 
-                            466 ;; Pointer to function
-   0987 00 00               467 function_for_all: .db #0x00, #0x00
-                            468 
+   0972                     447 man_entity_getBallPositionIY::
+   013C                     448 	cpctm_push hl, bc
+                     0002     1    .narg v
+                     0001     2    .if v
+   0972 E5            [11]    3    push hl
+                     0001     4    .if v-1
+   0973 C5            [11]    5    push bc
+                     0000     6    .if v-2
+                              7    push 
+                              8    .if v-3
+                              9    push 
+                             10    .if v-4
+                             11    push 
+                             12    .if v-5
+                             13    push 
+                             14    .else
+                             15    .mexit
+                             16    .endif
+                             17    .else
+                             18    .mexit
+                             19    .endif
+                             20    .else
+                             21    .mexit
+                             22    .endif
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 120.
 Hexadecimal [16-Bits]
 
 
 
-                            469 ;; ---------------------------------------------
-                            470 ;; Applies a function filtering specific criteria
-                            471 ;; B -> Mask of bytes (e_cmps)
-                            472 ;; ---------------------------------------------
-   0989                     473 man_entity_forall_matching_iy::
-   0989 22 87 09      [16]  474     ld (function_for_all), hl
-   098C CD 47 09      [17]  475     call man_entity_getEntityArrayIY ;; IY points to the first entity
+                     0001    23    .else
+                             24    .mexit
+   0974 21 39 24      [10]  449 	ld hl, #_entity_array
+   0977 01 20 00      [10]  450 	ld bc, #sizeof_e
+   097A 09            [11]  451 	add hl, bc
+   097B 09            [11]  452 	add hl, bc
+   097C E5            [11]  453 	push hl
+   097D FD E1         [14]  454 	pop iy
+   0149                     455 	cpctm_pop bc, hl
+                     0002     1    .narg v
+                     0001     2    .if v
+   097F C1            [10]    3    pop bc
+                     0001     4    .if v-1
+   0980 E1            [10]    5    pop hl
+                     0000     6    .if v-2
+                              7    pop 
+                              8    .if v-3
+                              9    pop 
+                             10    .if v-4
+                             11    pop 
+                             12    .if v-5
+                             13    pop 
+                             14    .else
+                             15    .mexit
+                             16    .endif
+                             17    .else
+                             18    .mexit
+                             19    .endif
+                             20    .else
+                             21    .mexit
+                             22    .endif
+                     0001    23    .else
+                             24    .mexit
+   0981 C9            [10]  456 	ret
+                            457 
+                            458 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                            459 ;;	ENTITY_MANAGER::deleteEverythingExceptPlayer
+                            460 ;;		Remove all entities except the player'.
+                            461 ;;	INPUT:
+                            462 ;;	MODIFY:
+                            463 ;;		A
+                            464 ;;	   
+   0982                     465 man_entity_deleteEverythingExceptPlayer::
+   0982 CD 3F 09      [17]  466 	call man_entity_getEntityArrayIX
+                            467 
+   0985                     468 	__loop:
+                            469 	;;	If the pointer to the next element in the list is null the entity is the player
+                            470 	;; 	and the loop is terminated.
+   0985 DD 7E 00      [19]  471 	ld a, e_ptr(ix)
+   0988 4F            [ 4]  472 	ld c, a
+   0989 DD 46 01      [19]  473 	ld b, e_ptr+1(ix)
+   098C B1            [ 4]  474 	or c
+   098D C8            [11]  475 	ret z
                             476 
-   098F FD 7E 02      [19]  477     ld a,e_cmps(iy) ;;si la primera entidad es invalida, salimos de la funcion
-   0992 E6 FF         [ 7]  478     and #0xFF
-   0994 C8            [11]  479     ret z
-                            480 
-   0995                     481     loop_forall_matching:
-   0995 C5            [11]  482         push bc ;;guardo mascara de bytes
-   0996 FD 7E 02      [19]  483         ld a, e_cmps(iy)
-   0999 A0            [ 4]  484         and b
-   099A B8            [ 4]  485         cp b
-   099B 20 08         [12]  486         jr nz, afterjp_matching
-                            487    
-   099D 21 A5 09      [10]  488         ld hl, #afterjp_matching
-   09A0 E5            [11]  489         push hl
-                            490 
-   09A1 2A 87 09      [16]  491         ld hl, (function_for_all)
-   09A4 E9            [ 4]  492         jp (hl)
-                            493 
-   09A5                     494     afterjp_matching:
-   09A5 CD 4F 09      [17]  495         call man_entity_next_entity_iy
-                            496         
-   09A8 FD 7E 02      [19]  497         ld a,e_cmps(iy)
-   09AB E6 FF         [ 7]  498         and #0xff
-   09AD C1            [10]  499         pop bc
-   09AE 20 E5         [12]  500     jr nz, loop_forall_matching
-                            501 
-   09B0 C9            [10]  502 	ret
+                            477 	;;	The entity is marked for deletion.
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 121.
+Hexadecimal [16-Bits]
+
+
+
+   098E CD CA 08      [17]  478 	call man_entity_set4destruction
+                            479 
+   015B                     480 	ld__ixl_c
+   0991 DD 69                 1    .dw #0x69DD  ;; Opcode for ld ixl, c
+   015D                     481 	ld__ixh_b
+   0993 DD 60                 1    .dw #0x60DD  ;; Opcode for ld ixh, b
+   0995 18 EE         [12]  482 	jr __loop
+                            483 
+                            484 ;; Pointer to function
+   0997 00 00               485 function_for_all: .db #0x00, #0x00
+                            486 
+                            487 ;; ---------------------------------------------
+                            488 ;; Applies a function filtering specific criteria
+                            489 ;; B -> Mask of bytes (e_cmps)
+                            490 ;; ---------------------------------------------
+   0999                     491 man_entity_forall_matching_iy::
+   0999 22 97 09      [16]  492     ld (function_for_all), hl
+   099C CD 47 09      [17]  493     call man_entity_getEntityArrayIY ;; IY points to the first entity
+                            494 
+   099F FD 7E 02      [19]  495     ld a,e_cmps(iy) ;;si la primera entidad es invalida, salimos de la funcion
+   09A2 E6 FF         [ 7]  496     and #0xFF
+   09A4 C8            [11]  497     ret z
+                            498 
+   09A5                     499     loop_forall_matching:
+   09A5 C5            [11]  500         push bc ;;guardo mascara de bytes
+   09A6 FD 7E 02      [19]  501         ld a, e_cmps(iy)
+   09A9 A0            [ 4]  502         and b
+   09AA B8            [ 4]  503         cp b
+   09AB 20 08         [12]  504         jr nz, afterjp_matching
+                            505    
+   09AD 21 B5 09      [10]  506         ld hl, #afterjp_matching
+   09B0 E5            [11]  507         push hl
+                            508 
+   09B1 2A 97 09      [16]  509         ld hl, (function_for_all)
+   09B4 E9            [ 4]  510         jp (hl)
+                            511 
+   09B5                     512     afterjp_matching:
+   09B5 CD 4F 09      [17]  513         call man_entity_next_entity_iy
+                            514         
+   09B8 FD 7E 02      [19]  515         ld a,e_cmps(iy)
+   09BB E6 FF         [ 7]  516         and #0xff
+   09BD C1            [10]  517         pop bc
+   09BE 20 E5         [12]  518     jr nz, loop_forall_matching
+                            519 
+   09C0 C9            [10]  520 	ret
