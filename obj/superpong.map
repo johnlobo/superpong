@@ -27,22 +27,22 @@ Area                                    Addr        Size        Decimal Bytes (A
      00000004  GAME_OVER                          game_manager
      00000005  VICTORY                            game_manager
      00000100  l__ABS0                         
+     000001FE  l__DATA                         
      00000200  s__CODE                         
-     00000226  l__DATA                         
-     000020FC  l__CODE                         
-     000022FC  s__DATA                         
-     00002522  s__GSFINAL                      
-     00002522  s__GSINIT                       
-     00002522  s__HOME                         
-     00002522  s__INITIALIZED                  
-     00002522  s__INITIALIZER                  
+     00002164  l__CODE                         
+     00002364  s__DATA                         
+     00002562  s__GSFINAL                      
+     00002562  s__GSINIT                       
+     00002562  s__HOME                         
+     00002562  s__INITIALIZED                  
+     00002562  s__INITIALIZER                  
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 2.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_CODE                               00000200    000020FC =        8444. bytes (REL,CON)
+_CODE                               00000200    00002164 =        8548. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -92,7 +92,7 @@ _CODE                               00000200    000020FC =        8444. bytes (R
      000008FF  man_entity_create                  cpct_keyboard
      0000093F  man_entity_getEntityArrayIX        cpct_keyboard
      00000947  man_entity_getEntityArrayIY        cpct_keyboard
-     0000094F  man_next_entity_iy                 cpct_keyboard
+     0000094F  man_entity_next_entity_iy          cpct_keyboard
      0000095E  man_entity_getPlayerPosition       cpct_keyboard
      00000963  man_entity_getOponentPosition      cpct_keyboard
      00000972  man_entity_deleteEverythingExcep   cpct_keyboard
@@ -101,183 +101,184 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_CODE                               00000200    000020FC =        8444. bytes (REL,CON)
+_CODE                               00000200    00002164 =        8548. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
      00000989  man_entity_forall_matching_iy      cpct_keyboard
      000009B1  man_game_init                      game_manager
      000009D5  man_game_update                    game_manager
-     00000A03  man_game_get_state                 game_manager
-     00000A07  man_game_set_state                 game_manager
-     00000A0B  sys_physics_init                   physics_system
-     00000A14  sys_physics_apply_gravity          physics_system
-     00000A26  sys_physics_apply_friction_vx      physics_system
-     00000A4D  sys_physics_apply_friction_vy      physics_system
-     00000A74  sys_physics_update_one_entity      physics_system
-     00000AC5  sys_physics_update                 physics_system
-     00000ADB  sys_render_clear_buffer            render_system
-     00000AE6  sys_render_clear_back_buffer       render_system
-     00000AF0  sys_render_clear_front_buffer      render_system
-     00000AFA  sys_render_switch_buffers          render_system
-     00000B10  sys_render_init                    render_system
-     00000B30  sys_render_erase_one_entity        render_system
-     00000B45  sys_render_draw_one_vector_entit   render_system
-     00000B5E  sys_render_draw_one_sprite_entit   render_system
-     00000B74  sys_render_update_one_entity       render_system
-     00000BA7  sys_render_update                  render_system
-     00000BBC  sys_render_debug_entity            render_system
-     00000C2C  sys_util_h_times_e                 sys_util
-     00000C50  sys_util_hl_div_c                  sys_util
-     00000C5D  sys_util_absHL                     sys_util
-     00000C67  sys_util_BCD_GetEnd                sys_util
-     00000C72  sys_util_BCD_Add                   sys_util
-     00000C7C  sys_util_BCD_Compare               sys_util
-     00000C8B  sys_util_get_random_number         sys_util
-     00000CA1  sys_util_delay                     sys_util
-     00000CA9  sys_util_negHL                     sys_util
-     00000CB0  sys_text_reset_aux_txt             text_manager
-     00000CBB  sys_text_str_length                text_manager
-     00000CC7  sys_text_str_copy                  text_manager
-     00000CD6  sys_text_str_cmp                   text_manager
-     00000CF0  sys_text_draw_char                 text_manager
-     00000D80  sys_text_draw_string               text_manager
-     00000DCF  sys_text_num2str8                  text_manager
-     00000DE6  sys_text_draw_small_char_number    text_manager
-     00000DFD  sys_text_draw_small_number         text_manager
-     00000E2A  sys_messages_load_window_data      messages_system
-     00000E7F  sys_messages_draw_window           messages_system
-     00000EB5  sys_messages_restore_message_bac   messages_system
-     00000EC8  sys_messages_show                  messages_system
-     00000F53  sys_messages_draw_box              messages_system
-     00001BCD  sys_system_disable_firmware        system_system
-     00001BDF  sys_collision_init                 physics_system
+     000009E2  man_game_get_state                 game_manager
+     000009E6  man_game_set_state                 game_manager
+     000009EA  sys_physics_init                   physics_system
+     000009F3  sys_physics_apply_gravity          physics_system
+     00000A05  sys_physics_apply_friction_vx      physics_system
+     00000A2C  sys_physics_apply_friction_vy      physics_system
+     00000A53  sys_physics_update_one_entity      physics_system
+     00000AA4  sys_physics_update                 physics_system
+     00000ABA  sys_render_clear_buffer            render_system
+     00000AC5  sys_render_clear_back_buffer       render_system
+     00000ACF  sys_render_clear_front_buffer      render_system
+     00000AD9  sys_render_switch_buffers          render_system
+     00000AEF  sys_render_init                    render_system
+     00000B0F  sys_render_erase_one_entity        render_system
+     00000B24  sys_render_draw_one_vector_entit   render_system
+     00000B3D  sys_render_draw_one_sprite_entit   render_system
+     00000B53  sys_render_update_one_entity       render_system
+     00000B86  sys_render_update                  render_system
+     00000B9B  sys_render_debug_entity            render_system
+     00000C18  sys_util_h_times_e                 sys_util
+     00000C3C  sys_util_hl_div_c                  sys_util
+     00000C49  sys_util_absHL                     sys_util
+     00000C53  sys_util_BCD_GetEnd                sys_util
+     00000C5E  sys_util_BCD_Add                   sys_util
+     00000C68  sys_util_BCD_Compare               sys_util
+     00000C77  sys_util_get_random_number         sys_util
+     00000C8D  sys_util_delay                     sys_util
+     00000C95  sys_util_negHL                     sys_util
+     00000C9C  sys_text_reset_aux_txt             text_manager
+     00000CA7  sys_text_str_length                text_manager
+     00000CB3  sys_text_str_copy                  text_manager
+     00000CC2  sys_text_str_cmp                   text_manager
+     00000CDC  sys_text_draw_char                 text_manager
+     00000D6C  sys_text_draw_string               text_manager
+     00000DBB  sys_text_num2str8                  text_manager
+     00000DD2  sys_text_draw_small_char_number    text_manager
+     00000DE9  sys_text_draw_small_number         text_manager
+     00000E16  sys_messages_load_window_data      messages_system
+     00000E6B  sys_messages_draw_window           messages_system
+     00000EA1  sys_messages_restore_message_bac   messages_system
+     00000EB4  sys_messages_show                  messages_system
+     00000F3F  sys_messages_draw_box              messages_system
+     00001BB9  sys_system_disable_firmware        system_system
+     00001BCB  sys_collision_init                 physics_system
+     00001BD4  sys_collision_check_collider_col   physics_system
      00001BE8  sys_collision_check_collider_col   physics_system
-     00001C10  sys_collision_collider_colisiona   physics_system
-     00001C28  sys_collision_update_one_collide   physics_system
-     00001C31  sys_collision_update               physics_system
+     00001BFC  sys_collision_paddle               physics_system
+     00001C73  sys_collision_collider_colisiona   physics_system
 ASxxxx Linker V03.00 + NoICE + sdld,  page 4.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_CODE                               00000200    000020FC =        8444. bytes (REL,CON)
+_CODE                               00000200    00002164 =        8548. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-     00001C47  sys_input_clean_buffer             input_system
-     00001C4D  sys_input_wait4anykey              input_system
-     00001C5F  sys_input_getKeyPressed            input_system
-     00001C85  sys_input_waitKeyPressed           input_system
-     00001C99  sys_input_init                     input_system
-     00001C9A  sys_input_generic_update           input_system
-     00001CBA  sys_input_main_menu_update         input_system
-     00001CC2  sys_input_player_left              input_system
-     00001CEB  sys_input_player_right             input_system
-     00001D13  sys_input_player_up                input_system
-     00001D3C  sys_input_player_down              input_system
-     00001D64  sys_input_player_jump              input_system
-     00001D80  sys_input_player_update            input_system
-     00001D8F  _cpct_setInterruptHandler          cpct_firmware
-     00001D8F  cpct_setInterruptHandler_asm       cpct_firmware
-     00001DA0  cpct_safeInterruptHandlerHook      cpct_firmware
-     00001DB6  cpct_getScreenToSprite_asm         cpct_sprites
-     00001DD8  cpct_setPalette_asm                cpct_video
-     00001DEB  _cpct_isKeyPressed                 cpct_keyboard
-     00001DEB  cpct_isKeyPressed_asm              cpct_keyboard
-     00001DF7  cpct_setPALColour_asm              cpct_video
-     00001E01  cpct_drawSprite_asm                cpct_sprites
-     00001EA1  cpct_etm_drawTileBox2x4_asm        cpct_easytilemaps
-     00001F2D  cpct_etm_drawTilemap4x8_ag_asm     cpct_easytilemaps
-     00001F2F  cpct_etm_dtm4x8_ag_asm_widthHeig   cpct_easytilemaps
-     00001F45  cpct_etm_dtm4x8_ag_asm_tilesetPt   cpct_easytilemaps
-     00001FB0  cpct_etm_dtm4x8_ag_asm_restoreI    cpct_easytilemaps
-     00001FB6  cpct_etm_dtm4x8_ag_asm_increment   cpct_easytilemaps
-     00001FBB  cpct_etm_dtm4x8_ag_asm_restoreWi   cpct_easytilemaps
-     00001FBE  cpct_etm_dtm4x8_ag_asm_updateWid   cpct_easytilemaps
-     00001FC6  _cpct_keyboardStatusBuffer         cpct_keyboard
-     00001FD0  cpct_waitHalts_asm                 cpct_memutils
-     00001FD4  _cpct_setSeed_mxor                 cpct_random
-     00001FD4  cpct_setSeed_mxor_asm              cpct_random
-     00001FDC  _cpct_etm_drawTileRow2x4           cpct_easytilemaps
-     00001FE3  cpct_etm_drawTileRow2x4_asm        cpct_easytilemaps
-     00001FE5  dtr_restore_ptileset               cpct_easytilemaps
-     00001FFD  cpct_setSeed_xsp40_u8_asm          cpct_random
-     00002008  _cpct_setVideoMemoryPage           cpct_video
-     00002008  cpct_setVideoMemoryPage_asm        cpct_video
-     00002011  cpct_memset_f64_asm                cpct_memutils
-     00002057  _cpct_getRandom_xsp40_u8           cpct_random
-     00002057  cpct_getRandom_xsp40_u8_asm        cpct_random
-     0000205C  _cpct_seed1_xsp40_u8               cpct_random
-     0000205F  _cpct_seed2_xsp40_u8               cpct_random
-     00002079  _cpct_seed3_xsp40_u8               cpct_random
-     0000207C  _cpct_isAnyKeyPressed              cpct_keyboard
-     0000207C  cpct_isAnyKeyPressed_asm           cpct_keyboard
-     00002089  _cpct_scanKeyboard_if              cpct_keyboard
-     00002089  cpct_scanKeyboard_if_asm           cpct_keyboard
-     000020F1  cpct_setVideoMode_asm              cpct_video
+     00001CAC  sys_collision_update_one_collide   physics_system
+     00001CB5  sys_collision_update               physics_system
+     00001CCB  sys_input_clean_buffer             input_system
+     00001CD1  sys_input_wait4anykey              input_system
+     00001CE3  sys_input_getKeyPressed            input_system
+     00001D09  sys_input_waitKeyPressed           input_system
+     00001D1D  sys_input_init                     input_system
+     00001D1E  sys_input_generic_update           input_system
+     00001D3E  sys_input_main_menu_update         input_system
+     00001D46  sys_input_player_left              input_system
+     00001D6F  sys_input_player_right             input_system
+     00001D97  sys_input_player_up                input_system
+     00001DC0  sys_input_player_down              input_system
+     00001DE8  sys_input_player_update            input_system
+     00001DF7  _cpct_setInterruptHandler          cpct_firmware
+     00001DF7  cpct_setInterruptHandler_asm       cpct_firmware
+     00001E08  cpct_safeInterruptHandlerHook      cpct_firmware
+     00001E1E  cpct_getScreenToSprite_asm         cpct_sprites
+     00001E40  cpct_setPalette_asm                cpct_video
+     00001E53  _cpct_isKeyPressed                 cpct_keyboard
+     00001E53  cpct_isKeyPressed_asm              cpct_keyboard
+     00001E5F  cpct_setPALColour_asm              cpct_video
+     00001E69  cpct_drawSprite_asm                cpct_sprites
+     00001F09  cpct_etm_drawTileBox2x4_asm        cpct_easytilemaps
+     00001F95  cpct_etm_drawTilemap4x8_ag_asm     cpct_easytilemaps
+     00001F97  cpct_etm_dtm4x8_ag_asm_widthHeig   cpct_easytilemaps
+     00001FAD  cpct_etm_dtm4x8_ag_asm_tilesetPt   cpct_easytilemaps
+     00002018  cpct_etm_dtm4x8_ag_asm_restoreI    cpct_easytilemaps
+     0000201E  cpct_etm_dtm4x8_ag_asm_increment   cpct_easytilemaps
+     00002023  cpct_etm_dtm4x8_ag_asm_restoreWi   cpct_easytilemaps
+     00002026  cpct_etm_dtm4x8_ag_asm_updateWid   cpct_easytilemaps
+     0000202E  _cpct_keyboardStatusBuffer         cpct_keyboard
+     00002038  cpct_waitHalts_asm                 cpct_memutils
+     0000203C  _cpct_setSeed_mxor                 cpct_random
+     0000203C  cpct_setSeed_mxor_asm              cpct_random
+     00002044  _cpct_etm_drawTileRow2x4           cpct_easytilemaps
+     0000204B  cpct_etm_drawTileRow2x4_asm        cpct_easytilemaps
+     0000204D  dtr_restore_ptileset               cpct_easytilemaps
+     00002065  cpct_setSeed_xsp40_u8_asm          cpct_random
+     00002070  _cpct_setVideoMemoryPage           cpct_video
+     00002070  cpct_setVideoMemoryPage_asm        cpct_video
+     00002079  cpct_memset_f64_asm                cpct_memutils
+     000020BF  _cpct_getRandom_xsp40_u8           cpct_random
+     000020BF  cpct_getRandom_xsp40_u8_asm        cpct_random
+     000020C4  _cpct_seed1_xsp40_u8               cpct_random
+     000020C7  _cpct_seed2_xsp40_u8               cpct_random
+     000020E1  _cpct_seed3_xsp40_u8               cpct_random
+     000020E4  _cpct_isAnyKeyPressed              cpct_keyboard
+     000020E4  cpct_isAnyKeyPressed_asm           cpct_keyboard
+     000020F1  _cpct_scanKeyboard_if              cpct_keyboard
+     000020F1  cpct_scanKeyboard_if_asm           cpct_keyboard
 ASxxxx Linker V03.00 + NoICE + sdld,  page 5.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_CODE                               00000200    000020FC =        8444. bytes (REL,CON)
+_CODE                               00000200    00002164 =        8548. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-     000020FE  _cpct_waitVSYNC                    cpct_video
-     000020FE  cpct_waitVSYNC_asm                 cpct_video
-     00002106  cpct_memset_asm                    cpct_memutils
-     0000210E  cpct_px2byteM0_asm                 cpct_sprites
-     00002128  _cpct_disableFirmware              cpct_firmware
-     00002128  _cpct_removeInterruptHandler       cpct_firmware
-     00002128  cpct_disableFirmware_asm           cpct_firmware
-     00002128  cpct_removeInterruptHandler_asm    cpct_firmware
-     00002138  cpct_drawSolidBox_asm              cpct_sprites
-     000021DB  _cpct_getRandom_mxor_u8            cpct_random
-     000021DB  cpct_getRandom_mxor_u8_asm         cpct_random
-     000021DC  cpct_randomIdx_mxor_u8             cpct_random
-     00002200  cpct_drawTileAligned2x4_f_asm      cpct_sprites
-     00002221  cpct_drawSpriteBlended_asm         cpct_sprites
-     00002227  _cpct_dsb_blendFunction            cpct_sprites
-     00002248  _cpct_mode_rom_status              cpct_firmware
-     00002249  cpct_getScreenPtr_asm              cpct_video
-     0000225B  _cpct_scanKeyboard                 cpct_keyboard
-     0000225B  cpct_scanKeyboard_asm              cpct_keyboard
-     0000228C  _cpct_waitVSYNCStart               cpct_video
-     0000228C  cpct_waitVSYNCStart_asm            cpct_video
-     00002299  cpct_etm_setDrawTilemap4x8_ag_as   cpct_easytilemaps
-     000022C5  _cpct_mxor32_seed                  cpct_random
-     000022C9  _cpct_nextRandom_mxor_u32          cpct_random
-     000022C9  cpct_nextRandom_mxor_u32_asm       cpct_random
-     000022EC  dc_mode0_ct                        cpct_strings
+     00002159  cpct_setVideoMode_asm              cpct_video
+     00002166  _cpct_waitVSYNC                    cpct_video
+     00002166  cpct_waitVSYNC_asm                 cpct_video
+     0000216E  cpct_memset_asm                    cpct_memutils
+     00002176  cpct_px2byteM0_asm                 cpct_sprites
+     00002190  _cpct_disableFirmware              cpct_firmware
+     00002190  _cpct_removeInterruptHandler       cpct_firmware
+     00002190  cpct_disableFirmware_asm           cpct_firmware
+     00002190  cpct_removeInterruptHandler_asm    cpct_firmware
+     000021A0  cpct_drawSolidBox_asm              cpct_sprites
+     00002243  _cpct_getRandom_mxor_u8            cpct_random
+     00002243  cpct_getRandom_mxor_u8_asm         cpct_random
+     00002244  cpct_randomIdx_mxor_u8             cpct_random
+     00002268  cpct_drawTileAligned2x4_f_asm      cpct_sprites
+     00002289  cpct_drawSpriteBlended_asm         cpct_sprites
+     0000228F  _cpct_dsb_blendFunction            cpct_sprites
+     000022B0  _cpct_mode_rom_status              cpct_firmware
+     000022B1  cpct_getScreenPtr_asm              cpct_video
+     000022C3  _cpct_scanKeyboard                 cpct_keyboard
+     000022C3  cpct_scanKeyboard_asm              cpct_keyboard
+     000022F4  _cpct_waitVSYNCStart               cpct_video
+     000022F4  cpct_waitVSYNCStart_asm            cpct_video
+     00002301  cpct_etm_setDrawTilemap4x8_ag_as   cpct_easytilemaps
+     0000232D  _cpct_mxor32_seed                  cpct_random
+     00002331  _cpct_nextRandom_mxor_u32          cpct_random
+     00002331  cpct_nextRandom_mxor_u32_asm       cpct_random
+     00002354  dc_mode0_ct                        cpct_strings
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 6.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_DATA                               000022FC    00000226 =         550. bytes (REL,CON)
+_DATA                               00002364    000001FE =         510. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-     00002311  first_lvl                          fight_manager
-     00002348  _entity_num                        cpct_keyboard
-     00002349  _entity_list                       cpct_keyboard
-     0000234B  _entity_free_list                  cpct_keyboard
-     0000234D  _entity_array                      cpct_keyboard
-     0000248D  player1Tpl                         game_manager
-     000024AD  ballTpl                            game_manager
-     000024CD  game_state                         game_manager
-     000024D0  sys_render_front_buffer            render_system
-     000024D1  sys_render_back_buffer             render_system
-     000024D2  sys_render_touched_zones           render_system
-     000024D3  string_buffer                      sys_util
-     000024DE  aux_txt                            text_manager
-     000024F2  _window_data                       messages_system
-     00002509  nInterrupt                         system_system
-     0000250A  sys_input_main_menu_actions        input_system
-     0000250C  sys_input_player_actions           input_system
+     00002379  first_lvl                          fight_manager
+     000023B0  _entity_num                        cpct_keyboard
+     000023B1  _entity_list                       cpct_keyboard
+     000023B3  _entity_free_list                  cpct_keyboard
+     000023B5  _entity_array                      cpct_keyboard
+     000024D7  player1Tpl                         game_manager
+     000024F4  ballTpl                            game_manager
+     00002511  game_state                         game_manager
+     00002514  sys_render_front_buffer            render_system
+     00002515  sys_render_back_buffer             render_system
+     00002516  sys_render_touched_zones           render_system
+     00002517  string_buffer                      sys_util
+     00002522  aux_txt                            text_manager
+     00002536  _window_data                       messages_system
+     0000254D  nInterrupt                         system_system
+     0000254E  sys_input_main_menu_actions        input_system
+     00002550  sys_input_player_actions           input_system
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 7.
 Hexadecimal  [32-Bits]

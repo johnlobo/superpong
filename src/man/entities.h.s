@@ -29,6 +29,7 @@
 .globl man_entity_create
 .globl man_entity_getEntityArrayIX
 .globl man_entity_getEntityArrayIY
+.globl man_entity_next_entity_iy
 .globl man_entity_getPlayerPosition
 .globl man_entity_getOponentPosition
 .globl man_entity_set4destruction

@@ -1,5 +1,5 @@
 XL2
-H 2 areas 48 global symbols
+H 2 areas 4B global symbols
 M physics_system
 S cpct_setInterruptHandler_asm Ref0000
 S man_entity_forall_matching_iy Ref0000
@@ -20,6 +20,7 @@ S man_entity_getOponentPosition Ref0000
 S cpct_etm_drawTileBox2x4_asm Ref0000
 S cpct_etm_drawTilemap4x8_ag_asm Ref0000
 S sys_util_hl_div_c Ref0000
+S man_entity_next_entity_iy Ref0000
 S man_components_getArrayHL Ref0000
 S _g_palette Ref0000
 S _cpct_keyboardStatusBuffer Ref0000
@@ -68,42 +69,104 @@ S cpct_etm_setDrawTilemap4x8_ag_asm Ref0000
 S cpct_waitVSYNCStart_asm Ref0000
 S cpct_scanKeyboard_asm Ref0000
 S cpct_getScreenPtr_asm Ref0000
-A _CODE size 68 flags 0 addr 0
-S sys_collision_collider_colisionable Def0031
+A _CODE size 100 flags 0 addr 0
+S sys_collision_collider_colisionable Def00A8
+S sys_collision_paddle Def0031
 S sys_collision_init Def0000
-S sys_collision_check_collider_colisionable Def0009
-S sys_collision_update Def0052
-S sys_collision_update_one_collider Def0049
+S sys_collision_check_collider_colisionable_X Def001D
+S sys_collision_check_collider_colisionable_Y Def0009
+S sys_collision_update Def00EA
+S sys_collision_update_one_collider Def00E1
 A _DATA size 0 flags 0 addr 0
 T 00 00
 R 00 00 00 00
-T 00 00 3E 04 CD 00 00 22 53 00 C9
-R 00 00 00 00 02 05 13 00 00 08 00 00
+T 00 00 3E 04 CD 00 00 22 EB 00 C9
+R 00 00 00 00 02 05 14 00 00 08 00 00
 T 09 00
 R 00 00 00 00
-T 09 00 FD 7E 05 47 FD 86 09 3D DD 4E 05 91 D8 79
+T 09 00 FD 7E 07 47 FD 86 0A 3D DD 4E 07 91 D8 79
 R 00 00 00 00
-T 17 00 DD 86 09 3D 90 D8 FD 7E 07 47 FD 86 0A 3D
+T 17 00 DD 86 0A 3D 90 C9
 R 00 00 00 00
-T 25 00 DD 4E 07 91 D8 79 DD 86 0A 3D 90 C9
+T 1D 00
+R 00 00 00 00
+T 1D 00 FD 7E 05 47 FD 86 09 3D DD 4E 05 91 D8 79
+R 00 00 00 00
+T 2B 00 DD 86 09 3D 90 C9
 R 00 00 00 00
 T 31 00
 R 00 00 00 00
-T 31 00 CD 09 00 D8 FD 66 0F FD 6E 10 CD 00 00 FD
-R 00 00 00 00 00 03 00 00 02 0D 26 00
-T 3F 00 74 0F FD 75 10 FD 36 1F 01 C9
+T 31 00 DD 7E 19 E6 01 20 05 FD 34 05 18 03
 R 00 00 00 00
-T 49 00
+T 3D 00
 R 00 00 00 00
-T 49 00 21 31 00 06 80 CD 00 00 C9
+T 3D 00 FD 35 05
+R 00 00 00 00
+T 40 00
+R 00 00 00 00
+T 40 00 FD 66 0F FD 6E 10 CD 00 00 FD 74 0F FD 75
+R 00 00 00 00 02 09 27 00
+T 4E 00 10 DD 46 07 FD 7E 07 90 FE 06 30 0A FD 36
+R 00 00 00 00
+T 5C 00 11 FF FD 36 12 E0 18 3F
+R 00 00 00 00
+T 64 00
+R 00 00 00 00
+T 64 00 FE 0C 30 0A FD 36 11 FF FD 36 12 F0 18 31
+R 00 00 00 00
+T 72 00
+R 00 00 00 00
+T 72 00 FE 12 30 17 FD 36 11 00 FD 36 12 16 FD 66
+R 00 00 00 00
+T 80 00 0F FD 6E 0F 29 FD 74 0F FD 75 0F 18 16
+R 00 00 00 00
+T 8D 00
+R 00 00 00 00
+T 8D 00 FE 18 30 0A FD 36 11 00 FD 36 12 32 18 08
+R 00 00 00 00
+T 9B 00
+R 00 00 00 00
+T 9B 00 FD 36 11 00 FD 36 12 33
+R 00 00 00 00
+T A3 00
+R 00 00 00 00
+T A3 00 FD 36 1C 01 C9
+R 00 00 00 00
+T A8 00
+R 00 00 00 00
+T A8 00 CD 1D 00 D8 FD 7E 0F CB 7F 20 06 DD 36 19
+R 00 00 00 00 00 03 00 00
+T B6 00 01 18 04
+R 00 00 00 00
+T B9 00
+R 00 00 00 00
+T B9 00 DD 36 19 02
+R 00 00 00 00
+T BD 00
+R 00 00 00 00
+T BD 00 CD 09 00 D8 FD 7E 11 CB 7F 28 0A DD 7E 19
+R 00 00 00 00 00 03 00 00
+T CB 00 F6 04 DD 77 19 18 08
+R 00 00 00 00
+T D2 00
+R 00 00 00 00
+T D2 00 DD 7E 19 F6 08 DD 77 19
+R 00 00 00 00
+T DA 00
+R 00 00 00 00
+T DA 00 DD 6E 1A DD 66 1B E9
+R 00 00 00 00
+T E1 00
+R 00 00 00 00
+T E1 00 21 A8 00 06 80 CD 00 00 C9
 R 00 00 00 00 00 03 00 00 02 08 01 00
-T 52 00
+T EA 00
 R 00 00 00 00
-T 52 00 21 00 00
+T EA 00 21 00 00
 R 00 00 00 00
-T 55 00
+T ED 00
 R 00 00 00 00
-T 55 00 5E 23 56 23 7B B2 C8 E5 DD 6B DD 62 CD
+T ED 00 5E 23 56 23 7B B2 C8 E5 DD 6B DD 62 CD
 R 00 00 00 00
-T 62 00 49 00 E1 18 EE C9
+T FA 00 E1 00 E1 18 EE C9
 R 00 00 00 00 00 02 00 00

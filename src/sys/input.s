@@ -50,7 +50,6 @@ sys_input_main_menu_actions::
 sys_input_player_actions::
     .dw Key_O,      sys_input_player_left
     .dw Key_P,      sys_input_player_right
-    .dw Key_Space,  sys_input_player_jump
     .dw Key_Q,      sys_input_player_up
     .dw Key_A,      sys_input_player_down
     ;;.dw Key_Esc,    _score_cancel_entry
@@ -361,30 +360,6 @@ sipd_max_reached:                       ;; if max speed reached, vx set to max s
     ld e_vy(ix), b
     ld e_vy+1(ix), c
 sipd_exit:
-    ret
-
-;;-----------------------------------------------------------------
-;;
-;; sys_input_player_jump
-;;
-;;   reduces hor the speed of the player 
-;;
-;;  Input: 
-;;  Output:
-;;  Modified: iy, bc
-sys_input_player_jump::
-    ld a, e_on_platform(ix)     ;; if not on platform don't jump
-    or a                        ;;
-    ret z                       ;;
-
-    ld h, e_vy(ix)              ;; Jump subtracts 2 to vy
-    ld l, e_vy+1(ix)            ;;
-    ld bc, #0x0300              ;;
-    or a                        ;;
-    sbc hl, bc                  ;;
-    ld e_vy(ix), h              ;;
-    ld e_vy+1(ix), l            ;;
-    ld e_on_platform(ix), #0    ;; after jumping we are not on platform
     ret
 
 

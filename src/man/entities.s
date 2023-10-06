@@ -398,7 +398,7 @@ man_entity_getEntityArrayIY::
 ;;	INPUT: iy pointer to one the entities
 ;;	OUTPUT: iy points to the nect
 ;;
-man_next_entity_iy::
+man_entity_next_entity_iy::
 	cpctm_push hl, bc
 	push iy
 	pop hl
@@ -492,7 +492,7 @@ man_entity_forall_matching_iy::
         jp (hl)
 
     afterjp_matching:
-        call man_next_entity_iy
+        call man_entity_next_entity_iy
         
         ld a,e_cmps(iy)
         and #0xff

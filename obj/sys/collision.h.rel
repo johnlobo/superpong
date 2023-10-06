@@ -1,6 +1,7 @@
 XL2
-H 1 areas 3 global symbols
+H 1 areas 4 global symbols
 M collision_system
+S sys_collision_paddle Ref0000
 S sys_collision_init Ref0000
 S .__.ABS. Def0000
 S sys_collision_update Ref0000

@@ -77,11 +77,11 @@ GRAVITY                 = #0x0024           ;; Gravity
 DASH_IMPULSE            = 0x0200
 DASH_TIMER              = 10
 
-STEP_HORIZONTAL_SPEED       = 0x0018
+STEP_HORIZONTAL_SPEED       = 0x00013
 MAX_HORIZONTAL_SPEED_POS    = 0x0100
 MAX_HORIZONTAL_SPEED_NEG    = 0xff00
 
-STEP_VERTICAL_SPEED       = 0x0030
+STEP_VERTICAL_SPEED       = 0x0026
 MAX_VERTICAL_SPEED_POS    = 0x0200
 MAX_VERTICAL_SPEED_NEG    = 0xfe00
 
@@ -105,7 +105,7 @@ e_type_dead             = 0x20
 e_type_invalid          = 0xff
 
 ;;===============================================================================
-;;tipos de componentes
+;;COMPONENT TYPES
 ;;===============================================================================
 e_cmp          = 0
 e_cmp_alive    = 0x01   ;;entidad renderizable
@@ -118,6 +118,15 @@ e_cmp_collider = 0x40   ;;entidad que puede colisionar
 e_cmp_collisionable = 0x80   ;;entidad que puede ser colisionada
 e_cmp_paddle = e_cmp_alive | e_cmp_render | e_cmp_physics | e_cmp_collider  ;;componente por defecto
 e_cpm_ball = e_cmp_alive | e_cmp_render | e_cmp_physics | e_cmp_collisionable
+
+;;===============================================================================
+;;COLISION TYPES
+;;===============================================================================
+e_col_null = 0
+e_col_left  = 0x01
+e_col_right = 0x02
+e_col_up    = 0x04
+e_col_down  = 0x08
 
 ;;===============================================================================
 ;; Entity Component IDs
@@ -168,11 +177,8 @@ Field e, vy                 , 2
 Field e, sprite             , 2
 Field e, address            , 2
 Field e, p_address          , 2
-Field e, on_platform        , 1
-Field e, orientation        , 1
-Field e, dashing            , 1
-Field e, animation_ptr      , 2
-Field e, animation_status   , 1
+Field e, collision_status   , 1
+Field e, collision_callback , 2
 Field e, moved              , 1
 EndStruct e
 

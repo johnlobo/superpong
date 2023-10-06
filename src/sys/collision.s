@@ -57,7 +57,7 @@ sys_collision_init::
 
 ;;-----------------------------------------------------------------
 ;;
-;; sys_collision_check_collider_colisionable
+;; sys_collision_check_collider_colisionable_Y
 ;;
 ;;  Initilizes render system
 ;;  Input: ix : pointer to the colider entity
@@ -66,23 +66,7 @@ sys_collision_init::
 ;;  Modified: AF, BC, HL
 ;;
 ;;  Code copied from lronaldo (https://www.youtube.com/watch?v=f-4F7SoaHFQ)
-sys_collision_check_collider_colisionable::
-    ;; x axis collision
-    ;; case 1
-    ld a, e_x(iy)                   ;; a = iy.x
-    ld b, a                         ;; b = a = iy.x
-    add e_w(iy)                     ;; a = iy.x + iy.w
-    dec a                           ;; a = iy.x + iy.w - 1
-    ld c, e_x(ix)                   ;; c = ix.x
-    sub c                           ;; a = iy.x + iy.w - 1 - ix.x
-    ret c                           ;; return if no collision
-    ;; case 2
-    ld a, c                         ;; a = ix.x
-    add e_w(ix)                     ;; a = ix.x + ix.w
-    dec a                           ;; a = ix.x + ix.w - 1
-    sub b                           ;; a = iy.x + ix.w - 1 - iy.x
-    ret c                           ;; return if no collision
-
+sys_collision_check_collider_colisionable_Y::
     ;; y axis collision
     ;; case 3
     ld a, e_y(iy)                   ;; a = iy.y
@@ -102,6 +86,99 @@ sys_collision_check_collider_colisionable::
 
 ;;-----------------------------------------------------------------
 ;;
+;; sys_collision_check_collider_colisionable_X
+;;
+;;  Initilizes render system
+;;  Input: ix : pointer to the colider entity
+;;  Input: iy : pointer to the collisionable entity
+;;  Output: carry activated if no collision
+;;  Modified: AF, BC, HL
+;;
+;;  Code copied from lronaldo (https://www.youtube.com/watch?v=f-4F7SoaHFQ)
+sys_collision_check_collider_colisionable_X::
+    ;; x axis collision
+    ;; case 1
+    ld a, e_x(iy)                   ;; a = iy.x
+    ld b, a                         ;; b = a = iy.x
+    add e_w(iy)                     ;; a = iy.x + iy.w
+    dec a                           ;; a = iy.x + iy.w - 1
+    ld c, e_x(ix)                   ;; c = ix.x
+    sub c                           ;; a = iy.x + iy.w - 1 - ix.x
+    ret c                           ;; return if no collision
+    ;; case 2
+    ld a, c                         ;; a = ix.x
+    add e_w(ix)                     ;; a = ix.x + ix.w
+    dec a                           ;; a = ix.x + ix.w - 1
+    sub b                           ;; a = iy.x + ix.w - 1 - iy.x
+    ret
+
+;;-----------------------------------------------------------------
+;;
+;; sys_collision_paddle
+;;
+;;  Handles the collision with the paddle
+;;  Input:  ix : pointer to the entity
+;;          iy: pointer to the colisionable
+;;  Output: 
+;;  Modified: AF, BC, HL
+;;
+sys_collision_paddle::
+    ;; reposition colisionable after the collision
+    ld a, e_collision_status(ix)
+    and #e_col_left
+    jr nz, _left_collision
+    inc e_x(iy)                     ;;reposition ball to the right to avoid overlap
+    jr _reverse_horizontal_speed
+_left_collision:
+    dec e_x(iy)                     ;; reposition ball to the left to avoid overlap
+    ;; change speed because of the collision
+_reverse_horizontal_speed:
+    ld h, e_vx(iy)
+    ld l, e_vx+1(iy)
+    call sys_util_negHL
+    ld e_vx(iy), h
+    ld e_vx+1(iy), l
+    ;; change vertical speed
+    ld b, e_y(ix)
+    ld a, e_y(iy)
+    sub b
+    cp #6
+    jr nc, _greater_than_6
+    ld e_vy(iy), #0xff
+    ld e_vy+1(iy), #0xe0
+    jr _scp_exit
+_greater_than_6:
+    cp #12
+    jr nc, _greater_than_12
+    ld e_vy(iy), #0xff
+    ld e_vy+1(iy), #0xf0
+    jr _scp_exit
+_greater_than_12:
+    cp #18
+    jr nc, _greater_than_18
+    ld e_vy(iy), #0x00
+    ld e_vy+1(iy), #0x16
+    ld h, e_vx(iy)
+    ld l, e_vx(iy)
+    add hl, hl
+    ld e_vx(iy), h
+    ld e_vx(iy), l
+    jr _scp_exit
+_greater_than_18:
+    cp #24
+    jr nc, _greater_than_24
+    ld e_vy(iy), #0x00
+    ld e_vy+1(iy), #0x32
+    jr _scp_exit
+_greater_than_24:
+    ld e_vy(iy), #0x00
+    ld e_vy+1(iy), #0x33
+_scp_exit:
+    ld e_moved(iy), #1
+    ret
+
+;;-----------------------------------------------------------------
+;;
 ;; sys_collision_update_one_entity
 ;;
 ;;  Initilizes render system
@@ -110,18 +187,39 @@ sys_collision_check_collider_colisionable::
 ;;  Modified: AF, BC, HL
 ;;
 sys_collision_collider_colisionable::
-    call sys_collision_check_collider_colisionable  ;; check if there is a collision
-    ret c                                           ;; return if there is no collisión between ix and iy
 
-    ;; change x velocity because of the collision
-    ld h, e_vx(iy)
-    ld l, e_vx+1(iy)
-    call sys_util_negHL
-    ld e_vx(iy), h
-    ld e_vx+1(iy), l
-    ld e_moved(iy), #1
+    call sys_collision_check_collider_colisionable_X  ;; check if there is a horizontal collision
+    ret c
+    ;; calculate horizontal collision status
 
-    ret
+    ld a, e_vx(iy)
+    bit 7, a
+    jr nz, _sccc_right
+    ld e_collision_status(ix), #e_col_left
+    jr _sccc_vertical_check
+_sccc_right:
+    ld e_collision_status(ix), #e_col_right
+_sccc_vertical_check:
+    call sys_collision_check_collider_colisionable_Y  ;; check if there is a collision
+    ret c
+    ;; calculate vertical collision status
+    ld a, e_vy(iy)
+    bit 7, a
+    jr z, _sccc_down
+    ld a, e_collision_status(ix)
+    or #e_col_up
+    ld e_collision_status(ix), a
+    jr _sccc_exit
+_sccc_down:
+    ld a, e_collision_status(ix)
+    or #e_col_down
+    ld e_collision_status(ix), a
+_sccc_exit:
+    ld l, e_collision_callback(ix)
+    ld h, e_collision_callback+1(ix)
+    jp (hl)
+    ;;ret               ;; tail recursion
+
 
 
 ;;-----------------------------------------------------------------

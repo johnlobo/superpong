@@ -31,3 +31,4 @@ Hexadecimal [16-Bits]
                              26 ;;===============================================================================
                              27 .globl sys_collision_init
                              28 .globl sys_collision_update
+                             29 .globl sys_collision_paddle

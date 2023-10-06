@@ -103,7 +103,7 @@
 ;; ENTITY DEFINITION MACRO
 ;;===============================================================================
 .mdelete DefineEntity
-.macro DefineEntity _cpms, _ptr, _type, _color, _x, _y, _w, _h, _vxh, _vxl _vyh, _vyl, _sprite, _address, _p_address, _on_platform, _orientation, _anim_ptr, _anim_status
+.macro DefineEntity _cpms, _ptr, _type, _color, _x, _y, _w, _h, _vxh, _vxl _vyh, _vyl, _sprite, _address, _p_address, _collsion_callback
     .dw _ptr
     .db _cpms
     .db _type
@@ -123,11 +123,8 @@
     .dw _sprite
     .dw _address
     .dw _p_address
-    .db _on_platform
-    .db _orientation ;; 0: right, 1:left
-    .db #0           ;; dashing
-    .dw _anim_ptr
-    .db _anim_status
+    .db #0
+    .dw _collsion_callback
     .db #1           ;; moved 1 default
 .endm
 

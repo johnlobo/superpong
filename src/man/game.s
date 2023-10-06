@@ -36,10 +36,11 @@
 .area _DATA
 
 player1Tpl::
-DefineEntity e_cmp_paddle, #0000, e_type_player, 15, 10, 80, 1, 20, 0x00, 0x00, 0x00, 0x00, 0000, 0000, 0000, 1, 0, 0000, 0
+;;DefineEntity _cpms, _ptr, _type,           _color, _x, _y, _w, _h, _vxh, _vxl _vyh, _vyl, _sprite, _address, _p_address, _collsion_callback
+DefineEntity e_cmp_paddle, #0000, e_type_player, 15, 10, 80, 1, 30, 0x00, 0x00, 0x00, 0x00, 0x0000, 0x0000, 0x0000, sys_collision_paddle
 ballTpl:: 
-;;DefineEntity _cpms, _ptr, _type, _color, _x, _y, _w, _h, _vxh, _vxl _vyh, _vyl, _sprite, _address, _p_address, _on_platform, _orientation, _anim_ptr, _anim_status
-DefineEntity e_cpm_ball, #0000, e_type_ball, 2, 40, 80, 2, 4, 0x00, 0x16, 0x00, 0x00, 0x0000, 0000, 0000, 1, 0, 0000, 0
+;;DefineEntity _cpms, _ptr, _type,       _color, _x, _y, _w, _h, _vxh, _vxl _vyh, _vyl, _sprite, _address, _p_address, _collsion_callback
+DefineEntity e_cpm_ball, #0000, e_type_ball, 2, 58, 80, 2, 4, 0xff, 0xf0, 0x00, 0x01, 0x0000, 0x0000, 0x0000, 0x0000
 
 
 game_state:: .db MAIN_MENU   ;; Game state ----- 0: Game loop, 1: Main menu, 2: Map loading, 3: Pause menu, 4: Game over, 5: Victory
@@ -91,29 +92,11 @@ man_game_init::
 ;;
 man_game_update::
     call sys_input_player_update
-
-    call man_entity_getPlayerPosition
-    call man_entity_getOponentPosition
-
-    ;; Copy player movements on Oponent
-    ld a, e_vx(ix)
-    ld e_vx(iy), a
-    ld a, e_vx+1(ix)
-    ld e_vx+1(iy), a
-
-    ld a, e_vy(ix)
-    ld e_vy(iy), a
-    ld a, e_vy+1(ix)
-    ld e_vy+1(iy), a
-    ;; -----------------------------
-_exit_clone_input:
-
-    call sys_collision_update
     call sys_physics_update
+    call sys_collision_update
     call sys_render_update
-    call sys_render_debug_entity
     ;;;;delay 
-    ;;ld b, #5
+    ;;ld b, #6
     ;;call cpct_waitHalts_asm
     ret
 

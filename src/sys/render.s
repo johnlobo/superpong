@@ -17,6 +17,7 @@
 
 .include "sys/render.h.s"
 .include "sys/text.h.s"
+.include "sys/input.h.s"
 .include "man/entities.h.s"
 .include "man/components.h.s"
 .include "common.h.s"
@@ -345,35 +346,39 @@ _loop:
 ;;
 sys_render_debug_entity::
     push ix
-    call man_entity_getPlayerPosition
+    push iy
+    call man_entity_getOponentPosition
+    call man_entity_getEntityArrayIY
+    call man_entity_next_entity_iy
+    call man_entity_next_entity_iy
     cpctm_screenPtr_asm de, 0xc000, 2, 2
     m_draw_blank_small_number       ;; erases previous number
     ld h, #0
-    ld l, e_vx(ix)
+    ld l, e_x(ix)
     ld b, #15                       ;; small number color = 15 
     call sys_text_draw_small_number ;; draws number
 
     cpctm_screenPtr_asm de, 0xc000, 8, 2
     m_draw_blank_small_number       ;; erases previous number
     ld h, #0
-    ld l, e_vx+1(ix)
+    ld l, e_w(ix)
     ld b, #15                       ;; small number color = 15 
     call sys_text_draw_small_number ;; draws number
     ;; vy
     cpctm_screenPtr_asm de, 0xc000, 2, 8
     m_draw_blank_small_number       ;; erases previous number
     ld h, #0
-    ld l, e_vy(ix)
+    ld l, e_x(iy)
     ld b, #15                       ;; small number color = 15 
     call sys_text_draw_small_number ;; draws number
 
     cpctm_screenPtr_asm de, 0xc000, 8, 8
     m_draw_blank_small_number       ;; erases previous number
     ld h, #0
-    ld l, e_vy+1(ix)
+    ld l, e_w(iy)
     ld b, #15                       ;; small number color = 15 
     call sys_text_draw_small_number ;; draws number
-
+    pop iy
     pop ix
     ret
     
