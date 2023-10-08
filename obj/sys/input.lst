@@ -5387,184 +5387,188 @@ Hexadecimal [16-Bits]
                      0200    85 MAX_VERTICAL_SPEED_POS    = 0x0200
                      FE00    86 MAX_VERTICAL_SPEED_NEG    = 0xfe00
                              87 
-                     000A    88 MAX_ENTITIES = 10
-                             89 
+                     0016    88 STEP_HORIZONTAL_BALL_SPEED      = 0x0016
+                     0100    89 MAX_HORIZONTAL_BALL_SPEED       = 0x0100
                              90 
-                     0000    91 nullptr = 0x0000
-                             92 
-                             93 ;;==============================================================================================================================
-                             94 ;;==============================================================================================================================
-                             95 ;;  ENTITY TYPE MASKS AND BITS
-                             96 ;;==============================================================================================================================
+                             91 
+                     000A    92 MAX_ENTITIES = 10
+                             93 
+                             94 
+                     0000    95 nullptr = 0x0000
+                             96 
                              97 ;;==============================================================================================================================
-                     0000    98 e_type_default              = 0x00
-                     0001    99 e_type_player               = 0x01
-                     0002   100 e_type_ball                 = 0x02
-                     0004   101 e_type_wall                 = 0x04
-                     0008   102 e_type_mob                  = 0x08
-                     0010   103 e_type_shield               = 0x10
-                     0020   104 e_type_dead                 = 0x20
-                     00FF   105 e_type_invalid              = 0xff
-                            106 
-                            107 ;;===============================================================================
-                            108 ;;COMPONENT TYPES
-                            109 ;;===============================================================================
-                     0000   110 e_cmp          = 0
-                     0001   111 e_cmp_alive    = 0x01   ;;entidad renderizable
-                     0002   112 e_cmp_render   = 0x02   ;;entidad renderizable
-                     0004   113 e_cmp_physics  = 0x04   ;;entidad que se puede mover
-                     0008   114 e_cmp_input    = 0x08   ;;entidad controlable por input  
-                     0010   115 e_cmp_ai       = 0x10   ;;entidad controlable con ia
-                     0020   116 e_cmp_animated = 0x20   ;;entidad animada
-                     0040   117 e_cmp_collider = 0x40   ;;entidad que puede colisionar
-                     0080   118 e_cmp_collisionable = 0x80   ;;entidad que puede ser colisionada
-                     0047   119 e_cmp_paddle = e_cmp_alive | e_cmp_render | e_cmp_physics | e_cmp_collider  ;;componente por defecto
-                     0057   120 e_cmp_oponent_paddle = e_cmp_alive | e_cmp_render | e_cmp_physics | e_cmp_collider | e_cmp_ai ;;componente por defecto
-                     0087   121 e_cpm_ball = e_cmp_alive | e_cmp_render | e_cmp_physics | e_cmp_collisionable
-                     0041   122 e_cmp_border_wall = e_cmp_alive | e_cmp_collider
-                            123 
-                            124 ;;===============================================================================
-                            125 ;;COLISION TYPES
-                            126 ;;===============================================================================
-                     0000   127 e_col_null = 0
+                             98 ;;==============================================================================================================================
+                             99 ;;  ENTITY TYPE MASKS AND BITS
+                            100 ;;==============================================================================================================================
+                            101 ;;==============================================================================================================================
+                     0000   102 e_type_default              = 0x00
+                     0001   103 e_type_player               = 0x01
+                     0002   104 e_type_ball                 = 0x02
+                     0004   105 e_type_wall                 = 0x04
+                     0008   106 e_type_mob                  = 0x08
+                     0010   107 e_type_shield               = 0x10
+                     0020   108 e_type_dead                 = 0x20
+                     00FF   109 e_type_invalid              = 0xff
+                            110 
+                            111 ;;===============================================================================
+                            112 ;;COMPONENT TYPES
+                            113 ;;===============================================================================
+                     0000   114 e_cmp          = 0
+                     0001   115 e_cmp_alive    = 0x01   ;;entidad renderizable
+                     0002   116 e_cmp_render   = 0x02   ;;entidad renderizable
+                     0004   117 e_cmp_physics  = 0x04   ;;entidad que se puede mover
+                     0008   118 e_cmp_input    = 0x08   ;;entidad controlable por input  
+                     0010   119 e_cmp_ai       = 0x10   ;;entidad controlable con ia
+                     0020   120 e_cmp_animated = 0x20   ;;entidad animada
+                     0040   121 e_cmp_collider = 0x40   ;;entidad que puede colisionar
+                     0080   122 e_cmp_collisionable = 0x80   ;;entidad que puede ser colisionada
+                     0047   123 e_cmp_paddle = e_cmp_alive | e_cmp_render | e_cmp_physics | e_cmp_collider  ;;componente por defecto
+                     0057   124 e_cmp_oponent_paddle = e_cmp_alive | e_cmp_render | e_cmp_physics | e_cmp_collider | e_cmp_ai ;;componente por defecto
+                     0087   125 e_cpm_ball = e_cmp_alive | e_cmp_render | e_cmp_physics | e_cmp_collisionable
+                     0043   126 e_cmp_border_wall = e_cmp_alive | e_cmp_collider | e_cmp_render
+                            127 
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 103.
 Hexadecimal [16-Bits]
 
 
 
-                     0001   128 e_col_left  = 0x01
-                     0002   129 e_col_right = 0x02
-                     0004   130 e_col_up    = 0x04
-                     0008   131 e_col_down  = 0x08
-                            132 
-                            133 ;;===============================================================================
-                            134 ;; Entity Component IDs
-                            135 ;;===============================================================================
-   0000                     136 DefEnum e_cmpID
+                            128 ;;===============================================================================
+                            129 ;;COLISION TYPES
+                            130 ;;===============================================================================
+                     0000   131 e_col_null = 0
+                     0001   132 e_col_left  = 0x01
+                     0002   133 e_col_right = 0x02
+                     0004   134 e_col_up    = 0x04
+                     0008   135 e_col_down  = 0x08
+                            136 
+                            137 ;;===============================================================================
+                            138 ;; Entity Component IDs
+                            139 ;;===============================================================================
+   0000                     140 DefEnum e_cmpID
                      0000     1     e_cmpID_offset = 0
-   0000                     137 Enum e_cmpID Render
+   0000                     141 Enum e_cmpID Render
                      0000     1     e_cmpID_Render = e_cmpID_offset
                      0001     2     e_cmpID_offset = e_cmpID_offset + 1
-   0000                     138 Enum e_cmpID Physics
+   0000                     142 Enum e_cmpID Physics
                      0001     1     e_cmpID_Physics = e_cmpID_offset
                      0002     2     e_cmpID_offset = e_cmpID_offset + 1
-   0000                     139 Enum e_cmpID AI
+   0000                     143 Enum e_cmpID AI
                      0002     1     e_cmpID_AI = e_cmpID_offset
                      0003     2     e_cmpID_offset = e_cmpID_offset + 1
-   0000                     140 Enum e_cmpID Animation
+   0000                     144 Enum e_cmpID Animation
                      0003     1     e_cmpID_Animation = e_cmpID_offset
                      0004     2     e_cmpID_offset = e_cmpID_offset + 1
-   0000                     141 Enum e_cmpID Collision
+   0000                     145 Enum e_cmpID Collision
                      0004     1     e_cmpID_Collision = e_cmpID_offset
                      0005     2     e_cmpID_offset = e_cmpID_offset + 1
-   0000                     142 Enum e_cmpID Num_Components
+   0000                     146 Enum e_cmpID Num_Components
                      0005     1     e_cmpID_Num_Components = e_cmpID_offset
                      0006     2     e_cmpID_offset = e_cmpID_offset + 1
-                            143 
-                            144 
-                            145 
-                            146 ;; Keyboard constants
-                     000A   147 BUFFER_SIZE = 10
-                     00FF   148 ZERO_KEYS_ACTIVATED = #0xFF
+                            147 
+                            148 
                             149 
-                            150 ;; Score constants
-                     0004   151 SCORE_NUM_BYTES = 4
-                            152 
-                            153 ;; SMALL NUMBERS CONSTANTS
-                     0002   154 S_SMALL_NUMBERS_WIDTH = 2
-                     0005   155 S_SMALL_NUMBERS_HEIGHT = 5
-                            156 ;; Font constants
-                     0002   157 FONT_WIDTH = 2
-                     0009   158 FONT_HEIGHT = 9
-                            159 
-                            160 
-                            161 ;;===============================================================================
-                            162 ;; ENTITIY SCTRUCTURE CREATION
-                            163 ;;===============================================================================
-   0000                     164 BeginStruct e
+                            150 ;; Keyboard constants
+                     000A   151 BUFFER_SIZE = 10
+                     00FF   152 ZERO_KEYS_ACTIVATED = #0xFF
+                            153 
+                            154 ;; Score constants
+                     0004   155 SCORE_NUM_BYTES = 4
+                            156 
+                            157 ;; SMALL NUMBERS CONSTANTS
+                     0002   158 S_SMALL_NUMBERS_WIDTH = 2
+                     0005   159 S_SMALL_NUMBERS_HEIGHT = 5
+                            160 ;; Font constants
+                     0002   161 FONT_WIDTH = 2
+                     0009   162 FONT_HEIGHT = 9
+                            163 
+                            164 
+                            165 ;;===============================================================================
+                            166 ;; ENTITIY SCTRUCTURE CREATION
+                            167 ;;===============================================================================
+   0000                     168 BeginStruct e
                      0000     1     e_offset = 0
-   0000                     165 Field e, ptr                , 2
-                     0000     1     e_ptr = e_offset
-                     0002     2     e_offset = e_offset + 2
-   0000                     166 Field e, cmps               , 1
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 104.
 Hexadecimal [16-Bits]
 
 
 
+   0000                     169 Field e, ptr                , 2
+                     0000     1     e_ptr = e_offset
+                     0002     2     e_offset = e_offset + 2
+   0000                     170 Field e, cmps               , 1
                      0002     1     e_cmps = e_offset
                      0003     2     e_offset = e_offset + 1
-   0000                     167 Field e, type               , 1
+   0000                     171 Field e, type               , 1
                      0003     1     e_type = e_offset
                      0004     2     e_offset = e_offset + 1
-   0000                     168 Field e, color              , 1
+   0000                     172 Field e, color              , 1
                      0004     1     e_color = e_offset
                      0005     2     e_offset = e_offset + 1
-   0000                     169 Field e, x                  , 2
+   0000                     173 Field e, x                  , 2
                      0005     1     e_x = e_offset
                      0007     2     e_offset = e_offset + 2
-   0000                     170 Field e, y                  , 2
+   0000                     174 Field e, y                  , 2
                      0007     1     e_y = e_offset
                      0009     2     e_offset = e_offset + 2
-   0000                     171 Field e, w                  , 1
+   0000                     175 Field e, w                  , 1
                      0009     1     e_w = e_offset
                      000A     2     e_offset = e_offset + 1
-   0000                     172 Field e, h                  , 1
+   0000                     176 Field e, h                  , 1
                      000A     1     e_h = e_offset
                      000B     2     e_offset = e_offset + 1
-   0000                     173 Field e, end_x              , 1
+   0000                     177 Field e, end_x              , 1
                      000B     1     e_end_x = e_offset
                      000C     2     e_offset = e_offset + 1
-   0000                     174 Field e, end_y              , 1
+   0000                     178 Field e, end_y              , 1
                      000C     1     e_end_y = e_offset
                      000D     2     e_offset = e_offset + 1
-   0000                     175 Field e, last_x             , 1
+   0000                     179 Field e, last_x             , 1
                      000D     1     e_last_x = e_offset
                      000E     2     e_offset = e_offset + 1
-   0000                     176 Field e, last_y             , 1
+   0000                     180 Field e, last_y             , 1
                      000E     1     e_last_y = e_offset
                      000F     2     e_offset = e_offset + 1
-   0000                     177 Field e, vx                 , 2
+   0000                     181 Field e, vx                 , 2
                      000F     1     e_vx = e_offset
                      0011     2     e_offset = e_offset + 2
-   0000                     178 Field e, vy                 , 2
+   0000                     182 Field e, vy                 , 2
                      0011     1     e_vy = e_offset
                      0013     2     e_offset = e_offset + 2
-   0000                     179 Field e, sprite             , 2
+   0000                     183 Field e, sprite             , 2
                      0013     1     e_sprite = e_offset
                      0015     2     e_offset = e_offset + 2
-   0000                     180 Field e, address            , 2
+   0000                     184 Field e, address            , 2
                      0015     1     e_address = e_offset
                      0017     2     e_offset = e_offset + 2
-   0000                     181 Field e, p_address          , 2
+   0000                     185 Field e, p_address          , 2
                      0017     1     e_p_address = e_offset
                      0019     2     e_offset = e_offset + 2
-   0000                     182 Field e, collision_status   , 1
+   0000                     186 Field e, collision_status   , 1
                      0019     1     e_collision_status = e_offset
                      001A     2     e_offset = e_offset + 1
-   0000                     183 Field e, collision_callback , 2
-                     001A     1     e_collision_callback = e_offset
-                     001C     2     e_offset = e_offset + 2
-   0000                     184 Field e, ai_status          , 1
-                     001C     1     e_ai_status = e_offset
+   0000                     187 Field e, collision_callback , 2
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 105.
 Hexadecimal [16-Bits]
 
 
 
+                     001A     1     e_collision_callback = e_offset
+                     001C     2     e_offset = e_offset + 2
+   0000                     188 Field e, ai_status          , 1
+                     001C     1     e_ai_status = e_offset
                      001D     2     e_offset = e_offset + 1
-   0000                     185 Field e, ai_callback        , 2
+   0000                     189 Field e, ai_callback        , 2
                      001D     1     e_ai_callback = e_offset
                      001F     2     e_offset = e_offset + 2
-   0000                     186 Field e, moved              , 1
+   0000                     190 Field e, moved              , 1
                      001F     1     e_moved = e_offset
                      0020     2     e_offset = e_offset + 1
-   0000                     187 EndStruct e
+   0000                     191 EndStruct e
                      0020     1     sizeof_e = e_offset
-                            188 
-                            189 ;;===============================================================================
-                            190 ;; GLOBAL VARIABLES
-                            191 ;;===============================================================================
+                            192 
+                            193 ;;===============================================================================
+                            194 ;; GLOBAL VARIABLES
+                            195 ;;===============================================================================
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 106.
 Hexadecimal [16-Bits]
 
@@ -5599,8 +5603,8 @@ Hexadecimal [16-Bits]
    0002                      50 sys_input_player_actions::
    0002 04 04 7B 00          51     .dw Key_O,      sys_input_player_left
    0006 03 08 A4 00          52     .dw Key_P,      sys_input_player_right
-   000A 08 08 CC 00          53     .dw Key_Q,      sys_input_player_up
-   000E 08 20 F5 00          54     .dw Key_A,      sys_input_player_down
+   000A 08 08 CB 00          53     .dw Key_Q,      sys_input_player_up
+   000E 08 20 F4 00          54     .dw Key_A,      sys_input_player_down
                              55     ;;.dw Key_Esc,    _score_cancel_entry
                              56     ;;.dw Joy0_Left,  _score_move_left
                              57     ;;.dw Joy0_Right, _score_move_right
@@ -5853,27 +5857,27 @@ Hexadecimal [16-Bits]
    00A4 DD 66 0F      [19]  284     ld h, e_vx(ix)
    00A7 DD 6E 10      [19]  285     ld l, e_vx+1(ix)
    00AA 01 13 00      [10]  286     ld bc, #STEP_HORIZONTAL_SPEED           
-   00AD ED 4A         [15]  287     adc hl, bc                          ;; add STEP SPEED to current SPEED
-   00AF 01 00 01      [10]  288     ld bc, #MAX_HORIZONTAL_SPEED_POS    ;; check if MAX HORIZONTAL SPEED has been reached
-   00B2 B7            [ 4]  289     or a                                ;;
-   00B3 22 BB 00      [16]  290     ld (sipr_max_not_reached+1), hl     ;; save new vx value for later use
-   00B6 ED 42         [15]  291     sbc hl, bc                          ;;
-   00B8 30 0B         [12]  292     jr nc, sipr_max_reached              ;;
-   00BA                     293 sipr_max_not_reached:
-   00BA 21 00 00      [10]  294     ld hl, #00000
-   00BD DD 74 0F      [19]  295     ld e_vx(ix), h
-   00C0 DD 75 10      [19]  296     ld e_vx+1(ix), l
-   00C3 18 06         [12]  297     jr sipr_exit
-   00C5                     298 sipr_max_reached:                       ;; if max speed reached, vx set to max speed
+   00AD 09            [11]  287     add hl, bc                          ;; add STEP SPEED to current SPEED
+   00AE 01 00 01      [10]  288     ld bc, #MAX_HORIZONTAL_SPEED_POS    ;; check if MAX HORIZONTAL SPEED has been reached
+   00B1 B7            [ 4]  289     or a                                ;;
+   00B2 22 BA 00      [16]  290     ld (sipr_max_not_reached+1), hl     ;; save new vx value for later use
+   00B5 ED 42         [15]  291     sbc hl, bc                          ;;
+   00B7 30 0B         [12]  292     jr nc, sipr_max_reached              ;;
+   00B9                     293 sipr_max_not_reached:
+   00B9 21 00 00      [10]  294     ld hl, #00000
+   00BC DD 74 0F      [19]  295     ld e_vx(ix), h
+   00BF DD 75 10      [19]  296     ld e_vx+1(ix), l
+   00C2 18 06         [12]  297     jr sipr_exit
+   00C4                     298 sipr_max_reached:                       ;; if max speed reached, vx set to max speed
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 111.
 Hexadecimal [16-Bits]
 
 
 
-   00C5 DD 70 0F      [19]  299     ld e_vx(ix), b
-   00C8 DD 71 10      [19]  300     ld e_vx+1(ix), c
-   00CB                     301 sipr_exit:
-   00CB C9            [10]  302     ret
+   00C4 DD 70 0F      [19]  299     ld e_vx(ix), b
+   00C7 DD 71 10      [19]  300     ld e_vx+1(ix), c
+   00CA                     301 sipr_exit:
+   00CA C9            [10]  302     ret
                             303 
                             304 ;;-----------------------------------------------------------------
                             305 ;;
@@ -5884,27 +5888,27 @@ Hexadecimal [16-Bits]
                             310 ;;  Input: 
                             311 ;;  Output:
                             312 ;;  Modified: iy, bc
-   00CC                     313 sys_input_player_up::
-   00CC DD 66 11      [19]  314     ld h, e_vy(ix)
-   00CF DD 6E 12      [19]  315     ld l, e_vy+1(ix)
-   00D2 01 26 00      [10]  316     ld bc, #STEP_VERTICAL_SPEED           
-   00D5 B7            [ 4]  317     or a
-   00D6 ED 42         [15]  318     sbc hl, bc                          ;; add STEP SPEED to current SPEED
-   00D8 01 00 FE      [10]  319     ld bc, #MAX_VERTICAL_SPEED_NEG      ;; check if MAX HORIZONTAL SPEED has been reached
-   00DB B7            [ 4]  320     or a                                ;;
-   00DC 22 E4 00      [16]  321     ld (sipu_max_not_reached+1), hl     ;; save new vx value for later use
-   00DF ED 42         [15]  322     sbc hl, bc                          ;;
-   00E1 38 0B         [12]  323     jr c, sipu_max_reached              ;;
-   00E3                     324 sipu_max_not_reached:
-   00E3 21 00 00      [10]  325     ld hl, #00000
-   00E6 DD 74 11      [19]  326     ld e_vy(ix), h
-   00E9 DD 75 12      [19]  327     ld e_vy+1(ix), l
-   00EC 18 06         [12]  328     jr sipu_exit
-   00EE                     329 sipu_max_reached:                       ;; if max speed reached, vx set to max speed
-   00EE DD 70 11      [19]  330     ld e_vy(ix), b
-   00F1 DD 71 12      [19]  331     ld e_vy+1(ix), c
-   00F4                     332 sipu_exit:
-   00F4 C9            [10]  333     ret
+   00CB                     313 sys_input_player_up::
+   00CB DD 66 11      [19]  314     ld h, e_vy(ix)
+   00CE DD 6E 12      [19]  315     ld l, e_vy+1(ix)
+   00D1 01 26 00      [10]  316     ld bc, #STEP_VERTICAL_SPEED           
+   00D4 B7            [ 4]  317     or a
+   00D5 ED 42         [15]  318     sbc hl, bc                          ;; add STEP SPEED to current SPEED
+   00D7 01 00 FE      [10]  319     ld bc, #MAX_VERTICAL_SPEED_NEG      ;; check if MAX HORIZONTAL SPEED has been reached
+   00DA B7            [ 4]  320     or a                                ;;
+   00DB 22 E3 00      [16]  321     ld (sipu_max_not_reached+1), hl     ;; save new vx value for later use
+   00DE ED 42         [15]  322     sbc hl, bc                          ;;
+   00E0 38 0B         [12]  323     jr c, sipu_max_reached              ;;
+   00E2                     324 sipu_max_not_reached:
+   00E2 21 00 00      [10]  325     ld hl, #00000
+   00E5 DD 74 11      [19]  326     ld e_vy(ix), h
+   00E8 DD 75 12      [19]  327     ld e_vy+1(ix), l
+   00EB 18 06         [12]  328     jr sipu_exit
+   00ED                     329 sipu_max_reached:                       ;; if max speed reached, vx set to max speed
+   00ED DD 70 11      [19]  330     ld e_vy(ix), b
+   00F0 DD 71 12      [19]  331     ld e_vy+1(ix), c
+   00F3                     332 sipu_exit:
+   00F3 C9            [10]  333     ret
                             334 
                             335 ;;-----------------------------------------------------------------
                             336 ;;
@@ -5915,31 +5919,31 @@ Hexadecimal [16-Bits]
                             341 ;;  Input: 
                             342 ;;  Output:
                             343 ;;  Modified: iy, bc
-   00F5                     344 sys_input_player_down::    
-   00F5 DD 66 11      [19]  345     ld h, e_vy(ix)
-   00F8 DD 6E 12      [19]  346     ld l, e_vy+1(ix)
-   00FB 01 26 00      [10]  347     ld bc, #STEP_VERTICAL_SPEED           
-   00FE ED 4A         [15]  348     adc hl, bc                          ;; add STEP SPEED to current SPEED
-   0100 01 00 02      [10]  349     ld bc, #MAX_VERTICAL_SPEED_POS      ;; check if MAX HORIZONTAL SPEED has been reached
-   0103 B7            [ 4]  350     or a                                ;;
-   0104 22 0C 01      [16]  351     ld (sipd_max_not_reached+1), hl     ;; save new vx value for later use
-   0107 ED 42         [15]  352     sbc hl, bc                          ;;
-   0109 30 0B         [12]  353     jr nc, sipd_max_reached              ;;
+   00F4                     344 sys_input_player_down::    
+   00F4 DD 66 11      [19]  345     ld h, e_vy(ix)
+   00F7 DD 6E 12      [19]  346     ld l, e_vy+1(ix)
+   00FA 01 26 00      [10]  347     ld bc, #STEP_VERTICAL_SPEED           
+   00FD 09            [11]  348     add hl, bc                          ;; add STEP SPEED to current SPEED
+   00FE 01 00 02      [10]  349     ld bc, #MAX_VERTICAL_SPEED_POS      ;; check if MAX HORIZONTAL SPEED has been reached
+   0101 B7            [ 4]  350     or a                                ;;
+   0102 22 0A 01      [16]  351     ld (sipd_max_not_reached+1), hl     ;; save new vx value for later use
+   0105 ED 42         [15]  352     sbc hl, bc                          ;;
+   0107 30 0B         [12]  353     jr nc, sipd_max_reached              ;;
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 112.
 Hexadecimal [16-Bits]
 
 
 
-   010B                     354 sipd_max_not_reached:
-   010B 21 00 00      [10]  355     ld hl, #nullptr
-   010E DD 74 11      [19]  356     ld e_vy(ix), h
-   0111 DD 75 12      [19]  357     ld e_vy+1(ix), l
-   0114 18 06         [12]  358     jr sipd_exit
-   0116                     359 sipd_max_reached:                       ;; if max speed reached, vx set to max speed
-   0116 DD 70 11      [19]  360     ld e_vy(ix), b
-   0119 DD 71 12      [19]  361     ld e_vy+1(ix), c
-   011C                     362 sipd_exit:
-   011C C9            [10]  363     ret
+   0109                     354 sipd_max_not_reached:
+   0109 21 00 00      [10]  355     ld hl, #nullptr
+   010C DD 74 11      [19]  356     ld e_vy(ix), h
+   010F DD 75 12      [19]  357     ld e_vy+1(ix), l
+   0112 18 06         [12]  358     jr sipd_exit
+   0114                     359 sipd_max_reached:                       ;; if max speed reached, vx set to max speed
+   0114 DD 70 11      [19]  360     ld e_vy(ix), b
+   0117 DD 71 12      [19]  361     ld e_vy+1(ix), c
+   011A                     362 sipd_exit:
+   011A C9            [10]  363     ret
                             364 
                             365 
                             366 ;;-----------------------------------------------------------------
@@ -5951,14 +5955,14 @@ Hexadecimal [16-Bits]
                             372 ;;  Input: 
                             373 ;;  Output:
                             374 ;;  Modified: iy, bc
-   011D                     375 sys_input_player_update::
-   011D DD E5         [15]  376     push ix                             ;; save ix information
-   011F CD 00 00      [17]  377     call man_entity_getPlayerPosition   ;; move ix to the first entity which will be player operated
+   011B                     375 sys_input_player_update::
+   011B DD E5         [15]  376     push ix                             ;; save ix information
+   011D CD 00 00      [17]  377     call man_entity_getPlayerPosition   ;; move ix to the first entity which will be player operated
                             378 
-   0122 FD 21 02 00   [14]  379     ld iy, #sys_input_player_actions
-   0126 CD 53 00      [17]  380     call sys_input_generic_update
-   0129 DD E1         [14]  381     pop ix                              ;; rerieve saved information in ix
-   012B C9            [10]  382     ret
+   0120 FD 21 02 00   [14]  379     ld iy, #sys_input_player_actions
+   0124 CD 53 00      [17]  380     call sys_input_generic_update
+   0127 DD E1         [14]  381     pop ix                              ;; rerieve saved information in ix
+   0129 C9            [10]  382     ret
                             383 
                             384 
                             385 

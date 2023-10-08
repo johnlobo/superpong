@@ -284,7 +284,7 @@ sys_input_player_right::
     ld h, e_vx(ix)
     ld l, e_vx+1(ix)
     ld bc, #STEP_HORIZONTAL_SPEED           
-    adc hl, bc                          ;; add STEP SPEED to current SPEED
+    add hl, bc                          ;; add STEP SPEED to current SPEED
     ld bc, #MAX_HORIZONTAL_SPEED_POS    ;; check if MAX HORIZONTAL SPEED has been reached
     or a                                ;;
     ld (sipr_max_not_reached+1), hl     ;; save new vx value for later use
@@ -345,7 +345,7 @@ sys_input_player_down::
     ld h, e_vy(ix)
     ld l, e_vy+1(ix)
     ld bc, #STEP_VERTICAL_SPEED           
-    adc hl, bc                          ;; add STEP SPEED to current SPEED
+    add hl, bc                          ;; add STEP SPEED to current SPEED
     ld bc, #MAX_VERTICAL_SPEED_POS      ;; check if MAX HORIZONTAL SPEED has been reached
     or a                                ;;
     ld (sipd_max_not_reached+1), hl     ;; save new vx value for later use

@@ -874,184 +874,188 @@ Hexadecimal [16-Bits]
                      0200    85 MAX_VERTICAL_SPEED_POS    = 0x0200
                      FE00    86 MAX_VERTICAL_SPEED_NEG    = 0xfe00
                              87 
-                     000A    88 MAX_ENTITIES = 10
-                             89 
+                     0016    88 STEP_HORIZONTAL_BALL_SPEED      = 0x0016
+                     0100    89 MAX_HORIZONTAL_BALL_SPEED       = 0x0100
                              90 
-                     0000    91 nullptr = 0x0000
-                             92 
-                             93 ;;==============================================================================================================================
-                             94 ;;==============================================================================================================================
-                             95 ;;  ENTITY TYPE MASKS AND BITS
-                             96 ;;==============================================================================================================================
+                             91 
+                     000A    92 MAX_ENTITIES = 10
+                             93 
+                             94 
+                     0000    95 nullptr = 0x0000
+                             96 
                              97 ;;==============================================================================================================================
-                     0000    98 e_type_default              = 0x00
-                     0001    99 e_type_player               = 0x01
-                     0002   100 e_type_ball                 = 0x02
-                     0004   101 e_type_wall                 = 0x04
-                     0008   102 e_type_mob                  = 0x08
-                     0010   103 e_type_shield               = 0x10
-                     0020   104 e_type_dead                 = 0x20
-                     00FF   105 e_type_invalid              = 0xff
-                            106 
-                            107 ;;===============================================================================
-                            108 ;;COMPONENT TYPES
-                            109 ;;===============================================================================
-                     0000   110 e_cmp          = 0
-                     0001   111 e_cmp_alive    = 0x01   ;;entidad renderizable
-                     0002   112 e_cmp_render   = 0x02   ;;entidad renderizable
-                     0004   113 e_cmp_physics  = 0x04   ;;entidad que se puede mover
-                     0008   114 e_cmp_input    = 0x08   ;;entidad controlable por input  
-                     0010   115 e_cmp_ai       = 0x10   ;;entidad controlable con ia
-                     0020   116 e_cmp_animated = 0x20   ;;entidad animada
-                     0040   117 e_cmp_collider = 0x40   ;;entidad que puede colisionar
-                     0080   118 e_cmp_collisionable = 0x80   ;;entidad que puede ser colisionada
-                     0047   119 e_cmp_paddle = e_cmp_alive | e_cmp_render | e_cmp_physics | e_cmp_collider  ;;componente por defecto
-                     0057   120 e_cmp_oponent_paddle = e_cmp_alive | e_cmp_render | e_cmp_physics | e_cmp_collider | e_cmp_ai ;;componente por defecto
-                     0087   121 e_cpm_ball = e_cmp_alive | e_cmp_render | e_cmp_physics | e_cmp_collisionable
-                     0041   122 e_cmp_border_wall = e_cmp_alive | e_cmp_collider
-                            123 
-                            124 ;;===============================================================================
-                            125 ;;COLISION TYPES
-                            126 ;;===============================================================================
-                     0000   127 e_col_null = 0
+                             98 ;;==============================================================================================================================
+                             99 ;;  ENTITY TYPE MASKS AND BITS
+                            100 ;;==============================================================================================================================
+                            101 ;;==============================================================================================================================
+                     0000   102 e_type_default              = 0x00
+                     0001   103 e_type_player               = 0x01
+                     0002   104 e_type_ball                 = 0x02
+                     0004   105 e_type_wall                 = 0x04
+                     0008   106 e_type_mob                  = 0x08
+                     0010   107 e_type_shield               = 0x10
+                     0020   108 e_type_dead                 = 0x20
+                     00FF   109 e_type_invalid              = 0xff
+                            110 
+                            111 ;;===============================================================================
+                            112 ;;COMPONENT TYPES
+                            113 ;;===============================================================================
+                     0000   114 e_cmp          = 0
+                     0001   115 e_cmp_alive    = 0x01   ;;entidad renderizable
+                     0002   116 e_cmp_render   = 0x02   ;;entidad renderizable
+                     0004   117 e_cmp_physics  = 0x04   ;;entidad que se puede mover
+                     0008   118 e_cmp_input    = 0x08   ;;entidad controlable por input  
+                     0010   119 e_cmp_ai       = 0x10   ;;entidad controlable con ia
+                     0020   120 e_cmp_animated = 0x20   ;;entidad animada
+                     0040   121 e_cmp_collider = 0x40   ;;entidad que puede colisionar
+                     0080   122 e_cmp_collisionable = 0x80   ;;entidad que puede ser colisionada
+                     0047   123 e_cmp_paddle = e_cmp_alive | e_cmp_render | e_cmp_physics | e_cmp_collider  ;;componente por defecto
+                     0057   124 e_cmp_oponent_paddle = e_cmp_alive | e_cmp_render | e_cmp_physics | e_cmp_collider | e_cmp_ai ;;componente por defecto
+                     0087   125 e_cpm_ball = e_cmp_alive | e_cmp_render | e_cmp_physics | e_cmp_collisionable
+                     0043   126 e_cmp_border_wall = e_cmp_alive | e_cmp_collider | e_cmp_render
+                            127 
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 21.
 Hexadecimal [16-Bits]
 
 
 
-                     0001   128 e_col_left  = 0x01
-                     0002   129 e_col_right = 0x02
-                     0004   130 e_col_up    = 0x04
-                     0008   131 e_col_down  = 0x08
-                            132 
-                            133 ;;===============================================================================
-                            134 ;; Entity Component IDs
-                            135 ;;===============================================================================
-   2579                     136 DefEnum e_cmpID
+                            128 ;;===============================================================================
+                            129 ;;COLISION TYPES
+                            130 ;;===============================================================================
+                     0000   131 e_col_null = 0
+                     0001   132 e_col_left  = 0x01
+                     0002   133 e_col_right = 0x02
+                     0004   134 e_col_up    = 0x04
+                     0008   135 e_col_down  = 0x08
+                            136 
+                            137 ;;===============================================================================
+                            138 ;; Entity Component IDs
+                            139 ;;===============================================================================
+   263F                     140 DefEnum e_cmpID
                      0000     1     e_cmpID_offset = 0
-   0000                     137 Enum e_cmpID Render
+   0000                     141 Enum e_cmpID Render
                      0000     1     e_cmpID_Render = e_cmpID_offset
                      0001     2     e_cmpID_offset = e_cmpID_offset + 1
-   0000                     138 Enum e_cmpID Physics
+   0000                     142 Enum e_cmpID Physics
                      0001     1     e_cmpID_Physics = e_cmpID_offset
                      0002     2     e_cmpID_offset = e_cmpID_offset + 1
-   0000                     139 Enum e_cmpID AI
+   0000                     143 Enum e_cmpID AI
                      0002     1     e_cmpID_AI = e_cmpID_offset
                      0003     2     e_cmpID_offset = e_cmpID_offset + 1
-   0000                     140 Enum e_cmpID Animation
+   0000                     144 Enum e_cmpID Animation
                      0003     1     e_cmpID_Animation = e_cmpID_offset
                      0004     2     e_cmpID_offset = e_cmpID_offset + 1
-   0000                     141 Enum e_cmpID Collision
+   0000                     145 Enum e_cmpID Collision
                      0004     1     e_cmpID_Collision = e_cmpID_offset
                      0005     2     e_cmpID_offset = e_cmpID_offset + 1
-   0000                     142 Enum e_cmpID Num_Components
+   0000                     146 Enum e_cmpID Num_Components
                      0005     1     e_cmpID_Num_Components = e_cmpID_offset
                      0006     2     e_cmpID_offset = e_cmpID_offset + 1
-                            143 
-                            144 
-                            145 
-                            146 ;; Keyboard constants
-                     000A   147 BUFFER_SIZE = 10
-                     00FF   148 ZERO_KEYS_ACTIVATED = #0xFF
+                            147 
+                            148 
                             149 
-                            150 ;; Score constants
-                     0004   151 SCORE_NUM_BYTES = 4
-                            152 
-                            153 ;; SMALL NUMBERS CONSTANTS
-                     0002   154 S_SMALL_NUMBERS_WIDTH = 2
-                     0005   155 S_SMALL_NUMBERS_HEIGHT = 5
-                            156 ;; Font constants
-                     0002   157 FONT_WIDTH = 2
-                     0009   158 FONT_HEIGHT = 9
-                            159 
-                            160 
-                            161 ;;===============================================================================
-                            162 ;; ENTITIY SCTRUCTURE CREATION
-                            163 ;;===============================================================================
-   0000                     164 BeginStruct e
+                            150 ;; Keyboard constants
+                     000A   151 BUFFER_SIZE = 10
+                     00FF   152 ZERO_KEYS_ACTIVATED = #0xFF
+                            153 
+                            154 ;; Score constants
+                     0004   155 SCORE_NUM_BYTES = 4
+                            156 
+                            157 ;; SMALL NUMBERS CONSTANTS
+                     0002   158 S_SMALL_NUMBERS_WIDTH = 2
+                     0005   159 S_SMALL_NUMBERS_HEIGHT = 5
+                            160 ;; Font constants
+                     0002   161 FONT_WIDTH = 2
+                     0009   162 FONT_HEIGHT = 9
+                            163 
+                            164 
+                            165 ;;===============================================================================
+                            166 ;; ENTITIY SCTRUCTURE CREATION
+                            167 ;;===============================================================================
+   0000                     168 BeginStruct e
                      0000     1     e_offset = 0
-   0000                     165 Field e, ptr                , 2
-                     0000     1     e_ptr = e_offset
-                     0002     2     e_offset = e_offset + 2
-   0000                     166 Field e, cmps               , 1
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 22.
 Hexadecimal [16-Bits]
 
 
 
+   0000                     169 Field e, ptr                , 2
+                     0000     1     e_ptr = e_offset
+                     0002     2     e_offset = e_offset + 2
+   0000                     170 Field e, cmps               , 1
                      0002     1     e_cmps = e_offset
                      0003     2     e_offset = e_offset + 1
-   0000                     167 Field e, type               , 1
+   0000                     171 Field e, type               , 1
                      0003     1     e_type = e_offset
                      0004     2     e_offset = e_offset + 1
-   0000                     168 Field e, color              , 1
+   0000                     172 Field e, color              , 1
                      0004     1     e_color = e_offset
                      0005     2     e_offset = e_offset + 1
-   0000                     169 Field e, x                  , 2
+   0000                     173 Field e, x                  , 2
                      0005     1     e_x = e_offset
                      0007     2     e_offset = e_offset + 2
-   0000                     170 Field e, y                  , 2
+   0000                     174 Field e, y                  , 2
                      0007     1     e_y = e_offset
                      0009     2     e_offset = e_offset + 2
-   0000                     171 Field e, w                  , 1
+   0000                     175 Field e, w                  , 1
                      0009     1     e_w = e_offset
                      000A     2     e_offset = e_offset + 1
-   0000                     172 Field e, h                  , 1
+   0000                     176 Field e, h                  , 1
                      000A     1     e_h = e_offset
                      000B     2     e_offset = e_offset + 1
-   0000                     173 Field e, end_x              , 1
+   0000                     177 Field e, end_x              , 1
                      000B     1     e_end_x = e_offset
                      000C     2     e_offset = e_offset + 1
-   0000                     174 Field e, end_y              , 1
+   0000                     178 Field e, end_y              , 1
                      000C     1     e_end_y = e_offset
                      000D     2     e_offset = e_offset + 1
-   0000                     175 Field e, last_x             , 1
+   0000                     179 Field e, last_x             , 1
                      000D     1     e_last_x = e_offset
                      000E     2     e_offset = e_offset + 1
-   0000                     176 Field e, last_y             , 1
+   0000                     180 Field e, last_y             , 1
                      000E     1     e_last_y = e_offset
                      000F     2     e_offset = e_offset + 1
-   0000                     177 Field e, vx                 , 2
+   0000                     181 Field e, vx                 , 2
                      000F     1     e_vx = e_offset
                      0011     2     e_offset = e_offset + 2
-   0000                     178 Field e, vy                 , 2
+   0000                     182 Field e, vy                 , 2
                      0011     1     e_vy = e_offset
                      0013     2     e_offset = e_offset + 2
-   0000                     179 Field e, sprite             , 2
+   0000                     183 Field e, sprite             , 2
                      0013     1     e_sprite = e_offset
                      0015     2     e_offset = e_offset + 2
-   0000                     180 Field e, address            , 2
+   0000                     184 Field e, address            , 2
                      0015     1     e_address = e_offset
                      0017     2     e_offset = e_offset + 2
-   0000                     181 Field e, p_address          , 2
+   0000                     185 Field e, p_address          , 2
                      0017     1     e_p_address = e_offset
                      0019     2     e_offset = e_offset + 2
-   0000                     182 Field e, collision_status   , 1
+   0000                     186 Field e, collision_status   , 1
                      0019     1     e_collision_status = e_offset
                      001A     2     e_offset = e_offset + 1
-   0000                     183 Field e, collision_callback , 2
-                     001A     1     e_collision_callback = e_offset
-                     001C     2     e_offset = e_offset + 2
-   0000                     184 Field e, ai_status          , 1
-                     001C     1     e_ai_status = e_offset
+   0000                     187 Field e, collision_callback , 2
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 23.
 Hexadecimal [16-Bits]
 
 
 
+                     001A     1     e_collision_callback = e_offset
+                     001C     2     e_offset = e_offset + 2
+   0000                     188 Field e, ai_status          , 1
+                     001C     1     e_ai_status = e_offset
                      001D     2     e_offset = e_offset + 1
-   0000                     185 Field e, ai_callback        , 2
+   0000                     189 Field e, ai_callback        , 2
                      001D     1     e_ai_callback = e_offset
                      001F     2     e_offset = e_offset + 2
-   0000                     186 Field e, moved              , 1
+   0000                     190 Field e, moved              , 1
                      001F     1     e_moved = e_offset
                      0020     2     e_offset = e_offset + 1
-   0000                     187 EndStruct e
+   0000                     191 EndStruct e
                      0020     1     sizeof_e = e_offset
-                            188 
-                            189 ;;===============================================================================
-                            190 ;; GLOBAL VARIABLES
-                            191 ;;===============================================================================
+                            192 
+                            193 ;;===============================================================================
+                            194 ;; GLOBAL VARIABLES
+                            195 ;;===============================================================================
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 24.
 Hexadecimal [16-Bits]
 
@@ -6057,127 +6061,127 @@ Hexadecimal [16-Bits]
    0000                      39 player1Tpl::
                              40 ;;DefineEntity _cpms, _ptr, _type,           _color, _x, _y, _w, _h, _vxh, _vxl _vyh, _vyl, _sprite, _address, _p_address, _collsion_callback, ai_callback
    0000                      41 DefineEntity e_cmp_paddle, #0000, e_type_player, 15, 10, 80, 1, 30, 0x00, 0x00, 0x00, 0x00, 0x0000, 0x0000, 0x0000, sys_collision_paddle, 0x0000
-   2579 00 00                 1     .dw #0000
-   257B 47                    2     .db e_cmp_paddle
-   257C 01                    3     .db e_type_player
-   257D 0F                    4     .db 15
-   257E 0A 00                 5     .dw 10
-   2580 50 00                 6     .dw 80
-   2582 01                    7     .db 1
-   2583 1E                    8     .db 30
-   2584 0B                    9     .db 10+1
-   2585 6E                   10     .db 80+30
-   2586 00                   11     .db #0
-   2587 00                   12     .db #0
-   2588 00                   13     .db 0x00
-   2589 00                   14     .db 0x00
-   258A 00                   15     .db 0x00
-   258B 00                   16     .db 0x00
-   258C 00 00                17     .dw 0x0000
-   258E 00 00                18     .dw 0x0000
-   2590 00 00                19     .dw 0x0000
-   2592 00                   20     .db #0
-   2593 8C 1C                21     .dw sys_collision_paddle
-   2595 00                   22     .db #0
-   2596 00 00                23     .dw 0x0000
-   2598 01                   24     .db #1           ;; moved 1 default
+   263F 00 00                 1     .dw #0000
+   2641 47                    2     .db e_cmp_paddle
+   2642 01                    3     .db e_type_player
+   2643 0F                    4     .db 15
+   2644 0A 00                 5     .dw 10
+   2646 50 00                 6     .dw 80
+   2648 01                    7     .db 1
+   2649 1E                    8     .db 30
+   264A 0B                    9     .db 10+1
+   264B 6E                   10     .db 80+30
+   264C 00                   11     .db #0
+   264D 00                   12     .db #0
+   264E 00                   13     .db 0x00
+   264F 00                   14     .db 0x00
+   2650 00                   15     .db 0x00
+   2651 00                   16     .db 0x00
+   2652 00 00                17     .dw 0x0000
+   2654 00 00                18     .dw 0x0000
+   2656 00 00                19     .dw 0x0000
+   2658 00                   20     .db #0
+   2659 68 1D                21     .dw sys_collision_paddle
+   265B 00                   22     .db #0
+   265C 00 00                23     .dw 0x0000
+   265E 01                   24     .db #1           ;; moved 1 default
                              42 
-   2599                      43 oponentTpl::
+   265F                      43 oponentTpl::
                              44 ;;DefineEntity _cpms, _ptr, _type,           _color, _x, _y, _w, _h, _vxh, _vxl _vyh, _vyl, _sprite, _address, _p_address, _collsion_callback, ai_callback
    0020                      45 DefineEntity e_cmp_oponent_paddle, #0000, e_type_player, 1, 60, 80, 1, 30, 0x00, 0x00, 0x00, 0x00, 0x0000, 0x0000, 0x0000, sys_collision_paddle, sys_ai_paddle
-   2599 00 00                 1     .dw #0000
-   259B 57                    2     .db e_cmp_oponent_paddle
-   259C 01                    3     .db e_type_player
-   259D 01                    4     .db 1
-   259E 3C 00                 5     .dw 60
-   25A0 50 00                 6     .dw 80
-   25A2 01                    7     .db 1
-   25A3 1E                    8     .db 30
-   25A4 3D                    9     .db 60+1
-   25A5 6E                   10     .db 80+30
-   25A6 00                   11     .db #0
-   25A7 00                   12     .db #0
-   25A8 00                   13     .db 0x00
+   265F 00 00                 1     .dw #0000
+   2661 57                    2     .db e_cmp_oponent_paddle
+   2662 01                    3     .db e_type_player
+   2663 01                    4     .db 1
+   2664 3C 00                 5     .dw 60
+   2666 50 00                 6     .dw 80
+   2668 01                    7     .db 1
+   2669 1E                    8     .db 30
+   266A 3D                    9     .db 60+1
+   266B 6E                   10     .db 80+30
+   266C 00                   11     .db #0
+   266D 00                   12     .db #0
+   266E 00                   13     .db 0x00
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 118.
 Hexadecimal [16-Bits]
 
 
 
-   25A9 00                   14     .db 0x00
-   25AA 00                   15     .db 0x00
-   25AB 00                   16     .db 0x00
-   25AC 00 00                17     .dw 0x0000
-   25AE 00 00                18     .dw 0x0000
-   25B0 00 00                19     .dw 0x0000
-   25B2 00                   20     .db #0
-   25B3 8C 1C                21     .dw sys_collision_paddle
-   25B5 00                   22     .db #0
-   25B6 C3 0C                23     .dw sys_ai_paddle
-   25B8 01                   24     .db #1           ;; moved 1 default
+   266F 00                   14     .db 0x00
+   2670 00                   15     .db 0x00
+   2671 00                   16     .db 0x00
+   2672 00 00                17     .dw 0x0000
+   2674 00 00                18     .dw 0x0000
+   2676 00 00                19     .dw 0x0000
+   2678 00                   20     .db #0
+   2679 68 1D                21     .dw sys_collision_paddle
+   267B 00                   22     .db #0
+   267C A8 0D                23     .dw sys_ai_paddle
+   267E 01                   24     .db #1           ;; moved 1 default
                              46 
-   25B9                      47 ballTpl:: 
+   267F                      47 ballTpl:: 
                              48 ;;DefineEntity _cpms, _ptr, _type,       _color, _x, _y, _w, _h, _vxh, _vxl _vyh, _vyl, _sprite, _address, _p_address, _collsion_callback, ai_callback
    0040                      49 DefineEntity e_cpm_ball, #0000, e_type_ball, 2, 58, 80, 2, 4, 0xff, 0xf0, 0x00, 0x01, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000
-   25B9 00 00                 1     .dw #0000
-   25BB 87                    2     .db e_cpm_ball
-   25BC 02                    3     .db e_type_ball
-   25BD 02                    4     .db 2
-   25BE 3A 00                 5     .dw 58
-   25C0 50 00                 6     .dw 80
-   25C2 02                    7     .db 2
-   25C3 04                    8     .db 4
-   25C4 3C                    9     .db 58+2
-   25C5 54                   10     .db 80+4
-   25C6 00                   11     .db #0
-   25C7 00                   12     .db #0
-   25C8 FF                   13     .db 0xff
-   25C9 F0                   14     .db 0xf0
-   25CA 00                   15     .db 0x00
-   25CB 01                   16     .db 0x01
-   25CC 00 00                17     .dw 0x0000
-   25CE 00 00                18     .dw 0x0000
-   25D0 00 00                19     .dw 0x0000
-   25D2 00                   20     .db #0
-   25D3 00 00                21     .dw 0x0000
-   25D5 00                   22     .db #0
-   25D6 00 00                23     .dw 0x0000
-   25D8 01                   24     .db #1           ;; moved 1 default
+   267F 00 00                 1     .dw #0000
+   2681 87                    2     .db e_cpm_ball
+   2682 02                    3     .db e_type_ball
+   2683 02                    4     .db 2
+   2684 3A 00                 5     .dw 58
+   2686 50 00                 6     .dw 80
+   2688 02                    7     .db 2
+   2689 04                    8     .db 4
+   268A 3C                    9     .db 58+2
+   268B 54                   10     .db 80+4
+   268C 00                   11     .db #0
+   268D 00                   12     .db #0
+   268E FF                   13     .db 0xff
+   268F F0                   14     .db 0xf0
+   2690 00                   15     .db 0x00
+   2691 01                   16     .db 0x01
+   2692 00 00                17     .dw 0x0000
+   2694 00 00                18     .dw 0x0000
+   2696 00 00                19     .dw 0x0000
+   2698 00                   20     .db #0
+   2699 00 00                21     .dw 0x0000
+   269B 00                   22     .db #0
+   269C 00 00                23     .dw 0x0000
+   269E 01                   24     .db #1           ;; moved 1 default
                              50 
-   25D9                      51 wallUpTpl::
+   269F                      51 wallUpTpl::
                              52 ;;DefineEntity _cpms, _ptr, _type,             _color, _x, _y, _w, _h, _vxh, _vxl _vyh, _vyl, _sprite, _address, _p_address, _collsion_callback, ai_callback
-   0060                      53 DefineEntity e_cmp_border_wall, #0000, e_type_wall, 0, 0, 0, 80, 1, 0x00, 0x00, 0x00, 0x00, 0x0000, 0x0000, 0x0000, sys_collision_wall_up, 0x0000
-   25D9 00 00                 1     .dw #0000
-   25DB 41                    2     .db e_cmp_border_wall
-   25DC 04                    3     .db e_type_wall
-   25DD 00                    4     .db 0
-   25DE 00 00                 5     .dw 0
-   25E0 00 00                 6     .dw 0
-   25E2 50                    7     .db 80
-   25E3 01                    8     .db 1
-   25E4 50                    9     .db 0+80
-   25E5 01                   10     .db 0+1
-   25E6 00                   11     .db #0
-   25E7 00                   12     .db #0
+   0060                      53 DefineEntity e_cmp_border_wall, #0000, e_type_wall, 15, 8, 0, 64, 1, 0x00, 0x00, 0x00, 0x00, 0x0000, 0x0000, 0x0000, sys_collision_wall_up, 0x0000
+   269F 00 00                 1     .dw #0000
+   26A1 43                    2     .db e_cmp_border_wall
+   26A2 04                    3     .db e_type_wall
+   26A3 0F                    4     .db 15
+   26A4 08 00                 5     .dw 8
+   26A6 00 00                 6     .dw 0
+   26A8 40                    7     .db 64
+   26A9 01                    8     .db 1
+   26AA 48                    9     .db 8+64
+   26AB 01                   10     .db 0+1
+   26AC 00                   11     .db #0
+   26AD 00                   12     .db #0
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 119.
 Hexadecimal [16-Bits]
 
 
 
-   25E8 00                   13     .db 0x00
-   25E9 00                   14     .db 0x00
-   25EA 00                   15     .db 0x00
-   25EB 00                   16     .db 0x00
-   25EC 00 00                17     .dw 0x0000
-   25EE 00 00                18     .dw 0x0000
-   25F0 00 00                19     .dw 0x0000
-   25F2 00                   20     .db #0
-   25F3 88 1C                21     .dw sys_collision_wall_up
-   25F5 00                   22     .db #0
-   25F6 00 00                23     .dw 0x0000
-   25F8 01                   24     .db #1           ;; moved 1 default
+   26AE 00                   13     .db 0x00
+   26AF 00                   14     .db 0x00
+   26B0 00                   15     .db 0x00
+   26B1 00                   16     .db 0x00
+   26B2 00 00                17     .dw 0x0000
+   26B4 00 00                18     .dw 0x0000
+   26B6 00 00                19     .dw 0x0000
+   26B8 00                   20     .db #0
+   26B9 55 1D                21     .dw sys_collision_wall_up
+   26BB 00                   22     .db #0
+   26BC 00 00                23     .dw 0x0000
+   26BE 01                   24     .db #1           ;; moved 1 default
                              54 
                              55 
-   25F9 01                   56 game_state:: .db MAIN_MENU   ;; Game state ----- 0: Game loop, 1: Main menu, 2: Map loading, 3: Pause menu, 4: Game over, 5: Victory
+   26BF 01                   56 game_state:: .db MAIN_MENU   ;; Game state ----- 0: Game loop, 1: Main menu, 2: Map loading, 3: Pause menu, 4: Game over, 5: Victory
                              57 ;;
                              58 ;; Start of _CODE area
                              59 ;; 
@@ -6192,30 +6196,30 @@ Hexadecimal [16-Bits]
                              68 ;;  Output: 
                              69 ;;  Modified: AF, BC, DE, HL
                              70 ;;
-   09C1                      71 man_game_init::
+   0A61                      71 man_game_init::
                              72 
-   09C1 CD 91 08      [17]   73     call man_entity_init
+   0A61 CD 31 09      [17]   73     call man_entity_init
                              74     
                              75     ;; Create a player entity in 100, 100
-   09C4 21 79 25      [10]   76     ld hl, #player1Tpl                      ;; Template of the entity to create
-   09C7 CD FF 08      [17]   77     call man_entity_create                  ;; Create new entity
+   0A64 21 3F 26      [10]   76     ld hl, #player1Tpl                      ;; Template of the entity to create
+   0A67 CD 9F 09      [17]   77     call man_entity_create                  ;; Create new entity
                              78 
                              79     ;; Create an oponent entity in 140, 100
-   09CA 21 99 25      [10]   80     ld hl, #oponentTpl                      ;; Template of the entity to create
-   09CD CD FF 08      [17]   81     call man_entity_create                  ;; Create new entity
+   0A6A 21 5F 26      [10]   80     ld hl, #oponentTpl                      ;; Template of the entity to create
+   0A6D CD 9F 09      [17]   81     call man_entity_create                  ;; Create new entity
                              82 
                              83     ;; Create a ball entity
-   09D0 21 B9 25      [10]   84     ld hl, #ballTpl                         ;; Template of the ball
-   09D3 CD FF 08      [17]   85     call man_entity_create                  ;; Create ball
+   0A70 21 7F 26      [10]   84     ld hl, #ballTpl                         ;; Template of the ball
+   0A73 CD 9F 09      [17]   85     call man_entity_create                  ;; Create ball
                              86 
                              87     ;; Create a wall up collision entity
-   09D6 21 D9 25      [10]   88     ld hl, #wallUpTpl                       ;; Template of the entity to create
-   09D9 CD FF 08      [17]   89     call man_entity_create                  ;; Create new entity
+   0A76 21 9F 26      [10]   88     ld hl, #wallUpTpl                       ;; Template of the entity to create
+   0A79 CD 9F 09      [17]   89     call man_entity_create                  ;; Create new entity
                              90 
                              91     ;; Create a wall down collision entity
-   09DC 21 D9 25      [10]   92     ld hl, #wallUpTpl                       ;; Template of the entity to create
-   09DF CD FF 08      [17]   93     call man_entity_create                  ;; Create new entity
-   09E2 DD 36 07 C7   [19]   94     ld e_y(ix), #199                        ;; down edge
+   0A7C 21 9F 26      [10]   92     ld hl, #wallUpTpl                       ;; Template of the entity to create
+   0A7F CD 9F 09      [17]   93     call man_entity_create                  ;; Create new entity
+   0A82 DD 36 07 C7   [19]   94     ld e_y(ix), #199                        ;; down edge
                              95 
                              96     ;; Initialize Systems
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 120.
@@ -6223,11 +6227,11 @@ Hexadecimal [16-Bits]
 
 
 
-   09E6 CD 37 1C      [17]   97     call sys_collision_init                 ;; initialize collision system
-   09E9 CD BA 0C      [17]   98     call sys_ai_init                        ;; initialize collision system
-   09EC CD 08 0A      [17]   99     call sys_physics_init                   ;; initialize physics system
+   0A86 CD 24 1D      [17]   97     call sys_collision_init                 ;; initialize collision system
+   0A89 CD 9F 0D      [17]   98     call sys_ai_init                        ;; initialize collision system
+   0A8C CD A8 0A      [17]   99     call sys_physics_init                   ;; initialize physics system
                             100     
-   09EF C9            [10]  101     ret
+   0A8F C9            [10]  101     ret
                             102 
                             103 ;;-----------------------------------------------------------------
                             104 ;;
@@ -6238,31 +6242,31 @@ Hexadecimal [16-Bits]
                             109 ;;  Output: 
                             110 ;;  Modified: AF, BC, DE, HL
                             111 ;;
-   09F0                     112 man_game_update::
-   09F0 CD 6C 1E      [17]  113     call sys_input_player_update
-   09F3 CD EA 0C      [17]  114     call sys_ai_update
-   09F6 CD C2 0A      [17]  115     call sys_physics_update
-   09F9 CD 39 1D      [17]  116     call sys_collision_update
-   09FC CD A4 0B      [17]  117     call sys_render_update
+   0A90                     112 man_game_update::
+   0A90 CD 32 1F      [17]  113     call sys_input_player_update
+   0A93 CD D7 0D      [17]  114     call sys_ai_update
+   0A96 CD A7 0B      [17]  115     call sys_physics_update
+   0A99 CD 01 1E      [17]  116     call sys_collision_update
+   0A9C CD 89 0C      [17]  117     call sys_render_update
                             118     ;;;;delay 
                             119     ;;ld b, #6
                             120     ;;call cpct_waitHalts_asm
-   09FF C9            [10]  121     ret
+   0A9F C9            [10]  121     ret
                             122 
                             123 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
                             124 ;;  Gets the current state of the game loop
                             125 ;;  MODIFIES:
                             126 ;;      - A: Returns state
                             127 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-   0A00                     128 man_game_get_state::
-   0A00 3A F9 25      [13]  129     ld a, (game_state)
-   0A03 C9            [10]  130     ret
+   0AA0                     128 man_game_get_state::
+   0AA0 3A BF 26      [13]  129     ld a, (game_state)
+   0AA3 C9            [10]  130     ret
                             131 
                             132 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
                             133 ;;  Sets the current state of the game loop
                             134 ;;  MODIFIES:
                             135 ;;      - A: Returns state
                             136 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-   0A04                     137 man_game_set_state::
-   0A04 32 F9 25      [13]  138     ld (game_state), a
-   0A07 C9            [10]  139     ret
+   0AA4                     137 man_game_set_state::
+   0AA4 32 BF 26      [13]  138     ld (game_state), a
+   0AA7 C9            [10]  139     ret

@@ -16,7 +16,10 @@
 .module physics_system
 
 .include "sys/physics.h.s"
+.include "sys/util.h.s"
 .include "man/components.h.s"
+.include "man/entities.h.s"
+.include "man/ball.h.s"
 .include "common.h.s"
 .include "cpctelera.h.s"
 
@@ -69,7 +72,7 @@ sys_physics_apply_gravity::
     ld bc, #GRAVITY
     ld h, e_vy(ix)
     ld l, e_vy+1(ix)
-    adc hl, bc
+    add hl, bc
     ld e_vy(ix), h              ;; restore updated vy
     ld e_vy+1(ix), l            ;; 
     ret 
@@ -97,7 +100,7 @@ sys_physics_apply_friction_vx::
     ld l, h                     ;;
     jr _vx_restore
 _vx_negative:
-    adc hl, bc                  ;; add COF to vx
+    add hl, bc                  ;; add COF to vx
     jp m, _vx_restore           ;;
     ld h, #0                    ;; if vx has gone positive vx = 0
     ld l, h                     ;;
@@ -129,7 +132,7 @@ sys_physics_apply_friction_vy::
     ld l, h                     ;;
     jr _vy_restore
 _vy_negative:
-    adc hl, bc                  ;; add COF to vx
+    add hl, bc                  ;; add COF to vx
     jp m, _vy_restore           ;;
     ld h, #0                    ;; if vx has gone positive vx = 0
     ld l, h                     ;;
@@ -137,6 +140,63 @@ _vy_restore:
     ld e_vy(ix), h              ;; restore updated vx
     ld e_vy+1(ix), l            ;; restore updated vx
     ret
+
+
+;;-----------------------------------------------------------------
+;;
+;; sys_physics_check_out_of_bounds_x
+;;
+;;  Initilizes render system
+;;  Input: ix : pointer to the entity
+;;  Output: 
+;;  Modified: AF, BC, HL
+;;
+sys_physics_check_out_of_bounds_x::
+    call man_entity_getBallPositionIY
+    ld a, e_x(iy)
+    cp #80
+    ret c                               ;; If we are not out of bounds, ret
+    ld a, e_vx(iy)
+    bit 7, a                 ;; check the orientation of the hor speed
+    jr nz, _spcob_going_left
+    ld e_x(iy), #79
+    jr _spcob_reverse
+_spcob_going_left:
+    ld e_x(iy), #0
+_spcob_reverse:
+    ld e_x+1(iy), #0
+    call man_ball_reverse_hor_speed
+    ret
+
+;;-----------------------------------------------------------------
+;;
+;; sys_physics_check_out_of_bounds_y
+;;
+;;  Initilizes render system
+;;  Input: ix : pointer to the entity
+;;  Output: 
+;;  Modified: AF, BC, HL
+;;
+sys_physics_check_out_of_bounds_y::
+    ld a, #199                          ;; calculate 199 - Height
+    ld b, e_h(ix)
+    sub b
+    ld b, a
+    ld a, e_y(ix)
+    cp b                
+    ret c                               ;; If we are not out of bounds, ret
+    ld a, e_vy(iy)
+    bit 7, a                            ;; check the orientation of the ver speed
+    jr nz, _spcoby_going_left
+    ld e_y(iy), #79
+    jr _spcoby_reverse
+_spcoby_going_left:
+    ld e_x(iy), #0
+_spcoby_reverse:
+    ld e_x+1(iy), #0
+    call man_ball_reverse_hor_speed
+    ret
+
 
 ;;-----------------------------------------------------------------
 ;;
@@ -158,7 +218,8 @@ sys_physics_update_one_entity::
     ld h, e_x(ix)               ;; get the x coord in hl
     ld l, e_x+1(ix)             ;; 
     ld a, h                     ;; save h value in a
-    adc hl, bc                  ;; add x+vx
+    add hl, bc                  ;; add x+vx
+    call sys_physics_check_out_of_bounds_x  ;; check if we the ball has gone out of bounds in the x axis
     ld e_x(ix), h               ;; update entity with new position
     ld e_x+1(ix), l             ;;
     ;; check if screen coord has changed to update moved.
@@ -177,7 +238,7 @@ spuoe_yCoord:
     ld h, e_y(ix)               ;; get the y coord in hl
     ld l, e_y+1(ix)             ;; 
     ld a, h                     ;; save h value in a
-    adc hl, bc                  ;; add y+vy
+    add hl, bc                  ;; add y+vy
     ld e_y(ix), h               ;; update entity with new position
     ld e_y+1(ix), l             ;;
     ;; check if screen coord has changed to update moved.

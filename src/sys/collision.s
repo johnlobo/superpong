@@ -18,6 +18,8 @@
 .include "sys/collision.h.s"
 .include "man/components.h.s"
 .include "man/entities.h.s"
+.include "man/ball.h.s"
+.include "sys/physics.h.s"
 .include "sys/util.h.s"
 .include "common.h.s"
 .include "cpctelera.h.s"
@@ -113,41 +115,6 @@ sys_collision_check_collider_colisionable_X::
     ret
 
 
-;;-----------------------------------------------------------------
-;;
-;; sys_collision_reverse_hor_speed
-;;
-;;  Handles the collision with the paddle
-;;  Input:  ix : pointer to the entity
-;;          iy: pointer to the colisionable
-;;  Output: 
-;;  Modified: AF, BC, HL
-;;
-sys_collision_reverse_hor_speed::
-    ld h, e_vx(iy)
-    ld l, e_vx+1(iy)
-    call sys_util_negHL
-    ld e_vx(iy), h
-    ld e_vx+1(iy), l
-    ret
-
-;;-----------------------------------------------------------------
-;;
-;; sys_collision_reverse_ver_speed
-;;
-;;  Handles the collision with the paddle
-;;  Input:  ix : pointer to the entity
-;;          iy: pointer to the colisionable
-;;  Output: 
-;;  Modified: AF, BC, HL
-;;
-sys_collision_reverse_ver_speed::
-    ld h, e_vy(iy)
-    ld l, e_vy+1(iy)
-    call sys_util_negHL
-    ld e_vy(iy), h
-    ld e_vy+1(iy), l
-    ret
 
 ;;-----------------------------------------------------------------
 ;;
@@ -160,7 +127,17 @@ sys_collision_reverse_ver_speed::
 ;;  Modified: AF, BC, HL
 ;;
 sys_collision_wall_up::
-    call sys_collision_reverse_ver_speed
+    ;; reposition colisionable after the collision
+    ld a, e_collision_status(ix)
+    and #e_col_down
+    jr nz, _scwu_down_collision
+    inc e_y(iy)                     ;;reposition ball to the right to avoid overlap
+    jr _reverse_vertical_speed
+_scwu_down_collision:
+    dec e_y(iy)                     ;; reposition ball to the left to avoid overlap
+_reverse_vertical_speed:
+    ;; change speed because of the collision
+    call man_ball_reverse_ver_speed
     ret
 
 ;;-----------------------------------------------------------------
@@ -178,40 +155,36 @@ sys_collision_paddle::
     ld a, e_collision_status(ix)
     and #e_col_left
     jr nz, _left_collision
-    inc e_x(iy)                     ;;reposition ball to the right to avoid overlap
+    inc e_x(iy)                         ;;reposition ball to the right to avoid overlap
     jr _reverse_horizontal_speed
 _left_collision:
-    dec e_x(iy)                     ;; reposition ball to the left to avoid overlap
+    dec e_x(iy)                         ;; reposition ball to the left to avoid overlap
     ;; change speed because of the collision
 _reverse_horizontal_speed:
-    call sys_collision_reverse_hor_speed    ;; Reverse horizontal ball speed
+    call man_ball_reverse_hor_speed     ;; Reverse horizontal ball speed
     ;; change vertical speed
     ld b, e_y(ix)
     ld a, e_y(iy)
     sub b
     cp #6
     jr nc, _greater_than_6
-    ld e_vy(iy), #0xff
-    ld e_vy+1(iy), #0xe0
+    xor a
+    call man_ball_set_ver_speed
     jr _scp_exit
 _greater_than_6:
-    cp #12
-    jr nc, _greater_than_12
-    ld e_vy(iy), #0xff
-    ld e_vy+1(iy), #0xf0
+    cp #14
+    jr nc, _greater_than_14
+    ld a, #1
+    call man_ball_set_ver_speed
     jr _scp_exit
-_greater_than_12:
-    cp #18
-    jr nc, _greater_than_18
-    ld e_vy(iy), #0x00
-    ld e_vy+1(iy), #0x16
-    ld h, e_vx(iy)
-    ld l, e_vx(iy)
-    add hl, hl
-    ld e_vx(iy), h
-    ld e_vx(iy), l
+_greater_than_14:
+    cp #16
+    jr nc, _greater_than_16
+    ld a, #2
+    call man_ball_set_ver_speed
+    call man_ball_increase_hor_speed
     jr _scp_exit
-_greater_than_18:
+_greater_than_16:
     cp #24
     jr nc, _greater_than_24
     ld e_vy(iy), #0x00

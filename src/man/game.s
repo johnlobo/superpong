@@ -50,7 +50,7 @@ DefineEntity e_cpm_ball, #0000, e_type_ball, 2, 58, 80, 2, 4, 0xff, 0xf0, 0x00, 
 
 wallUpTpl::
 ;;DefineEntity _cpms, _ptr, _type,             _color, _x, _y, _w, _h, _vxh, _vxl _vyh, _vyl, _sprite, _address, _p_address, _collsion_callback, ai_callback
-DefineEntity e_cmp_border_wall, #0000, e_type_wall, 0, 0, 0, 80, 1, 0x00, 0x00, 0x00, 0x00, 0x0000, 0x0000, 0x0000, sys_collision_wall_up, 0x0000
+DefineEntity e_cmp_border_wall, #0000, e_type_wall, 15, 8, 0, 64, 1, 0x00, 0x00, 0x00, 0x00, 0x0000, 0x0000, 0x0000, sys_collision_wall_up, 0x0000
 
 
 game_state:: .db MAIN_MENU   ;; Game state ----- 0: Game loop, 1: Main menu, 2: Map loading, 3: Pause menu, 4: Game over, 5: Victory

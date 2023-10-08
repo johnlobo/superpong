@@ -356,184 +356,188 @@ Hexadecimal [16-Bits]
                      0200    85 MAX_VERTICAL_SPEED_POS    = 0x0200
                      FE00    86 MAX_VERTICAL_SPEED_NEG    = 0xfe00
                              87 
-                     000A    88 MAX_ENTITIES = 10
-                             89 
+                     0016    88 STEP_HORIZONTAL_BALL_SPEED      = 0x0016
+                     0100    89 MAX_HORIZONTAL_BALL_SPEED       = 0x0100
                              90 
-                     0000    91 nullptr = 0x0000
-                             92 
-                             93 ;;==============================================================================================================================
-                             94 ;;==============================================================================================================================
-                             95 ;;  ENTITY TYPE MASKS AND BITS
-                             96 ;;==============================================================================================================================
+                             91 
+                     000A    92 MAX_ENTITIES = 10
+                             93 
+                             94 
+                     0000    95 nullptr = 0x0000
+                             96 
                              97 ;;==============================================================================================================================
-                     0000    98 e_type_default              = 0x00
-                     0001    99 e_type_player               = 0x01
-                     0002   100 e_type_ball                 = 0x02
-                     0004   101 e_type_wall                 = 0x04
-                     0008   102 e_type_mob                  = 0x08
-                     0010   103 e_type_shield               = 0x10
-                     0020   104 e_type_dead                 = 0x20
-                     00FF   105 e_type_invalid              = 0xff
-                            106 
-                            107 ;;===============================================================================
-                            108 ;;COMPONENT TYPES
-                            109 ;;===============================================================================
-                     0000   110 e_cmp          = 0
-                     0001   111 e_cmp_alive    = 0x01   ;;entidad renderizable
-                     0002   112 e_cmp_render   = 0x02   ;;entidad renderizable
-                     0004   113 e_cmp_physics  = 0x04   ;;entidad que se puede mover
-                     0008   114 e_cmp_input    = 0x08   ;;entidad controlable por input  
-                     0010   115 e_cmp_ai       = 0x10   ;;entidad controlable con ia
-                     0020   116 e_cmp_animated = 0x20   ;;entidad animada
-                     0040   117 e_cmp_collider = 0x40   ;;entidad que puede colisionar
-                     0080   118 e_cmp_collisionable = 0x80   ;;entidad que puede ser colisionada
-                     0047   119 e_cmp_paddle = e_cmp_alive | e_cmp_render | e_cmp_physics | e_cmp_collider  ;;componente por defecto
-                     0057   120 e_cmp_oponent_paddle = e_cmp_alive | e_cmp_render | e_cmp_physics | e_cmp_collider | e_cmp_ai ;;componente por defecto
-                     0087   121 e_cpm_ball = e_cmp_alive | e_cmp_render | e_cmp_physics | e_cmp_collisionable
-                     0041   122 e_cmp_border_wall = e_cmp_alive | e_cmp_collider
-                            123 
-                            124 ;;===============================================================================
-                            125 ;;COLISION TYPES
-                            126 ;;===============================================================================
-                     0000   127 e_col_null = 0
+                             98 ;;==============================================================================================================================
+                             99 ;;  ENTITY TYPE MASKS AND BITS
+                            100 ;;==============================================================================================================================
+                            101 ;;==============================================================================================================================
+                     0000   102 e_type_default              = 0x00
+                     0001   103 e_type_player               = 0x01
+                     0002   104 e_type_ball                 = 0x02
+                     0004   105 e_type_wall                 = 0x04
+                     0008   106 e_type_mob                  = 0x08
+                     0010   107 e_type_shield               = 0x10
+                     0020   108 e_type_dead                 = 0x20
+                     00FF   109 e_type_invalid              = 0xff
+                            110 
+                            111 ;;===============================================================================
+                            112 ;;COMPONENT TYPES
+                            113 ;;===============================================================================
+                     0000   114 e_cmp          = 0
+                     0001   115 e_cmp_alive    = 0x01   ;;entidad renderizable
+                     0002   116 e_cmp_render   = 0x02   ;;entidad renderizable
+                     0004   117 e_cmp_physics  = 0x04   ;;entidad que se puede mover
+                     0008   118 e_cmp_input    = 0x08   ;;entidad controlable por input  
+                     0010   119 e_cmp_ai       = 0x10   ;;entidad controlable con ia
+                     0020   120 e_cmp_animated = 0x20   ;;entidad animada
+                     0040   121 e_cmp_collider = 0x40   ;;entidad que puede colisionar
+                     0080   122 e_cmp_collisionable = 0x80   ;;entidad que puede ser colisionada
+                     0047   123 e_cmp_paddle = e_cmp_alive | e_cmp_render | e_cmp_physics | e_cmp_collider  ;;componente por defecto
+                     0057   124 e_cmp_oponent_paddle = e_cmp_alive | e_cmp_render | e_cmp_physics | e_cmp_collider | e_cmp_ai ;;componente por defecto
+                     0087   125 e_cpm_ball = e_cmp_alive | e_cmp_render | e_cmp_physics | e_cmp_collisionable
+                     0043   126 e_cmp_border_wall = e_cmp_alive | e_cmp_collider | e_cmp_render
+                            127 
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 9.
 Hexadecimal [16-Bits]
 
 
 
-                     0001   128 e_col_left  = 0x01
-                     0002   129 e_col_right = 0x02
-                     0004   130 e_col_up    = 0x04
-                     0008   131 e_col_down  = 0x08
-                            132 
-                            133 ;;===============================================================================
-                            134 ;; Entity Component IDs
-                            135 ;;===============================================================================
-   0000                     136 DefEnum e_cmpID
+                            128 ;;===============================================================================
+                            129 ;;COLISION TYPES
+                            130 ;;===============================================================================
+                     0000   131 e_col_null = 0
+                     0001   132 e_col_left  = 0x01
+                     0002   133 e_col_right = 0x02
+                     0004   134 e_col_up    = 0x04
+                     0008   135 e_col_down  = 0x08
+                            136 
+                            137 ;;===============================================================================
+                            138 ;; Entity Component IDs
+                            139 ;;===============================================================================
+   0000                     140 DefEnum e_cmpID
                      0000     1     e_cmpID_offset = 0
-   0000                     137 Enum e_cmpID Render
+   0000                     141 Enum e_cmpID Render
                      0000     1     e_cmpID_Render = e_cmpID_offset
                      0001     2     e_cmpID_offset = e_cmpID_offset + 1
-   0000                     138 Enum e_cmpID Physics
+   0000                     142 Enum e_cmpID Physics
                      0001     1     e_cmpID_Physics = e_cmpID_offset
                      0002     2     e_cmpID_offset = e_cmpID_offset + 1
-   0000                     139 Enum e_cmpID AI
+   0000                     143 Enum e_cmpID AI
                      0002     1     e_cmpID_AI = e_cmpID_offset
                      0003     2     e_cmpID_offset = e_cmpID_offset + 1
-   0000                     140 Enum e_cmpID Animation
+   0000                     144 Enum e_cmpID Animation
                      0003     1     e_cmpID_Animation = e_cmpID_offset
                      0004     2     e_cmpID_offset = e_cmpID_offset + 1
-   0000                     141 Enum e_cmpID Collision
+   0000                     145 Enum e_cmpID Collision
                      0004     1     e_cmpID_Collision = e_cmpID_offset
                      0005     2     e_cmpID_offset = e_cmpID_offset + 1
-   0000                     142 Enum e_cmpID Num_Components
+   0000                     146 Enum e_cmpID Num_Components
                      0005     1     e_cmpID_Num_Components = e_cmpID_offset
                      0006     2     e_cmpID_offset = e_cmpID_offset + 1
-                            143 
-                            144 
-                            145 
-                            146 ;; Keyboard constants
-                     000A   147 BUFFER_SIZE = 10
-                     00FF   148 ZERO_KEYS_ACTIVATED = #0xFF
+                            147 
+                            148 
                             149 
-                            150 ;; Score constants
-                     0004   151 SCORE_NUM_BYTES = 4
-                            152 
-                            153 ;; SMALL NUMBERS CONSTANTS
-                     0002   154 S_SMALL_NUMBERS_WIDTH = 2
-                     0005   155 S_SMALL_NUMBERS_HEIGHT = 5
-                            156 ;; Font constants
-                     0002   157 FONT_WIDTH = 2
-                     0009   158 FONT_HEIGHT = 9
-                            159 
-                            160 
-                            161 ;;===============================================================================
-                            162 ;; ENTITIY SCTRUCTURE CREATION
-                            163 ;;===============================================================================
-   0000                     164 BeginStruct e
+                            150 ;; Keyboard constants
+                     000A   151 BUFFER_SIZE = 10
+                     00FF   152 ZERO_KEYS_ACTIVATED = #0xFF
+                            153 
+                            154 ;; Score constants
+                     0004   155 SCORE_NUM_BYTES = 4
+                            156 
+                            157 ;; SMALL NUMBERS CONSTANTS
+                     0002   158 S_SMALL_NUMBERS_WIDTH = 2
+                     0005   159 S_SMALL_NUMBERS_HEIGHT = 5
+                            160 ;; Font constants
+                     0002   161 FONT_WIDTH = 2
+                     0009   162 FONT_HEIGHT = 9
+                            163 
+                            164 
+                            165 ;;===============================================================================
+                            166 ;; ENTITIY SCTRUCTURE CREATION
+                            167 ;;===============================================================================
+   0000                     168 BeginStruct e
                      0000     1     e_offset = 0
-   0000                     165 Field e, ptr                , 2
-                     0000     1     e_ptr = e_offset
-                     0002     2     e_offset = e_offset + 2
-   0000                     166 Field e, cmps               , 1
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 10.
 Hexadecimal [16-Bits]
 
 
 
+   0000                     169 Field e, ptr                , 2
+                     0000     1     e_ptr = e_offset
+                     0002     2     e_offset = e_offset + 2
+   0000                     170 Field e, cmps               , 1
                      0002     1     e_cmps = e_offset
                      0003     2     e_offset = e_offset + 1
-   0000                     167 Field e, type               , 1
+   0000                     171 Field e, type               , 1
                      0003     1     e_type = e_offset
                      0004     2     e_offset = e_offset + 1
-   0000                     168 Field e, color              , 1
+   0000                     172 Field e, color              , 1
                      0004     1     e_color = e_offset
                      0005     2     e_offset = e_offset + 1
-   0000                     169 Field e, x                  , 2
+   0000                     173 Field e, x                  , 2
                      0005     1     e_x = e_offset
                      0007     2     e_offset = e_offset + 2
-   0000                     170 Field e, y                  , 2
+   0000                     174 Field e, y                  , 2
                      0007     1     e_y = e_offset
                      0009     2     e_offset = e_offset + 2
-   0000                     171 Field e, w                  , 1
+   0000                     175 Field e, w                  , 1
                      0009     1     e_w = e_offset
                      000A     2     e_offset = e_offset + 1
-   0000                     172 Field e, h                  , 1
+   0000                     176 Field e, h                  , 1
                      000A     1     e_h = e_offset
                      000B     2     e_offset = e_offset + 1
-   0000                     173 Field e, end_x              , 1
+   0000                     177 Field e, end_x              , 1
                      000B     1     e_end_x = e_offset
                      000C     2     e_offset = e_offset + 1
-   0000                     174 Field e, end_y              , 1
+   0000                     178 Field e, end_y              , 1
                      000C     1     e_end_y = e_offset
                      000D     2     e_offset = e_offset + 1
-   0000                     175 Field e, last_x             , 1
+   0000                     179 Field e, last_x             , 1
                      000D     1     e_last_x = e_offset
                      000E     2     e_offset = e_offset + 1
-   0000                     176 Field e, last_y             , 1
+   0000                     180 Field e, last_y             , 1
                      000E     1     e_last_y = e_offset
                      000F     2     e_offset = e_offset + 1
-   0000                     177 Field e, vx                 , 2
+   0000                     181 Field e, vx                 , 2
                      000F     1     e_vx = e_offset
                      0011     2     e_offset = e_offset + 2
-   0000                     178 Field e, vy                 , 2
+   0000                     182 Field e, vy                 , 2
                      0011     1     e_vy = e_offset
                      0013     2     e_offset = e_offset + 2
-   0000                     179 Field e, sprite             , 2
+   0000                     183 Field e, sprite             , 2
                      0013     1     e_sprite = e_offset
                      0015     2     e_offset = e_offset + 2
-   0000                     180 Field e, address            , 2
+   0000                     184 Field e, address            , 2
                      0015     1     e_address = e_offset
                      0017     2     e_offset = e_offset + 2
-   0000                     181 Field e, p_address          , 2
+   0000                     185 Field e, p_address          , 2
                      0017     1     e_p_address = e_offset
                      0019     2     e_offset = e_offset + 2
-   0000                     182 Field e, collision_status   , 1
+   0000                     186 Field e, collision_status   , 1
                      0019     1     e_collision_status = e_offset
                      001A     2     e_offset = e_offset + 1
-   0000                     183 Field e, collision_callback , 2
-                     001A     1     e_collision_callback = e_offset
-                     001C     2     e_offset = e_offset + 2
-   0000                     184 Field e, ai_status          , 1
-                     001C     1     e_ai_status = e_offset
+   0000                     187 Field e, collision_callback , 2
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 11.
 Hexadecimal [16-Bits]
 
 
 
+                     001A     1     e_collision_callback = e_offset
+                     001C     2     e_offset = e_offset + 2
+   0000                     188 Field e, ai_status          , 1
+                     001C     1     e_ai_status = e_offset
                      001D     2     e_offset = e_offset + 1
-   0000                     185 Field e, ai_callback        , 2
+   0000                     189 Field e, ai_callback        , 2
                      001D     1     e_ai_callback = e_offset
                      001F     2     e_offset = e_offset + 2
-   0000                     186 Field e, moved              , 1
+   0000                     190 Field e, moved              , 1
                      001F     1     e_moved = e_offset
                      0020     2     e_offset = e_offset + 1
-   0000                     187 EndStruct e
+   0000                     191 EndStruct e
                      0020     1     sizeof_e = e_offset
-                            188 
-                            189 ;;===============================================================================
-                            190 ;; GLOBAL VARIABLES
-                            191 ;;===============================================================================
+                            192 
+                            193 ;;===============================================================================
+                            194 ;; GLOBAL VARIABLES
+                            195 ;;===============================================================================
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 12.
 Hexadecimal [16-Bits]
 
@@ -548,7 +552,7 @@ Hexadecimal [16-Bits]
                              28 .area _DATA
                              29 
                              30 
-   25FF 20 20 20 20 20 20    31 string_buffer:: .asciz "          "
+   26C5 20 20 20 20 20 20    31 string_buffer:: .asciz "          "
         20 20 20 20 00
                              32 
                              33 
@@ -573,39 +577,39 @@ Hexadecimal [16-Bits]
                              52 ;; Credits:
                              53 ;;  Z80Heaven (http://z80-heaven.wikidot.com/advanced-math#toc9)
                              54 
-   0C36                      55 sys_util_h_times_e::
-   0C36 16 00         [ 7]   56   ld d,#0
-   0C38 6A            [ 4]   57   ld l,d
-   0C39 CB 24         [ 8]   58   sla h 
-   0C3B 30 01         [12]   59   jr nc,.+3 
-   0C3D 6B            [ 4]   60   ld l,e
-   0C3E 29            [11]   61   add hl,hl 
-   0C3F 30 01         [12]   62   jr nc,.+3 
-   0C41 19            [11]   63   add hl,de
-   0C42 29            [11]   64   add hl,hl 
-   0C43 30 01         [12]   65   jr nc,.+3 
-   0C45 19            [11]   66   add hl,de
-   0C46 29            [11]   67   add hl,hl 
-   0C47 30 01         [12]   68   jr nc,.+3 
-   0C49 19            [11]   69   add hl,de
-   0C4A 29            [11]   70   add hl,hl 
-   0C4B 30 01         [12]   71   jr nc,.+3 
-   0C4D 19            [11]   72   add hl,de
-   0C4E 29            [11]   73   add hl,hl 
-   0C4F 30 01         [12]   74   jr nc,.+3 
-   0C51 19            [11]   75   add hl,de
+   0D1B                      55 sys_util_h_times_e::
+   0D1B 16 00         [ 7]   56   ld d,#0
+   0D1D 6A            [ 4]   57   ld l,d
+   0D1E CB 24         [ 8]   58   sla h 
+   0D20 30 01         [12]   59   jr nc,.+3 
+   0D22 6B            [ 4]   60   ld l,e
+   0D23 29            [11]   61   add hl,hl 
+   0D24 30 01         [12]   62   jr nc,.+3 
+   0D26 19            [11]   63   add hl,de
+   0D27 29            [11]   64   add hl,hl 
+   0D28 30 01         [12]   65   jr nc,.+3 
+   0D2A 19            [11]   66   add hl,de
+   0D2B 29            [11]   67   add hl,hl 
+   0D2C 30 01         [12]   68   jr nc,.+3 
+   0D2E 19            [11]   69   add hl,de
+   0D2F 29            [11]   70   add hl,hl 
+   0D30 30 01         [12]   71   jr nc,.+3 
+   0D32 19            [11]   72   add hl,de
+   0D33 29            [11]   73   add hl,hl 
+   0D34 30 01         [12]   74   jr nc,.+3 
+   0D36 19            [11]   75   add hl,de
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 13.
 Hexadecimal [16-Bits]
 
 
 
-   0C52 29            [11]   76   add hl,hl 
-   0C53 30 01         [12]   77   jr nc,.+3 
-   0C55 19            [11]   78   add hl,de
-   0C56 29            [11]   79   add hl,hl 
-   0C57 D0            [11]   80   ret nc 
-   0C58 19            [11]   81   add hl,de
-   0C59 C9            [10]   82   ret
+   0D37 29            [11]   76   add hl,hl 
+   0D38 30 01         [12]   77   jr nc,.+3 
+   0D3A 19            [11]   78   add hl,de
+   0D3B 29            [11]   79   add hl,hl 
+   0D3C D0            [11]   80   ret nc 
+   0D3D 19            [11]   81   add hl,de
+   0D3E C9            [10]   82   ret
                              83 
                              84 ;;-----------------------------------------------------------------;; 
                              85 ;;  sys_util_hl_div_c
@@ -620,17 +624,17 @@ Hexadecimal [16-Bits]
                              94 ;;     DE is not changed
                              95 ;;     HL is the quotient
                              96 ;;
-   0C5A                      97 sys_util_hl_div_c::
-   0C5A 06 10         [ 7]   98        ld b,#16
-   0C5C AF            [ 4]   99        xor a
-   0C5D 29            [11]  100          add hl,hl
-   0C5E 17            [ 4]  101          rla
-   0C5F B9            [ 4]  102          cp c
-   0C60 38 02         [12]  103          jr c,.+4
-   0C62 2C            [ 4]  104            inc l
-   0C63 91            [ 4]  105            sub c
-   0C64 10 F7         [13]  106          djnz .-7
-   0C66 C9            [10]  107        ret
+   0D3F                      97 sys_util_hl_div_c::
+   0D3F 06 10         [ 7]   98        ld b,#16
+   0D41 AF            [ 4]   99        xor a
+   0D42 29            [11]  100          add hl,hl
+   0D43 17            [ 4]  101          rla
+   0D44 B9            [ 4]  102          cp c
+   0D45 38 02         [12]  103          jr c,.+4
+   0D47 2C            [ 4]  104            inc l
+   0D48 91            [ 4]  105            sub c
+   0D49 10 F7         [13]  106          djnz .-7
+   0D4B C9            [10]  107        ret
                             108 
                             109 ;;-----------------------------------------------------------------
                             110 ;;
@@ -643,16 +647,16 @@ Hexadecimal [16-Bits]
                             117 ;;
                             118 ;;  Cemetech code (https://learn.cemetech.net/index.php?title=Z80:Math_Routines#absHL)
                             119 ;;
-   0C67                     120 sys_util_absHL::
-   0C67 CB 7C         [ 8]  121   bit #7,h
-   0C69 C8            [11]  122   ret z
-   0C6A AF            [ 4]  123   xor a
-   0C6B 95            [ 4]  124   sub l
-   0C6C 6F            [ 4]  125   ld l,a
-   0C6D 9F            [ 4]  126   sbc a,a
-   0C6E 94            [ 4]  127   sub h
-   0C6F 67            [ 4]  128   ld h,a
-   0C70 C9            [10]  129   ret
+   0D4C                     120 sys_util_absHL::
+   0D4C CB 7C         [ 8]  121   bit #7,h
+   0D4E C8            [11]  122   ret z
+   0D4F AF            [ 4]  123   xor a
+   0D50 95            [ 4]  124   sub l
+   0D51 6F            [ 4]  125   ld l,a
+   0D52 9F            [ 4]  126   sbc a,a
+   0D53 94            [ 4]  127   sub h
+   0D54 67            [ 4]  128   ld h,a
+   0D55 C9            [10]  129   ret
                             130 
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 14.
 Hexadecimal [16-Bits]
@@ -672,19 +676,19 @@ Hexadecimal [16-Bits]
                             141 ;;
                             142 ;;  Chibi Akumas BCD code (https://www.chibiakumas.com/z80/advanced.php#LessonA1)
                             143 ;;
-   0C71                     144 sys_util_BCD_GetEnd::
+   0D56                     144 sys_util_BCD_GetEnd::
                             145 ;Some of our commands need to start from the most significant byte
                             146 ;This will shift HL and DE along b bytes
-   0C71 C5            [11]  147 	push bc
-   0C72 48            [ 4]  148 	ld c,b	;We want to add BC, but we need to add one less than the number of bytes
-   0C73 0D            [ 4]  149 	dec c
-   0C74 06 00         [ 7]  150 	ld b,#0
-   0C76 09            [11]  151 	add hl,bc
-   0C77 EB            [ 4]  152 	ex de, hl	;We've done HL, but we also want to do DE
-   0C78 09            [11]  153 	add hl,bc
-   0C79 EB            [ 4]  154 	ex de, hl
-   0C7A C1            [10]  155 	pop bc
-   0C7B C9            [10]  156 	ret
+   0D56 C5            [11]  147 	push bc
+   0D57 48            [ 4]  148 	ld c,b	;We want to add BC, but we need to add one less than the number of bytes
+   0D58 0D            [ 4]  149 	dec c
+   0D59 06 00         [ 7]  150 	ld b,#0
+   0D5B 09            [11]  151 	add hl,bc
+   0D5C EB            [ 4]  152 	ex de, hl	;We've done HL, but we also want to do DE
+   0D5D 09            [11]  153 	add hl,bc
+   0D5E EB            [ 4]  154 	ex de, hl
+   0D5F C1            [10]  155 	pop bc
+   0D60 C9            [10]  156 	ret
                             157 
                             158 ;;-----------------------------------------------------------------
                             159 ;;
@@ -698,17 +702,17 @@ Hexadecimal [16-Bits]
                             167 ;;
                             168 ;;  Chibi Akumas BCD code (https://www.chibiakumas.com/z80/advanced.php#LessonA1)
                             169 ;;
-   0C7C                     170 sys_util_BCD_Add::
-   0C7C B7            [ 4]  171     or a
-   0C7D                     172 BCD_Add_Again:
-   0C7D 1A            [ 7]  173     ld a, (de)
-   0C7E 8E            [ 7]  174     adc (hl)
-   0C7F 27            [ 4]  175     daa
-   0C80 12            [ 7]  176     ld (de), a
-   0C81 13            [ 6]  177     inc de
-   0C82 23            [ 6]  178     inc hl
-   0C83 10 F8         [13]  179     djnz BCD_Add_Again
-   0C85 C9            [10]  180     ret
+   0D61                     170 sys_util_BCD_Add::
+   0D61 B7            [ 4]  171     or a
+   0D62                     172 BCD_Add_Again:
+   0D62 1A            [ 7]  173     ld a, (de)
+   0D63 8E            [ 7]  174     adc (hl)
+   0D64 27            [ 4]  175     daa
+   0D65 12            [ 7]  176     ld (de), a
+   0D66 13            [ 6]  177     inc de
+   0D67 23            [ 6]  178     inc hl
+   0D68 10 F8         [13]  179     djnz BCD_Add_Again
+   0D6A C9            [10]  180     ret
                             181   
                             182 ;;-----------------------------------------------------------------
                             183 ;;
@@ -727,19 +731,19 @@ Hexadecimal [16-Bits]
                             191 ;;
                             192 ;;  Chibi Akumas BCD code (https://www.chibiakumas.com/z80/advanced.php#LessonA1)
                             193 ;;
-   0C86                     194 sys_util_BCD_Compare::
-   0C86 06 04         [ 7]  195   ld b, #SCORE_NUM_BYTES
-   0C88 CD 71 0C      [17]  196   call sys_util_BCD_GetEnd
-   0C8B                     197 BCD_cp_direct:
-   0C8B 1A            [ 7]  198   ld a, (de)
-   0C8C BE            [ 7]  199   cp (hl)
-   0C8D D8            [11]  200   ret c
-   0C8E C0            [11]  201   ret nz
-   0C8F 1B            [ 6]  202   dec de
-   0C90 2B            [ 6]  203   dec hl
-   0C91 10 F8         [13]  204   djnz BCD_cp_direct
-   0C93 B7            [ 4]  205   or a                    ;; Clear carry
-   0C94 C9            [10]  206   ret
+   0D6B                     194 sys_util_BCD_Compare::
+   0D6B 06 04         [ 7]  195   ld b, #SCORE_NUM_BYTES
+   0D6D CD 56 0D      [17]  196   call sys_util_BCD_GetEnd
+   0D70                     197 BCD_cp_direct:
+   0D70 1A            [ 7]  198   ld a, (de)
+   0D71 BE            [ 7]  199   cp (hl)
+   0D72 D8            [11]  200   ret c
+   0D73 C0            [11]  201   ret nz
+   0D74 1B            [ 6]  202   dec de
+   0D75 2B            [ 6]  203   dec hl
+   0D76 10 F8         [13]  204   djnz BCD_cp_direct
+   0D78 B7            [ 4]  205   or a                    ;; Clear carry
+   0D79 C9            [10]  206   ret
                             207 
                             208 ;;-----------------------------------------------------------------
                             209 ;;
@@ -750,21 +754,21 @@ Hexadecimal [16-Bits]
                             214 ;;  Output: a: random number
                             215 ;;  Destroyed: af, bc,de, hl
                             216 
-   0C95                     217 sys_util_get_random_number::
-   0C95 32 9F 0C      [13]  218   ld (#random_max_number), a
-   0C98 CD C7 22      [17]  219   call cpct_getRandom_mxor_u8_asm
-   0C9B 7D            [ 4]  220   ld a, l                             ;; Calculates a pseudo modulus of max number
-   0C9C 26 00         [ 7]  221   ld h,#0                             ;; Load hl with the random number
+   0D7A                     217 sys_util_get_random_number::
+   0D7A 32 84 0D      [13]  218   ld (#random_max_number), a
+   0D7D CD 8D 23      [17]  219   call cpct_getRandom_mxor_u8_asm
+   0D80 7D            [ 4]  220   ld a, l                             ;; Calculates a pseudo modulus of max number
+   0D81 26 00         [ 7]  221   ld h,#0                             ;; Load hl with the random number
                      0069   222 random_max_number = .+1
-   0C9E 0E 00         [ 7]  223   ld c, #0                            ;; Load c with the max number
-   0CA0 06 00         [ 7]  224   ld b, #0
-   0CA2                     225 _random_mod_loop:
-   0CA2 B7            [ 4]  226   or a                                ;; ??
-   0CA3 ED 42         [15]  227   sbc hl,bc                           ;; hl = hl - bc
-   0CA5 F2 A2 0C      [10]  228   jp p, _random_mod_loop              ;; Jump back if hl > 0
-   0CA8 09            [11]  229   add hl,bc                           ;; Adds MAX_MODEL_CARD to hl back to get back to positive values
-   0CA9 7D            [ 4]  230   ld a,l                              ;; loads the normalized random number in a
-   0CAA C9            [10]  231 ret
+   0D83 0E 00         [ 7]  223   ld c, #0                            ;; Load c with the max number
+   0D85 06 00         [ 7]  224   ld b, #0
+   0D87                     225 _random_mod_loop:
+   0D87 B7            [ 4]  226   or a                                ;; ??
+   0D88 ED 42         [15]  227   sbc hl,bc                           ;; hl = hl - bc
+   0D8A F2 87 0D      [10]  228   jp p, _random_mod_loop              ;; Jump back if hl > 0
+   0D8D 09            [11]  229   add hl,bc                           ;; Adds MAX_MODEL_CARD to hl back to get back to positive values
+   0D8E 7D            [ 4]  230   ld a,l                              ;; loads the normalized random number in a
+   0D8F C9            [10]  231 ret
                             232 
                             233 ;;-----------------------------------------------------------------
                             234 ;;
@@ -780,12 +784,12 @@ Hexadecimal [16-Bits]
 
 
                             241 ;;
-   0CAB                     242 sys_util_delay::
-   0CAB C5            [11]  243   push bc
-   0CAC CD 78 23      [17]  244   call cpct_waitVSYNCStart_asm
-   0CAF C1            [10]  245   pop bc
-   0CB0 10 F9         [13]  246   djnz sys_util_delay
-   0CB2 C9            [10]  247   ret
+   0D90                     242 sys_util_delay::
+   0D90 C5            [11]  243   push bc
+   0D91 CD 3E 24      [17]  244   call cpct_waitVSYNCStart_asm
+   0D94 C1            [10]  245   pop bc
+   0D95 10 F9         [13]  246   djnz sys_util_delay
+   0D97 C9            [10]  247   ret
                             248 
                             249 
                             250 ;;-----------------------------------------------------------------
@@ -794,11 +798,11 @@ Hexadecimal [16-Bits]
                             253 ;;  ouput: hl negated
                             254 ;;  destroys a
                             255 ;; WikiTI code (https://wikiti.brandonw.net/index.php?title=Z80_Routines:Math:Signed_Math)
-   0CB3                     256 sys_util_negHL::
-   0CB3 AF            [ 4]  257 	xor a
-   0CB4 95            [ 4]  258 	sub l
-   0CB5 6F            [ 4]  259 	ld l,a
-   0CB6 9F            [ 4]  260 	sbc a,a
-   0CB7 94            [ 4]  261 	sub h
-   0CB8 67            [ 4]  262 	ld h,a
-   0CB9 C9            [10]  263 	ret
+   0D98                     256 sys_util_negHL::
+   0D98 AF            [ 4]  257 	xor a
+   0D99 95            [ 4]  258 	sub l
+   0D9A 6F            [ 4]  259 	ld l,a
+   0D9B 9F            [ 4]  260 	sbc a,a
+   0D9C 94            [ 4]  261 	sub h
+   0D9D 67            [ 4]  262 	ld h,a
+   0D9E C9            [10]  263 	ret

@@ -74,18 +74,22 @@ sys_ai_paddle::
     ret nz                                         ;; otherwise return
     
     ld a, e_y(ix)                                  ;; check if the paddle is at the same y pos than the ball
-    sub #15                                        ;; compare with the middle of tha paddle
+    add #15                                        ;; compare with the middle of tha paddle
     ld b, e_y(iy)                                  ;;
     cp b                                           ;;
     ret z                                          ;; if so, return
 
     jr c, _sap_up                                  ;; if we are under, then go up
-    ld e_vy(ix), #0                                ;; otherwise set y speed down
-    ld e_vy+1(ix), #STEP_VERTICAL_SPEED    
+    ld e_vy(ix), #0xff                             ;; otherwise set y speed up
+    ld a, e_vy+1(ix)
+    add #(255 - STEP_VERTICAL_SPEED)
+    ld e_vy+1(ix), a
     ret    
 _sap_up:       
-    ld e_vy(ix), #0xff                               ;; otherwise set y speed up
-    ld e_vy+1(ix), #(255 - STEP_VERTICAL_SPEED)
+    ld e_vy(ix), #0                                ;; otherwise set y speed down
+    ld a, e_vy+1(ix)
+    add #STEP_VERTICAL_SPEED
+    ld e_vy+1(ix), a
 
     ret
 

@@ -55,58 +55,59 @@ Symbol Table
     Key_Slas=  4003     |     Key_Spac=  8005     |     Key_T   =  0806 
     Key_Tab =  1008     |     Key_U   =  0405     |     Key_V   =  8006 
     Key_W   =  0807     |     Key_X   =  8007     |     Key_Y   =  0805 
-    Key_Z   =  8008     |     MAX_ENTI=  000A     |     MAX_HORI=  FF00 
-    MAX_HORI=  0100     |     MAX_VERT=  FE00     |     MAX_VERT=  0200 
-    PAL_INKR=  0040     |     PAL_PENR=  0000     |     PPI_PORT=  00F5 
+    Key_Z   =  8008     |     MAX_ENTI=  000A     |     MAX_HORI=  0100 
+    MAX_HORI=  FF00     |     MAX_HORI=  0100     |     MAX_VERT=  FE00 
+    MAX_VERT=  0200     |     PAL_INKR=  0040     |     PAL_PENR=  0000 
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 2.
 Hexadecimal [16-Bits]
 
 Symbol Table
 
-    SCORE_NU=  0004     |     STEP_HOR=  0013     |     STEP_VER=  0026 
-    S_SMALL_=  0005     |     S_SMALL_=  0002     |     ZERO_KEY=  00FF 
-    _cpct_ke   **** GX  |     _g_palet   **** GX  |     _s_font_   **** GX
+    PPI_PORT=  00F5     |     SCORE_NU=  0004     |     STEP_HOR=  0016 
+    STEP_HOR=  0013     |     STEP_VER=  0026     |     S_SMALL_=  0005 
+    S_SMALL_=  0002     |     ZERO_KEY=  00FF     |     _cpct_ke   **** GX
+    _g_palet   **** GX  |     _s_font_   **** GX  |     _s_small   **** GX
     _s_small   **** GX  |     _s_small   **** GX  |     _s_small   **** GX
     _s_small   **** GX  |     _s_small   **** GX  |     _s_small   **** GX
     _s_small   **** GX  |     _s_small   **** GX  |     _s_small   **** GX
-    _s_small   **** GX  |     cpct_dis   **** GX  |     cpct_dra   **** GX
-    cpct_dra   **** GX  |     cpct_dra   **** GX  |     cpct_etm   **** GX
-    cpct_etm   **** GX  |     cpct_etm   **** GX  |     cpct_get   **** GX
-    cpct_get   **** GX  |     cpct_get   **** GX  |     cpct_get   **** GX
-    cpct_isA   **** GX  |     cpct_isK   **** GX  |     cpct_mem   **** GX
-    cpct_mem   **** GX  |     cpct_pag=  0000     |     cpct_pag=  0010 
-    cpct_pag=  0020     |     cpct_pag=  0030     |     cpct_px2   **** GX
-    cpct_sca   **** GX  |     cpct_sca   **** GX  |     cpct_set   **** GX
+    cpct_dis   **** GX  |     cpct_dra   **** GX  |     cpct_dra   **** GX
+    cpct_dra   **** GX  |     cpct_etm   **** GX  |     cpct_etm   **** GX
+    cpct_etm   **** GX  |     cpct_get   **** GX  |     cpct_get   **** GX
+    cpct_get   **** GX  |     cpct_get   **** GX  |     cpct_isA   **** GX
+    cpct_isK   **** GX  |     cpct_mem   **** GX  |     cpct_mem   **** GX
+    cpct_pag=  0000     |     cpct_pag=  0010     |     cpct_pag=  0020 
+    cpct_pag=  0030     |     cpct_px2   **** GX  |     cpct_sca   **** GX
+    cpct_sca   **** GX  |     cpct_set   **** GX  |     cpct_set   **** GX
     cpct_set   **** GX  |     cpct_set   **** GX  |     cpct_set   **** GX
-    cpct_set   **** GX  |     cpct_set   **** GX  |     cpct_set   **** GX
-    cpct_wai   **** GX  |     cpct_wai   **** GX  |     cpct_wai   **** GX
-    e_addres=  0015     |     e_ai_cal=  001D     |     e_ai_sta=  001C 
-    e_cmp   =  0000     |     e_cmpID_=  0002     |     e_cmpID_=  0003 
-    e_cmpID_=  0004     |     e_cmpID_=  0005     |     e_cmpID_=  0001 
-    e_cmpID_=  0000     |     e_cmpID_=  0006     |     e_cmp_ai=  0010 
-    e_cmp_al=  0001     |     e_cmp_an=  0020     |     e_cmp_bo=  0041 
-    e_cmp_co=  0040     |     e_cmp_co=  0080     |     e_cmp_in=  0008 
-    e_cmp_op=  0057     |     e_cmp_pa=  0047     |     e_cmp_ph=  0004 
-    e_cmp_re=  0002     |     e_cmps  =  0002     |     e_col_do=  0008 
-    e_col_le=  0001     |     e_col_nu=  0000     |     e_col_ri=  0002 
-    e_col_up=  0004     |     e_collis=  001A     |     e_collis=  0019 
-    e_color =  0004     |     e_cpm_ba=  0087     |     e_end_x =  000B 
-    e_end_y =  000C     |     e_h     =  000A     |     e_last_x=  000D 
-    e_last_y=  000E     |     e_moved =  001F     |     e_offset=  0020 
-    e_p_addr=  0017     |     e_ptr   =  0000     |     e_sprite=  0013 
-    e_type  =  0003     |     e_type_b=  0002     |     e_type_d=  0020 
-    e_type_d=  0000     |     e_type_i=  00FF     |     e_type_m=  0008 
-    e_type_p=  0001     |     e_type_s=  0010     |     e_type_w=  0004 
-    e_vx    =  000F     |     e_vy    =  0011     |     e_w     =  0009 
-    e_x     =  0005     |     e_y     =  0007     |     firmware=  0038 
-  0 int_hand   0013 R   |   0 int_hand   0021 R   |   0 int_hand   0032 R
-  0 int_hand   0040 R   |   0 int_hand   004E R   |   0 int_hand   0055 R
-  0 int_hand   005C R   |   1 nInterru   0000 GR  |     nullptr =  0000 
-    opc_DI  =  00F3     |     opc_EI  =  00FB     |     opc_JR  =  0018 
-    opc_LD_D=  0016     |   0 set_int_   0000 R   |     sizeof_e=  0020 
+    cpct_set   **** GX  |     cpct_set   **** GX  |     cpct_wai   **** GX
+    cpct_wai   **** GX  |     cpct_wai   **** GX  |     e_addres=  0015 
+    e_ai_cal=  001D     |     e_ai_sta=  001C     |     e_cmp   =  0000 
+    e_cmpID_=  0002     |     e_cmpID_=  0003     |     e_cmpID_=  0004 
+    e_cmpID_=  0005     |     e_cmpID_=  0001     |     e_cmpID_=  0000 
+    e_cmpID_=  0006     |     e_cmp_ai=  0010     |     e_cmp_al=  0001 
+    e_cmp_an=  0020     |     e_cmp_bo=  0043     |     e_cmp_co=  0040 
+    e_cmp_co=  0080     |     e_cmp_in=  0008     |     e_cmp_op=  0057 
+    e_cmp_pa=  0047     |     e_cmp_ph=  0004     |     e_cmp_re=  0002 
+    e_cmps  =  0002     |     e_col_do=  0008     |     e_col_le=  0001 
+    e_col_nu=  0000     |     e_col_ri=  0002     |     e_col_up=  0004 
+    e_collis=  001A     |     e_collis=  0019     |     e_color =  0004 
+    e_cpm_ba=  0087     |     e_end_x =  000B     |     e_end_y =  000C 
+    e_h     =  000A     |     e_last_x=  000D     |     e_last_y=  000E 
+    e_moved =  001F     |     e_offset=  0020     |     e_p_addr=  0017 
+    e_ptr   =  0000     |     e_sprite=  0013     |     e_type  =  0003 
+    e_type_b=  0002     |     e_type_d=  0020     |     e_type_d=  0000 
+    e_type_i=  00FF     |     e_type_m=  0008     |     e_type_p=  0001 
+    e_type_s=  0010     |     e_type_w=  0004     |     e_vx    =  000F 
+    e_vy    =  0011     |     e_w     =  0009     |     e_x     =  0005 
+    e_y     =  0007     |     firmware=  0038     |   0 int_hand   0013 R
+  0 int_hand   0021 R   |   0 int_hand   0032 R   |   0 int_hand   0040 R
+  0 int_hand   004E R   |   0 int_hand   0055 R   |   0 int_hand   005C R
+  1 nInterru   0000 GR  |     nullptr =  0000     |     opc_DI  =  00F3 
+    opc_EI  =  00FB     |     opc_JR  =  0018     |     opc_LD_D=  0016 
+  0 set_int_   0000 R   |     sizeof_e=  0020     |     sys_rend   **** GX
     sys_rend   **** GX  |     sys_rend   **** GX  |     sys_rend   **** GX
-    sys_rend   **** GX  |     sys_rend   **** GX  |     sys_rend   **** GX
-  0 sys_syst   0067 GR  |     transpar   **** GX
+    sys_rend   **** GX  |     sys_rend   **** GX  |   0 sys_syst   0067 GR
+    transpar   **** GX
 
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 3.
 Hexadecimal [16-Bits]

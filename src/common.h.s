@@ -85,6 +85,10 @@ STEP_VERTICAL_SPEED       = 0x0026
 MAX_VERTICAL_SPEED_POS    = 0x0200
 MAX_VERTICAL_SPEED_NEG    = 0xfe00
 
+STEP_HORIZONTAL_BALL_SPEED      = 0x0016
+MAX_HORIZONTAL_BALL_SPEED       = 0x0100
+
+
 MAX_ENTITIES = 10
 
 
@@ -119,7 +123,7 @@ e_cmp_collisionable = 0x80   ;;entidad que puede ser colisionada
 e_cmp_paddle = e_cmp_alive | e_cmp_render | e_cmp_physics | e_cmp_collider  ;;componente por defecto
 e_cmp_oponent_paddle = e_cmp_alive | e_cmp_render | e_cmp_physics | e_cmp_collider | e_cmp_ai ;;componente por defecto
 e_cpm_ball = e_cmp_alive | e_cmp_render | e_cmp_physics | e_cmp_collisionable
-e_cmp_border_wall = e_cmp_alive | e_cmp_collider
+e_cmp_border_wall = e_cmp_alive | e_cmp_collider | e_cmp_render
 
 ;;===============================================================================
 ;;COLISION TYPES

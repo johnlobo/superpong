@@ -1,12 +1,11 @@
 XL2
-H 2 areas 48 global symbols
-M ai_system
+H 1 areas 46 global symbols
+M ball_manager
 S cpct_setInterruptHandler_asm Ref0000
 S man_entity_forall_matching_iy Ref0000
 S cpct_getScreenToSprite_asm Ref0000
 S cpct_isKeyPressed_asm Ref0000
 S cpct_setPalette_asm Ref0000
-S man_components_removePtr Ref0000
 S man_entity_deleteEverythingExceptPlayer Ref0000
 S cpct_setPALColour_asm Ref0000
 S sys_util_h_times_e Ref0000
@@ -22,8 +21,8 @@ S cpct_etm_drawTileBox2x4_asm Ref0000
 S cpct_etm_drawTilemap4x8_ag_asm Ref0000
 S sys_util_hl_div_c Ref0000
 S man_entity_next_entity_iy Ref0000
-S man_components_getArrayHL Ref0000
 S _g_palette Ref0000
+S sys_physics_init Ref0000
 S _cpct_keyboardStatusBuffer Ref0000
 S man_entity_getPlayerPosition Ref0000
 S cpct_waitHalts_asm Ref0000
@@ -34,6 +33,7 @@ S cpct_setSeed_xsp40_u8_asm Ref0000
 S cpct_setVideoMemoryPage_asm Ref0000
 S cpct_memset_f64_asm Ref0000
 S sys_util_get_random_number Ref0000
+S sys_physics_update Ref0000
 S _s_small_numbers_00 Ref0000
 S _s_small_numbers_01 Ref0000
 S sys_util_absHL Ref0000
@@ -42,7 +42,6 @@ S _s_small_numbers_03 Ref0000
 S _s_small_numbers_04 Ref0000
 S _s_small_numbers_05 Ref0000
 S sys_util_negHL Ref0000
-S man_components_add Ref0000
 S _s_small_numbers_06 Ref0000
 S sys_util_delay Ref0000
 S _s_small_numbers_07 Ref0000
@@ -57,7 +56,6 @@ S cpct_px2byteM0_asm Ref0000
 S cpct_getRandom_xsp40_u8_asm Ref0000
 S cpct_memset_asm Ref0000
 S man_entity_getEntityArrayIX Ref0000
-S man_components_init Ref0000
 S man_entity_getEntityArrayIY Ref0000
 S _s_font_0 Ref0000
 S cpct_disableFirmware_asm Ref0000
@@ -65,43 +63,64 @@ S sys_util_BCD_GetEnd Ref0000
 S cpct_getRandom_mxor_u8_asm Ref0000
 S cpct_drawSolidBox_asm Ref0000
 S cpct_drawSpriteBlended_asm Ref0000
-S man_components_getComponentPtrHL Ref0000
 S cpct_etm_setDrawTilemap4x8_ag_asm Ref0000
 S cpct_waitVSYNCStart_asm Ref0000
 S cpct_scanKeyboard_asm Ref0000
 S cpct_getScreenPtr_asm Ref0000
-A _CODE size 56 flags 0 addr 0
-S sys_ai_paddle Def0009
-S sys_ai_init Def0000
-S sys_ai_update Def0038
-A _DATA size 0 flags 0 addr 0
+A _CODE size A0 flags 0 addr 0
+S man_ball_reverse_hor_speed Def0000
+S man_ball_reverse_ver_speed Def0017
+S man_ball_increase_hor_speed Def002E
+S man_ball_set_ver_speed Def0059
 T 00 00
 R 00 00 00 00
-T 00 00 3E 02 CD 00 00 22 39 00 C9
-R 00 00 00 00 02 05 15 00 00 08 00 00
-T 09 00
+T 00 00 FD E5 CD 00 00 FD 66 0F FD 6E 10 CD 00 00
+R 00 00 00 00 02 05 08 00 02 0E 28 00
+T 0E 00 FD 74 0F FD 75 10 FD E1 C9
 R 00 00 00 00
-T 09 00 CD 00 00 FD 7E 0F CB 7F C0 DD 7E 07 C6 0F
-R 00 00 00 00 02 03 09 00
-T 17 00 FD 46 07 B8 C8 38 0D DD 36 11 FF DD 7E 12
+T 17 00
 R 00 00 00 00
-T 25 00 C6 D9 DD 77 12 C9
+T 17 00 FD E5 CD 00 00 FD 66 11 FD 6E 12 CD 00 00
+R 00 00 00 00 02 05 08 00 02 0E 28 00
+T 25 00 FD 74 11 FD 75 12 FD E1 C9
 R 00 00 00 00
-T 2B 00
+T 2E 00
 R 00 00 00 00
-T 2B 00 DD 36 11 00 DD 7E 12 C6 26 DD 77 12 C9
+T 2E 00 FD 66 0F FD 6E 10 CD 00 00 01 16 00 09 01
+R 00 00 00 00 02 09 23 00
+T 3C 00 00 01 E5 B7 ED 42 E1 38 03 21 00 01
 R 00 00 00 00
-T 38 00
+T 48 00
 R 00 00 00 00
-T 38 00 21 00 00
-R 00 00 00 00
-T 3B 00
-R 00 00 00 00
-T 3B 00 5E 23 56 23 7B B2 C8 E5 DD 6B DD 62 DD 6E
-R 00 00 00 00
-T 49 00 1D DD 66 1E 01 52 00 C5 E9
-R 00 00 00 00 00 07 00 00
+T 48 00 FD 46 0F CB 78 28 03 CD 00 00
+R 00 00 00 00 02 0A 28 00
 T 52 00
 R 00 00 00 00
-T 52 00 E1 18 E6 C9
+T 52 00 FD 74 0F FD 75 10 C9
+R 00 00 00 00
+T 59 00
+R 00 00 00 00
+T 59 00 FD E5 CD 00 00 B7 20 0A FD 36 11 FF FD 36
+R 00 00 00 00 02 05 08 00
+T 67 00 12 E0 18 32
+R 00 00 00 00
+T 6B 00
+R 00 00 00 00
+T 6B 00 FE 01 20 0A FD 36 11 FF FD 36 12 F0 18 24
+R 00 00 00 00
+T 79 00
+R 00 00 00 00
+T 79 00 FE 02 20 0A FD 36 11 00 FD 36 12 00 18 16
+R 00 00 00 00
+T 87 00
+R 00 00 00 00
+T 87 00 FE 03 20 0A FD 36 11 00 FD 36 12 16 18 08
+R 00 00 00 00
+T 95 00
+R 00 00 00 00
+T 95 00 FD 36 11 00 FD 36 12 32
+R 00 00 00 00
+T 9D 00
+R 00 00 00 00
+T 9D 00 FD E1 C9
 R 00 00 00 00

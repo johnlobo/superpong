@@ -19,6 +19,8 @@ obj/man/fight.h.rel
 obj/man/game.h.rel
 obj/man/components.rel
 obj/man/array.rel
+obj/man/ball.h.rel
+obj/man/ball.rel
 obj/man/entities.h.rel
 obj/man/array.h.rel
 obj/man/components.h.rel

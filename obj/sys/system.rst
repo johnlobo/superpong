@@ -410,184 +410,188 @@ Hexadecimal [16-Bits]
                      0200    85 MAX_VERTICAL_SPEED_POS    = 0x0200
                      FE00    86 MAX_VERTICAL_SPEED_NEG    = 0xfe00
                              87 
-                     000A    88 MAX_ENTITIES = 10
-                             89 
+                     0016    88 STEP_HORIZONTAL_BALL_SPEED      = 0x0016
+                     0100    89 MAX_HORIZONTAL_BALL_SPEED       = 0x0100
                              90 
-                     0000    91 nullptr = 0x0000
-                             92 
-                             93 ;;==============================================================================================================================
-                             94 ;;==============================================================================================================================
-                             95 ;;  ENTITY TYPE MASKS AND BITS
-                             96 ;;==============================================================================================================================
+                             91 
+                     000A    92 MAX_ENTITIES = 10
+                             93 
+                             94 
+                     0000    95 nullptr = 0x0000
+                             96 
                              97 ;;==============================================================================================================================
-                     0000    98 e_type_default              = 0x00
-                     0001    99 e_type_player               = 0x01
-                     0002   100 e_type_ball                 = 0x02
-                     0004   101 e_type_wall                 = 0x04
-                     0008   102 e_type_mob                  = 0x08
-                     0010   103 e_type_shield               = 0x10
-                     0020   104 e_type_dead                 = 0x20
-                     00FF   105 e_type_invalid              = 0xff
-                            106 
-                            107 ;;===============================================================================
-                            108 ;;COMPONENT TYPES
-                            109 ;;===============================================================================
-                     0000   110 e_cmp          = 0
-                     0001   111 e_cmp_alive    = 0x01   ;;entidad renderizable
-                     0002   112 e_cmp_render   = 0x02   ;;entidad renderizable
-                     0004   113 e_cmp_physics  = 0x04   ;;entidad que se puede mover
-                     0008   114 e_cmp_input    = 0x08   ;;entidad controlable por input  
-                     0010   115 e_cmp_ai       = 0x10   ;;entidad controlable con ia
-                     0020   116 e_cmp_animated = 0x20   ;;entidad animada
-                     0040   117 e_cmp_collider = 0x40   ;;entidad que puede colisionar
-                     0080   118 e_cmp_collisionable = 0x80   ;;entidad que puede ser colisionada
-                     0047   119 e_cmp_paddle = e_cmp_alive | e_cmp_render | e_cmp_physics | e_cmp_collider  ;;componente por defecto
-                     0057   120 e_cmp_oponent_paddle = e_cmp_alive | e_cmp_render | e_cmp_physics | e_cmp_collider | e_cmp_ai ;;componente por defecto
-                     0087   121 e_cpm_ball = e_cmp_alive | e_cmp_render | e_cmp_physics | e_cmp_collisionable
-                     0041   122 e_cmp_border_wall = e_cmp_alive | e_cmp_collider
-                            123 
-                            124 ;;===============================================================================
-                            125 ;;COLISION TYPES
-                            126 ;;===============================================================================
-                     0000   127 e_col_null = 0
+                             98 ;;==============================================================================================================================
+                             99 ;;  ENTITY TYPE MASKS AND BITS
+                            100 ;;==============================================================================================================================
+                            101 ;;==============================================================================================================================
+                     0000   102 e_type_default              = 0x00
+                     0001   103 e_type_player               = 0x01
+                     0002   104 e_type_ball                 = 0x02
+                     0004   105 e_type_wall                 = 0x04
+                     0008   106 e_type_mob                  = 0x08
+                     0010   107 e_type_shield               = 0x10
+                     0020   108 e_type_dead                 = 0x20
+                     00FF   109 e_type_invalid              = 0xff
+                            110 
+                            111 ;;===============================================================================
+                            112 ;;COMPONENT TYPES
+                            113 ;;===============================================================================
+                     0000   114 e_cmp          = 0
+                     0001   115 e_cmp_alive    = 0x01   ;;entidad renderizable
+                     0002   116 e_cmp_render   = 0x02   ;;entidad renderizable
+                     0004   117 e_cmp_physics  = 0x04   ;;entidad que se puede mover
+                     0008   118 e_cmp_input    = 0x08   ;;entidad controlable por input  
+                     0010   119 e_cmp_ai       = 0x10   ;;entidad controlable con ia
+                     0020   120 e_cmp_animated = 0x20   ;;entidad animada
+                     0040   121 e_cmp_collider = 0x40   ;;entidad que puede colisionar
+                     0080   122 e_cmp_collisionable = 0x80   ;;entidad que puede ser colisionada
+                     0047   123 e_cmp_paddle = e_cmp_alive | e_cmp_render | e_cmp_physics | e_cmp_collider  ;;componente por defecto
+                     0057   124 e_cmp_oponent_paddle = e_cmp_alive | e_cmp_render | e_cmp_physics | e_cmp_collider | e_cmp_ai ;;componente por defecto
+                     0087   125 e_cpm_ball = e_cmp_alive | e_cmp_render | e_cmp_physics | e_cmp_collisionable
+                     0043   126 e_cmp_border_wall = e_cmp_alive | e_cmp_collider | e_cmp_render
+                            127 
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 10.
 Hexadecimal [16-Bits]
 
 
 
-                     0001   128 e_col_left  = 0x01
-                     0002   129 e_col_right = 0x02
-                     0004   130 e_col_up    = 0x04
-                     0008   131 e_col_down  = 0x08
-                            132 
-                            133 ;;===============================================================================
-                            134 ;; Entity Component IDs
-                            135 ;;===============================================================================
-   0000                     136 DefEnum e_cmpID
+                            128 ;;===============================================================================
+                            129 ;;COLISION TYPES
+                            130 ;;===============================================================================
+                     0000   131 e_col_null = 0
+                     0001   132 e_col_left  = 0x01
+                     0002   133 e_col_right = 0x02
+                     0004   134 e_col_up    = 0x04
+                     0008   135 e_col_down  = 0x08
+                            136 
+                            137 ;;===============================================================================
+                            138 ;; Entity Component IDs
+                            139 ;;===============================================================================
+   0000                     140 DefEnum e_cmpID
                      0000     1     e_cmpID_offset = 0
-   0000                     137 Enum e_cmpID Render
+   0000                     141 Enum e_cmpID Render
                      0000     1     e_cmpID_Render = e_cmpID_offset
                      0001     2     e_cmpID_offset = e_cmpID_offset + 1
-   0000                     138 Enum e_cmpID Physics
+   0000                     142 Enum e_cmpID Physics
                      0001     1     e_cmpID_Physics = e_cmpID_offset
                      0002     2     e_cmpID_offset = e_cmpID_offset + 1
-   0000                     139 Enum e_cmpID AI
+   0000                     143 Enum e_cmpID AI
                      0002     1     e_cmpID_AI = e_cmpID_offset
                      0003     2     e_cmpID_offset = e_cmpID_offset + 1
-   0000                     140 Enum e_cmpID Animation
+   0000                     144 Enum e_cmpID Animation
                      0003     1     e_cmpID_Animation = e_cmpID_offset
                      0004     2     e_cmpID_offset = e_cmpID_offset + 1
-   0000                     141 Enum e_cmpID Collision
+   0000                     145 Enum e_cmpID Collision
                      0004     1     e_cmpID_Collision = e_cmpID_offset
                      0005     2     e_cmpID_offset = e_cmpID_offset + 1
-   0000                     142 Enum e_cmpID Num_Components
+   0000                     146 Enum e_cmpID Num_Components
                      0005     1     e_cmpID_Num_Components = e_cmpID_offset
                      0006     2     e_cmpID_offset = e_cmpID_offset + 1
-                            143 
-                            144 
-                            145 
-                            146 ;; Keyboard constants
-                     000A   147 BUFFER_SIZE = 10
-                     00FF   148 ZERO_KEYS_ACTIVATED = #0xFF
+                            147 
+                            148 
                             149 
-                            150 ;; Score constants
-                     0004   151 SCORE_NUM_BYTES = 4
-                            152 
-                            153 ;; SMALL NUMBERS CONSTANTS
-                     0002   154 S_SMALL_NUMBERS_WIDTH = 2
-                     0005   155 S_SMALL_NUMBERS_HEIGHT = 5
-                            156 ;; Font constants
-                     0002   157 FONT_WIDTH = 2
-                     0009   158 FONT_HEIGHT = 9
-                            159 
-                            160 
-                            161 ;;===============================================================================
-                            162 ;; ENTITIY SCTRUCTURE CREATION
-                            163 ;;===============================================================================
-   0000                     164 BeginStruct e
+                            150 ;; Keyboard constants
+                     000A   151 BUFFER_SIZE = 10
+                     00FF   152 ZERO_KEYS_ACTIVATED = #0xFF
+                            153 
+                            154 ;; Score constants
+                     0004   155 SCORE_NUM_BYTES = 4
+                            156 
+                            157 ;; SMALL NUMBERS CONSTANTS
+                     0002   158 S_SMALL_NUMBERS_WIDTH = 2
+                     0005   159 S_SMALL_NUMBERS_HEIGHT = 5
+                            160 ;; Font constants
+                     0002   161 FONT_WIDTH = 2
+                     0009   162 FONT_HEIGHT = 9
+                            163 
+                            164 
+                            165 ;;===============================================================================
+                            166 ;; ENTITIY SCTRUCTURE CREATION
+                            167 ;;===============================================================================
+   0000                     168 BeginStruct e
                      0000     1     e_offset = 0
-   0000                     165 Field e, ptr                , 2
-                     0000     1     e_ptr = e_offset
-                     0002     2     e_offset = e_offset + 2
-   0000                     166 Field e, cmps               , 1
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 11.
 Hexadecimal [16-Bits]
 
 
 
+   0000                     169 Field e, ptr                , 2
+                     0000     1     e_ptr = e_offset
+                     0002     2     e_offset = e_offset + 2
+   0000                     170 Field e, cmps               , 1
                      0002     1     e_cmps = e_offset
                      0003     2     e_offset = e_offset + 1
-   0000                     167 Field e, type               , 1
+   0000                     171 Field e, type               , 1
                      0003     1     e_type = e_offset
                      0004     2     e_offset = e_offset + 1
-   0000                     168 Field e, color              , 1
+   0000                     172 Field e, color              , 1
                      0004     1     e_color = e_offset
                      0005     2     e_offset = e_offset + 1
-   0000                     169 Field e, x                  , 2
+   0000                     173 Field e, x                  , 2
                      0005     1     e_x = e_offset
                      0007     2     e_offset = e_offset + 2
-   0000                     170 Field e, y                  , 2
+   0000                     174 Field e, y                  , 2
                      0007     1     e_y = e_offset
                      0009     2     e_offset = e_offset + 2
-   0000                     171 Field e, w                  , 1
+   0000                     175 Field e, w                  , 1
                      0009     1     e_w = e_offset
                      000A     2     e_offset = e_offset + 1
-   0000                     172 Field e, h                  , 1
+   0000                     176 Field e, h                  , 1
                      000A     1     e_h = e_offset
                      000B     2     e_offset = e_offset + 1
-   0000                     173 Field e, end_x              , 1
+   0000                     177 Field e, end_x              , 1
                      000B     1     e_end_x = e_offset
                      000C     2     e_offset = e_offset + 1
-   0000                     174 Field e, end_y              , 1
+   0000                     178 Field e, end_y              , 1
                      000C     1     e_end_y = e_offset
                      000D     2     e_offset = e_offset + 1
-   0000                     175 Field e, last_x             , 1
+   0000                     179 Field e, last_x             , 1
                      000D     1     e_last_x = e_offset
                      000E     2     e_offset = e_offset + 1
-   0000                     176 Field e, last_y             , 1
+   0000                     180 Field e, last_y             , 1
                      000E     1     e_last_y = e_offset
                      000F     2     e_offset = e_offset + 1
-   0000                     177 Field e, vx                 , 2
+   0000                     181 Field e, vx                 , 2
                      000F     1     e_vx = e_offset
                      0011     2     e_offset = e_offset + 2
-   0000                     178 Field e, vy                 , 2
+   0000                     182 Field e, vy                 , 2
                      0011     1     e_vy = e_offset
                      0013     2     e_offset = e_offset + 2
-   0000                     179 Field e, sprite             , 2
+   0000                     183 Field e, sprite             , 2
                      0013     1     e_sprite = e_offset
                      0015     2     e_offset = e_offset + 2
-   0000                     180 Field e, address            , 2
+   0000                     184 Field e, address            , 2
                      0015     1     e_address = e_offset
                      0017     2     e_offset = e_offset + 2
-   0000                     181 Field e, p_address          , 2
+   0000                     185 Field e, p_address          , 2
                      0017     1     e_p_address = e_offset
                      0019     2     e_offset = e_offset + 2
-   0000                     182 Field e, collision_status   , 1
+   0000                     186 Field e, collision_status   , 1
                      0019     1     e_collision_status = e_offset
                      001A     2     e_offset = e_offset + 1
-   0000                     183 Field e, collision_callback , 2
-                     001A     1     e_collision_callback = e_offset
-                     001C     2     e_offset = e_offset + 2
-   0000                     184 Field e, ai_status          , 1
-                     001C     1     e_ai_status = e_offset
+   0000                     187 Field e, collision_callback , 2
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 12.
 Hexadecimal [16-Bits]
 
 
 
+                     001A     1     e_collision_callback = e_offset
+                     001C     2     e_offset = e_offset + 2
+   0000                     188 Field e, ai_status          , 1
+                     001C     1     e_ai_status = e_offset
                      001D     2     e_offset = e_offset + 1
-   0000                     185 Field e, ai_callback        , 2
+   0000                     189 Field e, ai_callback        , 2
                      001D     1     e_ai_callback = e_offset
                      001F     2     e_offset = e_offset + 2
-   0000                     186 Field e, moved              , 1
+   0000                     190 Field e, moved              , 1
                      001F     1     e_moved = e_offset
                      0020     2     e_offset = e_offset + 1
-   0000                     187 EndStruct e
+   0000                     191 EndStruct e
                      0020     1     sizeof_e = e_offset
-                            188 
-                            189 ;;===============================================================================
-                            190 ;; GLOBAL VARIABLES
-                            191 ;;===============================================================================
+                            192 
+                            193 ;;===============================================================================
+                            194 ;; GLOBAL VARIABLES
+                            195 ;;===============================================================================
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 13.
 Hexadecimal [16-Bits]
 
@@ -5629,7 +5633,7 @@ Hexadecimal [16-Bits]
                              29 ;;
                              30 .area _DATA
                              31 
-   2635 00                   32 nInterrupt:: .db 0
+   26FB 00                   32 nInterrupt:: .db 0
                              33 
                              34 ;;
                              35 ;; Start of _CODE area
@@ -5644,19 +5648,19 @@ Hexadecimal [16-Bits]
                              44 ;;
                              45 ;;DESTROYS: AF, BC, DE
                              46 ;;
-   1BBE                      47 set_int_handler:
-   1BBE 21 38 00      [10]   48 	ld hl, #0x38
-   1BC1 36 C3         [10]   49 	ld (hl), #0xc3
-   1BC3 23            [ 6]   50 	inc hl
-   1BC4 36 D1         [10]   51 	ld (hl), #<int_handler1
-   1BC6 23            [ 6]   52 	inc hl
-   1BC7 36 1B         [10]   53 	ld (hl), #>int_handler1
-   1BC9 23            [ 6]   54 	inc hl
-   1BCA 36 C9         [10]   55 	ld (hl), #0xc9
+   1CAB                      47 set_int_handler:
+   1CAB 21 38 00      [10]   48 	ld hl, #0x38
+   1CAE 36 C3         [10]   49 	ld (hl), #0xc3
+   1CB0 23            [ 6]   50 	inc hl
+   1CB1 36 BE         [10]   51 	ld (hl), #<int_handler1
+   1CB3 23            [ 6]   52 	inc hl
+   1CB4 36 1C         [10]   53 	ld (hl), #>int_handler1
+   1CB6 23            [ 6]   54 	inc hl
+   1CB7 36 C9         [10]   55 	ld (hl), #0xc9
    000E                      56    m_reset_nInterrupt                           ;; reset number of interruption
-   1BCC AF            [ 4]    1     xor a
-   1BCD 32 35 26      [13]    2     ld (nInterrupt), a 
-   1BD0 C9            [10]   57 	ret
+   1CB9 AF            [ 4]    1     xor a
+   1CBA 32 FB 26      [13]    2     ld (nInterrupt), a 
+   1CBD C9            [10]   57 	ret
                              58 
                              59 
                              60 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -5665,15 +5669,15 @@ Hexadecimal [16-Bits]
                              63 ;;
                              64 ;;DESTROYS: AF, BC, DE
                              65 ;;
-   1BD1                      66 int_handler1:
+   1CBE                      66 int_handler1:
                              67    ;;cpctm_setBorder_asm HW_WHITE
    0013                      68    m_inc_nInterrupt                                ;;increment the number of interruption
-   1BD1 3A 35 26      [13]    1     ld a, (nInterrupt)
-   1BD4 3C            [ 4]    2     inc a
-   1BD5 32 35 26      [13]    3     ld (nInterrupt), a 
-   1BD8 21 DF 1B      [10]   69 	ld hl, #int_handler2
-   1BDB CD 7B 1E      [17]   70  	call cpct_setInterruptHandler_asm	
-   1BDE C9            [10]   71 	ret
+   1CBE 3A FB 26      [13]    1     ld a, (nInterrupt)
+   1CC1 3C            [ 4]    2     inc a
+   1CC2 32 FB 26      [13]    3     ld (nInterrupt), a 
+   1CC5 21 CC 1C      [10]   69 	ld hl, #int_handler2
+   1CC8 CD 41 1F      [17]   70  	call cpct_setInterruptHandler_asm	
+   1CCB C9            [10]   71 	ret
                              72 
                              73 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
                              74 ;;DESCRIPTION
@@ -5686,20 +5690,20 @@ Hexadecimal [16-Bits]
                              76 ;;
                              77 ;;DESTROYS: AF, BC, DE
                              78 ;;
-   1BDF                      79 int_handler2:
+   1CCC                      79 int_handler2:
                              80    ;;cpctm_setBorder_asm HW_RED
                              81 
    0021                      82    m_inc_nInterrupt                                ;;increment the number of interruption
-   1BDF 3A 35 26      [13]    1     ld a, (nInterrupt)
-   1BE2 3C            [ 4]    2     inc a
-   1BE3 32 35 26      [13]    3     ld (nInterrupt), a 
+   1CCC 3A FB 26      [13]    1     ld a, (nInterrupt)
+   1CCF 3C            [ 4]    2     inc a
+   1CD0 32 FB 26      [13]    3     ld (nInterrupt), a 
                              83 
-   1BE6 CD 75 21      [17]   84 	call cpct_scanKeyboard_if_asm
+   1CD3 CD 3B 22      [17]   84 	call cpct_scanKeyboard_if_asm
                              85 
                              86 
-   1BE9 21 F0 1B      [10]   87 	ld hl, #int_handler3
-   1BEC CD 7B 1E      [17]   88    call cpct_setInterruptHandler_asm
-   1BEF C9            [10]   89 	ret
+   1CD6 21 DD 1C      [10]   87 	ld hl, #int_handler3
+   1CD9 CD 41 1F      [17]   88    call cpct_setInterruptHandler_asm
+   1CDC C9            [10]   89 	ret
                              90 
                              91 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
                              92 ;;DESCRIPTION
@@ -5707,17 +5711,17 @@ Hexadecimal [16-Bits]
                              94 ;;
                              95 ;;DESTROYS: AF, BC, DE
                              96 ;;
-   1BF0                      97 int_handler3:
+   1CDD                      97 int_handler3:
                              98    ;;cpctm_setBorder_asm HW_GREEN
                              99 
    0032                     100    m_inc_nInterrupt                                ;;increment the number of interruption
-   1BF0 3A 35 26      [13]    1     ld a, (nInterrupt)
-   1BF3 3C            [ 4]    2     inc a
-   1BF4 32 35 26      [13]    3     ld (nInterrupt), a 
+   1CDD 3A FB 26      [13]    1     ld a, (nInterrupt)
+   1CE0 3C            [ 4]    2     inc a
+   1CE1 32 FB 26      [13]    3     ld (nInterrupt), a 
                             101 
-   1BF7 21 FE 1B      [10]  102 	ld hl, #int_handler4
-   1BFA CD 7B 1E      [17]  103    call cpct_setInterruptHandler_asm
-   1BFD C9            [10]  104 	ret
+   1CE4 21 EB 1C      [10]  102 	ld hl, #int_handler4
+   1CE7 CD 41 1F      [17]  103    call cpct_setInterruptHandler_asm
+   1CEA C9            [10]  104 	ret
                             105 
                             106 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
                             107 ;;DESCRIPTION
@@ -5725,17 +5729,17 @@ Hexadecimal [16-Bits]
                             109 ;;
                             110 ;;DESTROYS: AF, BC, DE
                             111 ;;
-   1BFE                     112 int_handler4:
+   1CEB                     112 int_handler4:
                             113    ;;cpctm_setBorder_asm HW_BLUE
                             114 
    0040                     115    m_inc_nInterrupt                                ;;increment the number of interruption
-   1BFE 3A 35 26      [13]    1     ld a, (nInterrupt)
-   1C01 3C            [ 4]    2     inc a
-   1C02 32 35 26      [13]    3     ld (nInterrupt), a 
+   1CEB 3A FB 26      [13]    1     ld a, (nInterrupt)
+   1CEE 3C            [ 4]    2     inc a
+   1CEF 32 FB 26      [13]    3     ld (nInterrupt), a 
                             116 
-   1C05 21 0C 1C      [10]  117 	ld hl, #int_handler5
-   1C08 CD 7B 1E      [17]  118    call cpct_setInterruptHandler_asm
-   1C0B C9            [10]  119 	ret
+   1CF2 21 F9 1C      [10]  117 	ld hl, #int_handler5
+   1CF5 CD 41 1F      [17]  118    call cpct_setInterruptHandler_asm
+   1CF8 C9            [10]  119 	ret
                             120 
                             121 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 109.
@@ -5748,13 +5752,13 @@ Hexadecimal [16-Bits]
                             124 ;;
                             125 ;;DESTROYS: AF, BC, DE
                             126 ;;
-   1C0C                     127 int_handler5:
+   1CF9                     127 int_handler5:
                             128    ;;cpctm_setBorder_asm HW_ORANGE
                             129 
    004E                     130    m_inc_nInterrupt
-   1C0C 3A 35 26      [13]    1     ld a, (nInterrupt)
-   1C0F 3C            [ 4]    2     inc a
-   1C10 32 35 26      [13]    3     ld (nInterrupt), a 
+   1CF9 3A FB 26      [13]    1     ld a, (nInterrupt)
+   1CFC 3C            [ 4]    2     inc a
+   1CFD 32 FB 26      [13]    3     ld (nInterrupt), a 
                             131 
                             132 ;;  ld a, (music_switch)
                             133 ;;  or a
@@ -5772,10 +5776,10 @@ Hexadecimal [16-Bits]
                             145 ;;  pop af
                             146 ;;  ex af', af  
                             147 ;;  exx
-   1C13                     148 int_handler5_exit:
-   1C13 21 1A 1C      [10]  149 	ld hl, #int_handler6
-   1C16 CD 7B 1E      [17]  150    call cpct_setInterruptHandler_asm
-   1C19 C9            [10]  151 	ret
+   1D00                     148 int_handler5_exit:
+   1D00 21 07 1D      [10]  149 	ld hl, #int_handler6
+   1D03 CD 41 1F      [17]  150    call cpct_setInterruptHandler_asm
+   1D06 C9            [10]  151 	ret
                             152 
                             153 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
                             154 ;;DESCRIPTION
@@ -5783,16 +5787,16 @@ Hexadecimal [16-Bits]
                             156 ;;
                             157 ;;DESTROYS: AF, BC, DE
                             158 ;;
-   1C1A                     159 int_handler6:
+   1D07                     159 int_handler6:
                             160    ;;cpctm_setBorder_asm HW_PURPLE
                             161 
    005C                     162    m_reset_nInterrupt
-   1C1A AF            [ 4]    1     xor a
-   1C1B 32 35 26      [13]    2     ld (nInterrupt), a 
+   1D07 AF            [ 4]    1     xor a
+   1D08 32 FB 26      [13]    2     ld (nInterrupt), a 
                             163 
-   1C1E 21 D1 1B      [10]  164 	ld hl, #int_handler1
-   1C21 CD 7B 1E      [17]  165    call cpct_setInterruptHandler_asm
-   1C24 C9            [10]  166 	ret
+   1D0B 21 BE 1C      [10]  164 	ld hl, #int_handler1
+   1D0E CD 41 1F      [17]  165    call cpct_setInterruptHandler_asm
+   1D11 C9            [10]  166 	ret
                             167 
                             168 
                             169 
@@ -5809,15 +5813,15 @@ Hexadecimal [16-Bits]
                             175 ;;  Output: 
                             176 ;;  Destroyed: af, bc,de, hl
                             177 ;;
-   1C25                     178 sys_system_disable_firmware::
-   1C25 CD 14 22      [17]  179    call cpct_disableFirmware_asm
-   1C28 21 D1 1B      [10]  180    ld hl, #int_handler1
-   1C2B CD EA 21      [17]  181    call cpct_waitVSYNC_asm
-   1C2E 76            [ 4]  182    halt
-   1C2F 76            [ 4]  183    halt
-   1C30 CD EA 21      [17]  184    call cpct_waitVSYNC_asm
-   1C33 CD 7B 1E      [17]  185    call cpct_setInterruptHandler_asm
+   1D12                     178 sys_system_disable_firmware::
+   1D12 CD DA 22      [17]  179    call cpct_disableFirmware_asm
+   1D15 21 BE 1C      [10]  180    ld hl, #int_handler1
+   1D18 CD B0 22      [17]  181    call cpct_waitVSYNC_asm
+   1D1B 76            [ 4]  182    halt
+   1D1C 76            [ 4]  183    halt
+   1D1D CD B0 22      [17]  184    call cpct_waitVSYNC_asm
+   1D20 CD 41 1F      [17]  185    call cpct_setInterruptHandler_asm
                             186    
-   1C36 C9            [10]  187    ret
+   1D23 C9            [10]  187    ret
                             188 
                             189 
