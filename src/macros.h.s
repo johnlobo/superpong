@@ -208,3 +208,10 @@
         .dw 0x0000
     .endm
 .endm
+
+;; WinAPE special BRK instruction
+;; - more info at http://www.winape.net/help/debug.html
+.mdelete BREAKPOINT
+.macro BREAKPOINT
+  .db #0xed, #0xff
+.endm

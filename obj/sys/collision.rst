@@ -238,6 +238,8 @@ Hexadecimal [16-Bits]
                              34 .globl sys_util_get_random_number
                              35 .globl sys_util_delay
                              36 .globl sys_util_negHL
+                             37 .globl sys_util_hl_divided_d
+                             38 .globl sys_util_sqr_hl
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 8.
 Hexadecimal [16-Bits]
 
@@ -491,6 +493,13 @@ Hexadecimal [16-Bits]
                             208         .dw 0x0000
                             209     .endm
                             210 .endm
+                            211 
+                            212 ;; WinAPE special BRK instruction
+                            213 ;; - more info at http://www.winape.net/help/debug.html
+                            214 .mdelete BREAKPOINT
+                            215 .macro BREAKPOINT
+                            216   .db #0xed, #0xff
+                            217 .endm
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 13.
 Hexadecimal [16-Bits]
 
@@ -628,7 +637,7 @@ Hexadecimal [16-Bits]
                             137 ;;===============================================================================
                             138 ;; Entity Component IDs
                             139 ;;===============================================================================
-   1D24                     140 DefEnum e_cmpID
+   1DAB                     140 DefEnum e_cmpID
                      0000     1     e_cmpID_offset = 0
    0000                     141 Enum e_cmpID Render
                      0000     1     e_cmpID_Render = e_cmpID_offset
@@ -5772,10 +5781,10 @@ Hexadecimal [16-Bits]
                              51 ;;
    0000                      52 sys_collision_init::
                              53     ;; set pointer array address 
-   1D24 3E 04         [ 7]   54     ld a, #e_cmpID_Collision
-   1D26 CD 9A 06      [17]   55     call man_components_getArrayHL
-   1D29 22 02 1E      [16]   56     ld  (_ent_array_ptr), hl
-   1D2C C9            [10]   57     ret
+   1DAB 3E 04         [ 7]   54     ld a, #e_cmpID_Collision
+   1DAD CD 9A 06      [17]   55     call man_components_getArrayHL
+   1DB0 22 89 1E      [16]   56     ld  (_ent_array_ptr), hl
+   1DB3 C9            [10]   57     ret
                              58 
                              59 
                              60 ;;-----------------------------------------------------------------
@@ -5789,28 +5798,28 @@ Hexadecimal [16-Bits]
                              68 ;;  Modified: AF, BC, HL
                              69 ;;
                              70 ;;  Code copied from lronaldo (https://www.youtube.com/watch?v=f-4F7SoaHFQ)
-   1D2D                      71 sys_collision_check_collider_colisionable_Y::
+   1DB4                      71 sys_collision_check_collider_colisionable_Y::
                              72     ;; y axis collision
                              73     ;; case 3
-   1D2D FD 7E 07      [19]   74     ld a, e_y(iy)                   ;; a = iy.y
-   1D30 47            [ 4]   75     ld b, a                         ;; b = a = iy.y
-   1D31 FD 86 0A      [19]   76     add e_h(iy)                     ;; a = iy.y + iy.y
-   1D34 3D            [ 4]   77     dec a                           ;; a = iy.y + iy.y - 1
-   1D35 DD 4E 07      [19]   78     ld c, e_y(ix)                   ;; c = ix.y
-   1D38 91            [ 4]   79     sub c                           ;; a = iy.y + iy.y - 1 - ix.y
-   1D39 D8            [11]   80     ret c                           ;; return if no collision
+   1DB4 FD 7E 07      [19]   74     ld a, e_y(iy)                   ;; a = iy.y
+   1DB7 47            [ 4]   75     ld b, a                         ;; b = a = iy.y
+   1DB8 FD 86 0A      [19]   76     add e_h(iy)                     ;; a = iy.y + iy.y
+   1DBB 3D            [ 4]   77     dec a                           ;; a = iy.y + iy.y - 1
+   1DBC DD 4E 07      [19]   78     ld c, e_y(ix)                   ;; c = ix.y
+   1DBF 91            [ 4]   79     sub c                           ;; a = iy.y + iy.y - 1 - ix.y
+   1DC0 D8            [11]   80     ret c                           ;; return if no collision
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 112.
 Hexadecimal [16-Bits]
 
 
 
                              81     ;; case 4
-   1D3A 79            [ 4]   82     ld a, c                         ;; a = ix.y
-   1D3B DD 86 0A      [19]   83     add e_h(ix)                     ;; a = ix.y + ix.y
-   1D3E 3D            [ 4]   84     dec a                           ;; a = ix.y + ix.y - 1
-   1D3F 90            [ 4]   85     sub b                           ;; a = iy.y + ix.y - 1 - iy.y
+   1DC1 79            [ 4]   82     ld a, c                         ;; a = ix.y
+   1DC2 DD 86 0A      [19]   83     add e_h(ix)                     ;; a = ix.y + ix.y
+   1DC5 3D            [ 4]   84     dec a                           ;; a = ix.y + ix.y - 1
+   1DC6 90            [ 4]   85     sub b                           ;; a = iy.y + ix.y - 1 - iy.y
                              86     ;;ret c                           ;; return if no collision - unncessary
-   1D40 C9            [10]   87     ret
+   1DC7 C9            [10]   87     ret
                              88 
                              89 ;;-----------------------------------------------------------------
                              90 ;;
@@ -5823,22 +5832,22 @@ Hexadecimal [16-Bits]
                              97 ;;  Modified: AF, BC, HL
                              98 ;;
                              99 ;;  Code copied from lronaldo (https://www.youtube.com/watch?v=f-4F7SoaHFQ)
-   1D41                     100 sys_collision_check_collider_colisionable_X::
+   1DC8                     100 sys_collision_check_collider_colisionable_X::
                             101     ;; x axis collision
                             102     ;; case 1
-   1D41 FD 7E 05      [19]  103     ld a, e_x(iy)                   ;; a = iy.x
-   1D44 47            [ 4]  104     ld b, a                         ;; b = a = iy.x
-   1D45 FD 86 09      [19]  105     add e_w(iy)                     ;; a = iy.x + iy.w
-   1D48 3D            [ 4]  106     dec a                           ;; a = iy.x + iy.w - 1
-   1D49 DD 4E 05      [19]  107     ld c, e_x(ix)                   ;; c = ix.x
-   1D4C 91            [ 4]  108     sub c                           ;; a = iy.x + iy.w - 1 - ix.x
-   1D4D D8            [11]  109     ret c                           ;; return if no collision
+   1DC8 FD 7E 05      [19]  103     ld a, e_x(iy)                   ;; a = iy.x
+   1DCB 47            [ 4]  104     ld b, a                         ;; b = a = iy.x
+   1DCC FD 86 09      [19]  105     add e_w(iy)                     ;; a = iy.x + iy.w
+   1DCF 3D            [ 4]  106     dec a                           ;; a = iy.x + iy.w - 1
+   1DD0 DD 4E 05      [19]  107     ld c, e_x(ix)                   ;; c = ix.x
+   1DD3 91            [ 4]  108     sub c                           ;; a = iy.x + iy.w - 1 - ix.x
+   1DD4 D8            [11]  109     ret c                           ;; return if no collision
                             110     ;; case 2
-   1D4E 79            [ 4]  111     ld a, c                         ;; a = ix.x
-   1D4F DD 86 09      [19]  112     add e_w(ix)                     ;; a = ix.x + ix.w
-   1D52 3D            [ 4]  113     dec a                           ;; a = ix.x + ix.w - 1
-   1D53 90            [ 4]  114     sub b                           ;; a = iy.x + ix.w - 1 - iy.x
-   1D54 C9            [10]  115     ret
+   1DD5 79            [ 4]  111     ld a, c                         ;; a = ix.x
+   1DD6 DD 86 09      [19]  112     add e_w(ix)                     ;; a = ix.x + ix.w
+   1DD9 3D            [ 4]  113     dec a                           ;; a = ix.x + ix.w - 1
+   1DDA 90            [ 4]  114     sub b                           ;; a = iy.x + ix.w - 1 - iy.x
+   1DDB C9            [10]  115     ret
                             116 
                             117 
                             118 
@@ -5852,24 +5861,24 @@ Hexadecimal [16-Bits]
                             126 ;;  Output: 
                             127 ;;  Modified: AF, BC, HL
                             128 ;;
-   1D55                     129 sys_collision_wall_up::
+   1DDC                     129 sys_collision_wall_up::
                             130     ;; reposition colisionable after the collision
-   1D55 DD 7E 19      [19]  131     ld a, e_collision_status(ix)
-   1D58 E6 08         [ 7]  132     and #e_col_down
-   1D5A 20 05         [12]  133     jr nz, _scwu_down_collision
-   1D5C FD 34 07      [23]  134     inc e_y(iy)                     ;;reposition ball to the right to avoid overlap
-   1D5F 18 03         [12]  135     jr _reverse_vertical_speed
+   1DDC DD 7E 19      [19]  131     ld a, e_collision_status(ix)
+   1DDF E6 08         [ 7]  132     and #e_col_down
+   1DE1 20 05         [12]  133     jr nz, _scwu_down_collision
+   1DE3 FD 34 07      [23]  134     inc e_y(iy)                     ;;reposition ball to the right to avoid overlap
+   1DE6 18 03         [12]  135     jr _reverse_vertical_speed
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 113.
 Hexadecimal [16-Bits]
 
 
 
-   1D61                     136 _scwu_down_collision:
-   1D61 FD 35 07      [23]  137     dec e_y(iy)                     ;; reposition ball to the left to avoid overlap
-   1D64                     138 _reverse_vertical_speed:
+   1DE8                     136 _scwu_down_collision:
+   1DE8 FD 35 07      [23]  137     dec e_y(iy)                     ;; reposition ball to the left to avoid overlap
+   1DEB                     138 _reverse_vertical_speed:
                             139     ;; change speed because of the collision
-   1D64 CD 4D 08      [17]  140     call man_ball_reverse_ver_speed
-   1D67 C9            [10]  141     ret
+   1DEB CD 4D 08      [17]  140     call man_ball_reverse_ver_speed
+   1DEE C9            [10]  141     ret
                             142 
                             143 ;;-----------------------------------------------------------------
                             144 ;;
@@ -5881,57 +5890,57 @@ Hexadecimal [16-Bits]
                             150 ;;  Output: 
                             151 ;;  Modified: AF, BC, HL
                             152 ;;
-   1D68                     153 sys_collision_paddle::
+   1DEF                     153 sys_collision_paddle::
                             154     ;; reposition colisionable after the collision
-   1D68 DD 7E 19      [19]  155     ld a, e_collision_status(ix)
-   1D6B E6 01         [ 7]  156     and #e_col_left
-   1D6D 20 05         [12]  157     jr nz, _left_collision
-   1D6F FD 34 05      [23]  158     inc e_x(iy)                         ;;reposition ball to the right to avoid overlap
-   1D72 18 03         [12]  159     jr _reverse_horizontal_speed
-   1D74                     160 _left_collision:
-   1D74 FD 35 05      [23]  161     dec e_x(iy)                         ;; reposition ball to the left to avoid overlap
+   1DEF DD 7E 19      [19]  155     ld a, e_collision_status(ix)
+   1DF2 E6 01         [ 7]  156     and #e_col_left
+   1DF4 20 05         [12]  157     jr nz, _left_collision
+   1DF6 FD 34 05      [23]  158     inc e_x(iy)                         ;;reposition ball to the right to avoid overlap
+   1DF9 18 03         [12]  159     jr _reverse_horizontal_speed
+   1DFB                     160 _left_collision:
+   1DFB FD 35 05      [23]  161     dec e_x(iy)                         ;; reposition ball to the left to avoid overlap
                             162     ;; change speed because of the collision
-   1D77                     163 _reverse_horizontal_speed:
-   1D77 CD 36 08      [17]  164     call man_ball_reverse_hor_speed     ;; Reverse horizontal ball speed
+   1DFE                     163 _reverse_horizontal_speed:
+   1DFE CD 36 08      [17]  164     call man_ball_reverse_hor_speed     ;; Reverse horizontal ball speed
                             165     ;; change vertical speed
-   1D7A DD 46 07      [19]  166     ld b, e_y(ix)
-   1D7D FD 7E 07      [19]  167     ld a, e_y(iy)
-   1D80 90            [ 4]  168     sub b
-   1D81 FE 06         [ 7]  169     cp #6
-   1D83 30 06         [12]  170     jr nc, _greater_than_6
-   1D85 AF            [ 4]  171     xor a
-   1D86 CD 8F 08      [17]  172     call man_ball_set_ver_speed
-   1D89 18 2F         [12]  173     jr _scp_exit
-   1D8B                     174 _greater_than_6:
-   1D8B FE 0E         [ 7]  175     cp #14
-   1D8D 30 07         [12]  176     jr nc, _greater_than_14
-   1D8F 3E 01         [ 7]  177     ld a, #1
-   1D91 CD 8F 08      [17]  178     call man_ball_set_ver_speed
-   1D94 18 24         [12]  179     jr _scp_exit
-   1D96                     180 _greater_than_14:
-   1D96 FE 10         [ 7]  181     cp #16
-   1D98 30 0A         [12]  182     jr nc, _greater_than_16
-   1D9A 3E 02         [ 7]  183     ld a, #2
-   1D9C CD 8F 08      [17]  184     call man_ball_set_ver_speed
-   1D9F CD 64 08      [17]  185     call man_ball_increase_hor_speed
-   1DA2 18 16         [12]  186     jr _scp_exit
-   1DA4                     187 _greater_than_16:
-   1DA4 FE 18         [ 7]  188     cp #24
-   1DA6 30 0A         [12]  189     jr nc, _greater_than_24
-   1DA8 FD 36 11 00   [19]  190     ld e_vy(iy), #0x00
+   1E01 DD 46 07      [19]  166     ld b, e_y(ix)
+   1E04 FD 7E 07      [19]  167     ld a, e_y(iy)
+   1E07 90            [ 4]  168     sub b
+   1E08 FE 06         [ 7]  169     cp #6
+   1E0A 30 06         [12]  170     jr nc, _greater_than_6
+   1E0C AF            [ 4]  171     xor a
+   1E0D CD 8F 08      [17]  172     call man_ball_set_ver_speed
+   1E10 18 2F         [12]  173     jr _scp_exit
+   1E12                     174 _greater_than_6:
+   1E12 FE 0E         [ 7]  175     cp #14
+   1E14 30 07         [12]  176     jr nc, _greater_than_14
+   1E16 3E 01         [ 7]  177     ld a, #1
+   1E18 CD 8F 08      [17]  178     call man_ball_set_ver_speed
+   1E1B 18 24         [12]  179     jr _scp_exit
+   1E1D                     180 _greater_than_14:
+   1E1D FE 10         [ 7]  181     cp #16
+   1E1F 30 0A         [12]  182     jr nc, _greater_than_16
+   1E21 3E 02         [ 7]  183     ld a, #2
+   1E23 CD 8F 08      [17]  184     call man_ball_set_ver_speed
+   1E26 CD 64 08      [17]  185     call man_ball_increase_hor_speed
+   1E29 18 16         [12]  186     jr _scp_exit
+   1E2B                     187 _greater_than_16:
+   1E2B FE 18         [ 7]  188     cp #24
+   1E2D 30 0A         [12]  189     jr nc, _greater_than_24
+   1E2F FD 36 11 00   [19]  190     ld e_vy(iy), #0x00
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 114.
 Hexadecimal [16-Bits]
 
 
 
-   1DAC FD 36 12 32   [19]  191     ld e_vy+1(iy), #0x32
-   1DB0 18 08         [12]  192     jr _scp_exit
-   1DB2                     193 _greater_than_24:
-   1DB2 FD 36 11 00   [19]  194     ld e_vy(iy), #0x00
-   1DB6 FD 36 12 33   [19]  195     ld e_vy+1(iy), #0x33
-   1DBA                     196 _scp_exit:
-   1DBA FD 36 1F 01   [19]  197     ld e_moved(iy), #1
-   1DBE C9            [10]  198     ret
+   1E33 FD 36 12 32   [19]  191     ld e_vy+1(iy), #0x32
+   1E37 18 08         [12]  192     jr _scp_exit
+   1E39                     193 _greater_than_24:
+   1E39 FD 36 11 00   [19]  194     ld e_vy(iy), #0x00
+   1E3D FD 36 12 33   [19]  195     ld e_vy+1(iy), #0x33
+   1E41                     196 _scp_exit:
+   1E41 FD 36 1F 01   [19]  197     ld e_moved(iy), #1
+   1E45 C9            [10]  198     ret
                             199 
                             200 ;;-----------------------------------------------------------------
                             201 ;;
@@ -5942,38 +5951,38 @@ Hexadecimal [16-Bits]
                             206 ;;  Output: 
                             207 ;;  Modified: AF, BC, HL
                             208 ;;
-   1DBF                     209 sys_collision_collider_colisionable::
+   1E46                     209 sys_collision_collider_colisionable::
                             210 
-   1DBF CD 41 1D      [17]  211     call sys_collision_check_collider_colisionable_X  ;; check if there is a horizontal collision
-   1DC2 D8            [11]  212     ret c
+   1E46 CD C8 1D      [17]  211     call sys_collision_check_collider_colisionable_X  ;; check if there is a horizontal collision
+   1E49 D8            [11]  212     ret c
                             213     ;; calculate horizontal collision status
                             214 
-   1DC3 FD 7E 0F      [19]  215     ld a, e_vx(iy)
-   1DC6 CB 7F         [ 8]  216     bit 7, a
-   1DC8 20 06         [12]  217     jr nz, _sccc_right
-   1DCA DD 36 19 01   [19]  218     ld e_collision_status(ix), #e_col_left
-   1DCE 18 04         [12]  219     jr _sccc_vertical_check
-   1DD0                     220 _sccc_right:
-   1DD0 DD 36 19 02   [19]  221     ld e_collision_status(ix), #e_col_right
-   1DD4                     222 _sccc_vertical_check:
-   1DD4 CD 2D 1D      [17]  223     call sys_collision_check_collider_colisionable_Y  ;; check if there is a collision
-   1DD7 D8            [11]  224     ret c
+   1E4A FD 7E 0F      [19]  215     ld a, e_vx(iy)
+   1E4D CB 7F         [ 8]  216     bit 7, a
+   1E4F 20 06         [12]  217     jr nz, _sccc_right
+   1E51 DD 36 19 01   [19]  218     ld e_collision_status(ix), #e_col_left
+   1E55 18 04         [12]  219     jr _sccc_vertical_check
+   1E57                     220 _sccc_right:
+   1E57 DD 36 19 02   [19]  221     ld e_collision_status(ix), #e_col_right
+   1E5B                     222 _sccc_vertical_check:
+   1E5B CD B4 1D      [17]  223     call sys_collision_check_collider_colisionable_Y  ;; check if there is a collision
+   1E5E D8            [11]  224     ret c
                             225     ;; calculate vertical collision status
-   1DD8 FD 7E 11      [19]  226     ld a, e_vy(iy)
-   1DDB CB 7F         [ 8]  227     bit 7, a
-   1DDD 28 0A         [12]  228     jr z, _sccc_down
-   1DDF DD 7E 19      [19]  229     ld a, e_collision_status(ix)
-   1DE2 F6 04         [ 7]  230     or #e_col_up
-   1DE4 DD 77 19      [19]  231     ld e_collision_status(ix), a
-   1DE7 18 08         [12]  232     jr _sccc_exit
-   1DE9                     233 _sccc_down:
-   1DE9 DD 7E 19      [19]  234     ld a, e_collision_status(ix)
-   1DEC F6 08         [ 7]  235     or #e_col_down
-   1DEE DD 77 19      [19]  236     ld e_collision_status(ix), a
-   1DF1                     237 _sccc_exit:
-   1DF1 DD 6E 1A      [19]  238     ld l, e_collision_callback(ix)
-   1DF4 DD 66 1B      [19]  239     ld h, e_collision_callback+1(ix)
-   1DF7 E9            [ 4]  240     jp (hl)
+   1E5F FD 7E 11      [19]  226     ld a, e_vy(iy)
+   1E62 CB 7F         [ 8]  227     bit 7, a
+   1E64 28 0A         [12]  228     jr z, _sccc_down
+   1E66 DD 7E 19      [19]  229     ld a, e_collision_status(ix)
+   1E69 F6 04         [ 7]  230     or #e_col_up
+   1E6B DD 77 19      [19]  231     ld e_collision_status(ix), a
+   1E6E 18 08         [12]  232     jr _sccc_exit
+   1E70                     233 _sccc_down:
+   1E70 DD 7E 19      [19]  234     ld a, e_collision_status(ix)
+   1E73 F6 08         [ 7]  235     or #e_col_down
+   1E75 DD 77 19      [19]  236     ld e_collision_status(ix), a
+   1E78                     237 _sccc_exit:
+   1E78 DD 6E 1A      [19]  238     ld l, e_collision_callback(ix)
+   1E7B DD 66 1B      [19]  239     ld h, e_collision_callback+1(ix)
+   1E7E E9            [ 4]  240     jp (hl)
                             241     ;;ret               ;; tail recursion
                             242 
                             243 
@@ -5992,11 +6001,11 @@ Hexadecimal [16-Bits]
                             251 ;;  Output: 
                             252 ;;  Modified: AF, BC, HL
                             253 ;;
-   1DF8                     254 sys_collision_update_one_collider::
-   1DF8 21 BF 1D      [10]  255     ld hl, #sys_collision_collider_colisionable
-   1DFB 06 80         [ 7]  256     ld b, #e_cmp_collisionable
-   1DFD CD 39 0A      [17]  257     call man_entity_forall_matching_iy
-   1E00 C9            [10]  258     ret
+   1E7F                     254 sys_collision_update_one_collider::
+   1E7F 21 46 1E      [10]  255     ld hl, #sys_collision_collider_colisionable
+   1E82 06 80         [ 7]  256     ld b, #e_cmp_collisionable
+   1E84 CD 39 0A      [17]  257     call man_entity_forall_matching_iy
+   1E87 C9            [10]  258     ret
                             259 
                             260 ;;-----------------------------------------------------------------
                             261 ;;
@@ -6008,34 +6017,34 @@ Hexadecimal [16-Bits]
                             267 ;;  Modified: AF, BC, DE, HL
                             268 ;;
                             269 
-   1E01                     270 sys_collision_update::
+   1E88                     270 sys_collision_update::
                             271 
                      00DE   272 _ent_array_ptr = . + 1
-   1E01 21 00 00      [10]  273     ld  hl, #0x0000
+   1E88 21 00 00      [10]  273     ld  hl, #0x0000
                             274 
-   1E04                     275     _loop:
+   1E8B                     275     _loop:
                             276     ;;  Select the pointer to the entity with collision and prepare the next position for the next iteration.
-   1E04 5E            [ 7]  277     ld e, (hl)
-   1E05 23            [ 6]  278     inc hl
-   1E06 56            [ 7]  279     ld d, (hl)
-   1E07 23            [ 6]  280     inc hl
+   1E8B 5E            [ 7]  277     ld e, (hl)
+   1E8C 23            [ 6]  278     inc hl
+   1E8D 56            [ 7]  279     ld d, (hl)
+   1E8E 23            [ 6]  280     inc hl
                             281 
                             282     ;;  The entities are finished traversing when find a pointer to null.
-   1E08 7B            [ 4]  283     ld a, e
-   1E09 B2            [ 4]  284     or d
-   1E0A C8            [11]  285     ret z
+   1E8F 7B            [ 4]  283     ld a, e
+   1E90 B2            [ 4]  284     or d
+   1E91 C8            [11]  285     ret z
                             286 
-   1E0B E5            [11]  287     push hl
+   1E92 E5            [11]  287     push hl
                             288 
    00E8                     289     ld__ixl_e
-   1E0C DD 6B                 1    .dw #0x6BDD  ;; Opcode for ld ixl, e
+   1E93 DD 6B                 1    .dw #0x6BDD  ;; Opcode for ld ixl, e
    00EA                     290     ld__ixh_d
-   1E0E DD 62                 1    .dw #0x62DD  ;; Opcode for ld ixh, d
+   1E95 DD 62                 1    .dw #0x62DD  ;; Opcode for ld ixh, d
                             291 
-   1E10 CD F8 1D      [17]  292     call sys_collision_update_one_collider
+   1E97 CD 7F 1E      [17]  292     call sys_collision_update_one_collider
                             293 
-   1E13 E1            [10]  294 	pop hl
+   1E9A E1            [10]  294 	pop hl
                             295 
-   1E14 18 EE         [12]  296     jr _loop
+   1E9B 18 EE         [12]  296     jr _loop
                             297 
-   1E16 C9            [10]  298     ret
+   1E9D C9            [10]  298     ret

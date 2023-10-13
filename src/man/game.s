@@ -23,6 +23,7 @@
 .include "sys/input.h.s"
 .include "sys/ai.h.s"
 .include "sys/collision.h.s"
+.include "sys/util.h.s"
 .include "common.h.s"
 .include "cpctelera.h.s"
 

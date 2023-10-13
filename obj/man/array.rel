@@ -1,5 +1,5 @@
 XL2
-H 2 areas 3D global symbols
+H 2 areas 3F global symbols
 M array_manager
 S cpct_setInterruptHandler_asm Ref0000
 S cpct_getScreenToSprite_asm Ref0000
@@ -22,6 +22,7 @@ S cpct_setSeed_xsp40_u8_asm Ref0000
 S cpct_setVideoMemoryPage_asm Ref0000
 S sys_util_get_random_number Ref0000
 S cpct_memset_f64_asm Ref0000
+S sys_util_sqr_hl Ref0000
 S _s_small_numbers_00 Ref0000
 S sys_util_absHL Ref0000
 S _s_small_numbers_01 Ref0000
@@ -30,6 +31,7 @@ S _s_small_numbers_03 Ref0000
 S _s_small_numbers_04 Ref0000
 S sys_util_negHL Ref0000
 S _s_small_numbers_05 Ref0000
+S sys_util_hl_divided_d Ref0000
 S sys_util_delay Ref0000
 S _s_small_numbers_06 Ref0000
 S _s_small_numbers_07 Ref0000

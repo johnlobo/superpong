@@ -170,6 +170,8 @@ Hexadecimal [16-Bits]
                              34 .globl sys_util_get_random_number
                              35 .globl sys_util_delay
                              36 .globl sys_util_negHL
+                             37 .globl sys_util_hl_divided_d
+                             38 .globl sys_util_sqr_hl
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 6.
 Hexadecimal [16-Bits]
 
@@ -423,6 +425,13 @@ Hexadecimal [16-Bits]
                             208         .dw 0x0000
                             209     .endm
                             210 .endm
+                            211 
+                            212 ;; WinAPE special BRK instruction
+                            213 ;; - more info at http://www.winape.net/help/debug.html
+                            214 .mdelete BREAKPOINT
+                            215 .macro BREAKPOINT
+                            216   .db #0xed, #0xff
+                            217 .endm
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 11.
 Hexadecimal [16-Bits]
 
@@ -560,7 +569,7 @@ Hexadecimal [16-Bits]
                             137 ;;===============================================================================
                             138 ;; Entity Component IDs
                             139 ;;===============================================================================
-   0D9F                     140 DefEnum e_cmpID
+   0E26                     140 DefEnum e_cmpID
                      0000     1     e_cmpID_offset = 0
    0000                     141 Enum e_cmpID Render
                      0000     1     e_cmpID_Render = e_cmpID_offset
@@ -5704,10 +5713,10 @@ Hexadecimal [16-Bits]
                              49 ;;
    0000                      50 sys_ai_init::
                              51     ;; set pointer array address 
-   0D9F 3E 02         [ 7]   52     ld a, #e_cmpID_AI
-   0DA1 CD 9A 06      [17]   53     call man_components_getArrayHL
-   0DA4 22 D8 0D      [16]   54     ld  (_ent_array_ptr), hl
-   0DA7 C9            [10]   55     ret
+   0E26 3E 02         [ 7]   52     ld a, #e_cmpID_AI
+   0E28 CD 9A 06      [17]   53     call man_components_getArrayHL
+   0E2B 22 5F 0E      [16]   54     ld  (_ent_array_ptr), hl
+   0E2E C9            [10]   55     ret
                              56 
                              57 
                              58 
@@ -5721,37 +5730,37 @@ Hexadecimal [16-Bits]
                              66 ;;  Output: 
                              67 ;;  Modified: AF, BC, HL
                              68 ;;
-   0DA8                      69 sys_ai_paddle::
-   0DA8 CD 12 0A      [17]   70     call man_entity_getBallPositionIY
+   0E2F                      69 sys_ai_paddle::
+   0E2F CD 12 0A      [17]   70     call man_entity_getBallPositionIY
                              71 
-   0DAB FD 7E 0F      [19]   72     ld a, e_vx(iy)                                 ;; check that the ball is comming to the paddle
-   0DAE CB 7F         [ 8]   73     bit 7, a                                       ;;
-   0DB0 C0            [11]   74     ret nz                                         ;; otherwise return
+   0E32 FD 7E 0F      [19]   72     ld a, e_vx(iy)                                 ;; check that the ball is comming to the paddle
+   0E35 CB 7F         [ 8]   73     bit 7, a                                       ;;
+   0E37 C0            [11]   74     ret nz                                         ;; otherwise return
                              75     
-   0DB1 DD 7E 07      [19]   76     ld a, e_y(ix)                                  ;; check if the paddle is at the same y pos than the ball
-   0DB4 C6 0F         [ 7]   77     add #15                                        ;; compare with the middle of tha paddle
-   0DB6 FD 46 07      [19]   78     ld b, e_y(iy)                                  ;;
+   0E38 DD 7E 07      [19]   76     ld a, e_y(ix)                                  ;; check if the paddle is at the same y pos than the ball
+   0E3B C6 0F         [ 7]   77     add #15                                        ;; compare with the middle of tha paddle
+   0E3D FD 46 07      [19]   78     ld b, e_y(iy)                                  ;;
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 110.
 Hexadecimal [16-Bits]
 
 
 
-   0DB9 B8            [ 4]   79     cp b                                           ;;
-   0DBA C8            [11]   80     ret z                                          ;; if so, return
+   0E40 B8            [ 4]   79     cp b                                           ;;
+   0E41 C8            [11]   80     ret z                                          ;; if so, return
                              81 
-   0DBB 38 0D         [12]   82     jr c, _sap_up                                  ;; if we are under, then go up
-   0DBD DD 36 11 FF   [19]   83     ld e_vy(ix), #0xff                             ;; otherwise set y speed up
-   0DC1 DD 7E 12      [19]   84     ld a, e_vy+1(ix)
-   0DC4 C6 D9         [ 7]   85     add #(255 - STEP_VERTICAL_SPEED)
-   0DC6 DD 77 12      [19]   86     ld e_vy+1(ix), a
-   0DC9 C9            [10]   87     ret    
-   0DCA                      88 _sap_up:       
-   0DCA DD 36 11 00   [19]   89     ld e_vy(ix), #0                                ;; otherwise set y speed down
-   0DCE DD 7E 12      [19]   90     ld a, e_vy+1(ix)
-   0DD1 C6 26         [ 7]   91     add #STEP_VERTICAL_SPEED
-   0DD3 DD 77 12      [19]   92     ld e_vy+1(ix), a
+   0E42 38 0D         [12]   82     jr c, _sap_up                                  ;; if we are under, then go up
+   0E44 DD 36 11 FF   [19]   83     ld e_vy(ix), #0xff                             ;; otherwise set y speed up
+   0E48 DD 7E 12      [19]   84     ld a, e_vy+1(ix)
+   0E4B C6 D9         [ 7]   85     add #(255 - STEP_VERTICAL_SPEED)
+   0E4D DD 77 12      [19]   86     ld e_vy+1(ix), a
+   0E50 C9            [10]   87     ret    
+   0E51                      88 _sap_up:       
+   0E51 DD 36 11 00   [19]   89     ld e_vy(ix), #0                                ;; otherwise set y speed down
+   0E55 DD 7E 12      [19]   90     ld a, e_vy+1(ix)
+   0E58 C6 26         [ 7]   91     add #STEP_VERTICAL_SPEED
+   0E5A DD 77 12      [19]   92     ld e_vy+1(ix), a
                              93 
-   0DD6 C9            [10]   94     ret
+   0E5D C9            [10]   94     ret
                              95 
                              96 
                              97 
@@ -5767,47 +5776,47 @@ Hexadecimal [16-Bits]
                             107 ;;  Modified: AF, BC, DE, HL
                             108 ;;
                             109 
-   0DD7                     110 sys_ai_update::
+   0E5E                     110 sys_ai_update::
                             111 
                      0039   112 _ent_array_ptr = . + 1
-   0DD7 21 00 00      [10]  113     ld  hl, #0x0000
+   0E5E 21 00 00      [10]  113     ld  hl, #0x0000
                             114 
-   0DDA                     115     _loop:
+   0E61                     115     _loop:
                             116     ;;  Select the pointer to the entity with collision and prepare the next position for the next iteration.
-   0DDA 5E            [ 7]  117     ld e, (hl)
-   0DDB 23            [ 6]  118     inc hl
-   0DDC 56            [ 7]  119     ld d, (hl)
-   0DDD 23            [ 6]  120     inc hl
+   0E61 5E            [ 7]  117     ld e, (hl)
+   0E62 23            [ 6]  118     inc hl
+   0E63 56            [ 7]  119     ld d, (hl)
+   0E64 23            [ 6]  120     inc hl
                             121 
                             122     ;;  The entities are finished traversing when find a pointer to null.
-   0DDE 7B            [ 4]  123     ld a, e
-   0DDF B2            [ 4]  124     or d
-   0DE0 C8            [11]  125     ret z
+   0E65 7B            [ 4]  123     ld a, e
+   0E66 B2            [ 4]  124     or d
+   0E67 C8            [11]  125     ret z
                             126 
-   0DE1 E5            [11]  127     push hl
+   0E68 E5            [11]  127     push hl
                             128 
    0043                     129     ld__ixl_e
-   0DE2 DD 6B                 1    .dw #0x6BDD  ;; Opcode for ld ixl, e
+   0E69 DD 6B                 1    .dw #0x6BDD  ;; Opcode for ld ixl, e
    0045                     130     ld__ixh_d
-   0DE4 DD 62                 1    .dw #0x62DD  ;; Opcode for ld ixh, d
+   0E6B DD 62                 1    .dw #0x62DD  ;; Opcode for ld ixh, d
                             131 
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 111.
 Hexadecimal [16-Bits]
 
 
 
-   0DE6 DD 6E 1D      [19]  132     ld l, e_ai_callback(ix)
-   0DE9 DD 66 1E      [19]  133     ld h, e_ai_callback+1(ix)
-   0DEC 01 F1 0D      [10]  134     ld bc, #_endAIUpdate
-   0DEF C5            [11]  135     push bc
+   0E6D DD 6E 1D      [19]  132     ld l, e_ai_callback(ix)
+   0E70 DD 66 1E      [19]  133     ld h, e_ai_callback+1(ix)
+   0E73 01 78 0E      [10]  134     ld bc, #_endAIUpdate
+   0E76 C5            [11]  135     push bc
                             136     
-   0DF0 E9            [ 4]  137     jp (hl)
+   0E77 E9            [ 4]  137     jp (hl)
                             138 
-   0DF1                     139 _endAIUpdate:
+   0E78                     139 _endAIUpdate:
                             140 
                             141 
-   0DF1 E1            [10]  142 	pop hl
+   0E78 E1            [10]  142 	pop hl
                             143 
-   0DF2 18 E6         [12]  144     jr _loop
+   0E79 18 E6         [12]  144     jr _loop
                             145 
-   0DF4 C9            [10]  146     ret
+   0E7B C9            [10]  146     ret

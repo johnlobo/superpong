@@ -1,5 +1,5 @@
 XL2
-H 3 areas 51 global symbols
+H 3 areas 53 global symbols
 M physics_system
 S cpct_setInterruptHandler_asm Ref0000
 S man_entity_forall_matching_iy Ref0000
@@ -35,6 +35,7 @@ S cpct_setVideoMemoryPage_asm Ref0000
 S cpct_memset_f64_asm Ref0000
 S sys_util_get_random_number Ref0000
 S _s_small_numbers_00 Ref0000
+S sys_util_sqr_hl Ref0000
 S _s_small_numbers_01 Ref0000
 S sys_util_absHL Ref0000
 S _s_small_numbers_02 Ref0000
@@ -45,6 +46,7 @@ S man_ball_reverse_hor_speed Ref0000
 S man_components_add Ref0000
 S sys_util_negHL Ref0000
 S _s_small_numbers_06 Ref0000
+S sys_util_hl_divided_d Ref0000
 S sys_util_delay Ref0000
 S _s_small_numbers_07 Ref0000
 S cpct_isAnyKeyPressed_asm Ref0000
@@ -136,7 +138,7 @@ R 00 00 00 00
 T 80 00
 R 00 00 00 00
 T 80 00 FD 36 06 00 CD 00 00 C9
-R 00 00 00 00 02 07 28 00
+R 00 00 00 00 02 07 29 00
 T 88 00
 R 00 00 00 00
 T 88 00 3E C7 DD 46 0A 90 47 DD 7E 07 B8 D8 FD 7E
@@ -150,7 +152,7 @@ R 00 00 00 00
 T A5 00
 R 00 00 00 00
 T A5 00 FD 36 06 00 CD 00 00 C9
-R 00 00 00 00 02 07 28 00
+R 00 00 00 00 02 07 29 00
 T AD 00
 R 00 00 00 00
 T AD 00 DD 7E 0F DD 4E 10 B1 28 1B DD 46 0F DD 66

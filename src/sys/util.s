@@ -248,10 +248,14 @@ sys_util_delay::
 
 
 ;;-----------------------------------------------------------------
-;;  negate hl
+;;
+;; sys_util_negHL
+;;
+;;  Negates hl
 ;;  input: hl
 ;;  ouput: hl negated
-;;  destroys a
+;;  destroys: a
+;;
 ;; WikiTI code (https://wikiti.brandonw.net/index.php?title=Z80_Routines:Math:Signed_Math)
 sys_util_negHL::
 	xor a
@@ -261,3 +265,152 @@ sys_util_negHL::
 	sub h
 	ld h,a
 	ret
+
+;;-----------------------------------------------------------------
+;;
+;; sys_util_hl_divided_d
+;;
+;;  Divides hl by d, and leaves the result in hl
+;;  input:  hl: dividend
+;;          d: divisor
+;;  ouput:  hl: result
+;;  destroys: af, de, bc, hl 
+;;
+;; code by Jonathan Cauldwell (https://chuntey.wordpress.com/category/z80-assembly/)
+sys_util_hl_divided_d::
+  ld b,#8              ; bits to check.
+  ld a,d              ; number by which to divide.
+idiv3:  
+  rla                 ; check leftmost bit.
+  jr c,idiv2          ; no more shifts required.
+  inc b               ; extra shift needed.
+  cp h
+  jr nc,idiv2
+  jp idiv3            ; repeat.
+
+idiv2:  
+  xor a
+  ld e,a
+  ld c,a              ; result.
+idiv1:  
+  sbc hl,de           ; do subtraction.
+  jr nc,idiv0         ; no carry, keep the result.
+  add hl,de           ; restore original value of hl.
+idiv0: 
+  ccf                 ; reverse carry bit.
+  rl c                ; rotate in to ac.
+  rla
+  rr d                ; divide de by 2.
+  rr e
+  djnz idiv1          ; repeat.
+  ld h,a              ; copy result to hl.
+  ld l,c
+  ret
+
+;;-----------------------------------------------------------------
+;;
+;; sys_util_sqr_hl
+;;
+;;  Calculates de square root of hl in a
+;;  fast 16 bit isqrt by John Metcalf
+;;  92 bytes, 344-379 cycles (average 362)
+;;  v2 - saved 3 cycles with a tweak suggested by Russ McNulty
+;;  input: hl
+;;  ouput: a
+;;  destroys: de, hl 
+;;
+;; code by John Metcalf (https://github.com/impomatic/z80snippets/blob/master/fastisqr.asm)
+sys_util_sqr_hl::
+
+  ld a,h        ; 4
+  ld de,#0x0B0C0  ; 10
+  add a,e       ; 4
+  jr c,sq7      ; 12 / 7
+  ld a,h        ; 4
+  ld d,#0x0F0     ; 7
+sq7:
+
+; ----------
+
+  add a,d       ; 4
+  jr nc,sq6     ; 12 / 7
+  res 5,d       ; 8
+  .db #254        ; 7
+sq6:
+  sub d         ; 4
+  sra d         ; 8
+
+; ----------
+
+  set 2,d       ; 8
+  add a,d       ; 4
+  jr nc,sq5     ; 12 / 7
+  res 3,d       ; 8
+  .db #254        ; 7
+sq5:
+  sub d         ; 4
+  sra d         ; 8
+
+; ----------
+
+  inc d         ; 4
+  add a,d       ; 4
+  jr nc,sq4     ; 12 / 7
+  res 1,d       ; 8
+  .db #254        ; 7
+sq4:
+  sub d         ; 4
+  sra d         ; 8
+  ld h,a        ; 4
+
+; ----------
+
+  add hl,de     ; 11
+  jr nc,sq3     ; 12 / 7
+  ld e,#0x040     ; 7
+  .db #210        ; 10
+sq3:
+  sbc hl,de     ; 15
+  sra d         ; 8
+  ld a,e        ; 4
+  rra           ; 4
+
+; ----------
+
+  or #0x010       ; 7
+  ld e,a        ; 4
+  add hl,de     ; 11
+  jr nc,sq2     ; 12 / 7
+  and #0x0DF      ; 7
+  .db #218        ; 10
+sq2:
+  sbc hl,de     ; 15
+  sra d         ; 8
+  rra           ; 4
+
+; ----------
+
+  or #0x04        ; 7
+  ld e,a        ; 4
+  add hl,de     ; 11
+  jr nc,sq1     ; 12 / 7
+  and #0x0F7      ; 7
+  .db #218        ; 10
+sq1:
+  sbc hl,de     ; 15
+  sra d         ; 8
+  rra           ; 4
+
+; ----------
+
+  inc a         ; 4
+  ld e,a        ; 4
+  add hl,de     ; 11
+  jr nc,sq0     ; 12 / 7
+  and #0x0FD      ; 7
+sq0:
+  sra d         ; 8
+  rra           ; 4
+  cpl           ; 4
+
+ret

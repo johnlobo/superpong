@@ -250,6 +250,13 @@ Hexadecimal [16-Bits]
                             208         .dw 0x0000
                             209     .endm
                             210 .endm
+                            211 
+                            212 ;; WinAPE special BRK instruction
+                            213 ;; - more info at http://www.winape.net/help/debug.html
+                            214 .mdelete BREAKPOINT
+                            215 .macro BREAKPOINT
+                            216   .db #0xed, #0xff
+                            217 .endm
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 6.
 Hexadecimal [16-Bits]
 

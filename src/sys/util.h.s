@@ -34,3 +34,5 @@
 .globl sys_util_get_random_number
 .globl sys_util_delay
 .globl sys_util_negHL
+.globl sys_util_hl_divided_d
+.globl sys_util_sqr_hl

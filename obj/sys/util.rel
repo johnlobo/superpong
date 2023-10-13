@@ -1,5 +1,5 @@
 XL2
-H 2 areas 34 global symbols
+H 2 areas 36 global symbols
 M sys_util
 S cpct_setInterruptHandler_asm Ref0000
 S cpct_getScreenToSprite_asm Ref0000
@@ -43,14 +43,16 @@ S cpct_etm_setDrawTilemap4x8_ag_asm Ref0000
 S cpct_waitVSYNCStart_asm Ref0000
 S cpct_scanKeyboard_asm Ref0000
 S cpct_getScreenPtr_asm Ref0000
-A _CODE size 84 flags 0 addr 0
+A _CODE size 103 flags 0 addr 0
 S sys_util_h_times_e Def0000
 S sys_util_BCD_Compare Def0050
 S sys_util_BCD_Add Def0046
 S sys_util_hl_div_c Def0024
 S sys_util_get_random_number Def005F
+S sys_util_sqr_hl Def00A6
 S sys_util_absHL Def0031
 S sys_util_negHL Def007D
+S sys_util_hl_divided_d Def0084
 S sys_util_delay Def0075
 S sys_util_BCD_GetEnd Def003B
 A _DATA size B flags 0 addr 0
@@ -108,4 +110,62 @@ R 00 00 00 00 02 04 27 00
 T 7D 00
 R 00 00 00 00
 T 7D 00 AF 95 6F 9F 94 67 C9
+R 00 00 00 00
+T 84 00
+R 00 00 00 00
+T 84 00 06 08 7A
+R 00 00 00 00
+T 87 00
+R 00 00 00 00
+T 87 00 17 38 07 04 BC 30 03 C3 87 00
+R 00 00 00 00 00 0A 00 00
+T 91 00
+R 00 00 00 00
+T 91 00 AF 5F 4F
+R 00 00 00 00
+T 94 00
+R 00 00 00 00
+T 94 00 ED 52 30 01 19
+R 00 00 00 00
+T 99 00
+R 00 00 00 00
+T 99 00 3F CB 11 17 CB 1A CB 1B 10 F1 67 69 C9
+R 00 00 00 00
+T A6 00
+R 00 00 00 00
+T A6 00 7C 11 C0 B0 83 38 03 7C 16 F0
+R 00 00 00 00
+T B0 00
+R 00 00 00 00
+T B0 00 82 30 03 CB AA FE
+R 00 00 00 00
+T B6 00
+R 00 00 00 00
+T B6 00 92 CB 2A CB D2 82 30 03 CB 9A FE
+R 00 00 00 00
+T C1 00
+R 00 00 00 00
+T C1 00 92 CB 2A 14 82 30 03 CB 8A FE
+R 00 00 00 00
+T CB 00
+R 00 00 00 00
+T CB 00 92 CB 2A 67 19 30 03 1E 40 D2
+R 00 00 00 00
+T D5 00
+R 00 00 00 00
+T D5 00 ED 52 CB 2A 7B 1F F6 10 5F 19 30 03 E6 DF
+R 00 00 00 00
+T E3 00 DA
+R 00 00 00 00
+T E4 00
+R 00 00 00 00
+T E4 00 ED 52 CB 2A 1F F6 04 5F 19 30 03 E6 F7 DA
+R 00 00 00 00
+T F2 00
+R 00 00 00 00
+T F2 00 ED 52 CB 2A 1F 3C 5F 19 30 02 E6 FD
+R 00 00 00 00
+T FE 00
+R 00 00 00 00
+T FE 00 CB 2A 1F 2F C9
 R 00 00 00 00

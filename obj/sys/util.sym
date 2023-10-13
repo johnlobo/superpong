@@ -44,17 +44,22 @@ Symbol Table
     e_type_i=  00FF     |     e_type_m=  0008     |     e_type_p=  0001 
     e_type_s=  0010     |     e_type_w=  0004     |     e_vx    =  000F 
     e_vy    =  0011     |     e_w     =  0009     |     e_x     =  0005 
-    e_y     =  0007     |     nullptr =  0000     |   0 random_m=  0069 R
-    sizeof_e=  0020     |   1 string_b   0000 GR  |   0 sys_util   0046 GR
+    e_y     =  0007     |   0 idiv0      0099 R   |   0 idiv1      0094 R
+  0 idiv2      0091 R   |   0 idiv3      0087 R   |     nullptr =  0000 
+  0 random_m=  0069 R   |     sizeof_e=  0020     |   0 sq0        00FE R
+  0 sq1        00F2 R   |   0 sq2        00E4 R   |   0 sq3        00D5 R
+  0 sq4        00CB R   |   0 sq5        00C1 R   |   0 sq6        00B6 R
+  0 sq7        00B0 R   |   1 string_b   0000 GR  |   0 sys_util   0046 GR
   0 sys_util   0050 GR  |   0 sys_util   003B GR  |   0 sys_util   0031 GR
   0 sys_util   0075 GR  |   0 sys_util   005F GR  |   0 sys_util   0000 GR
-  0 sys_util   0024 GR  |   0 sys_util   007D GR
+  0 sys_util   0024 GR  |   0 sys_util   0084 GR  |   0 sys_util   007D GR
+  0 sys_util   00A6 GR
 
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 2.
 Hexadecimal [16-Bits]
 
 Area Table
 
-   0 _CODE      size   84   flags    0
+   0 _CODE      size  103   flags    0
    1 _DATA      size    B   flags    0
 

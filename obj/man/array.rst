@@ -297,6 +297,13 @@ Hexadecimal [16-Bits]
                             208         .dw 0x0000
                             209     .endm
                             210 .endm
+                            211 
+                            212 ;; WinAPE special BRK instruction
+                            213 ;; - more info at http://www.winape.net/help/debug.html
+                            214 .mdelete BREAKPOINT
+                            215 .macro BREAKPOINT
+                            216   .db #0xed, #0xff
+                            217 .endm
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 8.
 Hexadecimal [16-Bits]
 
@@ -5871,6 +5878,13 @@ Hexadecimal [16-Bits]
                             208         .dw 0x0000
                             209     .endm
                             210 .endm
+                            211 
+                            212 ;; WinAPE special BRK instruction
+                            213 ;; - more info at http://www.winape.net/help/debug.html
+                            214 .mdelete BREAKPOINT
+                            215 .macro BREAKPOINT
+                            216   .db #0xed, #0xff
+                            217 .endm
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 113.
 Hexadecimal [16-Bits]
 
@@ -6175,6 +6189,8 @@ Hexadecimal [16-Bits]
                              34 .globl sys_util_get_random_number
                              35 .globl sys_util_delay
                              36 .globl sys_util_negHL
+                             37 .globl sys_util_hl_divided_d
+                             38 .globl sys_util_sqr_hl
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 119.
 Hexadecimal [16-Bits]
 
@@ -6188,12 +6204,12 @@ Hexadecimal [16-Bits]
                              29 ;;  right after _CODE area contents.
                              30 ;;
                              31 .area _DATA
-   24F2 00 00                32 routine:        .dw #0000
-   24F4 00                   33 comp_size:      .db #0
-   24F5 00                   34 comp_type:      .db #0
-   24F6 00 00                35 routine_iY:     .dw #0000
-   24F8 00                   36 comp_size_iY:   .db #0
-   24F9 00                   37 comp_type_iY:   .db #0
+   2579 00 00                32 routine:        .dw #0000
+   257B 00                   33 comp_size:      .db #0
+   257C 00                   34 comp_type:      .db #0
+   257D 00 00                35 routine_iY:     .dw #0000
+   257F 00                   36 comp_size_iY:   .db #0
+   2580 00                   37 comp_type_iY:   .db #0
                              38 
                              39 
                              40 ;;
@@ -6426,7 +6442,7 @@ Hexadecimal [16-Bits]
    0788 DD 7E 00      [19]  229     ld a, a_count(ix)               ;; load max number in a
                      00B4   230     SUB_OFFSET = . +1
    078B D6 00         [ 7]  231     sub #0x00
-   078D CD 7A 0D      [17]  232     call sys_util_get_random_number
+   078D CD 82 0D      [17]  232     call sys_util_get_random_number
                      00B9   233     ADD_OFFSET = . +1
    0790 C6 00         [ 7]  234     add #0x00
    0792 32 99 07      [13]  235     ld (_r_e_output), a             ;; save the random number in the output variable
@@ -6499,10 +6515,10 @@ Hexadecimal [16-Bits]
                             297 
    07CA 47            [ 4]  298     ld b, a                 ;; move the number of elements to b for indexing djnz
                             299 
-   07CB 22 F2 24      [16]  300     ld (routine), hl        ;; store routine in memory
+   07CB 22 79 25      [16]  300     ld (routine), hl        ;; store routine in memory
                             301 
    07CE DD 7E 02      [19]  302     ld a, a_component_size(ix)  ;; store component_size in memory
-   07D1 32 F4 24      [13]  303     ld (comp_size), a       ;;    
+   07D1 32 7B 25      [13]  303     ld (comp_size), a       ;;    
                             304     
    07D4 CD 2C 08      [17]  305     call man_array_first_element ;; load start of array in hl
                             306     
@@ -6514,12 +6530,12 @@ Hexadecimal [16-Bits]
    07DB 21 E3 07      [10]  312     ld hl, #return_point    ;;
    07DE E5            [11]  313     push hl                 ;; set the return point in the stack
                             314 
-   07DF 2A F2 24      [16]  315     ld hl, (routine)        ;; Move routine to hl
+   07DF 2A 79 25      [16]  315     ld hl, (routine)        ;; Move routine to hl
    07E2 E9            [ 4]  316     jp (hl)                 ;; jump to the routine
                             317 
    07E3                     318 return_point:
    07E3 16 00         [ 7]  319     ld d, #0                ;; retrieve component_size
-   07E5 3A F4 24      [13]  320     ld a, (comp_size)       ;;
+   07E5 3A 7B 25      [13]  320     ld a, (comp_size)       ;;
    07E8 5F            [ 4]  321     ld e, a                 ;;
                             322 
    07E9 DD 19         [15]  323     add ix, de              ;; move ix to the next element
@@ -6550,7 +6566,7 @@ Hexadecimal [16-Bits]
                             343 ;;
    07F1                     344 man_array_execute_each_matching::
    07F1 DD E5         [15]  345     push ix                             ;; save ix 
-   07F3 32 F5 24      [13]  346     ld (comp_type), a                   ;; save component to match for later
+   07F3 32 7C 25      [13]  346     ld (comp_type), a                   ;; save component to match for later
                             347 
    07F6 DD 7E 00      [19]  348     ld a, a_count(ix)                   ;; retrieve number of elements in the array
    07F9 B7            [ 4]  349     or a                                ;; If no elements in arrary return
@@ -6558,10 +6574,10 @@ Hexadecimal [16-Bits]
                             351 
    07FB 47            [ 4]  352     ld b, a                             ;; move the number of elements to b for indexing djnz
                             353 
-   07FC 22 F2 24      [16]  354     ld (routine), hl                    ;; store routine in memory
+   07FC 22 79 25      [16]  354     ld (routine), hl                    ;; store routine in memory
                             355 
    07FF DD 7E 02      [19]  356     ld a, a_component_size(ix)          ;; store component_size in memory
-   0802 32 F4 24      [13]  357     ld (comp_size), a                   ;;    
+   0802 32 7B 25      [13]  357     ld (comp_size), a                   ;;    
                             358     
    0805 CD 2C 08      [17]  359     call man_array_first_element        ;; load start of array in hl
                             360     
@@ -6571,7 +6587,7 @@ Hexadecimal [16-Bits]
    080B                     364 matching_loop_each:
    080B C5            [11]  365     push bc                             ;; save index in stack
                             366 
-   080C 3A F5 24      [13]  367     ld a, (comp_type)                   ;; Retrieve the component type to match
+   080C 3A 7C 25      [13]  367     ld a, (comp_type)                   ;; Retrieve the component type to match
    080F 47            [ 4]  368     ld b, a                             ;;
    0810 DD 7E 00      [19]  369     ld a, e_cmp(ix)                    ;; retrieve the type of the current component
    0813 A0            [ 4]  370     and b                               ;; Compare if they match
@@ -6580,12 +6596,12 @@ Hexadecimal [16-Bits]
    0816 21 1E 08      [10]  373     ld hl, #matching_return_point       ;;
    0819 E5            [11]  374     push hl                             ;; set the return point in the stack
                             375 
-   081A 2A F2 24      [16]  376     ld hl, (routine)                    ;; Move routine to hl
+   081A 2A 79 25      [16]  376     ld hl, (routine)                    ;; Move routine to hl
    081D E9            [ 4]  377     jp (hl)                             ;; jump to the routine
                             378 
    081E                     379 matching_return_point:
    081E 16 00         [ 7]  380     ld d, #0                            ;; retrieve component_size
-   0820 3A F4 24      [13]  381     ld a, (comp_size)                   ;;
+   0820 3A 7B 25      [13]  381     ld a, (comp_size)                   ;;
    0823 5F            [ 4]  382     ld e, a                             ;;
                             383 
    0824 DD 19         [15]  384     add ix, de                          ;; move ix to the next element

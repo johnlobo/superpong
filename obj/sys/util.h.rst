@@ -39,3 +39,5 @@ Hexadecimal [16-Bits]
                              34 .globl sys_util_get_random_number
                              35 .globl sys_util_delay
                              36 .globl sys_util_negHL
+                             37 .globl sys_util_hl_divided_d
+                             38 .globl sys_util_sqr_hl

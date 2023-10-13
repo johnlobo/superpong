@@ -1,5 +1,5 @@
 XL2
-H 1 areas 46 global symbols
+H 1 areas 48 global symbols
 M ball_manager
 S cpct_setInterruptHandler_asm Ref0000
 S man_entity_forall_matching_iy Ref0000
@@ -35,6 +35,7 @@ S cpct_memset_f64_asm Ref0000
 S sys_util_get_random_number Ref0000
 S sys_physics_update Ref0000
 S _s_small_numbers_00 Ref0000
+S sys_util_sqr_hl Ref0000
 S _s_small_numbers_01 Ref0000
 S sys_util_absHL Ref0000
 S _s_small_numbers_02 Ref0000
@@ -43,6 +44,7 @@ S _s_small_numbers_04 Ref0000
 S _s_small_numbers_05 Ref0000
 S sys_util_negHL Ref0000
 S _s_small_numbers_06 Ref0000
+S sys_util_hl_divided_d Ref0000
 S sys_util_delay Ref0000
 S _s_small_numbers_07 Ref0000
 S cpct_isAnyKeyPressed_asm Ref0000
@@ -75,25 +77,25 @@ S man_ball_set_ver_speed Def0059
 T 00 00
 R 00 00 00 00
 T 00 00 FD E5 CD 00 00 FD 66 0F FD 6E 10 CD 00 00
-R 00 00 00 00 02 05 08 00 02 0E 28 00
+R 00 00 00 00 02 05 08 00 02 0E 29 00
 T 0E 00 FD 74 0F FD 75 10 FD E1 C9
 R 00 00 00 00
 T 17 00
 R 00 00 00 00
 T 17 00 FD E5 CD 00 00 FD 66 11 FD 6E 12 CD 00 00
-R 00 00 00 00 02 05 08 00 02 0E 28 00
+R 00 00 00 00 02 05 08 00 02 0E 29 00
 T 25 00 FD 74 11 FD 75 12 FD E1 C9
 R 00 00 00 00
 T 2E 00
 R 00 00 00 00
 T 2E 00 FD 66 0F FD 6E 10 CD 00 00 01 16 00 09 01
-R 00 00 00 00 02 09 23 00
+R 00 00 00 00 02 09 24 00
 T 3C 00 00 01 E5 B7 ED 42 E1 38 03 21 00 01
 R 00 00 00 00
 T 48 00
 R 00 00 00 00
 T 48 00 FD 46 0F CB 78 28 03 CD 00 00
-R 00 00 00 00 02 0A 28 00
+R 00 00 00 00 02 0A 29 00
 T 52 00
 R 00 00 00 00
 T 52 00 FD 74 0F FD 75 10 C9
