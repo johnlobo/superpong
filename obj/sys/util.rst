@@ -559,7 +559,7 @@ Hexadecimal [16-Bits]
                              28 .area _DATA
                              29 
                              30 
-   274C 20 20 20 20 20 20    31 string_buffer:: .asciz "          "
+   279F 20 20 20 20 20 20    31 string_buffer:: .asciz "          "
         20 20 20 20 00
                              32 
                              33 
@@ -584,39 +584,39 @@ Hexadecimal [16-Bits]
                              52 ;; Credits:
                              53 ;;  Z80Heaven (http://z80-heaven.wikidot.com/advanced-math#toc9)
                              54 
-   0D23                      55 sys_util_h_times_e::
-   0D23 16 00         [ 7]   56   ld d,#0
-   0D25 6A            [ 4]   57   ld l,d
-   0D26 CB 24         [ 8]   58   sla h 
-   0D28 30 01         [12]   59   jr nc,.+3 
-   0D2A 6B            [ 4]   60   ld l,e
-   0D2B 29            [11]   61   add hl,hl 
-   0D2C 30 01         [12]   62   jr nc,.+3 
-   0D2E 19            [11]   63   add hl,de
-   0D2F 29            [11]   64   add hl,hl 
-   0D30 30 01         [12]   65   jr nc,.+3 
-   0D32 19            [11]   66   add hl,de
-   0D33 29            [11]   67   add hl,hl 
-   0D34 30 01         [12]   68   jr nc,.+3 
-   0D36 19            [11]   69   add hl,de
-   0D37 29            [11]   70   add hl,hl 
-   0D38 30 01         [12]   71   jr nc,.+3 
-   0D3A 19            [11]   72   add hl,de
-   0D3B 29            [11]   73   add hl,hl 
-   0D3C 30 01         [12]   74   jr nc,.+3 
-   0D3E 19            [11]   75   add hl,de
+   0D1B                      55 sys_util_h_times_e::
+   0D1B 16 00         [ 7]   56   ld d,#0
+   0D1D 6A            [ 4]   57   ld l,d
+   0D1E CB 24         [ 8]   58   sla h 
+   0D20 30 01         [12]   59   jr nc,.+3 
+   0D22 6B            [ 4]   60   ld l,e
+   0D23 29            [11]   61   add hl,hl 
+   0D24 30 01         [12]   62   jr nc,.+3 
+   0D26 19            [11]   63   add hl,de
+   0D27 29            [11]   64   add hl,hl 
+   0D28 30 01         [12]   65   jr nc,.+3 
+   0D2A 19            [11]   66   add hl,de
+   0D2B 29            [11]   67   add hl,hl 
+   0D2C 30 01         [12]   68   jr nc,.+3 
+   0D2E 19            [11]   69   add hl,de
+   0D2F 29            [11]   70   add hl,hl 
+   0D30 30 01         [12]   71   jr nc,.+3 
+   0D32 19            [11]   72   add hl,de
+   0D33 29            [11]   73   add hl,hl 
+   0D34 30 01         [12]   74   jr nc,.+3 
+   0D36 19            [11]   75   add hl,de
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 13.
 Hexadecimal [16-Bits]
 
 
 
-   0D3F 29            [11]   76   add hl,hl 
-   0D40 30 01         [12]   77   jr nc,.+3 
-   0D42 19            [11]   78   add hl,de
-   0D43 29            [11]   79   add hl,hl 
-   0D44 D0            [11]   80   ret nc 
-   0D45 19            [11]   81   add hl,de
-   0D46 C9            [10]   82   ret
+   0D37 29            [11]   76   add hl,hl 
+   0D38 30 01         [12]   77   jr nc,.+3 
+   0D3A 19            [11]   78   add hl,de
+   0D3B 29            [11]   79   add hl,hl 
+   0D3C D0            [11]   80   ret nc 
+   0D3D 19            [11]   81   add hl,de
+   0D3E C9            [10]   82   ret
                              83 
                              84 ;;-----------------------------------------------------------------;; 
                              85 ;;  sys_util_hl_div_c
@@ -631,17 +631,17 @@ Hexadecimal [16-Bits]
                              94 ;;     DE is not changed
                              95 ;;     HL is the quotient
                              96 ;;
-   0D47                      97 sys_util_hl_div_c::
-   0D47 06 10         [ 7]   98        ld b,#16
-   0D49 AF            [ 4]   99        xor a
-   0D4A 29            [11]  100          add hl,hl
-   0D4B 17            [ 4]  101          rla
-   0D4C B9            [ 4]  102          cp c
-   0D4D 38 02         [12]  103          jr c,.+4
-   0D4F 2C            [ 4]  104            inc l
-   0D50 91            [ 4]  105            sub c
-   0D51 10 F7         [13]  106          djnz .-7
-   0D53 C9            [10]  107        ret
+   0D3F                      97 sys_util_hl_div_c::
+   0D3F 06 10         [ 7]   98        ld b,#16
+   0D41 AF            [ 4]   99        xor a
+   0D42 29            [11]  100          add hl,hl
+   0D43 17            [ 4]  101          rla
+   0D44 B9            [ 4]  102          cp c
+   0D45 38 02         [12]  103          jr c,.+4
+   0D47 2C            [ 4]  104            inc l
+   0D48 91            [ 4]  105            sub c
+   0D49 10 F7         [13]  106          djnz .-7
+   0D4B C9            [10]  107        ret
                             108 
                             109 ;;-----------------------------------------------------------------
                             110 ;;
@@ -654,16 +654,16 @@ Hexadecimal [16-Bits]
                             117 ;;
                             118 ;;  Cemetech code (https://learn.cemetech.net/index.php?title=Z80:Math_Routines#absHL)
                             119 ;;
-   0D54                     120 sys_util_absHL::
-   0D54 CB 7C         [ 8]  121   bit #7,h
-   0D56 C8            [11]  122   ret z
-   0D57 AF            [ 4]  123   xor a
-   0D58 95            [ 4]  124   sub l
-   0D59 6F            [ 4]  125   ld l,a
-   0D5A 9F            [ 4]  126   sbc a,a
-   0D5B 94            [ 4]  127   sub h
-   0D5C 67            [ 4]  128   ld h,a
-   0D5D C9            [10]  129   ret
+   0D4C                     120 sys_util_absHL::
+   0D4C CB 7C         [ 8]  121   bit #7,h
+   0D4E C8            [11]  122   ret z
+   0D4F AF            [ 4]  123   xor a
+   0D50 95            [ 4]  124   sub l
+   0D51 6F            [ 4]  125   ld l,a
+   0D52 9F            [ 4]  126   sbc a,a
+   0D53 94            [ 4]  127   sub h
+   0D54 67            [ 4]  128   ld h,a
+   0D55 C9            [10]  129   ret
                             130 
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 14.
 Hexadecimal [16-Bits]
@@ -683,19 +683,19 @@ Hexadecimal [16-Bits]
                             141 ;;
                             142 ;;  Chibi Akumas BCD code (https://www.chibiakumas.com/z80/advanced.php#LessonA1)
                             143 ;;
-   0D5E                     144 sys_util_BCD_GetEnd::
+   0D56                     144 sys_util_BCD_GetEnd::
                             145 ;Some of our commands need to start from the most significant byte
                             146 ;This will shift HL and DE along b bytes
-   0D5E C5            [11]  147 	push bc
-   0D5F 48            [ 4]  148 	ld c,b	;We want to add BC, but we need to add one less than the number of bytes
-   0D60 0D            [ 4]  149 	dec c
-   0D61 06 00         [ 7]  150 	ld b,#0
-   0D63 09            [11]  151 	add hl,bc
-   0D64 EB            [ 4]  152 	ex de, hl	;We've done HL, but we also want to do DE
-   0D65 09            [11]  153 	add hl,bc
-   0D66 EB            [ 4]  154 	ex de, hl
-   0D67 C1            [10]  155 	pop bc
-   0D68 C9            [10]  156 	ret
+   0D56 C5            [11]  147 	push bc
+   0D57 48            [ 4]  148 	ld c,b	;We want to add BC, but we need to add one less than the number of bytes
+   0D58 0D            [ 4]  149 	dec c
+   0D59 06 00         [ 7]  150 	ld b,#0
+   0D5B 09            [11]  151 	add hl,bc
+   0D5C EB            [ 4]  152 	ex de, hl	;We've done HL, but we also want to do DE
+   0D5D 09            [11]  153 	add hl,bc
+   0D5E EB            [ 4]  154 	ex de, hl
+   0D5F C1            [10]  155 	pop bc
+   0D60 C9            [10]  156 	ret
                             157 
                             158 ;;-----------------------------------------------------------------
                             159 ;;
@@ -709,17 +709,17 @@ Hexadecimal [16-Bits]
                             167 ;;
                             168 ;;  Chibi Akumas BCD code (https://www.chibiakumas.com/z80/advanced.php#LessonA1)
                             169 ;;
-   0D69                     170 sys_util_BCD_Add::
-   0D69 B7            [ 4]  171     or a
-   0D6A                     172 BCD_Add_Again:
-   0D6A 1A            [ 7]  173     ld a, (de)
-   0D6B 8E            [ 7]  174     adc (hl)
-   0D6C 27            [ 4]  175     daa
-   0D6D 12            [ 7]  176     ld (de), a
-   0D6E 13            [ 6]  177     inc de
-   0D6F 23            [ 6]  178     inc hl
-   0D70 10 F8         [13]  179     djnz BCD_Add_Again
-   0D72 C9            [10]  180     ret
+   0D61                     170 sys_util_BCD_Add::
+   0D61 B7            [ 4]  171     or a
+   0D62                     172 BCD_Add_Again:
+   0D62 1A            [ 7]  173     ld a, (de)
+   0D63 8E            [ 7]  174     adc (hl)
+   0D64 27            [ 4]  175     daa
+   0D65 12            [ 7]  176     ld (de), a
+   0D66 13            [ 6]  177     inc de
+   0D67 23            [ 6]  178     inc hl
+   0D68 10 F8         [13]  179     djnz BCD_Add_Again
+   0D6A C9            [10]  180     ret
                             181   
                             182 ;;-----------------------------------------------------------------
                             183 ;;
@@ -738,19 +738,19 @@ Hexadecimal [16-Bits]
                             191 ;;
                             192 ;;  Chibi Akumas BCD code (https://www.chibiakumas.com/z80/advanced.php#LessonA1)
                             193 ;;
-   0D73                     194 sys_util_BCD_Compare::
-   0D73 06 04         [ 7]  195   ld b, #SCORE_NUM_BYTES
-   0D75 CD 5E 0D      [17]  196   call sys_util_BCD_GetEnd
-   0D78                     197 BCD_cp_direct:
-   0D78 1A            [ 7]  198   ld a, (de)
-   0D79 BE            [ 7]  199   cp (hl)
-   0D7A D8            [11]  200   ret c
-   0D7B C0            [11]  201   ret nz
-   0D7C 1B            [ 6]  202   dec de
-   0D7D 2B            [ 6]  203   dec hl
-   0D7E 10 F8         [13]  204   djnz BCD_cp_direct
-   0D80 B7            [ 4]  205   or a                    ;; Clear carry
-   0D81 C9            [10]  206   ret
+   0D6B                     194 sys_util_BCD_Compare::
+   0D6B 06 04         [ 7]  195   ld b, #SCORE_NUM_BYTES
+   0D6D CD 56 0D      [17]  196   call sys_util_BCD_GetEnd
+   0D70                     197 BCD_cp_direct:
+   0D70 1A            [ 7]  198   ld a, (de)
+   0D71 BE            [ 7]  199   cp (hl)
+   0D72 D8            [11]  200   ret c
+   0D73 C0            [11]  201   ret nz
+   0D74 1B            [ 6]  202   dec de
+   0D75 2B            [ 6]  203   dec hl
+   0D76 10 F8         [13]  204   djnz BCD_cp_direct
+   0D78 B7            [ 4]  205   or a                    ;; Clear carry
+   0D79 C9            [10]  206   ret
                             207 
                             208 ;;-----------------------------------------------------------------
                             209 ;;
@@ -761,21 +761,21 @@ Hexadecimal [16-Bits]
                             214 ;;  Output: a: random number
                             215 ;;  Destroyed: af, bc,de, hl
                             216 
-   0D82                     217 sys_util_get_random_number::
-   0D82 32 8C 0D      [13]  218   ld (#random_max_number), a
-   0D85 CD 14 24      [17]  219   call cpct_getRandom_mxor_u8_asm
-   0D88 7D            [ 4]  220   ld a, l                             ;; Calculates a pseudo modulus of max number
-   0D89 26 00         [ 7]  221   ld h,#0                             ;; Load hl with the random number
+   0D7A                     217 sys_util_get_random_number::
+   0D7A 32 84 0D      [13]  218   ld (#random_max_number), a
+   0D7D CD 67 24      [17]  219   call cpct_getRandom_mxor_u8_asm
+   0D80 7D            [ 4]  220   ld a, l                             ;; Calculates a pseudo modulus of max number
+   0D81 26 00         [ 7]  221   ld h,#0                             ;; Load hl with the random number
                      0069   222 random_max_number = .+1
-   0D8B 0E 00         [ 7]  223   ld c, #0                            ;; Load c with the max number
-   0D8D 06 00         [ 7]  224   ld b, #0
-   0D8F                     225 _random_mod_loop:
-   0D8F B7            [ 4]  226   or a                                ;; ??
-   0D90 ED 42         [15]  227   sbc hl,bc                           ;; hl = hl - bc
-   0D92 F2 8F 0D      [10]  228   jp p, _random_mod_loop              ;; Jump back if hl > 0
-   0D95 09            [11]  229   add hl,bc                           ;; Adds MAX_MODEL_CARD to hl back to get back to positive values
-   0D96 7D            [ 4]  230   ld a,l                              ;; loads the normalized random number in a
-   0D97 C9            [10]  231 ret
+   0D83 0E 00         [ 7]  223   ld c, #0                            ;; Load c with the max number
+   0D85 06 00         [ 7]  224   ld b, #0
+   0D87                     225 _random_mod_loop:
+   0D87 B7            [ 4]  226   or a                                ;; ??
+   0D88 ED 42         [15]  227   sbc hl,bc                           ;; hl = hl - bc
+   0D8A F2 87 0D      [10]  228   jp p, _random_mod_loop              ;; Jump back if hl > 0
+   0D8D 09            [11]  229   add hl,bc                           ;; Adds MAX_MODEL_CARD to hl back to get back to positive values
+   0D8E 7D            [ 4]  230   ld a,l                              ;; loads the normalized random number in a
+   0D8F C9            [10]  231 ret
                             232 
                             233 ;;-----------------------------------------------------------------
                             234 ;;
@@ -791,12 +791,12 @@ Hexadecimal [16-Bits]
 
 
                             241 ;;
-   0D98                     242 sys_util_delay::
-   0D98 C5            [11]  243   push bc
-   0D99 CD C5 24      [17]  244   call cpct_waitVSYNCStart_asm
-   0D9C C1            [10]  245   pop bc
-   0D9D 10 F9         [13]  246   djnz sys_util_delay
-   0D9F C9            [10]  247   ret
+   0D90                     242 sys_util_delay::
+   0D90 C5            [11]  243   push bc
+   0D91 CD 18 25      [17]  244   call cpct_waitVSYNCStart_asm
+   0D94 C1            [10]  245   pop bc
+   0D95 10 F9         [13]  246   djnz sys_util_delay
+   0D97 C9            [10]  247   ret
                             248 
                             249 
                             250 ;;-----------------------------------------------------------------
@@ -809,14 +809,14 @@ Hexadecimal [16-Bits]
                             257 ;;  destroys: a
                             258 ;;
                             259 ;; WikiTI code (https://wikiti.brandonw.net/index.php?title=Z80_Routines:Math:Signed_Math)
-   0DA0                     260 sys_util_negHL::
-   0DA0 AF            [ 4]  261 	xor a
-   0DA1 95            [ 4]  262 	sub l
-   0DA2 6F            [ 4]  263 	ld l,a
-   0DA3 9F            [ 4]  264 	sbc a,a
-   0DA4 94            [ 4]  265 	sub h
-   0DA5 67            [ 4]  266 	ld h,a
-   0DA6 C9            [10]  267 	ret
+   0D98                     260 sys_util_negHL::
+   0D98 AF            [ 4]  261 	xor a
+   0D99 95            [ 4]  262 	sub l
+   0D9A 6F            [ 4]  263 	ld l,a
+   0D9B 9F            [ 4]  264 	sbc a,a
+   0D9C 94            [ 4]  265 	sub h
+   0D9D 67            [ 4]  266 	ld h,a
+   0D9E C9            [10]  267 	ret
                             268 
                             269 ;;-----------------------------------------------------------------
                             270 ;;
@@ -829,139 +829,139 @@ Hexadecimal [16-Bits]
                             277 ;;  destroys: af, de, bc, hl 
                             278 ;;
                             279 ;; code by Jonathan Cauldwell (https://chuntey.wordpress.com/category/z80-assembly/)
-   0DA7                     280 sys_util_hl_divided_d::
-   0DA7 06 08         [ 7]  281   ld b,#8              ; bits to check.
-   0DA9 7A            [ 4]  282   ld a,d              ; number by which to divide.
-   0DAA                     283 idiv3:  
-   0DAA 17            [ 4]  284   rla                 ; check leftmost bit.
-   0DAB 38 07         [12]  285   jr c,idiv2          ; no more shifts required.
-   0DAD 04            [ 4]  286   inc b               ; extra shift needed.
-   0DAE BC            [ 4]  287   cp h
-   0DAF 30 03         [12]  288   jr nc,idiv2
-   0DB1 C3 AA 0D      [10]  289   jp idiv3            ; repeat.
+   0D9F                     280 sys_util_hl_divided_d::
+   0D9F 06 08         [ 7]  281   ld b,#8              ; bits to check.
+   0DA1 7A            [ 4]  282   ld a,d              ; number by which to divide.
+   0DA2                     283 idiv3:  
+   0DA2 17            [ 4]  284   rla                 ; check leftmost bit.
+   0DA3 38 07         [12]  285   jr c,idiv2          ; no more shifts required.
+   0DA5 04            [ 4]  286   inc b               ; extra shift needed.
+   0DA6 BC            [ 4]  287   cp h
+   0DA7 30 03         [12]  288   jr nc,idiv2
+   0DA9 C3 A2 0D      [10]  289   jp idiv3            ; repeat.
                             290 
-   0DB4                     291 idiv2:  
-   0DB4 AF            [ 4]  292   xor a
-   0DB5 5F            [ 4]  293   ld e,a
-   0DB6 4F            [ 4]  294   ld c,a              ; result.
-   0DB7                     295 idiv1:  
+   0DAC                     291 idiv2:  
+   0DAC AF            [ 4]  292   xor a
+   0DAD 5F            [ 4]  293   ld e,a
+   0DAE 4F            [ 4]  294   ld c,a              ; result.
+   0DAF                     295 idiv1:  
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 17.
 Hexadecimal [16-Bits]
 
 
 
-   0DB7 ED 52         [15]  296   sbc hl,de           ; do subtraction.
-   0DB9 30 01         [12]  297   jr nc,idiv0         ; no carry, keep the result.
-   0DBB 19            [11]  298   add hl,de           ; restore original value of hl.
-   0DBC                     299 idiv0: 
-   0DBC 3F            [ 4]  300   ccf                 ; reverse carry bit.
-   0DBD CB 11         [ 8]  301   rl c                ; rotate in to ac.
-   0DBF 17            [ 4]  302   rla
-   0DC0 CB 1A         [ 8]  303   rr d                ; divide de by 2.
-   0DC2 CB 1B         [ 8]  304   rr e
-   0DC4 10 F1         [13]  305   djnz idiv1          ; repeat.
-   0DC6 67            [ 4]  306   ld h,a              ; copy result to hl.
-   0DC7 69            [ 4]  307   ld l,c
-   0DC8 C9            [10]  308   ret
+   0DAF ED 52         [15]  296   sbc hl,de           ; do subtraction.
+   0DB1 30 01         [12]  297   jr nc,idiv0         ; no carry, keep the result.
+   0DB3 19            [11]  298   add hl,de           ; restore original value of hl.
+   0DB4                     299 idiv0: 
+   0DB4 3F            [ 4]  300   ccf                 ; reverse carry bit.
+   0DB5 CB 11         [ 8]  301   rl c                ; rotate in to ac.
+   0DB7 17            [ 4]  302   rla
+   0DB8 CB 1A         [ 8]  303   rr d                ; divide de by 2.
+   0DBA CB 1B         [ 8]  304   rr e
+   0DBC 10 F1         [13]  305   djnz idiv1          ; repeat.
+   0DBE 67            [ 4]  306   ld h,a              ; copy result to hl.
+   0DBF 69            [ 4]  307   ld l,c
+   0DC0 C9            [10]  308   ret
                             309 
                             310 ;;-----------------------------------------------------------------
                             311 ;;
                             312 ;; sys_util_sqr_hl
                             313 ;;
                             314 ;;  Calculates de square root of hl in a
-                            315 ;;  input: hl
-                            316 ;;  ouput: a
-                            317 ;;  destroys: af, de, bc, hl 
-                            318 ;;
-                            319 ;; code by Jonathan Cauldwell (https://chuntey.wordpress.com/category/z80-assembly/)
-   0DC9                     320 sys_util_sqr_hl::
-                            321   ;;ld (sqbuf0),hl                ; number for which we want to find square root.
-                            322   ;;xor a                         ; zeroise accumulator.
-                            323   ;;ld (sqbuf2),a                 ; result buffer.
-                            324   ;;ld a, #128                    ; start division with highest bit.
-                            325   ;;ld (sqbuf1),a                 ; next divisor.
-                            326   ;;ld b,#8                       ; 8 bits to divide.
-                            327 ;;isqr1:            
-                            328   ;;push bc                       ; store loop counter.
-                            329   ;;ld a,(sqbuf2)                 ; current result.
-                            330   ;;ld d,a          
-                            331   ;;ld a,(sqbuf1)                 ; next bit to check.
-                            332   ;;or d                          ; combine with divisor.
-                            333   ;;ld d,a                        ; store low byte.
-                            334   ;;xor a                         ; HL = HL / D
-                            335   ;;ld c,a                        ; zeroise c.
-                            336   ;;ld e,a                        ; zeroise e.
-                            337   ;;push de                       ; remember divisor.
-                            338   ;;ld hl,(sqbuf0)                ; original number.
-                            339   ;;call sys_util_hl_divided_d    ; divide number by d.
-                            340   ;;pop de                        ; restore divisor.
-                            341   ;;cp d                          ; is divisor greater than result?
-                            342   ;;jr c,isqr0                    ; yes, don't store this bit then.
-                            343   ;;ld a,d          
-                            344   ;;ld (sqbuf2),a                 ; store new divisor.
-                            345 ;;isqr0:            
-                            346   ;;ld hl, #sqbuf1                ; bit we tested.
-                            347   ;;and a                         ; clear carry flag.
-                            348   ;;rr (hl)                       ; next bit to right.
-                            349   ;;pop bc                        ; restore loop counter.
-                            350   ;;djnz isqr1                    ; repeat
+                            315 ;;  fast 16 bit isqrt by John Metcalf
+                            316 ;;  92 bytes, 344-379 cycles (average 362)
+                            317 ;;  v2 - saved 3 cycles with a tweak suggested by Russ McNulty
+                            318 ;;  input: hl
+                            319 ;;  ouput: a
+                            320 ;;  destroys: de, hl 
+                            321 ;;
+                            322 ;; code by John Metcalf (https://github.com/impomatic/z80snippets/blob/master/fastisqr.asm)
+   0DC1                     323 sys_util_sqr_hl::
+                            324 
+   0DC1 7C            [ 4]  325   ld a,h        ; 4
+   0DC2 11 C0 B0      [10]  326   ld de,#0x0B0C0  ; 10
+   0DC5 83            [ 4]  327   add a,e       ; 4
+   0DC6 38 03         [12]  328   jr c,sq7      ; 12 / 7
+   0DC8 7C            [ 4]  329   ld a,h        ; 4
+   0DC9 16 F0         [ 7]  330   ld d,#0x0F0     ; 7
+   0DCB                     331 sq7:
+                            332 
+                            333 ; ----------
+                            334 
+   0DCB 82            [ 4]  335   add a,d       ; 4
+   0DCC 30 03         [12]  336   jr nc,sq6     ; 12 / 7
+   0DCE CB AA         [ 8]  337   res 5,d       ; 8
+   0DD0 FE                  338   .db #254        ; 7
+   0DD1                     339 sq6:
+   0DD1 92            [ 4]  340   sub d         ; 4
+   0DD2 CB 2A         [ 8]  341   sra d         ; 8
+                            342 
+                            343 ; ----------
+                            344 
+   0DD4 CB D2         [ 8]  345   set 2,d       ; 8
+   0DD6 82            [ 4]  346   add a,d       ; 4
+   0DD7 30 03         [12]  347   jr nc,sq5     ; 12 / 7
+   0DD9 CB 9A         [ 8]  348   res 3,d       ; 8
+   0DDB FE                  349   .db #254        ; 7
+   0DDC                     350 sq5:
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 18.
 Hexadecimal [16-Bits]
 
 
 
-                            351   ;;ld a,(sqbuf2)                 ; return result in hl.
-                            352   ;;ret
-                            353 ;;sqbuf0: .dw #0
-                            354 ;;sqbuf1: .db #0
-                            355 ;;sqbuf2: .db #0
-                            356 
-                            357 ;-------------------------------
-                            358 ;Square Root
-                            359 ;Inputs:
-                            360 ;HL = number to be square rooted
-                            361 ;Outputs:
-                            362 ;A  = square root
-                            363 ;;
-                            364 ;;   ld a, #0xff
-                            365 ;;   ld de,#1
-                            366 ;;sqrtloop:
-                            367 ;;   inc a
-                            368 ;;   dec e
-                            369 ;;   dec de
-                            370 ;;   add hl,de
-                            371 ;;   jr c,sqrtloop
-                            372 ;;   ret 
-                            373 ;;
-                            374 
-                            375 
-                            376 ; fast 16 bit isqrt by John Metcalf
-                            377 ; 92 bytes, 344-379 cycles (average 362)
-                            378 ; v2 - saved 3 cycles with a tweak suggested by Russ McNulty
+   0DDC 92            [ 4]  351   sub d         ; 4
+   0DDD CB 2A         [ 8]  352   sra d         ; 8
+                            353 
+                            354 ; ----------
+                            355 
+   0DDF 14            [ 4]  356   inc d         ; 4
+   0DE0 82            [ 4]  357   add a,d       ; 4
+   0DE1 30 03         [12]  358   jr nc,sq4     ; 12 / 7
+   0DE3 CB 8A         [ 8]  359   res 1,d       ; 8
+   0DE5 FE                  360   .db #254        ; 7
+   0DE6                     361 sq4:
+   0DE6 92            [ 4]  362   sub d         ; 4
+   0DE7 CB 2A         [ 8]  363   sra d         ; 8
+   0DE9 67            [ 4]  364   ld h,a        ; 4
+                            365 
+                            366 ; ----------
+                            367 
+   0DEA 19            [11]  368   add hl,de     ; 11
+   0DEB 30 03         [12]  369   jr nc,sq3     ; 12 / 7
+   0DED 1E 40         [ 7]  370   ld e,#0x040     ; 7
+   0DEF D2                  371   .db #210        ; 10
+   0DF0                     372 sq3:
+   0DF0 ED 52         [15]  373   sbc hl,de     ; 15
+   0DF2 CB 2A         [ 8]  374   sra d         ; 8
+   0DF4 7B            [ 4]  375   ld a,e        ; 4
+   0DF5 1F            [ 4]  376   rra           ; 4
+                            377 
+                            378 ; ----------
                             379 
-                            380 ; call with hl = number to square root
-                            381 ; returns    a = square root
-                            382 ; corrupts hl, de
-                            383 
-                            384 ; ----------
-                            385 
-   0DC9 7C            [ 4]  386   ld a,h        ; 4
-   0DCA 11 C0 B0      [10]  387   ld de,#0x0B0C0  ; 10
-   0DCD 83            [ 4]  388   add a,e       ; 4
-   0DCE 38 03         [12]  389   jr c,sq7      ; 12 / 7
-   0DD0 7C            [ 4]  390   ld a,h        ; 4
-   0DD1 16 F0         [ 7]  391   ld d,#0x0F0     ; 7
-   0DD3                     392 sq7:
-                            393 
-                            394 ; ----------
-                            395 
-   0DD3 82            [ 4]  396   add a,d       ; 4
-   0DD4 30 03         [12]  397   jr nc,sq6     ; 12 / 7
-   0DD6 CB AA         [ 8]  398   res 5,d       ; 8
-   0DD8 FE                  399   .db #254        ; 7
-   0DD9                     400 sq6:
-   0DD9 92            [ 4]  401   sub d         ; 4
-   0DDA CB 2A         [ 8]  402   sra d         ; 8
+   0DF6 F6 10         [ 7]  380   or #0x010       ; 7
+   0DF8 5F            [ 4]  381   ld e,a        ; 4
+   0DF9 19            [11]  382   add hl,de     ; 11
+   0DFA 30 03         [12]  383   jr nc,sq2     ; 12 / 7
+   0DFC E6 DF         [ 7]  384   and #0x0DF      ; 7
+   0DFE DA                  385   .db #218        ; 10
+   0DFF                     386 sq2:
+   0DFF ED 52         [15]  387   sbc hl,de     ; 15
+   0E01 CB 2A         [ 8]  388   sra d         ; 8
+   0E03 1F            [ 4]  389   rra           ; 4
+                            390 
+                            391 ; ----------
+                            392 
+   0E04 F6 04         [ 7]  393   or #0x04        ; 7
+   0E06 5F            [ 4]  394   ld e,a        ; 4
+   0E07 19            [11]  395   add hl,de     ; 11
+   0E08 30 03         [12]  396   jr nc,sq1     ; 12 / 7
+   0E0A E6 F7         [ 7]  397   and #0x0F7      ; 7
+   0E0C DA                  398   .db #218        ; 10
+   0E0D                     399 sq1:
+   0E0D ED 52         [15]  400   sbc hl,de     ; 15
+   0E0F CB 2A         [ 8]  401   sra d         ; 8
+   0E11 1F            [ 4]  402   rra           ; 4
                             403 
                             404 ; ----------
                             405 
@@ -970,80 +970,35 @@ Hexadecimal [16-Bits]
 
 
 
-   0DDC CB D2         [ 8]  406   set 2,d       ; 8
-   0DDE 82            [ 4]  407   add a,d       ; 4
-   0DDF 30 03         [12]  408   jr nc,sq5     ; 12 / 7
-   0DE1 CB 9A         [ 8]  409   res 3,d       ; 8
-   0DE3 FE                  410   .db #254        ; 7
-   0DE4                     411 sq5:
-   0DE4 92            [ 4]  412   sub d         ; 4
-   0DE5 CB 2A         [ 8]  413   sra d         ; 8
-                            414 
-                            415 ; ----------
-                            416 
-   0DE7 14            [ 4]  417   inc d         ; 4
-   0DE8 82            [ 4]  418   add a,d       ; 4
-   0DE9 30 03         [12]  419   jr nc,sq4     ; 12 / 7
-   0DEB CB 8A         [ 8]  420   res 1,d       ; 8
-   0DED FE                  421   .db #254        ; 7
-   0DEE                     422 sq4:
-   0DEE 92            [ 4]  423   sub d         ; 4
-   0DEF CB 2A         [ 8]  424   sra d         ; 8
-   0DF1 67            [ 4]  425   ld h,a        ; 4
-                            426 
-                            427 ; ----------
-                            428 
-   0DF2 19            [11]  429   add hl,de     ; 11
-   0DF3 30 03         [12]  430   jr nc,sq3     ; 12 / 7
-   0DF5 1E 40         [ 7]  431   ld e,#0x040     ; 7
-   0DF7 D2                  432   .db #210        ; 10
-   0DF8                     433 sq3:
-   0DF8 ED 52         [15]  434   sbc hl,de     ; 15
-   0DFA CB 2A         [ 8]  435   sra d         ; 8
-   0DFC 7B            [ 4]  436   ld a,e        ; 4
-   0DFD 1F            [ 4]  437   rra           ; 4
-                            438 
-                            439 ; ----------
-                            440 
-   0DFE F6 10         [ 7]  441   or #0x010       ; 7
-   0E00 5F            [ 4]  442   ld e,a        ; 4
-   0E01 19            [11]  443   add hl,de     ; 11
-   0E02 30 03         [12]  444   jr nc,sq2     ; 12 / 7
-   0E04 E6 DF         [ 7]  445   and #0x0DF      ; 7
-   0E06 DA                  446   .db #218        ; 10
-   0E07                     447 sq2:
-   0E07 ED 52         [15]  448   sbc hl,de     ; 15
-   0E09 CB 2A         [ 8]  449   sra d         ; 8
-   0E0B 1F            [ 4]  450   rra           ; 4
-                            451 
-                            452 ; ----------
-                            453 
-   0E0C F6 04         [ 7]  454   or #0x04        ; 7
-   0E0E 5F            [ 4]  455   ld e,a        ; 4
-   0E0F 19            [11]  456   add hl,de     ; 11
-   0E10 30 03         [12]  457   jr nc,sq1     ; 12 / 7
-   0E12 E6 F7         [ 7]  458   and #0x0F7      ; 7
-   0E14 DA                  459   .db #218        ; 10
-   0E15                     460 sq1:
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 20.
-Hexadecimal [16-Bits]
-
-
-
-   0E15 ED 52         [15]  461   sbc hl,de     ; 15
-   0E17 CB 2A         [ 8]  462   sra d         ; 8
-   0E19 1F            [ 4]  463   rra           ; 4
-                            464 
-                            465 ; ----------
-                            466 
-   0E1A 3C            [ 4]  467   inc a         ; 4
-   0E1B 5F            [ 4]  468   ld e,a        ; 4
-   0E1C 19            [11]  469   add hl,de     ; 11
-   0E1D 30 02         [12]  470   jr nc,sq0     ; 12 / 7
-   0E1F E6 FD         [ 7]  471   and #0x0FD      ; 7
-   0E21                     472 sq0:
-   0E21 CB 2A         [ 8]  473   sra d         ; 8
-   0E23 1F            [ 4]  474   rra           ; 4
-   0E24 2F            [ 4]  475   cpl           ; 4
-                            476 
-   0E25 C9            [10]  477 ret
+   0E12 3C            [ 4]  406   inc a         ; 4
+   0E13 5F            [ 4]  407   ld e,a        ; 4
+   0E14 19            [11]  408   add hl,de     ; 11
+   0E15 30 02         [12]  409   jr nc,sq0     ; 12 / 7
+   0E17 E6 FD         [ 7]  410   and #0x0FD      ; 7
+   0E19                     411 sq0:
+   0E19 CB 2A         [ 8]  412   sra d         ; 8
+   0E1B 1F            [ 4]  413   rra           ; 4
+   0E1C 2F            [ 4]  414   cpl           ; 4
+                            415 
+   0E1D C9            [10]  416 ret
+                            417 
+   0E1E                     418 sine_table::
+   0E1E 00                  419     .db #0 
+   0E1F 04 09 0D 12 16 1B   420     .db #4,   #9,   #13,  #18,  #22,  #27,  #31,  #36,  #40,  #44
+        1F 24 28 2C
+   0E29 31 35 3A 3E 42 47   421     .db #49,  #53,  #58,  #62,  #66,  #71,  #75,  #79,  #83,  #88
+        4B 4F 53 58
+   0E33 5C 60 64 68 6C 70   422     .db #92,  #96,  #100, #104, #108, #112, #116, #120, #124, #128
+        74 78 7C 80
+   0E3D 84 88 8B 8F 93 96   423     .db #132, #136, #139, #143, #147, #150, #154, #158, #161, #165
+        9A 9E A1 A5
+   0E47 A8 AB AF B2 B5 B8   424     .db #168, #171, #175, #178, #181, #184, #187, #190, #193, #196
+        BB BE C1 C4
+   0E51 C7 CA CC CF D2 D4   425     .db #199, #202, #204, #207, #210, #212, #215, #217, #219, #222
+        D7 D9 DB DE
+   0E5B E0 E2 E4 E6 E8 EA   426     .db #224, #226, #228, #230, #232, #234, #236, #237, #239, #241
+        EC ED EF F1
+   0E65 F2 F3 F5 F6 F7 F8   427     .db #242, #243, #245, #246, #247, #248, #249, #250, #251, #252
+        F9 FA FB FC
+   0E6F FD FE FE FF FF FF   428     .db #253, #254, #254, #255, #255, #255, #256, #256, #256, #256
+        00 00 00 00

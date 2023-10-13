@@ -5821,11 +5821,11 @@ Hexadecimal [16-Bits]
                              39 .area _DATA
                              40 
    0000                      41 DefineComponentArrayStructure_Size _entity, MAX_ENTITIES, sizeof_e
-   2581 00                    1     _entity_num::         .db 0
-   2582 00 00                 2     _entity_list::        .dw nullptr
-   2584 86 25                 3     _entity_free_list::   .dw _entity_array
-   2586                       4     _entity_array::
-   2586                       5         .ds MAX_ENTITIES * sizeof_e
+   25D4 00                    1     _entity_num::         .db 0
+   25D5 00 00                 2     _entity_list::        .dw nullptr
+   25D7 D9 25                 3     _entity_free_list::   .dw _entity_array
+   25D9                       4     _entity_array::
+   25D9                       5         .ds MAX_ENTITIES * sizeof_e
                              42 
                              43 ;;
                              44 ;; Start of _CODE area
@@ -5882,12 +5882,12 @@ Hexadecimal [16-Bits]
                              90 
    08EF D1            [10]   91 	pop de
                              92 
-   08F0 2A 84 25      [16]   93 	ld hl, (_entity_free_list)					;;	\	The free list will now start at the end pointer of
-   08F3 DD 22 84 25   [20]   94 	ld (_entity_free_list), ix					;;	|	the deleted entity and contain a pointers to its old
+   08F0 2A D7 25      [16]   93 	ld hl, (_entity_free_list)					;;	\	The free list will now start at the end pointer of
+   08F3 DD 22 D7 25   [20]   94 	ld (_entity_free_list), ix					;;	|	the deleted entity and contain a pointers to its old
    08F7 DD 75 00      [19]   95 	ld e_ptr(ix), l				    			;;	|	position.
    08FA DD 74 01      [19]   96 	ld e_ptr+1(ix), h							;;	/
                              97 
-   08FD 21 81 25      [10]   98 	ld hl, #_entity_num
+   08FD 21 D4 25      [10]   98 	ld hl, #_entity_num
    0900 35            [11]   99 	dec (hl)
                             100 
    0901 7B            [ 4]  101 	ld a, e										;;	\	If DE points to null, it means it is the las entity
@@ -5904,7 +5904,7 @@ Hexadecimal [16-Bits]
    090A C9            [10]  112 	ret
                             113 
    090B                     114 __is_the_last_entity:
-   090B ED 43 82 25   [20]  115 	ld (_entity_list), bc
+   090B ED 43 D5 25   [20]  115 	ld (_entity_list), bc
                             116 
    090F C9            [10]  117 	ret
                             118 
@@ -5919,11 +5919,11 @@ Hexadecimal [16-Bits]
    0910                     127 man_entity_new::
                             128 
                             129 	;; Increment number of templates
-   0910 21 81 25      [10]  130 	ld hl, #_entity_num
+   0910 21 D4 25      [10]  130 	ld hl, #_entity_num
    0913 34            [11]  131 	inc (hl)
                             132 
                             133 	;; updates pointer to free space
-   0914 2A 84 25      [16]  134 	ld hl, (_entity_free_list)	;; HL = Pointer to free space.
+   0914 2A D7 25      [16]  134 	ld hl, (_entity_free_list)	;; HL = Pointer to free space.
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 112.
 Hexadecimal [16-Bits]
 
@@ -5935,9 +5935,9 @@ Hexadecimal [16-Bits]
    0918 5E            [ 7]  138 	ld e, (hl)							;;	\	Extract from HL the pointer to the next
    0919 23            [ 6]  139 	inc hl								;;	|	free element.
    091A 56            [ 7]  140 	ld d, (hl)							;;  |	Free space will now start on that element.
-   091B ED 53 84 25   [20]  141 	ld (_entity_free_list), de			;;	/
+   091B ED 53 D7 25   [20]  141 	ld (_entity_free_list), de			;;	/
                             142 
-   091F 2A 82 25      [16]  143 	ld hl, (_entity_list)				;;	HL = Pointer to the first item in the list.
+   091F 2A D5 25      [16]  143 	ld hl, (_entity_list)				;;	HL = Pointer to the first item in the list.
                             144 
    0922 4D            [ 4]  145 	ld c, l								;;	BC = HL
    0923 44            [ 4]  146 	ld b, h
@@ -5948,7 +5948,7 @@ Hexadecimal [16-Bits]
    0926 54            [ 4]  151 	ld d, h								;;	/	so as not to delete the pointer to the next entity.
                             152 
                             153 	;; Update the pointer to the next entity
-   0927 22 82 25      [16]  154 	ld (_entity_list), hl				;;	\	Assign to _entity_list the pointer of the new position that will host an entity.
+   0927 22 D5 25      [16]  154 	ld (_entity_list), hl				;;	\	Assign to _entity_list the pointer of the new position that will host an entity.
    092A 71            [ 7]  155 	ld (hl), c							;;	|	If it's the first entity that is created, DE will contain a pointer to null, otherwise,
    092B 23            [ 6]  156 	inc hl								;;	|	the pointer to the next entity.
    092C 70            [ 7]  157 	ld (hl), b							;;	/
@@ -5974,13 +5974,13 @@ Hexadecimal [16-Bits]
    0931 CD 6E 06      [17]  177 	call man_components_init
                             178 	
    0934 AF            [ 4]  179 	xor a
-   0935 32 81 25      [13]  180 	ld (_entity_num), a
+   0935 32 D4 25      [13]  180 	ld (_entity_num), a
                             181 
    0938 21 00 00      [10]  182 	ld hl, #nullptr
-   093B 22 82 25      [16]  183 	ld (_entity_list), hl
+   093B 22 D5 25      [16]  183 	ld (_entity_list), hl
                             184 
-   093E 21 86 25      [10]  185 	ld hl, #_entity_array
-   0941 22 84 25      [16]  186 	ld (_entity_free_list), hl		;;	List of free entities.
+   093E 21 D9 25      [10]  185 	ld hl, #_entity_array
+   0941 22 D7 25      [16]  186 	ld (_entity_free_list), hl		;;	List of free entities.
                             187 	
    0944 E5            [11]  188 	push hl
                             189 
@@ -6202,8 +6202,8 @@ Hexadecimal [16-Bits]
                             377 ;;       IX, A
                             378 ;;	   
    09DF                     379 man_entity_getEntityArrayIX::
-   09DF DD 21 86 25   [14]  380 	ld ix, #_entity_array
-   09E3 3A 81 25      [13]  381 	ld a, (_entity_num)
+   09DF DD 21 D9 25   [14]  380 	ld ix, #_entity_array
+   09E3 3A D4 25      [13]  381 	ld a, (_entity_num)
    09E6 C9            [10]  382 	ret
                             383 
                             384 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -6214,8 +6214,8 @@ Hexadecimal [16-Bits]
                             389 ;;       IX, A
                             390 ;;	   
    09E7                     391 man_entity_getEntityArrayIY::
-   09E7 FD 21 86 25   [14]  392 	ld iy, #_entity_array
-   09EB 3A 81 25      [13]  393 	ld a, (_entity_num)
+   09E7 FD 21 D9 25   [14]  392 	ld iy, #_entity_array
+   09EB 3A D4 25      [13]  393 	ld a, (_entity_num)
    09EE C9            [10]  394 	ret
                             395 
                             396 ;;-----------------------------------------------------------------
@@ -6300,7 +6300,7 @@ Hexadecimal [16-Bits]
                             417 ;;		HL
                             418 ;;	   
    09FE                     419 man_entity_getPlayerPosition::
-   09FE DD 21 86 25   [14]  420 	ld ix, #_entity_array
+   09FE DD 21 D9 25   [14]  420 	ld ix, #_entity_array
    0A02 C9            [10]  421 	ret
                             422 
                             423 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -6336,7 +6336,7 @@ Hexadecimal [16-Bits]
                              22    .endif
                      0001    23    .else
                              24    .mexit
-   0A05 21 86 25      [10]  432 	ld hl, #_entity_array
+   0A05 21 D9 25      [10]  432 	ld hl, #_entity_array
    0A08 01 20 00      [10]  433 	ld bc, #sizeof_e
    0A0B 09            [11]  434 	add hl, bc
    0A0C E5            [11]  435 	push hl
@@ -6411,7 +6411,7 @@ Hexadecimal [16-Bits]
 
                      0001    23    .else
                              24    .mexit
-   0A14 21 86 25      [10]  449 	ld hl, #_entity_array
+   0A14 21 D9 25      [10]  449 	ld hl, #_entity_array
    0A17 01 20 00      [10]  450 	ld bc, #sizeof_e
    0A1A 09            [11]  451 	add hl, bc
    0A1B 09            [11]  452 	add hl, bc

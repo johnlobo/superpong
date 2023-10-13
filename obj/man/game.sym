@@ -106,8 +106,8 @@ Symbol Table
     man_enti   **** GX  |     man_enti   **** GX  |     man_enti   **** GX
     man_enti   **** GX  |     man_enti   **** GX  |     man_enti   **** GX
     man_enti   **** GX  |     man_enti   **** GX  |     man_enti   **** GX
-    man_enti   **** GX  |   0 man_game   0047 GR  |   0 man_game   0000 GR
-  0 man_game   004B GR  |   0 man_game   0037 GR  |     nullptr =  0000 
+    man_enti   **** GX  |   0 man_game   003F GR  |   0 man_game   0000 GR
+  0 man_game   0043 GR  |   0 man_game   002F GR  |     nullptr =  0000 
     opc_DI  =  00F3     |     opc_EI  =  00FB     |     opc_JR  =  0018 
     opc_LD_D=  0016     |   1 oponentT   0020 GR  |   1 player1T   0000 GR
     sizeof_e=  0020     |     string_b   **** GX  |     sys_ai_i   **** GX
@@ -134,6 +134,6 @@ Hexadecimal [16-Bits]
 
 Area Table
 
-   0 _CODE      size   4F   flags    0
+   0 _CODE      size   47   flags    0
    1 _DATA      size   81   flags    0
 

@@ -989,7 +989,7 @@ Hexadecimal [16-Bits]
                             137 ;;===============================================================================
                             138 ;; Entity Component IDs
                             139 ;;===============================================================================
-   26C6                     140 DefEnum e_cmpID
+   2719                     140 DefEnum e_cmpID
                      0000     1     e_cmpID_offset = 0
    0000                     141 Enum e_cmpID Render
                      0000     1     e_cmpID_Render = e_cmpID_offset
@@ -6119,127 +6119,127 @@ Hexadecimal [16-Bits]
    0000                      40 player1Tpl::
                              41 ;;DefineEntity _cpms, _ptr, _type,           _color, _x, _y, _w, _h, _vxh, _vxl _vyh, _vyl, _sprite, _address, _p_address, _collsion_callback, ai_callback
    0000                      42 DefineEntity e_cmp_paddle, #0000, e_type_player, 15, 10, 80, 1, 30, 0x00, 0x00, 0x00, 0x00, 0x0000, 0x0000, 0x0000, sys_collision_paddle, 0x0000
-   26C6 00 00                 1     .dw #0000
-   26C8 47                    2     .db e_cmp_paddle
-   26C9 01                    3     .db e_type_player
-   26CA 0F                    4     .db 15
-   26CB 0A 00                 5     .dw 10
-   26CD 50 00                 6     .dw 80
-   26CF 01                    7     .db 1
-   26D0 1E                    8     .db 30
-   26D1 0B                    9     .db 10+1
-   26D2 6E                   10     .db 80+30
-   26D3 00                   11     .db #0
-   26D4 00                   12     .db #0
-   26D5 00                   13     .db 0x00
-   26D6 00                   14     .db 0x00
-   26D7 00                   15     .db 0x00
-   26D8 00                   16     .db 0x00
-   26D9 00 00                17     .dw 0x0000
-   26DB 00 00                18     .dw 0x0000
-   26DD 00 00                19     .dw 0x0000
-   26DF 00                   20     .db #0
-   26E0 EF 1D                21     .dw sys_collision_paddle
-   26E2 00                   22     .db #0
-   26E3 00 00                23     .dw 0x0000
-   26E5 01                   24     .db #1           ;; moved 1 default
+   2719 00 00                 1     .dw #0000
+   271B 47                    2     .db e_cmp_paddle
+   271C 01                    3     .db e_type_player
+   271D 0F                    4     .db 15
+   271E 0A 00                 5     .dw 10
+   2720 50 00                 6     .dw 80
+   2722 01                    7     .db 1
+   2723 1E                    8     .db 30
+   2724 0B                    9     .db 10+1
+   2725 6E                   10     .db 80+30
+   2726 00                   11     .db #0
+   2727 00                   12     .db #0
+   2728 00                   13     .db 0x00
+   2729 00                   14     .db 0x00
+   272A 00                   15     .db 0x00
+   272B 00                   16     .db 0x00
+   272C 00 00                17     .dw 0x0000
+   272E 00 00                18     .dw 0x0000
+   2730 00 00                19     .dw 0x0000
+   2732 00                   20     .db #0
+   2733 42 1E                21     .dw sys_collision_paddle
+   2735 00                   22     .db #0
+   2736 00 00                23     .dw 0x0000
+   2738 01                   24     .db #1           ;; moved 1 default
                              43 
-   26E6                      44 oponentTpl::
+   2739                      44 oponentTpl::
                              45 ;;DefineEntity _cpms, _ptr, _type,           _color, _x, _y, _w, _h, _vxh, _vxl _vyh, _vyl, _sprite, _address, _p_address, _collsion_callback, ai_callback
    0020                      46 DefineEntity e_cmp_oponent_paddle, #0000, e_type_player, 1, 60, 80, 1, 30, 0x00, 0x00, 0x00, 0x00, 0x0000, 0x0000, 0x0000, sys_collision_paddle, sys_ai_paddle
-   26E6 00 00                 1     .dw #0000
-   26E8 57                    2     .db e_cmp_oponent_paddle
-   26E9 01                    3     .db e_type_player
-   26EA 01                    4     .db 1
-   26EB 3C 00                 5     .dw 60
-   26ED 50 00                 6     .dw 80
-   26EF 01                    7     .db 1
-   26F0 1E                    8     .db 30
-   26F1 3D                    9     .db 60+1
-   26F2 6E                   10     .db 80+30
-   26F3 00                   11     .db #0
-   26F4 00                   12     .db #0
-   26F5 00                   13     .db 0x00
+   2739 00 00                 1     .dw #0000
+   273B 57                    2     .db e_cmp_oponent_paddle
+   273C 01                    3     .db e_type_player
+   273D 01                    4     .db 1
+   273E 3C 00                 5     .dw 60
+   2740 50 00                 6     .dw 80
+   2742 01                    7     .db 1
+   2743 1E                    8     .db 30
+   2744 3D                    9     .db 60+1
+   2745 6E                   10     .db 80+30
+   2746 00                   11     .db #0
+   2747 00                   12     .db #0
+   2748 00                   13     .db 0x00
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 119.
 Hexadecimal [16-Bits]
 
 
 
-   26F6 00                   14     .db 0x00
-   26F7 00                   15     .db 0x00
-   26F8 00                   16     .db 0x00
-   26F9 00 00                17     .dw 0x0000
-   26FB 00 00                18     .dw 0x0000
-   26FD 00 00                19     .dw 0x0000
-   26FF 00                   20     .db #0
-   2700 EF 1D                21     .dw sys_collision_paddle
-   2702 00                   22     .db #0
-   2703 2F 0E                23     .dw sys_ai_paddle
-   2705 01                   24     .db #1           ;; moved 1 default
+   2749 00                   14     .db 0x00
+   274A 00                   15     .db 0x00
+   274B 00                   16     .db 0x00
+   274C 00 00                17     .dw 0x0000
+   274E 00 00                18     .dw 0x0000
+   2750 00 00                19     .dw 0x0000
+   2752 00                   20     .db #0
+   2753 42 1E                21     .dw sys_collision_paddle
+   2755 00                   22     .db #0
+   2756 82 0E                23     .dw sys_ai_paddle
+   2758 01                   24     .db #1           ;; moved 1 default
                              47 
-   2706                      48 ballTpl:: 
+   2759                      48 ballTpl:: 
                              49 ;;DefineEntity _cpms, _ptr, _type,       _color, _x, _y, _w, _h, _vxh, _vxl _vyh, _vyl, _sprite, _address, _p_address, _collsion_callback, ai_callback
    0040                      50 DefineEntity e_cpm_ball, #0000, e_type_ball, 2, 58, 80, 2, 4, 0xff, 0xf0, 0x00, 0x01, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000
-   2706 00 00                 1     .dw #0000
-   2708 87                    2     .db e_cpm_ball
-   2709 02                    3     .db e_type_ball
-   270A 02                    4     .db 2
-   270B 3A 00                 5     .dw 58
-   270D 50 00                 6     .dw 80
-   270F 02                    7     .db 2
-   2710 04                    8     .db 4
-   2711 3C                    9     .db 58+2
-   2712 54                   10     .db 80+4
-   2713 00                   11     .db #0
-   2714 00                   12     .db #0
-   2715 FF                   13     .db 0xff
-   2716 F0                   14     .db 0xf0
-   2717 00                   15     .db 0x00
-   2718 01                   16     .db 0x01
-   2719 00 00                17     .dw 0x0000
-   271B 00 00                18     .dw 0x0000
-   271D 00 00                19     .dw 0x0000
-   271F 00                   20     .db #0
-   2720 00 00                21     .dw 0x0000
-   2722 00                   22     .db #0
-   2723 00 00                23     .dw 0x0000
-   2725 01                   24     .db #1           ;; moved 1 default
+   2759 00 00                 1     .dw #0000
+   275B 87                    2     .db e_cpm_ball
+   275C 02                    3     .db e_type_ball
+   275D 02                    4     .db 2
+   275E 3A 00                 5     .dw 58
+   2760 50 00                 6     .dw 80
+   2762 02                    7     .db 2
+   2763 04                    8     .db 4
+   2764 3C                    9     .db 58+2
+   2765 54                   10     .db 80+4
+   2766 00                   11     .db #0
+   2767 00                   12     .db #0
+   2768 FF                   13     .db 0xff
+   2769 F0                   14     .db 0xf0
+   276A 00                   15     .db 0x00
+   276B 01                   16     .db 0x01
+   276C 00 00                17     .dw 0x0000
+   276E 00 00                18     .dw 0x0000
+   2770 00 00                19     .dw 0x0000
+   2772 00                   20     .db #0
+   2773 00 00                21     .dw 0x0000
+   2775 00                   22     .db #0
+   2776 00 00                23     .dw 0x0000
+   2778 01                   24     .db #1           ;; moved 1 default
                              51 
-   2726                      52 wallUpTpl::
+   2779                      52 wallUpTpl::
                              53 ;;DefineEntity _cpms, _ptr, _type,             _color, _x, _y, _w, _h, _vxh, _vxl _vyh, _vyl, _sprite, _address, _p_address, _collsion_callback, ai_callback
    0060                      54 DefineEntity e_cmp_border_wall, #0000, e_type_wall, 15, 8, 0, 64, 1, 0x00, 0x00, 0x00, 0x00, 0x0000, 0x0000, 0x0000, sys_collision_wall_up, 0x0000
-   2726 00 00                 1     .dw #0000
-   2728 43                    2     .db e_cmp_border_wall
-   2729 04                    3     .db e_type_wall
-   272A 0F                    4     .db 15
-   272B 08 00                 5     .dw 8
-   272D 00 00                 6     .dw 0
-   272F 40                    7     .db 64
-   2730 01                    8     .db 1
-   2731 48                    9     .db 8+64
-   2732 01                   10     .db 0+1
-   2733 00                   11     .db #0
-   2734 00                   12     .db #0
+   2779 00 00                 1     .dw #0000
+   277B 43                    2     .db e_cmp_border_wall
+   277C 04                    3     .db e_type_wall
+   277D 0F                    4     .db 15
+   277E 08 00                 5     .dw 8
+   2780 00 00                 6     .dw 0
+   2782 40                    7     .db 64
+   2783 01                    8     .db 1
+   2784 48                    9     .db 8+64
+   2785 01                   10     .db 0+1
+   2786 00                   11     .db #0
+   2787 00                   12     .db #0
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 120.
 Hexadecimal [16-Bits]
 
 
 
-   2735 00                   13     .db 0x00
-   2736 00                   14     .db 0x00
-   2737 00                   15     .db 0x00
-   2738 00                   16     .db 0x00
-   2739 00 00                17     .dw 0x0000
-   273B 00 00                18     .dw 0x0000
-   273D 00 00                19     .dw 0x0000
-   273F 00                   20     .db #0
-   2740 DC 1D                21     .dw sys_collision_wall_up
-   2742 00                   22     .db #0
-   2743 00 00                23     .dw 0x0000
-   2745 01                   24     .db #1           ;; moved 1 default
+   2788 00                   13     .db 0x00
+   2789 00                   14     .db 0x00
+   278A 00                   15     .db 0x00
+   278B 00                   16     .db 0x00
+   278C 00 00                17     .dw 0x0000
+   278E 00 00                18     .dw 0x0000
+   2790 00 00                19     .dw 0x0000
+   2792 00                   20     .db #0
+   2793 2F 1E                21     .dw sys_collision_wall_up
+   2795 00                   22     .db #0
+   2796 00 00                23     .dw 0x0000
+   2798 01                   24     .db #1           ;; moved 1 default
                              55 
                              56 
-   2746 01                   57 game_state:: .db MAIN_MENU   ;; Game state ----- 0: Game loop, 1: Main menu, 2: Map loading, 3: Pause menu, 4: Game over, 5: Victory
+   2799 01                   57 game_state:: .db MAIN_MENU   ;; Game state ----- 0: Game loop, 1: Main menu, 2: Map loading, 3: Pause menu, 4: Game over, 5: Victory
                              58 ;;
                              59 ;; Start of _CODE area
                              60 ;; 
@@ -6259,23 +6259,23 @@ Hexadecimal [16-Bits]
    0A61 CD 31 09      [17]   74     call man_entity_init
                              75     
                              76     ;; Create a player entity in 100, 100
-   0A64 21 C6 26      [10]   77     ld hl, #player1Tpl                      ;; Template of the entity to create
+   0A64 21 19 27      [10]   77     ld hl, #player1Tpl                      ;; Template of the entity to create
    0A67 CD 9F 09      [17]   78     call man_entity_create                  ;; Create new entity
                              79 
                              80     ;; Create an oponent entity in 140, 100
-   0A6A 21 E6 26      [10]   81     ld hl, #oponentTpl                      ;; Template of the entity to create
+   0A6A 21 39 27      [10]   81     ld hl, #oponentTpl                      ;; Template of the entity to create
    0A6D CD 9F 09      [17]   82     call man_entity_create                  ;; Create new entity
                              83 
                              84     ;; Create a ball entity
-   0A70 21 06 27      [10]   85     ld hl, #ballTpl                         ;; Template of the ball
+   0A70 21 59 27      [10]   85     ld hl, #ballTpl                         ;; Template of the ball
    0A73 CD 9F 09      [17]   86     call man_entity_create                  ;; Create ball
                              87 
                              88     ;; Create a wall up collision entity
-   0A76 21 26 27      [10]   89     ld hl, #wallUpTpl                       ;; Template of the entity to create
+   0A76 21 79 27      [10]   89     ld hl, #wallUpTpl                       ;; Template of the entity to create
    0A79 CD 9F 09      [17]   90     call man_entity_create                  ;; Create new entity
                              91 
                              92     ;; Create a wall down collision entity
-   0A7C 21 26 27      [10]   93     ld hl, #wallUpTpl                       ;; Template of the entity to create
+   0A7C 21 79 27      [10]   93     ld hl, #wallUpTpl                       ;; Template of the entity to create
    0A7F CD 9F 09      [17]   94     call man_entity_create                  ;; Create new entity
    0A82 DD 36 07 C7   [19]   95     ld e_y(ix), #199                        ;; down edge
                              96 
@@ -6285,55 +6285,46 @@ Hexadecimal [16-Bits]
 
 
 
-   0A86 CD AB 1D      [17]   98     call sys_collision_init                 ;; initialize collision system
-   0A89 CD 26 0E      [17]   99     call sys_ai_init                        ;; initialize collision system
-   0A8C CD B0 0A      [17]  100     call sys_physics_init                   ;; initialize physics system
+   0A86 CD FE 1D      [17]   98     call sys_collision_init                 ;; initialize collision system
+   0A89 CD 79 0E      [17]   99     call sys_ai_init                        ;; initialize collision system
+   0A8C CD A8 0A      [17]  100     call sys_physics_init                   ;; initialize physics system
                             101     
-                            102 ;; Debug math routines
-   002E                     103     BREAKPOINT
-   0A8F ED FF                 1   .db #0xed, #0xff
-   0A91 21 FF FF      [10]  104     ld hl, #0xffff
-   0A94 CD C9 0D      [17]  105     call sys_util_sqr_hl
-                            106 ;; End debug
-                            107 
-                            108 
-                            109 
-   0A97 C9            [10]  110     ret
-                            111 
-                            112 ;;-----------------------------------------------------------------
-                            113 ;;
-                            114 ;; man_game_update
-                            115 ;;
-                            116 ;;   
-                            117 ;;  Input: 
-                            118 ;;  Output: 
-                            119 ;;  Modified: AF, BC, DE, HL
-                            120 ;;
-   0A98                     121 man_game_update::
-   0A98 CD B9 1F      [17]  122     call sys_input_player_update
-   0A9B CD 5E 0E      [17]  123     call sys_ai_update
-   0A9E CD AF 0B      [17]  124     call sys_physics_update
-   0AA1 CD 88 1E      [17]  125     call sys_collision_update
-   0AA4 CD 91 0C      [17]  126     call sys_render_update
-                            127     ;;;;delay 
-                            128     ;;ld b, #6
-                            129     ;;call cpct_waitHalts_asm
-   0AA7 C9            [10]  130     ret
-                            131 
-                            132 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-                            133 ;;  Gets the current state of the game loop
-                            134 ;;  MODIFIES:
-                            135 ;;      - A: Returns state
-                            136 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-   0AA8                     137 man_game_get_state::
-   0AA8 3A 46 27      [13]  138     ld a, (game_state)
-   0AAB C9            [10]  139     ret
-                            140 
-                            141 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-                            142 ;;  Sets the current state of the game loop
-                            143 ;;  MODIFIES:
-                            144 ;;      - A: Returns state
-                            145 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-   0AAC                     146 man_game_set_state::
-   0AAC 32 46 27      [13]  147     ld (game_state), a
-   0AAF C9            [10]  148     ret
+   0A8F C9            [10]  102     ret
+                            103 
+                            104 ;;-----------------------------------------------------------------
+                            105 ;;
+                            106 ;; man_game_update
+                            107 ;;
+                            108 ;;   
+                            109 ;;  Input: 
+                            110 ;;  Output: 
+                            111 ;;  Modified: AF, BC, DE, HL
+                            112 ;;
+   0A90                     113 man_game_update::
+   0A90 CD 0C 20      [17]  114     call sys_input_player_update
+   0A93 CD B1 0E      [17]  115     call sys_ai_update
+   0A96 CD A7 0B      [17]  116     call sys_physics_update
+   0A99 CD DB 1E      [17]  117     call sys_collision_update
+   0A9C CD 89 0C      [17]  118     call sys_render_update
+                            119     ;;;;delay 
+                            120     ;;ld b, #6
+                            121     ;;call cpct_waitHalts_asm
+   0A9F C9            [10]  122     ret
+                            123 
+                            124 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                            125 ;;  Gets the current state of the game loop
+                            126 ;;  MODIFIES:
+                            127 ;;      - A: Returns state
+                            128 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+   0AA0                     129 man_game_get_state::
+   0AA0 3A 99 27      [13]  130     ld a, (game_state)
+   0AA3 C9            [10]  131     ret
+                            132 
+                            133 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                            134 ;;  Sets the current state of the game loop
+                            135 ;;  MODIFIES:
+                            136 ;;      - A: Returns state
+                            137 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+   0AA4                     138 man_game_set_state::
+   0AA4 32 99 27      [13]  139     ld (game_state), a
+   0AA7 C9            [10]  140     ret

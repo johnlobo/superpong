@@ -98,11 +98,11 @@ S cpct_etm_setDrawTilemap4x8_ag_asm Ref0000
 S cpct_waitVSYNCStart_asm Ref0000
 S cpct_scanKeyboard_asm Ref0000
 S cpct_getScreenPtr_asm Ref0000
-A _CODE size 4F flags 0 addr 0
+A _CODE size 47 flags 0 addr 0
 S man_game_init Def0000
-S man_game_get_state Def0047
-S man_game_update Def0037
-S man_game_set_state Def004B
+S man_game_get_state Def003F
+S man_game_update Def002F
+S man_game_set_state Def0043
 A _DATA size 81 flags 0 addr 0
 S ballTpl Def0040
 S game_state Def0080
@@ -151,19 +151,19 @@ T 13 00 00 00 21 60 00 CD 00 00 21
 R 00 00 00 00 02 02 10 00 00 05 01 00 02 08 10 00
 T 1C 00 60 00 CD 00 00 DD 36 07 C7 CD 00 00 CD
 R 00 00 00 00 00 02 01 00 02 05 10 00 02 0C 29 00
-T 29 00 00 00 CD 00 00 ED FF 21 FF FF CD 00 00 C9
-R 00 00 00 00 02 02 27 00 02 05 1F 00 02 0D 35 00
-T 37 00
+T 29 00 00 00 CD 00 00 C9
+R 00 00 00 00 02 02 27 00 02 05 1F 00
+T 2F 00
 R 00 00 00 00
-T 37 00 CD 00 00 CD 00 00 CD 00 00 CD
+T 2F 00 CD 00 00 CD 00 00 CD 00 00 CD
 R 00 00 00 00 02 03 5C 00 02 06 43 00 02 09 33 00
-T 41 00 00 00 CD 00 00 C9
+T 39 00 00 00 CD 00 00 C9
 R 00 00 00 00 02 02 47 00 02 05 2F 00
-T 47 00
+T 3F 00
 R 00 00 00 00
-T 47 00 3A 80 00 C9
+T 3F 00 3A 80 00 C9
 R 00 00 00 00 00 03 01 00
-T 4B 00
+T 43 00
 R 00 00 00 00
-T 4B 00 32 80 00 C9
+T 43 00 32 80 00 C9
 R 00 00 00 00 00 03 01 00

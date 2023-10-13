@@ -5981,7 +5981,7 @@ Hexadecimal [16-Bits]
                              36 ;;
                              37 .area _DATA
                              38 
-   2535 20 47 41 4D 45 20    39 _game_loaded_string: .asciz " GAME LOADED - V.001"      ;;27 chars, 54 bytes
+   2588 20 47 41 4D 45 20    39 _game_loaded_string: .asciz " GAME LOADED - V.001"      ;;27 chars, 54 bytes
         4C 4F 41 44 45 44
         20 2D 20 56 2E 30
         30 31 00
@@ -6005,19 +6005,19 @@ Hexadecimal [16-Bits]
                              57 
                              58 ;;   call sys_audio_init
                              59 ;;
-   05C2 CD FA 0B      [17]   60    call sys_render_init
+   05C2 CD F2 0B      [17]   60    call sys_render_init
                              61 
    05C5 1E 06         [ 7]   62    ld e, #6                           ;; x
    05C7 16 4E         [ 7]   63    ld d, #78                           ;; y
    05C9 06 2C         [ 7]   64    ld b, #44                           ;; h
    05CB 0E 3C         [ 7]   65    ld c, #60                           ;; w
-   05CD 21 35 25      [10]   66    ld hl, #_game_loaded_string         ;; message
+   05CD 21 88 25      [10]   66    ld hl, #_game_loaded_string         ;; message
    05D0 3E 01         [ 7]   67    ld a, #1                            ;; wait for a key
-   05D2 CD 94 10      [17]   68    call sys_messages_show
+   05D2 CD E7 10      [17]   68    call sys_messages_show
                              69 
                              70    ;; set random seed using hl form message show
                              71 
-   05D5 CD 0D 22      [17]   72    call cpct_setSeed_mxor_asm
+   05D5 CD 60 22      [17]   72    call cpct_setSeed_mxor_asm
                              73      
    05D8 C9            [10]   74    ret
                              75    
@@ -6035,7 +6035,7 @@ Hexadecimal [16-Bits]
                              82 
    05D9 31 00 80      [10]   83    ld sp, #0x8000                               ;; Move the stack to 0x8000
                              84    
-   05DC CD 99 1D      [17]   85    call sys_system_disable_firmware
+   05DC CD EC 1D      [17]   85    call sys_system_disable_firmware
                              86 
    05DF CD C2 05      [17]   87    call main_init
                              88 
@@ -6046,6 +6046,6 @@ Hexadecimal [16-Bits]
                              93 ;; Loop forever
    05E5                      94 loop:
                              95    
-   05E5 CD 98 0A      [17]   96    call man_game_update
+   05E5 CD 90 0A      [17]   96    call man_game_update
                              97    
    05E8 18 FB         [12]   98    jr    loop

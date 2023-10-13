@@ -5706,7 +5706,7 @@ Hexadecimal [16-Bits]
    0838 CD 12 0A      [17]   38     call man_entity_getBallPositionIY   
    083B FD 66 0F      [19]   39     ld h, e_vx(iy)
    083E FD 6E 10      [19]   40     ld l, e_vx+1(iy)
-   0841 CD A0 0D      [17]   41     call sys_util_negHL
+   0841 CD 98 0D      [17]   41     call sys_util_negHL
    0844 FD 74 0F      [19]   42     ld e_vx(iy), h
    0847 FD 75 10      [19]   43     ld e_vx+1(iy), l
    084A FD E1         [14]   44     pop iy
@@ -5727,7 +5727,7 @@ Hexadecimal [16-Bits]
    084F CD 12 0A      [17]   59     call man_entity_getBallPositionIY
    0852 FD 66 11      [19]   60     ld h, e_vy(iy)
    0855 FD 6E 12      [19]   61     ld l, e_vy+1(iy)
-   0858 CD A0 0D      [17]   62     call sys_util_negHL
+   0858 CD 98 0D      [17]   62     call sys_util_negHL
    085B FD 74 11      [19]   63     ld e_vy(iy), h
    085E FD 75 12      [19]   64     ld e_vy+1(iy), l
    0861 FD E1         [14]   65     pop iy
@@ -5750,7 +5750,7 @@ Hexadecimal [16-Bits]
 
 
 
-   086A CD 54 0D      [17]   80     call sys_util_absHL
+   086A CD 4C 0D      [17]   80     call sys_util_absHL
    086D 01 16 00      [10]   81     ld bc, #STEP_HORIZONTAL_BALL_SPEED
    0870 09            [11]   82     add hl, bc
    0871 01 00 01      [10]   83     ld bc, #MAX_HORIZONTAL_BALL_SPEED           ;; Check if the maxi of the hor speed has been reached
@@ -5764,7 +5764,7 @@ Hexadecimal [16-Bits]
    087E FD 46 0F      [19]   91     ld b, e_vx(iy)
    0881 CB 78         [ 8]   92     bit 7, b
    0883 28 03         [12]   93     jr z, _mbihs_exit
-   0885 CD A0 0D      [17]   94     call sys_util_negHL
+   0885 CD 98 0D      [17]   94     call sys_util_negHL
    0888                      95 _mbihs_exit:
    0888 FD 74 0F      [19]   96     ld e_vx(iy), h
    088B FD 75 10      [19]   97     ld e_vx+1(iy), l

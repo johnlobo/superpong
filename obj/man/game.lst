@@ -6289,51 +6289,42 @@ Hexadecimal [16-Bits]
    0028 CD 00 00      [17]   99     call sys_ai_init                        ;; initialize collision system
    002B CD 00 00      [17]  100     call sys_physics_init                   ;; initialize physics system
                             101     
-                            102 ;; Debug math routines
-   002E                     103     BREAKPOINT
-   002E ED FF                 1   .db #0xed, #0xff
-   0030 21 FF FF      [10]  104     ld hl, #0xffff
-   0033 CD 00 00      [17]  105     call sys_util_sqr_hl
-                            106 ;; End debug
-                            107 
-                            108 
-                            109 
-   0036 C9            [10]  110     ret
-                            111 
-                            112 ;;-----------------------------------------------------------------
-                            113 ;;
-                            114 ;; man_game_update
-                            115 ;;
-                            116 ;;   
-                            117 ;;  Input: 
-                            118 ;;  Output: 
-                            119 ;;  Modified: AF, BC, DE, HL
-                            120 ;;
-   0037                     121 man_game_update::
-   0037 CD 00 00      [17]  122     call sys_input_player_update
-   003A CD 00 00      [17]  123     call sys_ai_update
-   003D CD 00 00      [17]  124     call sys_physics_update
-   0040 CD 00 00      [17]  125     call sys_collision_update
-   0043 CD 00 00      [17]  126     call sys_render_update
-                            127     ;;;;delay 
-                            128     ;;ld b, #6
-                            129     ;;call cpct_waitHalts_asm
-   0046 C9            [10]  130     ret
-                            131 
-                            132 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-                            133 ;;  Gets the current state of the game loop
-                            134 ;;  MODIFIES:
-                            135 ;;      - A: Returns state
-                            136 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-   0047                     137 man_game_get_state::
-   0047 3A 80 00      [13]  138     ld a, (game_state)
-   004A C9            [10]  139     ret
-                            140 
-                            141 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-                            142 ;;  Sets the current state of the game loop
-                            143 ;;  MODIFIES:
-                            144 ;;      - A: Returns state
-                            145 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-   004B                     146 man_game_set_state::
-   004B 32 80 00      [13]  147     ld (game_state), a
-   004E C9            [10]  148     ret
+   002E C9            [10]  102     ret
+                            103 
+                            104 ;;-----------------------------------------------------------------
+                            105 ;;
+                            106 ;; man_game_update
+                            107 ;;
+                            108 ;;   
+                            109 ;;  Input: 
+                            110 ;;  Output: 
+                            111 ;;  Modified: AF, BC, DE, HL
+                            112 ;;
+   002F                     113 man_game_update::
+   002F CD 00 00      [17]  114     call sys_input_player_update
+   0032 CD 00 00      [17]  115     call sys_ai_update
+   0035 CD 00 00      [17]  116     call sys_physics_update
+   0038 CD 00 00      [17]  117     call sys_collision_update
+   003B CD 00 00      [17]  118     call sys_render_update
+                            119     ;;;;delay 
+                            120     ;;ld b, #6
+                            121     ;;call cpct_waitHalts_asm
+   003E C9            [10]  122     ret
+                            123 
+                            124 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                            125 ;;  Gets the current state of the game loop
+                            126 ;;  MODIFIES:
+                            127 ;;      - A: Returns state
+                            128 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+   003F                     129 man_game_get_state::
+   003F 3A 80 00      [13]  130     ld a, (game_state)
+   0042 C9            [10]  131     ret
+                            132 
+                            133 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                            134 ;;  Sets the current state of the game loop
+                            135 ;;  MODIFIES:
+                            136 ;;      - A: Returns state
+                            137 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+   0043                     138 man_game_set_state::
+   0043 32 80 00      [13]  139     ld (game_state), a
+   0046 C9            [10]  140     ret

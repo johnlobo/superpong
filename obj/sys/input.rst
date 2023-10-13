@@ -5451,7 +5451,7 @@ Hexadecimal [16-Bits]
                             137 ;;===============================================================================
                             138 ;; Entity Component IDs
                             139 ;;===============================================================================
-   2783                     140 DefEnum e_cmpID
+   27D6                     140 DefEnum e_cmpID
                      0000     1     e_cmpID_offset = 0
    0000                     141 Enum e_cmpID Render
                      0000     1     e_cmpID_Render = e_cmpID_offset
@@ -5605,20 +5605,20 @@ Hexadecimal [16-Bits]
                              45     ;;.dw Joy0_Up,    _score_move_up
                              46     ;;.dw Joy0_Down,  _score_move_down
                              47     ;;.dw Joy0_Fire1, _score_fire
-   2783 00 00                48     .dw 0
+   27D6 00 00                48     .dw 0
                              49 
-   2785                      50 sys_input_player_actions::
-   2785 04 04 19 1F          51     .dw Key_O,      sys_input_player_left
-   2789 03 08 42 1F          52     .dw Key_P,      sys_input_player_right
-   278D 08 08 69 1F          53     .dw Key_Q,      sys_input_player_up
-   2791 08 20 92 1F          54     .dw Key_A,      sys_input_player_down
+   27D8                      50 sys_input_player_actions::
+   27D8 04 04 6C 1F          51     .dw Key_O,      sys_input_player_left
+   27DC 03 08 95 1F          52     .dw Key_P,      sys_input_player_right
+   27E0 08 08 BC 1F          53     .dw Key_Q,      sys_input_player_up
+   27E4 08 20 E5 1F          54     .dw Key_A,      sys_input_player_down
                              55     ;;.dw Key_Esc,    _score_cancel_entry
                              56     ;;.dw Joy0_Left,  _score_move_left
                              57     ;;.dw Joy0_Right, _score_move_right
                              58     ;;.dw Joy0_Up,    _score_move_up
                              59     ;;.dw Joy0_Down,  _score_move_down
                              60     ;;.dw Joy0_Fire1, _score_fire
-   2795 00 00                61     .dw 0
+   27E8 00 00                61     .dw 0
                              62 
                              63 ;;
                              64 ;; Start of _CODE area
@@ -5635,15 +5635,15 @@ Hexadecimal [16-Bits]
                              75 ;;  Output:
                              76 ;;  Modified: 
                              77 ;;
-   1E9E                      78 sys_input_clean_buffer::
+   1EF1                      78 sys_input_clean_buffer::
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 107.
 Hexadecimal [16-Bits]
 
 
 
-   1E9E CD B5 22      [17]   79     call cpct_isAnyKeyPressed_asm
-   1EA1 20 FB         [12]   80     jr nz, sys_input_clean_buffer
-   1EA3 C9            [10]   81     ret
+   1EF1 CD 08 23      [17]   79     call cpct_isAnyKeyPressed_asm
+   1EF4 20 FB         [12]   80     jr nz, sys_input_clean_buffer
+   1EF6 C9            [10]   81     ret
                              82 
                              83 ;;-----------------------------------------------------------------
                              84 ;;
@@ -5654,19 +5654,19 @@ Hexadecimal [16-Bits]
                              89 ;;  Output: hl: number of loops
                              90 ;;  Modified: 
                              91 ;;
-   1EA4                      92 sys_input_wait4anykey::
-   1EA4 21 00 00      [10]   93     ld hl, #0
-   1EA7                      94 _siw_loop:
-   1EA7 E5            [11]   95     push hl
-   1EA8 CD B5 22      [17]   96     call cpct_isAnyKeyPressed_asm
-   1EAB B7            [ 4]   97     or a
-   1EAC E1            [10]   98     pop hl
-   1EAD 23            [ 6]   99     inc hl
-   1EAE 28 F7         [12]  100     jr z, _siw_loop
-   1EB0 E5            [11]  101     push hl
-   1EB1 CD 9E 1E      [17]  102     call sys_input_clean_buffer
-   1EB4 E1            [10]  103     pop hl
-   1EB5 C9            [10]  104     ret
+   1EF7                      92 sys_input_wait4anykey::
+   1EF7 21 00 00      [10]   93     ld hl, #0
+   1EFA                      94 _siw_loop:
+   1EFA E5            [11]   95     push hl
+   1EFB CD 08 23      [17]   96     call cpct_isAnyKeyPressed_asm
+   1EFE B7            [ 4]   97     or a
+   1EFF E1            [10]   98     pop hl
+   1F00 23            [ 6]   99     inc hl
+   1F01 28 F7         [12]  100     jr z, _siw_loop
+   1F03 E5            [11]  101     push hl
+   1F04 CD F1 1E      [17]  102     call sys_input_clean_buffer
+   1F07 E1            [10]  103     pop hl
+   1F08 C9            [10]  104     ret
                             105 
                             106 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
                             107 ;; DESCRIPTION
@@ -5684,42 +5684,42 @@ Hexadecimal [16-Bits]
                             119 ;;
                             120 ;; Routine taken from Promotion from Bite Studios
                             121 ;;
-   1EB6                     122 sys_input_getKeyPressed::
-   1EB6 21 FF 21      [10]  123     ld hl, #_cpct_keyboardStatusBuffer
-   1EB9 AF            [ 4]  124     xor a                           ;; A = 0
+   1F09                     122 sys_input_getKeyPressed::
+   1F09 21 52 22      [10]  123     ld hl, #_cpct_keyboardStatusBuffer
+   1F0C AF            [ 4]  124     xor a                           ;; A = 0
                             125 
-   1EBA                     126 _kp_loop:
-   1EBA FE 0A         [ 7]  127     cp #BUFFER_SIZE
-   1EBC 28 14         [12]  128     jr z, _kp_endLoop               ;; Check counter value. End if its 0
-   1EBE 32 CE 1E      [13]  129     ld (_size_counter), a
+   1F0D                     126 _kp_loop:
+   1F0D FE 0A         [ 7]  127     cp #BUFFER_SIZE
+   1F0F 28 14         [12]  128     jr z, _kp_endLoop               ;; Check counter value. End if its 0
+   1F11 32 21 1F      [13]  129     ld (_size_counter), a
                             130 
-   1EC1 7E            [ 7]  131     ld a, (hl)                      ;; Load byte from the buffer
-   1EC2 EE FF         [ 7]  132     xor #ZERO_KEYS_ACTIVATED        ;; Inverts bytes
-   1EC4 28 06         [12]  133     jr z, _no_key_detected
+   1F14 7E            [ 7]  131     ld a, (hl)                      ;; Load byte from the buffer
+   1F15 EE FF         [ 7]  132     xor #ZERO_KEYS_ACTIVATED        ;; Inverts bytes
+   1F17 28 06         [12]  133     jr z, _no_key_detected
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 108.
 Hexadecimal [16-Bits]
 
 
 
-   1EC6 67            [ 4]  134         ld h, a                     ;; H is the mask
-   1EC7 3A CE 1E      [13]  135         ld a, (_size_counter)
-   1ECA 6F            [ 4]  136         ld l, a                     ;; L is the offset
+   1F19 67            [ 4]  134         ld h, a                     ;; H is the mask
+   1F1A 3A 21 1F      [13]  135         ld a, (_size_counter)
+   1F1D 6F            [ 4]  136         ld l, a                     ;; L is the offset
                             137         ; ld (_current_key_pressed), hl
-   1ECB C9            [10]  138         ret
-   1ECC                     139 _no_key_detected:
-   1ECC 23            [ 6]  140     inc hl
+   1F1E C9            [10]  138         ret
+   1F1F                     139 _no_key_detected:
+   1F1F 23            [ 6]  140     inc hl
                      0030   141 _size_counter = .+1
-   1ECD 3E 00         [ 7]  142     ld a, #0x00                     ;; AUTOMODIFIABLE, A = counter
-   1ECF 3C            [ 4]  143     inc a
-   1ED0 18 E8         [12]  144     jr _kp_loop
-   1ED2                     145 _kp_endLoop:
-   1ED2 21 00 00      [10]  146     ld hl, #0x00                    ;; Return 0 if no key is pressed
-   1ED5 3E 00         [ 7]  147     ld a, #0
-   1ED7 32 DB 1E      [13]  148     ld (_key_released), a
-   1EDA C9            [10]  149     ret
+   1F20 3E 00         [ 7]  142     ld a, #0x00                     ;; AUTOMODIFIABLE, A = counter
+   1F22 3C            [ 4]  143     inc a
+   1F23 18 E8         [12]  144     jr _kp_loop
+   1F25                     145 _kp_endLoop:
+   1F25 21 00 00      [10]  146     ld hl, #0x00                    ;; Return 0 if no key is pressed
+   1F28 3E 00         [ 7]  147     ld a, #0
+   1F2A 32 2E 1F      [13]  148     ld (_key_released), a
+   1F2D C9            [10]  149     ret
                             150 
-   1EDB                     151 _key_released:
-   1EDB 00                  152     .db #0
+   1F2E                     151 _key_released:
+   1F2E 00                  152     .db #0
                             153 
                             154 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
                             155 ;; DESCRIPTION
@@ -5737,18 +5737,18 @@ Hexadecimal [16-Bits]
                             167 ;;
                             168 ;; Routine taken from Promotion from Bite Studios
                             169 ;;
-   1EDC                     170 sys_input_waitKeyPressed::
-   1EDC CD B6 1E      [17]  171     call sys_input_getKeyPressed
-   1EDF 3A DB 1E      [13]  172     ld a, (_key_released)
-   1EE2 B7            [ 4]  173     or a
-   1EE3 20 F7         [12]  174     jr nz, sys_input_waitKeyPressed
-   1EE5 AF            [ 4]  175     xor a
-   1EE6 B4            [ 4]  176     or h
-   1EE7 B5            [ 4]  177     or l
-   1EE8 28 F2         [12]  178     jr z, sys_input_waitKeyPressed
-   1EEA 3E 01         [ 7]  179     ld a, #1
-   1EEC 32 DB 1E      [13]  180     ld (_key_released), a
-   1EEF C9            [10]  181     ret
+   1F2F                     170 sys_input_waitKeyPressed::
+   1F2F CD 09 1F      [17]  171     call sys_input_getKeyPressed
+   1F32 3A 2E 1F      [13]  172     ld a, (_key_released)
+   1F35 B7            [ 4]  173     or a
+   1F36 20 F7         [12]  174     jr nz, sys_input_waitKeyPressed
+   1F38 AF            [ 4]  175     xor a
+   1F39 B4            [ 4]  176     or h
+   1F3A B5            [ 4]  177     or l
+   1F3B 28 F2         [12]  178     jr z, sys_input_waitKeyPressed
+   1F3D 3E 01         [ 7]  179     ld a, #1
+   1F3F 32 2E 1F      [13]  180     ld (_key_released), a
+   1F42 C9            [10]  181     ret
                             182 
                             183 
                             184 ;;-----------------------------------------------------------------
@@ -5765,8 +5765,8 @@ Hexadecimal [16-Bits]
                             190 ;;  Output:
                             191 ;;  Modified: 
                             192 ;;
-   1EF0                     193 sys_input_init::
-   1EF0 C9            [10]  194     ret 
+   1F43                     193 sys_input_init::
+   1F43 C9            [10]  194     ret 
                             195 
                             196 ;;-----------------------------------------------------------------
                             197 ;;
@@ -5778,27 +5778,27 @@ Hexadecimal [16-Bits]
                             203 ;;  Output:
                             204 ;;  Modified: iy, bc
                             205 ;;
-   1EF1                     206 sys_input_generic_update::
-   1EF1 18 05         [12]  207     jr first_key
-   1EF3                     208 keys_loop:
-   1EF3 01 04 00      [10]  209     ld bc, #4
-   1EF6 FD 09         [15]  210     add iy, bc
-   1EF8                     211 first_key:
-   1EF8 FD 6E 00      [19]  212     ld l, 0(iy)                     ;; Lower part of the key pointer
-   1EFB FD 66 01      [19]  213     ld h, 1(iy)                     ;; Lower part of the key pointer
+   1F44                     206 sys_input_generic_update::
+   1F44 18 05         [12]  207     jr first_key
+   1F46                     208 keys_loop:
+   1F46 01 04 00      [10]  209     ld bc, #4
+   1F49 FD 09         [15]  210     add iy, bc
+   1F4B                     211 first_key:
+   1F4B FD 6E 00      [19]  212     ld l, 0(iy)                     ;; Lower part of the key pointer
+   1F4E FD 66 01      [19]  213     ld h, 1(iy)                     ;; Lower part of the key pointer
                             214     ;; Check if key is null
-   1EFE 7D            [ 4]  215     ld a, l
-   1EFF B4            [ 4]  216     or h
-   1F00 C8            [11]  217     ret z                           ;; Return if key is null
+   1F51 7D            [ 4]  215     ld a, l
+   1F52 B4            [ 4]  216     or h
+   1F53 C8            [11]  217     ret z                           ;; Return if key is null
                             218     ;; Check if key is pressed
-   1F01 CD 24 20      [17]  219     call cpct_isKeyPressed_asm      ;;
-   1F04 28 ED         [12]  220     jr z, keys_loop
+   1F54 CD 77 20      [17]  219     call cpct_isKeyPressed_asm      ;;
+   1F57 28 ED         [12]  220     jr z, keys_loop
                             221     ;; Key pressed execute action
-   1F06 21 F3 1E      [10]  222     ld hl, #keys_loop               ;;
-   1F09 E5            [11]  223     push hl                         ;; return addres from executed function
-   1F0A FD 6E 02      [19]  224     ld l, 2(iy)                     ;;
-   1F0D FD 66 03      [19]  225     ld h, 3(iy)                     ;; retrieve function address    
-   1F10 E9            [ 4]  226     jp (hl)                         ;; jump to function
+   1F59 21 46 1F      [10]  222     ld hl, #keys_loop               ;;
+   1F5C E5            [11]  223     push hl                         ;; return addres from executed function
+   1F5D FD 6E 02      [19]  224     ld l, 2(iy)                     ;;
+   1F60 FD 66 03      [19]  225     ld h, 3(iy)                     ;; retrieve function address    
+   1F63 E9            [ 4]  226     jp (hl)                         ;; jump to function
                             227 
                             228 
                             229 ;;-----------------------------------------------------------------
@@ -5810,10 +5810,10 @@ Hexadecimal [16-Bits]
                             235 ;;  Output:
                             236 ;;  Modified: iy, bc
                             237 ;;
-   1F11                     238 sys_input_main_menu_update::
-   1F11 FD 21 83 27   [14]  239     ld iy, #sys_input_main_menu_actions
-   1F15 CD F1 1E      [17]  240     call sys_input_generic_update
-   1F18 C9            [10]  241     ret
+   1F64                     238 sys_input_main_menu_update::
+   1F64 FD 21 D6 27   [14]  239     ld iy, #sys_input_main_menu_actions
+   1F68 CD 44 1F      [17]  240     call sys_input_generic_update
+   1F6B C9            [10]  241     ret
                             242 
                             243 ;;-----------------------------------------------------------------
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 110.
@@ -5829,27 +5829,27 @@ Hexadecimal [16-Bits]
                             249 ;;  Input: 
                             250 ;;  Output:
                             251 ;;  Modified: iy, bc
-   1F19                     252 sys_input_player_left::
-   1F19 DD 66 0F      [19]  253     ld h, e_vx(ix)
-   1F1C DD 6E 10      [19]  254     ld l, e_vx+1(ix)
-   1F1F 01 13 00      [10]  255     ld bc, #STEP_HORIZONTAL_SPEED           
-   1F22 B7            [ 4]  256     or a
-   1F23 ED 42         [15]  257     sbc hl, bc                          ;; add STEP SPEED to current SPEED
-   1F25 01 00 FF      [10]  258     ld bc, #MAX_HORIZONTAL_SPEED_NEG    ;; check if MAX HORIZONTAL SPEED has been reached
-   1F28 B7            [ 4]  259     or a                                ;;
-   1F29 22 31 1F      [16]  260     ld (sipl_max_not_reached+1), hl     ;; save new vx value for later use
-   1F2C ED 42         [15]  261     sbc hl, bc                          ;;
-   1F2E 38 0B         [12]  262     jr c, sipl_max_reached              ;;
-   1F30                     263 sipl_max_not_reached:
-   1F30 21 00 00      [10]  264     ld hl, #00000
-   1F33 DD 74 0F      [19]  265     ld e_vx(ix), h
-   1F36 DD 75 10      [19]  266     ld e_vx+1(ix), l
-   1F39 18 06         [12]  267     jr sipl_exit
-   1F3B                     268 sipl_max_reached:                       ;; if max speed reached, vx set to max speed
-   1F3B DD 70 0F      [19]  269     ld e_vx(ix), b
-   1F3E DD 71 10      [19]  270     ld e_vx+1(ix), c
-   1F41                     271 sipl_exit:
-   1F41 C9            [10]  272     ret
+   1F6C                     252 sys_input_player_left::
+   1F6C DD 66 0F      [19]  253     ld h, e_vx(ix)
+   1F6F DD 6E 10      [19]  254     ld l, e_vx+1(ix)
+   1F72 01 13 00      [10]  255     ld bc, #STEP_HORIZONTAL_SPEED           
+   1F75 B7            [ 4]  256     or a
+   1F76 ED 42         [15]  257     sbc hl, bc                          ;; add STEP SPEED to current SPEED
+   1F78 01 00 FF      [10]  258     ld bc, #MAX_HORIZONTAL_SPEED_NEG    ;; check if MAX HORIZONTAL SPEED has been reached
+   1F7B B7            [ 4]  259     or a                                ;;
+   1F7C 22 84 1F      [16]  260     ld (sipl_max_not_reached+1), hl     ;; save new vx value for later use
+   1F7F ED 42         [15]  261     sbc hl, bc                          ;;
+   1F81 38 0B         [12]  262     jr c, sipl_max_reached              ;;
+   1F83                     263 sipl_max_not_reached:
+   1F83 21 00 00      [10]  264     ld hl, #00000
+   1F86 DD 74 0F      [19]  265     ld e_vx(ix), h
+   1F89 DD 75 10      [19]  266     ld e_vx+1(ix), l
+   1F8C 18 06         [12]  267     jr sipl_exit
+   1F8E                     268 sipl_max_reached:                       ;; if max speed reached, vx set to max speed
+   1F8E DD 70 0F      [19]  269     ld e_vx(ix), b
+   1F91 DD 71 10      [19]  270     ld e_vx+1(ix), c
+   1F94                     271 sipl_exit:
+   1F94 C9            [10]  272     ret
                             273 
                             274 ;;-----------------------------------------------------------------
                             275 ;;
@@ -5860,31 +5860,31 @@ Hexadecimal [16-Bits]
                             280 ;;  Input: 
                             281 ;;  Output:
                             282 ;;  Modified: iy, bc
-   1F42                     283 sys_input_player_right::    
-   1F42 DD 66 0F      [19]  284     ld h, e_vx(ix)
-   1F45 DD 6E 10      [19]  285     ld l, e_vx+1(ix)
-   1F48 01 13 00      [10]  286     ld bc, #STEP_HORIZONTAL_SPEED           
-   1F4B 09            [11]  287     add hl, bc                          ;; add STEP SPEED to current SPEED
-   1F4C 01 00 01      [10]  288     ld bc, #MAX_HORIZONTAL_SPEED_POS    ;; check if MAX HORIZONTAL SPEED has been reached
-   1F4F B7            [ 4]  289     or a                                ;;
-   1F50 22 58 1F      [16]  290     ld (sipr_max_not_reached+1), hl     ;; save new vx value for later use
-   1F53 ED 42         [15]  291     sbc hl, bc                          ;;
-   1F55 30 0B         [12]  292     jr nc, sipr_max_reached              ;;
-   1F57                     293 sipr_max_not_reached:
-   1F57 21 00 00      [10]  294     ld hl, #00000
-   1F5A DD 74 0F      [19]  295     ld e_vx(ix), h
-   1F5D DD 75 10      [19]  296     ld e_vx+1(ix), l
-   1F60 18 06         [12]  297     jr sipr_exit
-   1F62                     298 sipr_max_reached:                       ;; if max speed reached, vx set to max speed
+   1F95                     283 sys_input_player_right::    
+   1F95 DD 66 0F      [19]  284     ld h, e_vx(ix)
+   1F98 DD 6E 10      [19]  285     ld l, e_vx+1(ix)
+   1F9B 01 13 00      [10]  286     ld bc, #STEP_HORIZONTAL_SPEED           
+   1F9E 09            [11]  287     add hl, bc                          ;; add STEP SPEED to current SPEED
+   1F9F 01 00 01      [10]  288     ld bc, #MAX_HORIZONTAL_SPEED_POS    ;; check if MAX HORIZONTAL SPEED has been reached
+   1FA2 B7            [ 4]  289     or a                                ;;
+   1FA3 22 AB 1F      [16]  290     ld (sipr_max_not_reached+1), hl     ;; save new vx value for later use
+   1FA6 ED 42         [15]  291     sbc hl, bc                          ;;
+   1FA8 30 0B         [12]  292     jr nc, sipr_max_reached              ;;
+   1FAA                     293 sipr_max_not_reached:
+   1FAA 21 00 00      [10]  294     ld hl, #00000
+   1FAD DD 74 0F      [19]  295     ld e_vx(ix), h
+   1FB0 DD 75 10      [19]  296     ld e_vx+1(ix), l
+   1FB3 18 06         [12]  297     jr sipr_exit
+   1FB5                     298 sipr_max_reached:                       ;; if max speed reached, vx set to max speed
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 111.
 Hexadecimal [16-Bits]
 
 
 
-   1F62 DD 70 0F      [19]  299     ld e_vx(ix), b
-   1F65 DD 71 10      [19]  300     ld e_vx+1(ix), c
-   1F68                     301 sipr_exit:
-   1F68 C9            [10]  302     ret
+   1FB5 DD 70 0F      [19]  299     ld e_vx(ix), b
+   1FB8 DD 71 10      [19]  300     ld e_vx+1(ix), c
+   1FBB                     301 sipr_exit:
+   1FBB C9            [10]  302     ret
                             303 
                             304 ;;-----------------------------------------------------------------
                             305 ;;
@@ -5895,27 +5895,27 @@ Hexadecimal [16-Bits]
                             310 ;;  Input: 
                             311 ;;  Output:
                             312 ;;  Modified: iy, bc
-   1F69                     313 sys_input_player_up::
-   1F69 DD 66 11      [19]  314     ld h, e_vy(ix)
-   1F6C DD 6E 12      [19]  315     ld l, e_vy+1(ix)
-   1F6F 01 26 00      [10]  316     ld bc, #STEP_VERTICAL_SPEED           
-   1F72 B7            [ 4]  317     or a
-   1F73 ED 42         [15]  318     sbc hl, bc                          ;; add STEP SPEED to current SPEED
-   1F75 01 00 FE      [10]  319     ld bc, #MAX_VERTICAL_SPEED_NEG      ;; check if MAX HORIZONTAL SPEED has been reached
-   1F78 B7            [ 4]  320     or a                                ;;
-   1F79 22 81 1F      [16]  321     ld (sipu_max_not_reached+1), hl     ;; save new vx value for later use
-   1F7C ED 42         [15]  322     sbc hl, bc                          ;;
-   1F7E 38 0B         [12]  323     jr c, sipu_max_reached              ;;
-   1F80                     324 sipu_max_not_reached:
-   1F80 21 00 00      [10]  325     ld hl, #00000
-   1F83 DD 74 11      [19]  326     ld e_vy(ix), h
-   1F86 DD 75 12      [19]  327     ld e_vy+1(ix), l
-   1F89 18 06         [12]  328     jr sipu_exit
-   1F8B                     329 sipu_max_reached:                       ;; if max speed reached, vx set to max speed
-   1F8B DD 70 11      [19]  330     ld e_vy(ix), b
-   1F8E DD 71 12      [19]  331     ld e_vy+1(ix), c
-   1F91                     332 sipu_exit:
-   1F91 C9            [10]  333     ret
+   1FBC                     313 sys_input_player_up::
+   1FBC DD 66 11      [19]  314     ld h, e_vy(ix)
+   1FBF DD 6E 12      [19]  315     ld l, e_vy+1(ix)
+   1FC2 01 26 00      [10]  316     ld bc, #STEP_VERTICAL_SPEED           
+   1FC5 B7            [ 4]  317     or a
+   1FC6 ED 42         [15]  318     sbc hl, bc                          ;; add STEP SPEED to current SPEED
+   1FC8 01 00 FE      [10]  319     ld bc, #MAX_VERTICAL_SPEED_NEG      ;; check if MAX HORIZONTAL SPEED has been reached
+   1FCB B7            [ 4]  320     or a                                ;;
+   1FCC 22 D4 1F      [16]  321     ld (sipu_max_not_reached+1), hl     ;; save new vx value for later use
+   1FCF ED 42         [15]  322     sbc hl, bc                          ;;
+   1FD1 38 0B         [12]  323     jr c, sipu_max_reached              ;;
+   1FD3                     324 sipu_max_not_reached:
+   1FD3 21 00 00      [10]  325     ld hl, #00000
+   1FD6 DD 74 11      [19]  326     ld e_vy(ix), h
+   1FD9 DD 75 12      [19]  327     ld e_vy+1(ix), l
+   1FDC 18 06         [12]  328     jr sipu_exit
+   1FDE                     329 sipu_max_reached:                       ;; if max speed reached, vx set to max speed
+   1FDE DD 70 11      [19]  330     ld e_vy(ix), b
+   1FE1 DD 71 12      [19]  331     ld e_vy+1(ix), c
+   1FE4                     332 sipu_exit:
+   1FE4 C9            [10]  333     ret
                             334 
                             335 ;;-----------------------------------------------------------------
                             336 ;;
@@ -5926,31 +5926,31 @@ Hexadecimal [16-Bits]
                             341 ;;  Input: 
                             342 ;;  Output:
                             343 ;;  Modified: iy, bc
-   1F92                     344 sys_input_player_down::    
-   1F92 DD 66 11      [19]  345     ld h, e_vy(ix)
-   1F95 DD 6E 12      [19]  346     ld l, e_vy+1(ix)
-   1F98 01 26 00      [10]  347     ld bc, #STEP_VERTICAL_SPEED           
-   1F9B 09            [11]  348     add hl, bc                          ;; add STEP SPEED to current SPEED
-   1F9C 01 00 02      [10]  349     ld bc, #MAX_VERTICAL_SPEED_POS      ;; check if MAX HORIZONTAL SPEED has been reached
-   1F9F B7            [ 4]  350     or a                                ;;
-   1FA0 22 A8 1F      [16]  351     ld (sipd_max_not_reached+1), hl     ;; save new vx value for later use
-   1FA3 ED 42         [15]  352     sbc hl, bc                          ;;
-   1FA5 30 0B         [12]  353     jr nc, sipd_max_reached              ;;
+   1FE5                     344 sys_input_player_down::    
+   1FE5 DD 66 11      [19]  345     ld h, e_vy(ix)
+   1FE8 DD 6E 12      [19]  346     ld l, e_vy+1(ix)
+   1FEB 01 26 00      [10]  347     ld bc, #STEP_VERTICAL_SPEED           
+   1FEE 09            [11]  348     add hl, bc                          ;; add STEP SPEED to current SPEED
+   1FEF 01 00 02      [10]  349     ld bc, #MAX_VERTICAL_SPEED_POS      ;; check if MAX HORIZONTAL SPEED has been reached
+   1FF2 B7            [ 4]  350     or a                                ;;
+   1FF3 22 FB 1F      [16]  351     ld (sipd_max_not_reached+1), hl     ;; save new vx value for later use
+   1FF6 ED 42         [15]  352     sbc hl, bc                          ;;
+   1FF8 30 0B         [12]  353     jr nc, sipd_max_reached              ;;
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 112.
 Hexadecimal [16-Bits]
 
 
 
-   1FA7                     354 sipd_max_not_reached:
-   1FA7 21 00 00      [10]  355     ld hl, #nullptr
-   1FAA DD 74 11      [19]  356     ld e_vy(ix), h
-   1FAD DD 75 12      [19]  357     ld e_vy+1(ix), l
-   1FB0 18 06         [12]  358     jr sipd_exit
-   1FB2                     359 sipd_max_reached:                       ;; if max speed reached, vx set to max speed
-   1FB2 DD 70 11      [19]  360     ld e_vy(ix), b
-   1FB5 DD 71 12      [19]  361     ld e_vy+1(ix), c
-   1FB8                     362 sipd_exit:
-   1FB8 C9            [10]  363     ret
+   1FFA                     354 sipd_max_not_reached:
+   1FFA 21 00 00      [10]  355     ld hl, #nullptr
+   1FFD DD 74 11      [19]  356     ld e_vy(ix), h
+   2000 DD 75 12      [19]  357     ld e_vy+1(ix), l
+   2003 18 06         [12]  358     jr sipd_exit
+   2005                     359 sipd_max_reached:                       ;; if max speed reached, vx set to max speed
+   2005 DD 70 11      [19]  360     ld e_vy(ix), b
+   2008 DD 71 12      [19]  361     ld e_vy+1(ix), c
+   200B                     362 sipd_exit:
+   200B C9            [10]  363     ret
                             364 
                             365 
                             366 ;;-----------------------------------------------------------------
@@ -5962,14 +5962,14 @@ Hexadecimal [16-Bits]
                             372 ;;  Input: 
                             373 ;;  Output:
                             374 ;;  Modified: iy, bc
-   1FB9                     375 sys_input_player_update::
-   1FB9 DD E5         [15]  376     push ix                             ;; save ix information
-   1FBB CD FE 09      [17]  377     call man_entity_getPlayerPosition   ;; move ix to the first entity which will be player operated
+   200C                     375 sys_input_player_update::
+   200C DD E5         [15]  376     push ix                             ;; save ix information
+   200E CD FE 09      [17]  377     call man_entity_getPlayerPosition   ;; move ix to the first entity which will be player operated
                             378 
-   1FBE FD 21 85 27   [14]  379     ld iy, #sys_input_player_actions
-   1FC2 CD F1 1E      [17]  380     call sys_input_generic_update
-   1FC5 DD E1         [14]  381     pop ix                              ;; rerieve saved information in ix
-   1FC7 C9            [10]  382     ret
+   2011 FD 21 D8 27   [14]  379     ld iy, #sys_input_player_actions
+   2015 CD 44 1F      [17]  380     call sys_input_generic_update
+   2018 DD E1         [14]  381     pop ix                              ;; rerieve saved information in ix
+   201A C9            [10]  382     ret
                             383 
                             384 
                             385 

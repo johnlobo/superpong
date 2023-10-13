@@ -869,99 +869,99 @@ Hexadecimal [16-Bits]
                             312 ;; sys_util_sqr_hl
                             313 ;;
                             314 ;;  Calculates de square root of hl in a
-                            315 ;;  input: hl
-                            316 ;;  ouput: a
-                            317 ;;  destroys: af, de, bc, hl 
-                            318 ;;
-                            319 ;; code by Jonathan Cauldwell (https://chuntey.wordpress.com/category/z80-assembly/)
-   00A6                     320 sys_util_sqr_hl::
-                            321   ;;ld (sqbuf0),hl                ; number for which we want to find square root.
-                            322   ;;xor a                         ; zeroise accumulator.
-                            323   ;;ld (sqbuf2),a                 ; result buffer.
-                            324   ;;ld a, #128                    ; start division with highest bit.
-                            325   ;;ld (sqbuf1),a                 ; next divisor.
-                            326   ;;ld b,#8                       ; 8 bits to divide.
-                            327 ;;isqr1:            
-                            328   ;;push bc                       ; store loop counter.
-                            329   ;;ld a,(sqbuf2)                 ; current result.
-                            330   ;;ld d,a          
-                            331   ;;ld a,(sqbuf1)                 ; next bit to check.
-                            332   ;;or d                          ; combine with divisor.
-                            333   ;;ld d,a                        ; store low byte.
-                            334   ;;xor a                         ; HL = HL / D
-                            335   ;;ld c,a                        ; zeroise c.
-                            336   ;;ld e,a                        ; zeroise e.
-                            337   ;;push de                       ; remember divisor.
-                            338   ;;ld hl,(sqbuf0)                ; original number.
-                            339   ;;call sys_util_hl_divided_d    ; divide number by d.
-                            340   ;;pop de                        ; restore divisor.
-                            341   ;;cp d                          ; is divisor greater than result?
-                            342   ;;jr c,isqr0                    ; yes, don't store this bit then.
-                            343   ;;ld a,d          
-                            344   ;;ld (sqbuf2),a                 ; store new divisor.
-                            345 ;;isqr0:            
-                            346   ;;ld hl, #sqbuf1                ; bit we tested.
-                            347   ;;and a                         ; clear carry flag.
-                            348   ;;rr (hl)                       ; next bit to right.
-                            349   ;;pop bc                        ; restore loop counter.
-                            350   ;;djnz isqr1                    ; repeat
+                            315 ;;  fast 16 bit isqrt by John Metcalf
+                            316 ;;  92 bytes, 344-379 cycles (average 362)
+                            317 ;;  v2 - saved 3 cycles with a tweak suggested by Russ McNulty
+                            318 ;;  input: hl
+                            319 ;;  ouput: a
+                            320 ;;  destroys: de, hl 
+                            321 ;;
+                            322 ;; code by John Metcalf (https://github.com/impomatic/z80snippets/blob/master/fastisqr.asm)
+   00A6                     323 sys_util_sqr_hl::
+                            324 
+   00A6 7C            [ 4]  325   ld a,h        ; 4
+   00A7 11 C0 B0      [10]  326   ld de,#0x0B0C0  ; 10
+   00AA 83            [ 4]  327   add a,e       ; 4
+   00AB 38 03         [12]  328   jr c,sq7      ; 12 / 7
+   00AD 7C            [ 4]  329   ld a,h        ; 4
+   00AE 16 F0         [ 7]  330   ld d,#0x0F0     ; 7
+   00B0                     331 sq7:
+                            332 
+                            333 ; ----------
+                            334 
+   00B0 82            [ 4]  335   add a,d       ; 4
+   00B1 30 03         [12]  336   jr nc,sq6     ; 12 / 7
+   00B3 CB AA         [ 8]  337   res 5,d       ; 8
+   00B5 FE                  338   .db #254        ; 7
+   00B6                     339 sq6:
+   00B6 92            [ 4]  340   sub d         ; 4
+   00B7 CB 2A         [ 8]  341   sra d         ; 8
+                            342 
+                            343 ; ----------
+                            344 
+   00B9 CB D2         [ 8]  345   set 2,d       ; 8
+   00BB 82            [ 4]  346   add a,d       ; 4
+   00BC 30 03         [12]  347   jr nc,sq5     ; 12 / 7
+   00BE CB 9A         [ 8]  348   res 3,d       ; 8
+   00C0 FE                  349   .db #254        ; 7
+   00C1                     350 sq5:
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 18.
 Hexadecimal [16-Bits]
 
 
 
-                            351   ;;ld a,(sqbuf2)                 ; return result in hl.
-                            352   ;;ret
-                            353 ;;sqbuf0: .dw #0
-                            354 ;;sqbuf1: .db #0
-                            355 ;;sqbuf2: .db #0
-                            356 
-                            357 ;-------------------------------
-                            358 ;Square Root
-                            359 ;Inputs:
-                            360 ;HL = number to be square rooted
-                            361 ;Outputs:
-                            362 ;A  = square root
-                            363 ;;
-                            364 ;;   ld a, #0xff
-                            365 ;;   ld de,#1
-                            366 ;;sqrtloop:
-                            367 ;;   inc a
-                            368 ;;   dec e
-                            369 ;;   dec de
-                            370 ;;   add hl,de
-                            371 ;;   jr c,sqrtloop
-                            372 ;;   ret 
-                            373 ;;
-                            374 
-                            375 
-                            376 ; fast 16 bit isqrt by John Metcalf
-                            377 ; 92 bytes, 344-379 cycles (average 362)
-                            378 ; v2 - saved 3 cycles with a tweak suggested by Russ McNulty
+   00C1 92            [ 4]  351   sub d         ; 4
+   00C2 CB 2A         [ 8]  352   sra d         ; 8
+                            353 
+                            354 ; ----------
+                            355 
+   00C4 14            [ 4]  356   inc d         ; 4
+   00C5 82            [ 4]  357   add a,d       ; 4
+   00C6 30 03         [12]  358   jr nc,sq4     ; 12 / 7
+   00C8 CB 8A         [ 8]  359   res 1,d       ; 8
+   00CA FE                  360   .db #254        ; 7
+   00CB                     361 sq4:
+   00CB 92            [ 4]  362   sub d         ; 4
+   00CC CB 2A         [ 8]  363   sra d         ; 8
+   00CE 67            [ 4]  364   ld h,a        ; 4
+                            365 
+                            366 ; ----------
+                            367 
+   00CF 19            [11]  368   add hl,de     ; 11
+   00D0 30 03         [12]  369   jr nc,sq3     ; 12 / 7
+   00D2 1E 40         [ 7]  370   ld e,#0x040     ; 7
+   00D4 D2                  371   .db #210        ; 10
+   00D5                     372 sq3:
+   00D5 ED 52         [15]  373   sbc hl,de     ; 15
+   00D7 CB 2A         [ 8]  374   sra d         ; 8
+   00D9 7B            [ 4]  375   ld a,e        ; 4
+   00DA 1F            [ 4]  376   rra           ; 4
+                            377 
+                            378 ; ----------
                             379 
-                            380 ; call with hl = number to square root
-                            381 ; returns    a = square root
-                            382 ; corrupts hl, de
-                            383 
-                            384 ; ----------
-                            385 
-   00A6 7C            [ 4]  386   ld a,h        ; 4
-   00A7 11 C0 B0      [10]  387   ld de,#0x0B0C0  ; 10
-   00AA 83            [ 4]  388   add a,e       ; 4
-   00AB 38 03         [12]  389   jr c,sq7      ; 12 / 7
-   00AD 7C            [ 4]  390   ld a,h        ; 4
-   00AE 16 F0         [ 7]  391   ld d,#0x0F0     ; 7
-   00B0                     392 sq7:
-                            393 
-                            394 ; ----------
-                            395 
-   00B0 82            [ 4]  396   add a,d       ; 4
-   00B1 30 03         [12]  397   jr nc,sq6     ; 12 / 7
-   00B3 CB AA         [ 8]  398   res 5,d       ; 8
-   00B5 FE                  399   .db #254        ; 7
-   00B6                     400 sq6:
-   00B6 92            [ 4]  401   sub d         ; 4
-   00B7 CB 2A         [ 8]  402   sra d         ; 8
+   00DB F6 10         [ 7]  380   or #0x010       ; 7
+   00DD 5F            [ 4]  381   ld e,a        ; 4
+   00DE 19            [11]  382   add hl,de     ; 11
+   00DF 30 03         [12]  383   jr nc,sq2     ; 12 / 7
+   00E1 E6 DF         [ 7]  384   and #0x0DF      ; 7
+   00E3 DA                  385   .db #218        ; 10
+   00E4                     386 sq2:
+   00E4 ED 52         [15]  387   sbc hl,de     ; 15
+   00E6 CB 2A         [ 8]  388   sra d         ; 8
+   00E8 1F            [ 4]  389   rra           ; 4
+                            390 
+                            391 ; ----------
+                            392 
+   00E9 F6 04         [ 7]  393   or #0x04        ; 7
+   00EB 5F            [ 4]  394   ld e,a        ; 4
+   00EC 19            [11]  395   add hl,de     ; 11
+   00ED 30 03         [12]  396   jr nc,sq1     ; 12 / 7
+   00EF E6 F7         [ 7]  397   and #0x0F7      ; 7
+   00F1 DA                  398   .db #218        ; 10
+   00F2                     399 sq1:
+   00F2 ED 52         [15]  400   sbc hl,de     ; 15
+   00F4 CB 2A         [ 8]  401   sra d         ; 8
+   00F6 1F            [ 4]  402   rra           ; 4
                             403 
                             404 ; ----------
                             405 
@@ -970,80 +970,35 @@ Hexadecimal [16-Bits]
 
 
 
-   00B9 CB D2         [ 8]  406   set 2,d       ; 8
-   00BB 82            [ 4]  407   add a,d       ; 4
-   00BC 30 03         [12]  408   jr nc,sq5     ; 12 / 7
-   00BE CB 9A         [ 8]  409   res 3,d       ; 8
-   00C0 FE                  410   .db #254        ; 7
-   00C1                     411 sq5:
-   00C1 92            [ 4]  412   sub d         ; 4
-   00C2 CB 2A         [ 8]  413   sra d         ; 8
-                            414 
-                            415 ; ----------
-                            416 
-   00C4 14            [ 4]  417   inc d         ; 4
-   00C5 82            [ 4]  418   add a,d       ; 4
-   00C6 30 03         [12]  419   jr nc,sq4     ; 12 / 7
-   00C8 CB 8A         [ 8]  420   res 1,d       ; 8
-   00CA FE                  421   .db #254        ; 7
-   00CB                     422 sq4:
-   00CB 92            [ 4]  423   sub d         ; 4
-   00CC CB 2A         [ 8]  424   sra d         ; 8
-   00CE 67            [ 4]  425   ld h,a        ; 4
-                            426 
-                            427 ; ----------
-                            428 
-   00CF 19            [11]  429   add hl,de     ; 11
-   00D0 30 03         [12]  430   jr nc,sq3     ; 12 / 7
-   00D2 1E 40         [ 7]  431   ld e,#0x040     ; 7
-   00D4 D2                  432   .db #210        ; 10
-   00D5                     433 sq3:
-   00D5 ED 52         [15]  434   sbc hl,de     ; 15
-   00D7 CB 2A         [ 8]  435   sra d         ; 8
-   00D9 7B            [ 4]  436   ld a,e        ; 4
-   00DA 1F            [ 4]  437   rra           ; 4
-                            438 
-                            439 ; ----------
-                            440 
-   00DB F6 10         [ 7]  441   or #0x010       ; 7
-   00DD 5F            [ 4]  442   ld e,a        ; 4
-   00DE 19            [11]  443   add hl,de     ; 11
-   00DF 30 03         [12]  444   jr nc,sq2     ; 12 / 7
-   00E1 E6 DF         [ 7]  445   and #0x0DF      ; 7
-   00E3 DA                  446   .db #218        ; 10
-   00E4                     447 sq2:
-   00E4 ED 52         [15]  448   sbc hl,de     ; 15
-   00E6 CB 2A         [ 8]  449   sra d         ; 8
-   00E8 1F            [ 4]  450   rra           ; 4
-                            451 
-                            452 ; ----------
-                            453 
-   00E9 F6 04         [ 7]  454   or #0x04        ; 7
-   00EB 5F            [ 4]  455   ld e,a        ; 4
-   00EC 19            [11]  456   add hl,de     ; 11
-   00ED 30 03         [12]  457   jr nc,sq1     ; 12 / 7
-   00EF E6 F7         [ 7]  458   and #0x0F7      ; 7
-   00F1 DA                  459   .db #218        ; 10
-   00F2                     460 sq1:
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 20.
-Hexadecimal [16-Bits]
-
-
-
-   00F2 ED 52         [15]  461   sbc hl,de     ; 15
-   00F4 CB 2A         [ 8]  462   sra d         ; 8
-   00F6 1F            [ 4]  463   rra           ; 4
-                            464 
-                            465 ; ----------
-                            466 
-   00F7 3C            [ 4]  467   inc a         ; 4
-   00F8 5F            [ 4]  468   ld e,a        ; 4
-   00F9 19            [11]  469   add hl,de     ; 11
-   00FA 30 02         [12]  470   jr nc,sq0     ; 12 / 7
-   00FC E6 FD         [ 7]  471   and #0x0FD      ; 7
-   00FE                     472 sq0:
-   00FE CB 2A         [ 8]  473   sra d         ; 8
-   0100 1F            [ 4]  474   rra           ; 4
-   0101 2F            [ 4]  475   cpl           ; 4
-                            476 
-   0102 C9            [10]  477 ret
+   00F7 3C            [ 4]  406   inc a         ; 4
+   00F8 5F            [ 4]  407   ld e,a        ; 4
+   00F9 19            [11]  408   add hl,de     ; 11
+   00FA 30 02         [12]  409   jr nc,sq0     ; 12 / 7
+   00FC E6 FD         [ 7]  410   and #0x0FD      ; 7
+   00FE                     411 sq0:
+   00FE CB 2A         [ 8]  412   sra d         ; 8
+   0100 1F            [ 4]  413   rra           ; 4
+   0101 2F            [ 4]  414   cpl           ; 4
+                            415 
+   0102 C9            [10]  416 ret
+                            417 
+   0103                     418 sine_table::
+   0103 00                  419     .db #0 
+   0104 04 09 0D 12 16 1B   420     .db #4,   #9,   #13,  #18,  #22,  #27,  #31,  #36,  #40,  #44
+        1F 24 28 2C
+   010E 31 35 3A 3E 42 47   421     .db #49,  #53,  #58,  #62,  #66,  #71,  #75,  #79,  #83,  #88
+        4B 4F 53 58
+   0118 5C 60 64 68 6C 70   422     .db #92,  #96,  #100, #104, #108, #112, #116, #120, #124, #128
+        74 78 7C 80
+   0122 84 88 8B 8F 93 96   423     .db #132, #136, #139, #143, #147, #150, #154, #158, #161, #165
+        9A 9E A1 A5
+   012C A8 AB AF B2 B5 B8   424     .db #168, #171, #175, #178, #181, #184, #187, #190, #193, #196
+        BB BE C1 C4
+   0136 C7 CA CC CF D2 D4   425     .db #199, #202, #204, #207, #210, #212, #215, #217, #219, #222
+        D7 D9 DB DE
+   0140 E0 E2 E4 E6 E8 EA   426     .db #224, #226, #228, #230, #232, #234, #236, #237, #239, #241
+        EC ED EF F1
+   014A F2 F3 F5 F6 F7 F8   427     .db #242, #243, #245, #246, #247, #248, #249, #250, #251, #252
+        F9 FA FB FC
+   0154 FD FE FE FF FF FF   428     .db #253, #254, #254, #255, #255, #255, #256, #256, #256, #256
+        00 00 00 00
