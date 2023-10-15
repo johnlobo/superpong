@@ -1,7 +1,0 @@
-XL3
-H 1 areas 4 global symbols
-S sys_ai_paddle Ref000000
-S sys_ai_init Ref000000
-S .__.ABS. Def000000
-S sys_ai_update Ref000000
-A _CODE size 0 flags 0 addr 0

@@ -1,17 +1,0 @@
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80), page 1.
-Hexadecimal [24-Bits]
-
-Symbol Table
-
-    .__.$$$.=  002710 L   |     .__.ABS.=  000000 G   |     .__.CPU.=  000000 L
-    .__.H$L.=  000000 L   |   1 first_lv   000000 GR  |   0 man_figh   000000 GR
-  0 man_figh   000001 GR
-
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80), page 2.
-Hexadecimal [24-Bits]
-
-Area Table
-
-   0 _CODE      size      2   flags    0
-   1 _DATA      size     2F   flags    0
-

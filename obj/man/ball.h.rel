@@ -1,8 +1,0 @@
-XL3
-H 1 areas 5 global symbols
-S .__.ABS. Def000000
-S man_ball_reverse_hor_speed Ref000000
-S man_ball_reverse_ver_speed Ref000000
-S man_ball_increase_hor_speed Ref000000
-S man_ball_set_ver_speed Ref000000
-A _CODE size 0 flags 0 addr 0
