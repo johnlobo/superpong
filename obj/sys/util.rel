@@ -1,188 +1,242 @@
-XL2
-H 2 areas 37 global symbols
+XL3
+H 2 areas 3B global symbols
 M sys_util
-S cpct_setInterruptHandler_asm Ref0000
-S cpct_getScreenToSprite_asm Ref0000
-S cpct_isKeyPressed_asm Ref0000
-S cpct_setPalette_asm Ref0000
-S cpct_setPALColour_asm Ref0000
-S cpct_drawSprite_asm Ref0000
-S cpct_etm_drawTileBox2x4_asm Ref0000
-S cpct_etm_drawTilemap4x8_ag_asm Ref0000
-S _g_palette Ref0000
-S _cpct_keyboardStatusBuffer Ref0000
-S cpct_waitHalts_asm Ref0000
-S cpct_setSeed_mxor_asm Ref0000
-S .__.ABS. Def0000
-S cpct_setSeed_xsp40_u8_asm Ref0000
-S cpct_setVideoMemoryPage_asm Ref0000
-S cpct_memset_f64_asm Ref0000
-S _s_small_numbers_00 Ref0000
-S _s_small_numbers_01 Ref0000
-S _s_small_numbers_02 Ref0000
-S _s_small_numbers_03 Ref0000
-S _s_small_numbers_04 Ref0000
-S _s_small_numbers_05 Ref0000
-S _s_small_numbers_06 Ref0000
-S _s_small_numbers_07 Ref0000
-S cpct_isAnyKeyPressed_asm Ref0000
-S _s_small_numbers_08 Ref0000
-S cpct_scanKeyboard_if_asm Ref0000
-S _s_small_numbers_09 Ref0000
-S cpct_waitVSYNC_asm Ref0000
-S cpct_setVideoMode_asm Ref0000
-S cpct_px2byteM0_asm Ref0000
-S cpct_getRandom_xsp40_u8_asm Ref0000
-S cpct_memset_asm Ref0000
-S _s_font_0 Ref0000
-S cpct_disableFirmware_asm Ref0000
-S cpct_getRandom_mxor_u8_asm Ref0000
-S cpct_drawSolidBox_asm Ref0000
-S cpct_drawSpriteBlended_asm Ref0000
-S cpct_etm_setDrawTilemap4x8_ag_asm Ref0000
-S cpct_waitVSYNCStart_asm Ref0000
-S cpct_scanKeyboard_asm Ref0000
-S cpct_getScreenPtr_asm Ref0000
-A _CODE size 15E flags 0 addr 0
-S sys_util_h_times_e Def0000
-S sys_util_BCD_Compare Def0050
-S sys_util_BCD_Add Def0046
-S sys_util_hl_div_c Def0024
-S sine_table Def0103
-S sys_util_get_random_number Def005F
-S sys_util_sqr_hl Def00A6
-S sys_util_absHL Def0031
-S sys_util_negHL Def007D
-S sys_util_hl_divided_d Def0084
-S sys_util_delay Def0075
-S sys_util_BCD_GetEnd Def003B
+S cpct_setInterruptHandler_asm Ref000000
+S cpct_getScreenToSprite_asm Ref000000
+S cpct_isKeyPressed_asm Ref000000
+S cpct_setPalette_asm Ref000000
+S cpct_setPALColour_asm Ref000000
+S cpct_drawSprite_asm Ref000000
+S cpct_etm_drawTileBox2x4_asm Ref000000
+S cpct_etm_drawTilemap4x8_ag_asm Ref000000
+S _g_palette Ref000000
+S _cpct_keyboardStatusBuffer Ref000000
+S cpct_waitHalts_asm Ref000000
+S cpct_setSeed_mxor_asm Ref000000
+S .__.ABS. Def000000
+S cpct_setSeed_xsp40_u8_asm Ref000000
+S cpct_setVideoMemoryPage_asm Ref000000
+S cpct_memset_f64_asm Ref000000
+S _s_small_numbers_00 Ref000000
+S _s_small_numbers_01 Ref000000
+S _s_small_numbers_02 Ref000000
+S _s_small_numbers_03 Ref000000
+S _s_small_numbers_04 Ref000000
+S _s_small_numbers_05 Ref000000
+S _s_small_numbers_06 Ref000000
+S _s_small_numbers_07 Ref000000
+S cpct_isAnyKeyPressed_asm Ref000000
+S _s_small_numbers_08 Ref000000
+S cpct_scanKeyboard_if_asm Ref000000
+S _s_small_numbers_09 Ref000000
+S cpct_waitVSYNC_asm Ref000000
+S cpct_setVideoMode_asm Ref000000
+S cpct_px2byteM0_asm Ref000000
+S cpct_getRandom_xsp40_u8_asm Ref000000
+S cpct_memset_asm Ref000000
+S _s_font_0 Ref000000
+S cpct_disableFirmware_asm Ref000000
+S cpct_getRandom_mxor_u8_asm Ref000000
+S cpct_drawSolidBox_asm Ref000000
+S cpct_drawSpriteBlended_asm Ref000000
+S cpct_etm_setDrawTilemap4x8_ag_asm Ref000000
+S cpct_waitVSYNCStart_asm Ref000000
+S cpct_scanKeyboard_asm Ref000000
+S cpct_getScreenPtr_asm Ref000000
+A _CODE size 1EE flags 0 addr 0
+S sys_util_return_from_sine_table Def000103
+S angle Def000195
+S sys_util_h_times_e Def000000
+S sys_util_sine Def00011C
+S sys_util_BCD_Compare Def000050
+S sys_util_BCD_Add Def000046
+S sys_util_hl_div_c Def000024
+S sine_table Def000197
+S sys_util_cosine Def00016F
+S sys_util_get_random_number Def00005F
+S sys_util_sqr_hl Def0000A6
+S sys_util_absHL Def000031
+S sys_util_negHL Def00007D
+S sys_util_hl_divided_d Def000084
+S sys_util_delay Def000075
+S sys_util_BCD_GetEnd Def00003B
 A _DATA size B flags 0 addr 0
-S string_buffer Def0000
-T 00 00 20 20 20 20 20 20 20 20 20 20 00
+S string_buffer Def000000
+T 00 00 00 20 20 20 20 20 20 20 20 20 20 00
 R 00 00 01 00
-T 00 00
+T 00 00 00
 R 00 00 00 00
-T 00 00 16 00 6A CB 24 30 01 6B 29 30 01 19 29 30
+T 00 00 00 16 00 6A CB 24 30 01 6B 29 30 01 19 29
 R 00 00 00 00
-T 0E 00 01 19 29 30 01 19 29 30 01 19 29 30 01 19
+T 0D 00 00 30 01 19 29 30 01 19 29 30 01 19 29 30
 R 00 00 00 00
-T 1C 00 29 30 01 19 29 D0 19 C9
+T 1A 00 00 01 19 29 30 01 19 29 D0 19 C9
 R 00 00 00 00
-T 24 00
+T 24 00 00
 R 00 00 00 00
-T 24 00 06 10 AF 29 17 B9 38 02 2C 91 10 F7 C9
+T 24 00 00 06 10 AF 29 17 B9 38 02 2C 91 10 F7 C9
 R 00 00 00 00
-T 31 00
+T 31 00 00
 R 00 00 00 00
-T 31 00 CB 7C C8 AF 95 6F 9F 94 67 C9
+T 31 00 00 CB 7C C8 AF 95 6F 9F 94 67 C9
 R 00 00 00 00
-T 3B 00
+T 3B 00 00
 R 00 00 00 00
-T 3B 00 C5 48 0D 06 00 09 EB 09 EB C1 C9
+T 3B 00 00 C5 48 0D 06 00 09 EB 09 EB C1 C9
 R 00 00 00 00
-T 46 00
+T 46 00 00
 R 00 00 00 00
-T 46 00 B7
+T 46 00 00 B7
 R 00 00 00 00
-T 47 00
+T 47 00 00
 R 00 00 00 00
-T 47 00 1A 8E 27 12 13 23 10 F8 C9
+T 47 00 00 1A 8E 27 12 13 23 10 F8 C9
 R 00 00 00 00
-T 50 00
+T 50 00 00
 R 00 00 00 00
-T 50 00 06 04 CD 3B 00
-R 00 00 00 00 00 05 00 00
-T 55 00
-R 00 00 00 00
-T 55 00 1A BE D8 C0 1B 2B 10 F8 B7 C9
-R 00 00 00 00
-T 5F 00
-R 00 00 00 00
-T 5F 00 32 69 00 CD 00 00 7D 26 00 0E 00 06 00
-R 00 00 00 00 00 03 00 00 02 06 23 00
-T 6C 00
-R 00 00 00 00
-T 6C 00 B7 ED 42 F2 6C 00 09 7D C9
+T 50 00 00 06 04 CD 3B 00
 R 00 00 00 00 00 06 00 00
-T 75 00
+T 55 00 00
 R 00 00 00 00
-T 75 00 C5 CD 00 00 C1 10 F9 C9
-R 00 00 00 00 02 04 27 00
-T 7D 00
+T 55 00 00 1A BE D8 C0 1B 2B 10 F8 B7 C9
 R 00 00 00 00
-T 7D 00 AF 95 6F 9F 94 67 C9
+T 5F 00 00
 R 00 00 00 00
-T 84 00
+T 5F 00 00 32 69 00 CD 00 00 7D 26 00 0E 00 06 00
+R 00 00 00 00 00 04 00 00 02 07 23 00
+T 6C 00 00
 R 00 00 00 00
-T 84 00 06 08 7A
+T 6C 00 00 B7 ED 42 F2 6C 00 09 7D C9
+R 00 00 00 00 00 07 00 00
+T 75 00 00
 R 00 00 00 00
-T 87 00
+T 75 00 00 C5 CD 00 00 C1 10 F9 C9
+R 00 00 00 00 02 05 27 00
+T 7D 00 00
 R 00 00 00 00
-T 87 00 17 38 07 04 BC 30 03 C3 87 00
-R 00 00 00 00 00 0A 00 00
-T 91 00
+T 7D 00 00 AF 95 6F 9F 94 67 C9
 R 00 00 00 00
-T 91 00 AF 5F 4F
+T 84 00 00
 R 00 00 00 00
-T 94 00
+T 84 00 00 06 08 7A
 R 00 00 00 00
-T 94 00 ED 52 30 01 19
+T 87 00 00
 R 00 00 00 00
-T 99 00
+T 87 00 00 17 38 07 04 BC 30 03 C3 87 00
+R 00 00 00 00 00 0B 00 00
+T 91 00 00
 R 00 00 00 00
-T 99 00 3F CB 11 17 CB 1A CB 1B 10 F1 67 69 C9
+T 91 00 00 AF 5F 4F
 R 00 00 00 00
-T A6 00
+T 94 00 00
 R 00 00 00 00
-T A6 00 7C 11 C0 B0 83 38 03 7C 16 F0
+T 94 00 00 ED 52 30 01 19
 R 00 00 00 00
-T B0 00
+T 99 00 00
 R 00 00 00 00
-T B0 00 82 30 03 CB AA FE
+T 99 00 00 3F CB 11 17 CB 1A CB 1B 10 F1 67 69 C9
 R 00 00 00 00
-T B6 00
+T A6 00 00
 R 00 00 00 00
-T B6 00 92 CB 2A CB D2 82 30 03 CB 9A FE
+T A6 00 00 7C 11 C0 B0 83 38 03 7C 16 F0
 R 00 00 00 00
-T C1 00
+T B0 00 00
 R 00 00 00 00
-T C1 00 92 CB 2A 14 82 30 03 CB 8A FE
+T B0 00 00 82 30 03 CB AA FE
 R 00 00 00 00
-T CB 00
+T B6 00 00
 R 00 00 00 00
-T CB 00 92 CB 2A 67 19 30 03 1E 40 D2
+T B6 00 00 92 CB 2A CB D2 82 30 03 CB 9A FE
 R 00 00 00 00
-T D5 00
+T C1 00 00
 R 00 00 00 00
-T D5 00 ED 52 CB 2A 7B 1F F6 10 5F 19 30 03 E6 DF
+T C1 00 00 92 CB 2A 14 82 30 03 CB 8A FE
 R 00 00 00 00
-T E3 00 DA
+T CB 00 00
 R 00 00 00 00
-T E4 00
+T CB 00 00 92 CB 2A 67 19 30 03 1E 40 D2
 R 00 00 00 00
-T E4 00 ED 52 CB 2A 1F F6 04 5F 19 30 03 E6 F7 DA
+T D5 00 00
 R 00 00 00 00
-T F2 00
+T D5 00 00 ED 52 CB 2A 7B 1F F6 10 5F 19 30 03 E6
 R 00 00 00 00
-T F2 00 ED 52 CB 2A 1F 3C 5F 19 30 02 E6 FD
+T E2 00 00 DF DA
 R 00 00 00 00
-T FE 00
+T E4 00 00
 R 00 00 00 00
-T FE 00 CB 2A 1F 2F C9
+T E4 00 00 ED 52 CB 2A 1F F6 04 5F 19 30 03 E6 F7
 R 00 00 00 00
-T 03 01
+T F1 00 00 DA
 R 00 00 00 00
-T 03 01 00 04 09 0D 12 16 1B 1F 24 28 2C 31 35 3A
+T F2 00 00
 R 00 00 00 00
-T 11 01 3E 42 47 4B 4F 53 58 5C 60 64 68 6C 70 74
+T F2 00 00 ED 52 CB 2A 1F 3C 5F 19 30 02 E6 FD
 R 00 00 00 00
-T 1F 01 78 7C 80 84 88 8B 8F 93 96 9A 9E A1 A5 A8
+T FE 00 00
 R 00 00 00 00
-T 2D 01 AB AF B2 B5 B8 BB BE C1 C4 C7 CA CC CF D2
+T FE 00 00 CB 2A 1F 2F C9
 R 00 00 00 00
-T 3B 01 D4 D7 D9 DB DE E0 E2 E4 E6 E8 EA EC ED EF
+T 03 01 00
 R 00 00 00 00
-T 49 01 F1 F2 F3 F5 F6 F7 F8 F9 FA FB FC FD FE FE
+T 03 01 00 01 57 00 B7 ED 42 38 04 21 00 01 C9
 R 00 00 00 00
-T 57 01 FF FF FF 00 00 00 00
+T 0F 01 00
+R 00 00 00 00
+T 0F 01 00 2A 95 01 EB 21 97 01 19 7E 26 00 6F C9
+R 00 00 00 00 00 04 00 00 00 08 00 00
+T 1C 01 00
+R 00 00 00 00
+T 1C 01 00 22 95 01 01 5B 00 B7 ED 42 38 26 2A
+R 00 00 00 00 00 04 00 00
+T 28 01 00 95 01 01 B4 00 B7 ED 42 38 21 2A 95 01
+R 00 00 00 00 00 03 00 00 00 0E 00 00
+T 35 01 00 01 0E 01 B7 ED 42 38 23
+R 00 00 00 00
+T 3D 01 00
+R 00 00 00 00
+T 3D 01 00 2A 95 01 11 68 01 EB B7 ED 52 CD 03 01
+R 00 00 00 00 00 04 00 00 00 0E 00 00
+T 4A 01 00 C3 7D 00
+R 00 00 00 00 00 04 00 00
+T 4D 01 00
+R 00 00 00 00
+T 4D 01 00 2A 95 01 C3 03 01
+R 00 00 00 00 00 04 00 00 00 07 00 00
+T 53 01 00
+R 00 00 00 00
+T 53 01 00 2A 95 01 11 B4 00 EB B7 ED 52 C3 03 01
+R 00 00 00 00 00 04 00 00 00 0E 00 00
+T 60 01 00
+R 00 00 00 00
+T 60 01 00 2A 95 01 11 B4 00 B7 ED 52 CD 03 01 C3
+R 00 00 00 00 00 04 00 00 00 0D 00 00
+T 6D 01 00 7D 00
+R 00 00 00 00 00 03 00 00
+T 6F 01 00
+R 00 00 00 00
+T 6F 01 00 22 95 01 11 A6 FF 19 30 0E 11 5A 00 2A
+R 00 00 00 00 00 04 00 00
+T 7C 01 00 95 01 EB B7 ED 52 CD 1C 01 C9
+R 00 00 00 00 00 03 00 00 00 0A 00 00
+T 86 01 00
+R 00 00 00 00
+T 86 01 00 2A 95 01 11 5A 00 B7 ED 52 CD 1C 01 C3
+R 00 00 00 00 00 04 00 00 00 0D 00 00
+T 93 01 00 7D 00 00 00
+R 00 00 00 00 00 03 00 00
+T 97 01 00
+R 00 00 00 00
+T 97 01 00 00 04 09 0D 12 16 1B 1F 24 28 2C 31 35
+R 00 00 00 00
+T A4 01 00 3A 3E 42 47 4B 4F 53 58 5C 60 64 68 6C
+R 00 00 00 00
+T B1 01 00 70 74 78 7C 80 84 88 8B 8F 93 96 9A 9E
+R 00 00 00 00
+T BE 01 00 A1 A5 A8 AB AF B2 B4 B8 BB BE C1 C4 C7
+R 00 00 00 00
+T CB 01 00 CA CC CF D2 D4 D7 D9 DB DE E0 E2 E4 E6
+R 00 00 00 00
+T D8 01 00 E8 EA EC ED EF F1 F2 F3 F5 F6 F7 F8 F9
+R 00 00 00 00
+T E5 01 00 FA FB FC FD FE FE FF FF FF
 R 00 00 00 00

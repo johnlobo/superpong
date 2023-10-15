@@ -98,7 +98,59 @@ man_game_init::
     call sys_collision_init                 ;; initialize collision system
     call sys_ai_init                        ;; initialize collision system
     call sys_physics_init                   ;; initialize physics system
-    
+
+
+    BREAKPOINT
+    ld hl, #0
+    call sys_util_sine
+    ld hl, #15
+    call sys_util_sine
+    ld hl, #30 
+    call sys_util_sine
+    ld hl, #45
+    call sys_util_sine
+    ld hl, #60
+    call sys_util_sine
+    ld hl, #75 
+    call sys_util_sine   
+    ld hl, #90
+    call sys_util_sine
+    ld hl, #105
+    call sys_util_sine
+    ld hl, #120
+    call sys_util_sine
+    ld hl, #135
+    call sys_util_sine
+    ld hl, #150
+    call sys_util_sine
+    ld hl, #165
+    call sys_util_sine
+    ld hl, #180
+    call sys_util_sine
+    ld hl, #195
+    call sys_util_sine
+    ld hl, #210
+    call sys_util_sine
+    ld hl, #225
+    call sys_util_sine
+    ld hl, #240
+    call sys_util_sine
+    ld hl, #255
+    call sys_util_sine
+    ld hl, #270
+    call sys_util_sine
+    ld hl, #285
+    call sys_util_sine
+    ld hl, #300
+    call sys_util_sine
+    ld hl, #315
+    call sys_util_sine
+    ld hl, #330
+    call sys_util_sine
+    ld hl, #345
+    call sys_util_sine
+    ld hl, #360
+    call sys_util_sine
     ret
 
 ;;-----------------------------------------------------------------

@@ -1,8 +1,8 @@
-XL2
+XL3
 H 1 areas 5 global symbols
-S sys_collision_paddle Ref0000
-S sys_collision_wall_up Ref0000
-S sys_collision_init Ref0000
-S .__.ABS. Def0000
-S sys_collision_update Ref0000
+S sys_collision_paddle Ref000000
+S sys_collision_wall_up Ref000000
+S sys_collision_init Ref000000
+S .__.ABS. Def000000
+S sys_collision_update Ref000000
 A _CODE size 0 flags 0 addr 0

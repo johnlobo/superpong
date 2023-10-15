@@ -416,34 +416,156 @@ sq0:
 ret
 
 
-i16 sine(i16 angle) {
-     if (angle < 90) {
-          return sine_table[angle];
-     } else if (angle < 180) {
-          return sine_table[180 - angle];
-     } else if (angle < 270) {
-          return -sine_table[angle - 180];
-     } else {
-          return -sine_table[360 - angle];
-     }
-}
 
-i16 cosine(i16 angle) {
-     if (angle <= 90)
-          return (sine(90 - angle));
-     else
-          return (-sine(angle - 90));
-}
+;;-----------------------------------------------------------------
+;;
+;; sys_util_return_from_sine_table
+;;
+;;  Returns the number of sine table corresponding to the angle
+;;  Input:  hl: angle
+;;  Output: hl : sine table result
+;;  Destroyed: af, bc
+;;
+sys_util_return_from_sine_table::
+  ld bc, #87
+  or a 
+  sbc hl, bc
+  jr c, _sus_regular_return
+  ld hl, #0x0100
+  ret
+_sus_regular_return:
+  ld hl, (angle)
+  ex de, hl
+  ld hl, #sine_table
+  add hl, de
+  ld a, (hl)
+  ld h, #0
+  ld l, a
+  ret 
+
+;;-----------------------------------------------------------------
+;;
+;; sys_util_sine::
+;;
+;;  Waits a determined number of frames 
+;;  Input:  a: angle
+;;  Output: a : cosine(angle)
+;;  Destroyed: af, bc
+;;
+;;     if (angle < 90) {
+;;          return sine_table[angle];
+;;     } else if (angle < 180) {
+;;          return sine_table[180 - angle];
+;;     } else if (angle < 270) {
+;;          return -sine_table[angle - 180];
+;;     } else {
+;;          return -sine_table[360 - angle];
+;;     }
+;;
+sys_util_sine::
+  ld (angle), hl
+  ld bc, #91
+  or a
+  sbc hl, bc
+  jr c, _sus_return_minus90
+  ld hl, (angle)
+  ld bc, #180
+  or a
+  sbc hl, bc
+  jr c, _sus_return_minus180
+  ld hl, (angle)
+  ld bc, #270
+  or a
+  sbc hl, bc
+  jr c, _sus_return_minus270
+_sus_return_minus360:
+  ;; calculate 360 - angle
+  ld hl, (angle)
+  ld de, #360
+  ex de, hl
+  or a                                  ;; reset carry
+  sbc hl, de
+  call sys_util_return_from_sine_table
+  jp sys_util_negHL
+_sus_return_minus90:
+  ld hl, (angle)
+  jp sys_util_return_from_sine_table
+_sus_return_minus180:
+  ;; calculate 180 - angle
+  ld hl, (angle)
+  ld de, #180
+  ex de, hl
+  or a                                  ;; reset carry
+  sbc hl, de
+  jp sys_util_return_from_sine_table
+_sus_return_minus270:
+  ;; calculate angle - 180
+  ld hl, (angle)
+  ld de, #180
+  or a                                  ;; reset carry
+  sbc hl, de
+  call sys_util_return_from_sine_table
+  jp sys_util_negHL
 
 
+;;-----------------------------------------------------------------
+;;
+;; sys_util_cosine
+;;
+;;  Waits a determined number of frames 
+;;  Input:  hl: angle
+;;  Output: hl : cosine(angle)
+;;  Destroyed: af, bc
+;;
+;;     if (angle <= 90)
+;;          return (sine(90 - angle));
+;;     else
+;;          return (-sine(angle - 90));
+;;
+sys_util_cosine::
+  ld (angle), hl
+  ld de, #-90
+  add hl, de
+  jr nc, suc_more_than_90
+    ;;calculate 90-angle in hl
+    ld de, #90
+    ld hl, (angle)
+    ex de, hl
+    or a
+    sbc hl, de
+    call sys_util_sine
+    ret
+  suc_more_than_90:
+    ;; calculate angle-90 in hl
+    ld hl, (angle)
+    ld de, #90
+    or a
+    sbc hl, de
+    call sys_util_sine
+    jp sys_util_negHL
+
+  angle:: .dw #0000
+
+
+
+;;-------------------------------------------------------------------
+;;
+;;  Sine Table
+;;
+;; The sine table can be stored in bytes, becuase in the first quarter
+;; all the sinus are positive an lower than 255.
+;; in order to be able to return negative numbers, is necesary to
+;; transform the byte into word when returning the information and 
+;; have in mind that form 87 to 90 degres should return the word 0100
+;;
 sine_table::
     .db #0 
     .db #4,   #9,   #13,  #18,  #22,  #27,  #31,  #36,  #40,  #44
     .db #49,  #53,  #58,  #62,  #66,  #71,  #75,  #79,  #83,  #88
     .db #92,  #96,  #100, #104, #108, #112, #116, #120, #124, #128
     .db #132, #136, #139, #143, #147, #150, #154, #158, #161, #165
-    .db #168, #171, #175, #178, #181, #184, #187, #190, #193, #196
+    .db #168, #171, #175, #178, #180, #184, #187, #190, #193, #196
     .db #199, #202, #204, #207, #210, #212, #215, #217, #219, #222
     .db #224, #226, #228, #230, #232, #234, #236, #237, #239, #241
     .db #242, #243, #245, #246, #247, #248, #249, #250, #251, #252
-    .db #253, #254, #254, #255, #255, #255, #255, #255, #255, #255
+    .db #253, #254, #254, #255, #255, #255

@@ -1,18 +1,18 @@
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 1.
-Hexadecimal [16-Bits]
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80), page 1.
+Hexadecimal [24-Bits]
 
 Symbol Table
 
-    .__.$$$.=  2710 L   |     .__.ABS.=  0000 G   |     .__.CPU.=  0000 L
-    .__.H$L.=  0000 L   |     GAME_LOO=  0000 G   |     GAME_OVE=  0004 G
-    MAIN_MEN=  0001 G   |     MAP_LOAD=  0002 G   |     PAUSE_ME=  0003 G
-    VICTORY =  0005 G   |     man_game   **** GX  |     man_game   **** GX
-    man_game   **** GX  |     man_game   **** GX
+    .__.$$$.=  002710 L   |     .__.ABS.=  000000 G   |     .__.CPU.=  000000 L
+    .__.H$L.=  000000 L   |     GAME_LOO=  000000 G   |     GAME_OVE=  000004 G
+    MAIN_MEN=  000001 G   |     MAP_LOAD=  000002 G   |     PAUSE_ME=  000003 G
+    VICTORY =  000005 G   |     man_game   ****** GX  |     man_game   ****** GX
+    man_game   ****** GX  |     man_game   ****** GX
 
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 2.
-Hexadecimal [16-Bits]
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80), page 2.
+Hexadecimal [24-Bits]
 
 Area Table
 
-   0 _CODE      size    0   flags    0
+   0 _CODE      size      0   flags    0
 

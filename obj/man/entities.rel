@@ -1,255 +1,255 @@
-XL2
+XL3
 H 2 areas 42 global symbols
 M cpct_keyboard
-S cpct_setInterruptHandler_asm Ref0000
-S cpct_getScreenToSprite_asm Ref0000
-S cpct_isKeyPressed_asm Ref0000
-S cpct_setPalette_asm Ref0000
-S man_components_removePtr Ref0000
-S cpct_setPALColour_asm Ref0000
-S cpct_drawSprite_asm Ref0000
-S cpct_etm_drawTileBox2x4_asm Ref0000
-S cpct_etm_drawTilemap4x8_ag_asm Ref0000
-S man_components_getArrayHL Ref0000
-S _g_palette Ref0000
-S _cpct_keyboardStatusBuffer Ref0000
-S cpct_waitHalts_asm Ref0000
-S cpct_setSeed_mxor_asm Ref0000
-S .__.ABS. Def0000
-S cpct_setSeed_xsp40_u8_asm Ref0000
-S cpct_setVideoMemoryPage_asm Ref0000
-S cpct_memset_f64_asm Ref0000
-S _s_small_numbers_00 Ref0000
-S _s_small_numbers_01 Ref0000
-S _s_small_numbers_02 Ref0000
-S _s_small_numbers_03 Ref0000
-S _s_small_numbers_04 Ref0000
-S _s_small_numbers_05 Ref0000
-S man_components_add Ref0000
-S _s_small_numbers_06 Ref0000
-S _s_small_numbers_07 Ref0000
-S cpct_isAnyKeyPressed_asm Ref0000
-S _s_small_numbers_08 Ref0000
-S cpct_scanKeyboard_if_asm Ref0000
-S _s_small_numbers_09 Ref0000
-S cpct_waitVSYNC_asm Ref0000
-S cpct_setVideoMode_asm Ref0000
-S cpct_px2byteM0_asm Ref0000
-S cpct_getRandom_xsp40_u8_asm Ref0000
-S cpct_memset_asm Ref0000
-S man_components_init Ref0000
-S _s_font_0 Ref0000
-S cpct_disableFirmware_asm Ref0000
-S cpct_getRandom_mxor_u8_asm Ref0000
-S cpct_drawSolidBox_asm Ref0000
-S cpct_drawSpriteBlended_asm Ref0000
-S man_components_getComponentPtrHL Ref0000
-S cpct_etm_setDrawTilemap4x8_ag_asm Ref0000
-S cpct_waitVSYNCStart_asm Ref0000
-S cpct_scanKeyboard_asm Ref0000
-S cpct_getScreenPtr_asm Ref0000
+S cpct_setInterruptHandler_asm Ref000000
+S cpct_getScreenToSprite_asm Ref000000
+S cpct_isKeyPressed_asm Ref000000
+S cpct_setPalette_asm Ref000000
+S man_components_removePtr Ref000000
+S cpct_setPALColour_asm Ref000000
+S cpct_drawSprite_asm Ref000000
+S cpct_etm_drawTileBox2x4_asm Ref000000
+S cpct_etm_drawTilemap4x8_ag_asm Ref000000
+S man_components_getArrayHL Ref000000
+S _g_palette Ref000000
+S _cpct_keyboardStatusBuffer Ref000000
+S cpct_waitHalts_asm Ref000000
+S cpct_setSeed_mxor_asm Ref000000
+S .__.ABS. Def000000
+S cpct_setSeed_xsp40_u8_asm Ref000000
+S cpct_setVideoMemoryPage_asm Ref000000
+S cpct_memset_f64_asm Ref000000
+S _s_small_numbers_00 Ref000000
+S _s_small_numbers_01 Ref000000
+S _s_small_numbers_02 Ref000000
+S _s_small_numbers_03 Ref000000
+S _s_small_numbers_04 Ref000000
+S _s_small_numbers_05 Ref000000
+S man_components_add Ref000000
+S _s_small_numbers_06 Ref000000
+S _s_small_numbers_07 Ref000000
+S cpct_isAnyKeyPressed_asm Ref000000
+S _s_small_numbers_08 Ref000000
+S cpct_scanKeyboard_if_asm Ref000000
+S _s_small_numbers_09 Ref000000
+S cpct_waitVSYNC_asm Ref000000
+S cpct_setVideoMode_asm Ref000000
+S cpct_px2byteM0_asm Ref000000
+S cpct_getRandom_xsp40_u8_asm Ref000000
+S cpct_memset_asm Ref000000
+S man_components_init Ref000000
+S _s_font_0 Ref000000
+S cpct_disableFirmware_asm Ref000000
+S cpct_getRandom_mxor_u8_asm Ref000000
+S cpct_drawSolidBox_asm Ref000000
+S cpct_drawSpriteBlended_asm Ref000000
+S man_components_getComponentPtrHL Ref000000
+S cpct_etm_setDrawTilemap4x8_ag_asm Ref000000
+S cpct_waitVSYNCStart_asm Ref000000
+S cpct_scanKeyboard_asm Ref000000
+S cpct_getScreenPtr_asm Ref000000
 A _CODE size 18B flags 0 addr 0
-S man_entity_forall_matching_iy Def0163
-S man_entity_deleteEverythingExceptPlayer Def014C
-S man_entity_getBallPositionIY Def013C
-S man_entity_create Def00C9
-S man_entity_set4destruction Def0094
-S man_entity_init Def005B
-S man_entity_getOponentPosition Def012D
-S man_entity_next_entity_iy Def0119
-S man_entity_getPlayerPosition Def0128
-S man_entity_update Def00A2
-S man_entity_new Def003A
-S man_entity_destroy Def0000
-S man_entity_getEntityArrayIX Def0109
-S man_entity_getEntityArrayIY Def0111
-S man_entity_init_linked_list Def0079
+S man_entity_forall_matching_iy Def000163
+S man_entity_deleteEverythingExceptPlayer Def00014C
+S man_entity_getBallPositionIY Def00013C
+S man_entity_create Def0000C9
+S man_entity_set4destruction Def000094
+S man_entity_init Def00005B
+S man_entity_getOponentPosition Def00012D
+S man_entity_next_entity_iy Def000119
+S man_entity_getPlayerPosition Def000128
+S man_entity_update Def0000A2
+S man_entity_new Def00003A
+S man_entity_destroy Def000000
+S man_entity_getEntityArrayIX Def000109
+S man_entity_getEntityArrayIY Def000111
+S man_entity_init_linked_list Def000079
 A _DATA size 145 flags 0 addr 0
-S _entity_list Def0001
-S _entity_free_list Def0003
-S _entity_num Def0000
-S _entity_array Def0005
-T 00 00 00 00 00 05 00
-R 00 00 01 00 00 05 01 00
-T 05 00
+S _entity_list Def000001
+S _entity_free_list Def000003
+S _entity_num Def000000
+S _entity_array Def000005
+T 00 00 00 00 00 00 05 00
+R 00 00 01 00 00 06 01 00
+T 05 00 00
 R 00 00 01 00
-T 05 00
+T 05 00 00
 R 00 00 01 00
-T 00 00
+T 00 00 00
 R 00 00 00 00
-T 00 00 D5 DD 7E 02 E6 10 28 05
+T 00 00 00 D5 DD 7E 02 E6 10 28 05
 R 00 00 00 00
-T 08 00
+T 08 00 00
 R 00 00 00 00
-T 08 00 3E 02 CD 00 00
-R 00 00 00 00 02 05 04 00
-T 0D 00
+T 08 00 00 3E 02 CD 00 00
+R 00 00 00 00 02 06 04 00
+T 0D 00 00
 R 00 00 00 00
-T 0D 00 DD 7E 02 E6 80 28 05
+T 0D 00 00 DD 7E 02 E6 80 28 05
 R 00 00 00 00
-T 14 00
+T 14 00 00
 R 00 00 00 00
-T 14 00 3E 04 CD 00 00
-R 00 00 00 00 02 05 04 00
-T 19 00
+T 14 00 00 3E 04 CD 00 00
+R 00 00 00 00 02 06 04 00
+T 19 00 00
 R 00 00 00 00
-T 19 00 D1 2A 03 00 DD 22 03 00 DD 75 00 DD 74 01
+T 19 00 00 D1 2A 03 00 DD 22 03 00 DD 75 00 DD 74
+R 00 00 00 00 00 05 01 00 00 09 01 00
+T 26 00 00 01 21 00 00 35 7B B2 28 06
+R 00 00 00 00 00 05 01 00
+T 2F 00 00
+R 00 00 00 00
+T 2F 00 00 6B 62 71 23 70 C9
+R 00 00 00 00
+T 35 00 00
+R 00 00 00 00
+T 35 00 00 ED 43 01 00 C9
+R 00 00 00 00 00 05 01 00
+T 3A 00 00
+R 00 00 00 00
+T 3A 00 00 21 00 00 34 2A 03 00 E5 5E 23 56 ED 53
 R 00 00 00 00 00 04 01 00 00 08 01 00
-T 27 00 21 00 00 35 7B B2 28 06
-R 00 00 00 00 00 03 01 00
-T 2F 00
+T 47 00 00 03 00 2A 01 00 4D 44 E1 5D 54 22 01 00
+R 00 00 00 00 00 03 01 00 00 06 01 00 00 0E 01 00
+T 54 00 00 71 23 70 01 1E 00 C9
 R 00 00 00 00
-T 2F 00 6B 62 71 23 70 C9
+T 5B 00 00
 R 00 00 00 00
-T 35 00
+T 5B 00 00 CD 00 00 AF 32 00 00 21 00 00 22 01 00
+R 00 00 00 00 02 04 24 00 00 08 01 00 00 0E 01 00
+T 68 00 00 21 05 00 22 03 00 E5 36 00 54 5D 13 01
+R 00 00 00 00 00 04 01 00 00 07 01 00
+T 75 00 00 3F 01 ED B0
 R 00 00 00 00
-T 35 00 ED 43 01 00 C9
-R 00 00 00 00 00 04 01 00
-T 3A 00
+T 79 00 00
 R 00 00 00 00
-T 3A 00 21 00 00 34 2A 03 00 E5 5E 23 56 ED 53
-R 00 00 00 00 00 03 01 00 00 07 01 00
-T 47 00 03 00 2A 01 00 4D 44 E1 5D 54 22 01 00 71
-R 00 00 00 00 00 02 01 00 00 05 01 00 00 0D 01 00
-T 55 00 23 70 01 1E 00 C9
+T 79 00 00 3E 09 32 8C 00 01 20 00 E1 5D 54
+R 00 00 00 00 00 06 00 00
+T 84 00 00
 R 00 00 00 00
-T 5B 00
+T 84 00 00 09 EB 73 23 72 6B 62 3E 00 3D C8 32
 R 00 00 00 00
-T 5B 00 CD 00 00 AF 32 00 00 21 00 00 22 01 00 21
-R 00 00 00 00 02 03 24 00 00 07 01 00 00 0D 01 00
-T 69 00 05 00 22 03 00 E5 36 00 54 5D 13 01 3F 01
-R 00 00 00 00 00 02 01 00 00 05 01 00
-T 77 00 ED B0
-R 00 00 00 00
-T 79 00
-R 00 00 00 00
-T 79 00 3E 09 32 8C 00 01 20 00 E1 5D 54
-R 00 00 00 00 00 05 00 00
-T 84 00
-R 00 00 00 00
-T 84 00 09 EB 73 23 72 6B 62 3E 00 3D C8 32 8C 00
-R 00 00 00 00 00 0E 00 00
-T 92 00 18 F0
-R 00 00 00 00
-T 94 00
-R 00 00 00 00
-T 94 00 DD 7E 03 E6 01 28 01 C9
-R 00 00 00 00
-T 9C 00
-R 00 00 00 00
-T 9C 00 3E 20 DD 77 03 C9
-R 00 00 00 00
-T A2 00
-R 00 00 00 00
-T A2 00 CD 09 01 11 00 00
+T 90 00 00 8C 00 18 F0
 R 00 00 00 00 00 03 00 00
-T A8 00
+T 94 00 00
 R 00 00 00 00
-T A8 00 DD 4E 00 DD 46 01 DD 7D DD B4 C8 DD 7E 03
+T 94 00 00 DD 7E 03 E6 01 28 01 C9
 R 00 00 00 00
-T B6 00 E6 20 20 06
+T 9C 00 00
 R 00 00 00 00
-T BA 00
+T 9C 00 00 3E 20 DD 77 03 C9
 R 00 00 00 00
-T BA 00 DD 5D DD 54 18 03
+T A2 00 00
 R 00 00 00 00
-T C0 00
-R 00 00 00 00
-T C0 00 CD 00 00
-R 00 00 00 00 00 03 00 00
-T C3 00
-R 00 00 00 00
-T C3 00 DD 69 DD 60 18 DF
-R 00 00 00 00
-T C9 00
-R 00 00 00 00
-T C9 00 E5 CD 3A 00 DD 62 DD 6B E1 23 23 13 13 ED
+T A2 00 00 CD 09 01 11 00 00
 R 00 00 00 00 00 04 00 00
-T D7 00 B0 DD 7E 02 E6 02 28 05
+T A8 00 00
 R 00 00 00 00
-T DF 00
+T A8 00 00 DD 4E 00 DD 46 01 DD 7D DD B4 C8 DD 7E
 R 00 00 00 00
-T DF 00 3E 00 CD 00 00
-R 00 00 00 00 02 05 18 00
-T E4 00
+T B5 00 00 03 E6 20 20 06
 R 00 00 00 00
-T E4 00 DD 7E 02 E6 10 28 05
+T BA 00 00
 R 00 00 00 00
-T EB 00
+T BA 00 00 DD 5D DD 54 18 03
 R 00 00 00 00
-T EB 00 3E 02 CD 00 00
-R 00 00 00 00 02 05 18 00
-T F0 00
+T C0 00 00
 R 00 00 00 00
-T F0 00 DD 7E 02 E6 40 28 05
+T C0 00 00 CD 00 00
+R 00 00 00 00 00 04 00 00
+T C3 00 00
 R 00 00 00 00
-T F7 00
+T C3 00 00 DD 69 DD 60 18 DF
 R 00 00 00 00
-T F7 00 3E 04 CD 00 00
-R 00 00 00 00 02 05 18 00
-T FC 00
+T C9 00 00
 R 00 00 00 00
-T FC 00 DD 7E 02 E6 04 28 05
+T C9 00 00 E5 CD 3A 00 DD 62 DD 6B E1 23 23 13 13
+R 00 00 00 00 00 05 00 00
+T D6 00 00 ED B0 DD 7E 02 E6 02 28 05
 R 00 00 00 00
-T 03 01
+T DF 00 00
 R 00 00 00 00
-T 03 01 3E 01 CD 00 00
-R 00 00 00 00 02 05 18 00
-T 08 01
+T DF 00 00 3E 00 CD 00 00
+R 00 00 00 00 02 06 18 00
+T E4 00 00
 R 00 00 00 00
-T 08 01 C9
+T E4 00 00 DD 7E 02 E6 10 28 05
 R 00 00 00 00
-T 09 01
+T EB 00 00
 R 00 00 00 00
-T 09 01 DD 21 05 00 3A 00 00 C9
-R 00 00 00 00 00 04 01 00 00 07 01 00
-T 11 01
+T EB 00 00 3E 02 CD 00 00
+R 00 00 00 00 02 06 18 00
+T F0 00 00
 R 00 00 00 00
-T 11 01 FD 21 05 00 3A 00 00 C9
-R 00 00 00 00 00 04 01 00 00 07 01 00
-T 19 01
+T F0 00 00 DD 7E 02 E6 40 28 05
 R 00 00 00 00
-T 19 01 E5 C5 FD E5 E1 01 20 00 09 E5 FD E1 C1 E1
+T F7 00 00
 R 00 00 00 00
-T 27 01 C9
+T F7 00 00 3E 04 CD 00 00
+R 00 00 00 00 02 06 18 00
+T FC 00 00
 R 00 00 00 00
-T 28 01
+T FC 00 00 DD 7E 02 E6 04 28 05
 R 00 00 00 00
-T 28 01 DD 21 05 00 C9
-R 00 00 00 00 00 04 01 00
-T 2D 01
+T 03 01 00
 R 00 00 00 00
-T 2D 01 E5 C5 21 05 00 01 20 00 09 E5 FD E1 C1 E1
+T 03 01 00 3E 01 CD 00 00
+R 00 00 00 00 02 06 18 00
+T 08 01 00
+R 00 00 00 00
+T 08 01 00 C9
+R 00 00 00 00
+T 09 01 00
+R 00 00 00 00
+T 09 01 00 DD 21 05 00 3A 00 00 C9
+R 00 00 00 00 00 05 01 00 00 08 01 00
+T 11 01 00
+R 00 00 00 00
+T 11 01 00 FD 21 05 00 3A 00 00 C9
+R 00 00 00 00 00 05 01 00 00 08 01 00
+T 19 01 00
+R 00 00 00 00
+T 19 01 00 E5 C5 FD E5 E1 01 20 00 09 E5 FD E1 C1
+R 00 00 00 00
+T 26 01 00 E1 C9
+R 00 00 00 00
+T 28 01 00
+R 00 00 00 00
+T 28 01 00 DD 21 05 00 C9
 R 00 00 00 00 00 05 01 00
-T 3B 01 C9
+T 2D 01 00
 R 00 00 00 00
-T 3C 01
+T 2D 01 00 E5 C5 21 05 00 01 20 00 09 E5 FD E1 C1
+R 00 00 00 00 00 06 01 00
+T 3A 01 00 E1 C9
 R 00 00 00 00
-T 3C 01 E5 C5 21 05 00 01 20 00 09 09 E5 FD E1 C1
-R 00 00 00 00 00 05 01 00
-T 4A 01 E1 C9
+T 3C 01 00
 R 00 00 00 00
-T 4C 01
+T 3C 01 00 E5 C5 21 05 00 01 20 00 09 09 E5 FD E1
+R 00 00 00 00 00 06 01 00
+T 49 01 00 C1 E1 C9
 R 00 00 00 00
-T 4C 01 CD 09 01
-R 00 00 00 00 00 03 00 00
-T 4F 01
+T 4C 01 00
 R 00 00 00 00
-T 4F 01 DD 7E 00 4F DD 46 01 B1 C8 CD 94 00 DD 69
+T 4C 01 00 CD 09 01
+R 00 00 00 00 00 04 00 00
+T 4F 01 00
+R 00 00 00 00
+T 4F 01 00 DD 7E 00 4F DD 46 01 B1 C8 CD 94 00
+R 00 00 00 00 00 0D 00 00
+T 5B 01 00 DD 69 DD 60 18 EE 00 00
+R 00 00 00 00
+T 63 01 00
+R 00 00 00 00
+T 63 01 00 22 61 01 CD 11 01 FD 7E 02 E6 FF C8
+R 00 00 00 00 00 04 00 00 00 07 00 00
+T 6F 01 00
+R 00 00 00 00
+T 6F 01 00 C5 FD 7E 02 A0 B8 20 08 21 7F 01 E5 2A
 R 00 00 00 00 00 0C 00 00
-T 5D 01 DD 60 18 EE 00 00
-R 00 00 00 00
-T 63 01
-R 00 00 00 00
-T 63 01 22 61 01 CD 11 01 FD 7E 02 E6 FF C8
-R 00 00 00 00 00 03 00 00 00 06 00 00
-T 6F 01
-R 00 00 00 00
-T 6F 01 C5 FD 7E 02 A0 B8 20 08 21 7F 01 E5 2A
-R 00 00 00 00 00 0B 00 00
-T 7C 01 61 01 E9
-R 00 00 00 00 00 02 00 00
-T 7F 01
-R 00 00 00 00
-T 7F 01 CD 19 01 FD 7E 02 E6 FF C1 20 E5 C9
+T 7C 01 00 61 01 E9
 R 00 00 00 00 00 03 00 00
+T 7F 01 00
+R 00 00 00 00
+T 7F 01 00 CD 19 01 FD 7E 02 E6 FF C1 20 E5 C9
+R 00 00 00 00 00 04 00 00

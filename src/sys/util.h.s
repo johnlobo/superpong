@@ -36,3 +36,5 @@
 .globl sys_util_negHL
 .globl sys_util_hl_divided_d
 .globl sys_util_sqr_hl
+.globl sys_util_sine
+.globl sys_util_cosine

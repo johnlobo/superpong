@@ -1,190 +1,196 @@
-XL2
-H 2 areas 55 global symbols
+XL3
+H 2 areas 57 global symbols
 M collisions_system
-S cpct_setInterruptHandler_asm Ref0000
-S man_entity_forall_matching_iy Ref0000
-S cpct_getScreenToSprite_asm Ref0000
-S cpct_isKeyPressed_asm Ref0000
-S cpct_setPalette_asm Ref0000
-S man_components_removePtr Ref0000
-S man_entity_deleteEverythingExceptPlayer Ref0000
-S cpct_setPALColour_asm Ref0000
-S sys_util_h_times_e Ref0000
-S man_entity_getBallPositionIY Ref0000
-S sys_util_BCD_Compare Ref0000
-S man_entity_set4destruction Ref0000
-S man_entity_create Ref0000
-S man_entity_init Ref0000
-S sys_util_BCD_Add Ref0000
-S cpct_drawSprite_asm Ref0000
-S man_entity_getOponentPosition Ref0000
-S cpct_etm_drawTileBox2x4_asm Ref0000
-S cpct_etm_drawTilemap4x8_ag_asm Ref0000
-S sys_util_hl_div_c Ref0000
-S man_entity_next_entity_iy Ref0000
-S man_components_getArrayHL Ref0000
-S _g_palette Ref0000
-S sys_physics_init Ref0000
-S _cpct_keyboardStatusBuffer Ref0000
-S man_entity_getPlayerPosition Ref0000
-S cpct_waitHalts_asm Ref0000
-S man_entity_update Ref0000
-S cpct_setSeed_mxor_asm Ref0000
-S .__.ABS. Def0000
-S cpct_setSeed_xsp40_u8_asm Ref0000
-S cpct_setVideoMemoryPage_asm Ref0000
-S cpct_memset_f64_asm Ref0000
-S sys_util_get_random_number Ref0000
-S sys_physics_update Ref0000
-S _s_small_numbers_00 Ref0000
-S sys_util_sqr_hl Ref0000
-S _s_small_numbers_01 Ref0000
-S sys_util_absHL Ref0000
-S _s_small_numbers_02 Ref0000
-S _s_small_numbers_03 Ref0000
-S _s_small_numbers_04 Ref0000
-S _s_small_numbers_05 Ref0000
-S sys_util_negHL Ref0000
-S man_ball_reverse_hor_speed Ref0000
-S man_components_add Ref0000
-S _s_small_numbers_06 Ref0000
-S sys_util_hl_divided_d Ref0000
-S sys_util_delay Ref0000
-S _s_small_numbers_07 Ref0000
-S cpct_isAnyKeyPressed_asm Ref0000
-S _s_small_numbers_08 Ref0000
-S cpct_scanKeyboard_if_asm Ref0000
-S _s_small_numbers_09 Ref0000
-S man_ball_reverse_ver_speed Ref0000
-S string_buffer Ref0000
-S cpct_waitVSYNC_asm Ref0000
-S cpct_setVideoMode_asm Ref0000
-S cpct_px2byteM0_asm Ref0000
-S cpct_getRandom_xsp40_u8_asm Ref0000
-S cpct_memset_asm Ref0000
-S man_entity_getEntityArrayIX Ref0000
-S man_components_init Ref0000
-S man_entity_getEntityArrayIY Ref0000
-S _s_font_0 Ref0000
-S man_ball_increase_hor_speed Ref0000
-S cpct_disableFirmware_asm Ref0000
-S sys_util_BCD_GetEnd Ref0000
-S cpct_getRandom_mxor_u8_asm Ref0000
-S cpct_drawSolidBox_asm Ref0000
-S cpct_drawSpriteBlended_asm Ref0000
-S man_ball_set_ver_speed Ref0000
-S man_components_getComponentPtrHL Ref0000
-S cpct_etm_setDrawTilemap4x8_ag_asm Ref0000
-S cpct_waitVSYNCStart_asm Ref0000
-S cpct_scanKeyboard_asm Ref0000
-S cpct_getScreenPtr_asm Ref0000
+S cpct_setInterruptHandler_asm Ref000000
+S man_entity_forall_matching_iy Ref000000
+S cpct_getScreenToSprite_asm Ref000000
+S cpct_isKeyPressed_asm Ref000000
+S cpct_setPalette_asm Ref000000
+S man_components_removePtr Ref000000
+S man_entity_deleteEverythingExceptPlayer Ref000000
+S cpct_setPALColour_asm Ref000000
+S sys_util_h_times_e Ref000000
+S man_entity_getBallPositionIY Ref000000
+S sys_util_sine Ref000000
+S sys_util_BCD_Compare Ref000000
+S man_entity_set4destruction Ref000000
+S man_entity_create Ref000000
+S man_entity_init Ref000000
+S sys_util_BCD_Add Ref000000
+S cpct_drawSprite_asm Ref000000
+S man_entity_getOponentPosition Ref000000
+S cpct_etm_drawTileBox2x4_asm Ref000000
+S cpct_etm_drawTilemap4x8_ag_asm Ref000000
+S sys_util_hl_div_c Ref000000
+S man_entity_next_entity_iy Ref000000
+S man_components_getArrayHL Ref000000
+S _g_palette Ref000000
+S sys_physics_init Ref000000
+S _cpct_keyboardStatusBuffer Ref000000
+S man_entity_getPlayerPosition Ref000000
+S cpct_waitHalts_asm Ref000000
+S man_entity_update Ref000000
+S cpct_setSeed_mxor_asm Ref000000
+S sys_util_cosine Ref000000
+S .__.ABS. Def000000
+S cpct_setSeed_xsp40_u8_asm Ref000000
+S cpct_setVideoMemoryPage_asm Ref000000
+S cpct_memset_f64_asm Ref000000
+S sys_util_get_random_number Ref000000
+S sys_physics_update Ref000000
+S _s_small_numbers_00 Ref000000
+S sys_util_sqr_hl Ref000000
+S _s_small_numbers_01 Ref000000
+S sys_util_absHL Ref000000
+S _s_small_numbers_02 Ref000000
+S _s_small_numbers_03 Ref000000
+S _s_small_numbers_04 Ref000000
+S _s_small_numbers_05 Ref000000
+S sys_util_negHL Ref000000
+S man_ball_reverse_hor_speed Ref000000
+S man_components_add Ref000000
+S _s_small_numbers_06 Ref000000
+S sys_util_hl_divided_d Ref000000
+S sys_util_delay Ref000000
+S _s_small_numbers_07 Ref000000
+S cpct_isAnyKeyPressed_asm Ref000000
+S _s_small_numbers_08 Ref000000
+S cpct_scanKeyboard_if_asm Ref000000
+S _s_small_numbers_09 Ref000000
+S man_ball_reverse_ver_speed Ref000000
+S string_buffer Ref000000
+S cpct_waitVSYNC_asm Ref000000
+S cpct_setVideoMode_asm Ref000000
+S cpct_px2byteM0_asm Ref000000
+S cpct_getRandom_xsp40_u8_asm Ref000000
+S cpct_memset_asm Ref000000
+S man_entity_getEntityArrayIX Ref000000
+S man_components_init Ref000000
+S man_entity_getEntityArrayIY Ref000000
+S _s_font_0 Ref000000
+S man_ball_increase_hor_speed Ref000000
+S cpct_disableFirmware_asm Ref000000
+S sys_util_BCD_GetEnd Ref000000
+S cpct_getRandom_mxor_u8_asm Ref000000
+S cpct_drawSolidBox_asm Ref000000
+S cpct_drawSpriteBlended_asm Ref000000
+S man_ball_set_ver_speed Ref000000
+S man_components_getComponentPtrHL Ref000000
+S cpct_etm_setDrawTilemap4x8_ag_asm Ref000000
+S cpct_waitVSYNCStart_asm Ref000000
+S cpct_scanKeyboard_asm Ref000000
+S cpct_getScreenPtr_asm Ref000000
 A _CODE size F3 flags 0 addr 0
-S sys_collision_collider_colisionable Def009B
-S sys_collision_paddle Def0044
-S sys_collision_wall_up Def0031
-S sys_collision_init Def0000
-S sys_collision_check_collider_colisionable_X Def001D
-S sys_collision_check_collider_colisionable_Y Def0009
-S sys_collision_update Def00DD
-S sys_collision_update_one_collider Def00D4
+S sys_collision_collider_colisionable Def00009B
+S sys_collision_paddle Def000044
+S sys_collision_wall_up Def000031
+S sys_collision_init Def000000
+S sys_collision_check_collider_colisionable_X Def00001D
+S sys_collision_check_collider_colisionable_Y Def000009
+S sys_collision_update Def0000DD
+S sys_collision_update_one_collider Def0000D4
 A _DATA size 0 flags 0 addr 0
-T 00 00
+T 00 00 00
 R 00 00 00 00
-T 00 00 3E 04 CD 00 00 22 DE 00 C9
-R 00 00 00 00 02 05 15 00 00 08 00 00
-T 09 00
+T 00 00 00 3E 04 CD 00 00 22 DE 00 C9
+R 00 00 00 00 02 06 16 00 00 09 00 00
+T 09 00 00
 R 00 00 00 00
-T 09 00 FD 7E 07 47 FD 86 0A 3D DD 4E 07 91 D8 79
+T 09 00 00 FD 7E 07 47 FD 86 0A 3D DD 4E 07 91 D8
 R 00 00 00 00
-T 17 00 DD 86 0A 3D 90 C9
+T 16 00 00 79 DD 86 0A 3D 90 C9
 R 00 00 00 00
-T 1D 00
+T 1D 00 00
 R 00 00 00 00
-T 1D 00 FD 7E 05 47 FD 86 09 3D DD 4E 05 91 D8 79
+T 1D 00 00 FD 7E 05 47 FD 86 09 3D DD 4E 05 91 D8
 R 00 00 00 00
-T 2B 00 DD 86 09 3D 90 C9
+T 2A 00 00 79 DD 86 09 3D 90 C9
 R 00 00 00 00
-T 31 00
+T 31 00 00
 R 00 00 00 00
-T 31 00 DD 7E 19 E6 08 20 05 FD 34 07 18 03
+T 31 00 00 DD 7E 19 E6 08 20 05 FD 34 07 18 03
 R 00 00 00 00
-T 3D 00
+T 3D 00 00
 R 00 00 00 00
-T 3D 00 FD 35 07
+T 3D 00 00 FD 35 07
 R 00 00 00 00
-T 40 00
+T 40 00 00
 R 00 00 00 00
-T 40 00 CD 00 00 C9
-R 00 00 00 00 02 03 36 00
-T 44 00
+T 40 00 00 CD 00 00 C9
+R 00 00 00 00 02 04 38 00
+T 44 00 00
 R 00 00 00 00
-T 44 00 DD 7E 19 E6 01 20 05 FD 34 05 18 03
+T 44 00 00 DD 7E 19 E6 01 20 05 FD 34 05 18 03
 R 00 00 00 00
-T 50 00
+T 50 00 00
 R 00 00 00 00
-T 50 00 FD 35 05
+T 50 00 00 FD 35 05
 R 00 00 00 00
-T 53 00
+T 53 00 00
 R 00 00 00 00
-T 53 00 CD 00 00 DD 46 07 FD 7E 07 90 FE 06 30 06
-R 00 00 00 00 02 03 2C 00
-T 61 00 AF CD 00 00 18 2F
-R 00 00 00 00 02 04 47 00
-T 67 00
+T 53 00 00 CD 00 00 DD 46 07 FD 7E 07 90 FE 06 30
+R 00 00 00 00 02 04 2E 00
+T 60 00 00 06 AF CD 00 00 18 2F
+R 00 00 00 00 02 06 49 00
+T 67 00 00
 R 00 00 00 00
-T 67 00 FE 0E 30 07 3E 01 CD 00 00 18 24
-R 00 00 00 00 02 09 47 00
-T 72 00
+T 67 00 00 FE 0E 30 07 3E 01 CD 00 00 18 24
+R 00 00 00 00 02 0A 49 00
+T 72 00 00
 R 00 00 00 00
-T 72 00 FE 10 30 0A 3E 02 CD 00 00 CD 00 00 18 16
-R 00 00 00 00 02 09 47 00 02 0C 41 00
-T 80 00
+T 72 00 00 FE 10 30 0A 3E 02 CD 00 00 CD 00 00 18
+R 00 00 00 00 02 0A 49 00 02 0D 43 00
+T 7F 00 00 16
 R 00 00 00 00
-T 80 00 FE 18 30 0A FD 36 11 00 FD 36 12 32 18 08
+T 80 00 00
 R 00 00 00 00
-T 8E 00
+T 80 00 00 FE 18 30 0A FD 36 11 00 FD 36 12 32 18
 R 00 00 00 00
-T 8E 00 FD 36 11 00 FD 36 12 33
+T 8D 00 00 08
 R 00 00 00 00
-T 96 00
+T 8E 00 00
 R 00 00 00 00
-T 96 00 FD 36 1F 01 C9
+T 8E 00 00 FD 36 11 00 FD 36 12 33
 R 00 00 00 00
-T 9B 00
+T 96 00 00
 R 00 00 00 00
-T 9B 00 CD 1D 00 D8 FD 7E 0F CB 7F 20 06 DD 36 19
+T 96 00 00 FD 36 1F 01 C9
+R 00 00 00 00
+T 9B 00 00
+R 00 00 00 00
+T 9B 00 00 CD 1D 00 D8 FD 7E 0F CB 7F 20 06 DD 36
+R 00 00 00 00 00 04 00 00
+T A8 00 00 19 01 18 04
+R 00 00 00 00
+T AC 00 00
+R 00 00 00 00
+T AC 00 00 DD 36 19 02
+R 00 00 00 00
+T B0 00 00
+R 00 00 00 00
+T B0 00 00 CD 09 00 D8 FD 7E 11 CB 7F 28 0A DD 7E
+R 00 00 00 00 00 04 00 00
+T BD 00 00 19 F6 04 DD 77 19 18 08
+R 00 00 00 00
+T C5 00 00
+R 00 00 00 00
+T C5 00 00 DD 7E 19 F6 08 DD 77 19
+R 00 00 00 00
+T CD 00 00
+R 00 00 00 00
+T CD 00 00 DD 6E 1A DD 66 1B E9
+R 00 00 00 00
+T D4 00 00
+R 00 00 00 00
+T D4 00 00 21 9B 00 06 80 CD 00 00 C9
+R 00 00 00 00 00 04 00 00 02 09 01 00
+T DD 00 00
+R 00 00 00 00
+T DD 00 00 21 00 00
+R 00 00 00 00
+T E0 00 00
+R 00 00 00 00
+T E0 00 00 5E 23 56 23 7B B2 C8 E5 DD 6B DD 62 CD
+R 00 00 00 00
+T ED 00 00 D4 00 E1 18 EE C9
 R 00 00 00 00 00 03 00 00
-T A9 00 01 18 04
-R 00 00 00 00
-T AC 00
-R 00 00 00 00
-T AC 00 DD 36 19 02
-R 00 00 00 00
-T B0 00
-R 00 00 00 00
-T B0 00 CD 09 00 D8 FD 7E 11 CB 7F 28 0A DD 7E 19
-R 00 00 00 00 00 03 00 00
-T BE 00 F6 04 DD 77 19 18 08
-R 00 00 00 00
-T C5 00
-R 00 00 00 00
-T C5 00 DD 7E 19 F6 08 DD 77 19
-R 00 00 00 00
-T CD 00
-R 00 00 00 00
-T CD 00 DD 6E 1A DD 66 1B E9
-R 00 00 00 00
-T D4 00
-R 00 00 00 00
-T D4 00 21 9B 00 06 80 CD 00 00 C9
-R 00 00 00 00 00 03 00 00 02 08 01 00
-T DD 00
-R 00 00 00 00
-T DD 00 21 00 00
-R 00 00 00 00
-T E0 00
-R 00 00 00 00
-T E0 00 5E 23 56 23 7B B2 C8 E5 DD 6B DD 62 CD
-R 00 00 00 00
-T ED 00 D4 00 E1 18 EE C9
-R 00 00 00 00 00 02 00 00
