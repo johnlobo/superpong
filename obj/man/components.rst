@@ -492,7 +492,7 @@ Hexadecimal [24-Bits]
                                     137 ;;===============================================================================
                                     138 ;; Entity Component IDs
                                     139 ;;===============================================================================
-      0007E8                        140 DefEnum e_cmpID
+      0005EC                        140 DefEnum e_cmpID
                            000000     1     e_cmpID_offset = 0
       000000                        141 Enum e_cmpID Render
                            000000     1     e_cmpID_Render = e_cmpID_offset
@@ -5621,23 +5621,23 @@ Hexadecimal [24-Bits]
                                       6         _c = _c + 1
                                       7     .endm
       000000                          1         DefineComponentPointerAccessTable _entities, \_c, MAX_ENTITIES, e_cmpID_Num_Components
-      0007E8 F2 07                    1     _entities_components0_ptr_pend::    .dw . + 2*e_cmpID_Num_Components+ + 0*2*MAX_ENTITIES + 2*0
+      0005EC F6 05                    1     _entities_components0_ptr_pend::    .dw . + 2*e_cmpID_Num_Components+ + 0*2*MAX_ENTITIES + 2*0
                            000001     2         _c = _c + 1
       000002                          1         DefineComponentPointerAccessTable _entities, \_c, MAX_ENTITIES, e_cmpID_Num_Components
-      0007EA 0A 08                    1     _entities_components1_ptr_pend::    .dw . + 2*e_cmpID_Num_Components+ + 1*2*MAX_ENTITIES + 2*1
+      0005EE 0E 06                    1     _entities_components1_ptr_pend::    .dw . + 2*e_cmpID_Num_Components+ + 1*2*MAX_ENTITIES + 2*1
                            000002     2         _c = _c + 1
       000004                          1         DefineComponentPointerAccessTable _entities, \_c, MAX_ENTITIES, e_cmpID_Num_Components
-      0007EC 22 08                    1     _entities_components2_ptr_pend::    .dw . + 2*e_cmpID_Num_Components+ + 2*2*MAX_ENTITIES + 2*2
+      0005F0 26 06                    1     _entities_components2_ptr_pend::    .dw . + 2*e_cmpID_Num_Components+ + 2*2*MAX_ENTITIES + 2*2
                            000003     2         _c = _c + 1
       000006                          1         DefineComponentPointerAccessTable _entities, \_c, MAX_ENTITIES, e_cmpID_Num_Components
-      0007EE 3A 08                    1     _entities_components3_ptr_pend::    .dw . + 2*e_cmpID_Num_Components+ + 3*2*MAX_ENTITIES + 2*3
+      0005F2 3E 06                    1     _entities_components3_ptr_pend::    .dw . + 2*e_cmpID_Num_Components+ + 3*2*MAX_ENTITIES + 2*3
                            000004     2         _c = _c + 1
       000008                          1         DefineComponentPointerAccessTable _entities, \_c, MAX_ENTITIES, e_cmpID_Num_Components
-      0007F0 52 08                    1     _entities_components4_ptr_pend::    .dw . + 2*e_cmpID_Num_Components+ + 4*2*MAX_ENTITIES + 2*4
+      0005F4 56 06                    1     _entities_components4_ptr_pend::    .dw . + 2*e_cmpID_Num_Components+ + 4*2*MAX_ENTITIES + 2*4
                            000005     2         _c = _c + 1
                                       8     ;;  Zero-fill the component array with two additional words for the
                                       9     ;;  next free position and a null pointer fot he end of the array.
-      0007F2                         10     _entities_components::
+      0005F6                         10     _entities_components::
                                      11    .rept e_cmpID_Num_Components
                                      12         DefineComponentArray MAX_ENTITIES
                                      13         .dw 0x0000
@@ -5647,18 +5647,18 @@ Hexadecimal [24-Bits]
                                       1     .rept MAX_ENTITIES
                                       2         .dw 0x0000
                                       3     .endm
-      0007F2 00 00                    1         .dw 0x0000
-      0007F4 00 00                    1         .dw 0x0000
-      0007F6 00 00                    1         .dw 0x0000
-      0007F8 00 00                    1         .dw 0x0000
-      0007FA 00 00                    1         .dw 0x0000
-      0007FC 00 00                    1         .dw 0x0000
-      0007FE 00 00                    1         .dw 0x0000
-      000800 00 00                    1         .dw 0x0000
-      000802 00 00                    1         .dw 0x0000
-      000804 00 00                    1         .dw 0x0000
-      000806 00 00                    2         .dw 0x0000
-      000808 00 00                    3         .dw 0x0000
+      0005F6 00 00                    1         .dw 0x0000
+      0005F8 00 00                    1         .dw 0x0000
+      0005FA 00 00                    1         .dw 0x0000
+      0005FC 00 00                    1         .dw 0x0000
+      0005FE 00 00                    1         .dw 0x0000
+      000600 00 00                    1         .dw 0x0000
+      000602 00 00                    1         .dw 0x0000
+      000604 00 00                    1         .dw 0x0000
+      000606 00 00                    1         .dw 0x0000
+      000608 00 00                    1         .dw 0x0000
+      00060A 00 00                    2         .dw 0x0000
+      00060C 00 00                    3         .dw 0x0000
       000022                          1         DefineComponentArray MAX_ENTITIES
                                       1     .rept MAX_ENTITIES
                                       2         .dw 0x0000
@@ -5668,71 +5668,71 @@ Hexadecimal [24-Bits]
 
 
 
-      00080A 00 00                    1         .dw 0x0000
-      00080C 00 00                    1         .dw 0x0000
-      00080E 00 00                    1         .dw 0x0000
-      000810 00 00                    1         .dw 0x0000
-      000812 00 00                    1         .dw 0x0000
-      000814 00 00                    1         .dw 0x0000
-      000816 00 00                    1         .dw 0x0000
-      000818 00 00                    1         .dw 0x0000
-      00081A 00 00                    1         .dw 0x0000
-      00081C 00 00                    1         .dw 0x0000
-      00081E 00 00                    2         .dw 0x0000
-      000820 00 00                    3         .dw 0x0000
+      00060E 00 00                    1         .dw 0x0000
+      000610 00 00                    1         .dw 0x0000
+      000612 00 00                    1         .dw 0x0000
+      000614 00 00                    1         .dw 0x0000
+      000616 00 00                    1         .dw 0x0000
+      000618 00 00                    1         .dw 0x0000
+      00061A 00 00                    1         .dw 0x0000
+      00061C 00 00                    1         .dw 0x0000
+      00061E 00 00                    1         .dw 0x0000
+      000620 00 00                    1         .dw 0x0000
+      000622 00 00                    2         .dw 0x0000
+      000624 00 00                    3         .dw 0x0000
       00003A                          1         DefineComponentArray MAX_ENTITIES
                                       1     .rept MAX_ENTITIES
                                       2         .dw 0x0000
                                       3     .endm
-      000822 00 00                    1         .dw 0x0000
-      000824 00 00                    1         .dw 0x0000
-      000826 00 00                    1         .dw 0x0000
-      000828 00 00                    1         .dw 0x0000
-      00082A 00 00                    1         .dw 0x0000
-      00082C 00 00                    1         .dw 0x0000
-      00082E 00 00                    1         .dw 0x0000
-      000830 00 00                    1         .dw 0x0000
-      000832 00 00                    1         .dw 0x0000
-      000834 00 00                    1         .dw 0x0000
-      000836 00 00                    2         .dw 0x0000
-      000838 00 00                    3         .dw 0x0000
+      000626 00 00                    1         .dw 0x0000
+      000628 00 00                    1         .dw 0x0000
+      00062A 00 00                    1         .dw 0x0000
+      00062C 00 00                    1         .dw 0x0000
+      00062E 00 00                    1         .dw 0x0000
+      000630 00 00                    1         .dw 0x0000
+      000632 00 00                    1         .dw 0x0000
+      000634 00 00                    1         .dw 0x0000
+      000636 00 00                    1         .dw 0x0000
+      000638 00 00                    1         .dw 0x0000
+      00063A 00 00                    2         .dw 0x0000
+      00063C 00 00                    3         .dw 0x0000
       000052                          1         DefineComponentArray MAX_ENTITIES
                                       1     .rept MAX_ENTITIES
                                       2         .dw 0x0000
                                       3     .endm
-      00083A 00 00                    1         .dw 0x0000
-      00083C 00 00                    1         .dw 0x0000
-      00083E 00 00                    1         .dw 0x0000
-      000840 00 00                    1         .dw 0x0000
-      000842 00 00                    1         .dw 0x0000
-      000844 00 00                    1         .dw 0x0000
-      000846 00 00                    1         .dw 0x0000
-      000848 00 00                    1         .dw 0x0000
-      00084A 00 00                    1         .dw 0x0000
-      00084C 00 00                    1         .dw 0x0000
-      00084E 00 00                    2         .dw 0x0000
-      000850 00 00                    3         .dw 0x0000
+      00063E 00 00                    1         .dw 0x0000
+      000640 00 00                    1         .dw 0x0000
+      000642 00 00                    1         .dw 0x0000
+      000644 00 00                    1         .dw 0x0000
+      000646 00 00                    1         .dw 0x0000
+      000648 00 00                    1         .dw 0x0000
+      00064A 00 00                    1         .dw 0x0000
+      00064C 00 00                    1         .dw 0x0000
+      00064E 00 00                    1         .dw 0x0000
+      000650 00 00                    1         .dw 0x0000
+      000652 00 00                    2         .dw 0x0000
+      000654 00 00                    3         .dw 0x0000
       00006A                          1         DefineComponentArray MAX_ENTITIES
                                       1     .rept MAX_ENTITIES
                                       2         .dw 0x0000
                                       3     .endm
-      000852 00 00                    1         .dw 0x0000
-      000854 00 00                    1         .dw 0x0000
-      000856 00 00                    1         .dw 0x0000
-      000858 00 00                    1         .dw 0x0000
-      00085A 00 00                    1         .dw 0x0000
-      00085C 00 00                    1         .dw 0x0000
-      00085E 00 00                    1         .dw 0x0000
+      000656 00 00                    1         .dw 0x0000
+      000658 00 00                    1         .dw 0x0000
+      00065A 00 00                    1         .dw 0x0000
+      00065C 00 00                    1         .dw 0x0000
+      00065E 00 00                    1         .dw 0x0000
+      000660 00 00                    1         .dw 0x0000
+      000662 00 00                    1         .dw 0x0000
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80), page 109.
 Hexadecimal [24-Bits]
 
 
 
-      000860 00 00                    1         .dw 0x0000
-      000862 00 00                    1         .dw 0x0000
-      000864 00 00                    1         .dw 0x0000
-      000866 00 00                    2         .dw 0x0000
-      000868 00 00                    3         .dw 0x0000
+      000664 00 00                    1         .dw 0x0000
+      000666 00 00                    1         .dw 0x0000
+      000668 00 00                    1         .dw 0x0000
+      00066A 00 00                    2         .dw 0x0000
+      00066C 00 00                    3         .dw 0x0000
                            000078    26 _components_size = . - _entities_components
                                      27 
                                      28 
@@ -5746,32 +5746,32 @@ Hexadecimal [24-Bits]
                                      36 ;;
                                      37 ;;  lronaldo code (https://www.youtube.com/watch?v=OEETYTu-viw&t=1774s)
                                      38 ;;
-      00086A                         39 man_components_init::
+      00066E                         39 man_components_init::
                                      40     ;; Set all values of the pointer array to nullpointer
                                      41     ;; filling in the array with zeroes
-      00086A 21 F2 07         [10]   42     ld hl, # _entities_components        ;; hl points to the start of the components array
-      00086D 11 F3 07         [10]   43     ld de, # _entities_components + 1    ;; de points to hl + 1
-      000870 36 00            [10]   44     ld (hl), #0                         ;; set the first byte of the array to 0
-      000872 01 77 00         [10]   45     ld bc, #_components_size-1          ;; set bc to the bytes to be filled
-      000875 ED B0            [21]   46     ldir
+      00066E 21 F6 05         [10]   42     ld hl, # _entities_components        ;; hl points to the start of the components array
+      000671 11 F7 05         [10]   43     ld de, # _entities_components + 1    ;; de points to hl + 1
+      000674 36 00            [10]   44     ld (hl), #0                         ;; set the first byte of the array to 0
+      000676 01 77 00         [10]   45     ld bc, #_components_size-1          ;; set bc to the bytes to be filled
+      000679 ED B0            [21]   46     ldir
                                      47 
                                      48     ;; Set the values for all Pend pointers in all pointer vectors
-      000877 06 05            [ 7]   49     ld b, #e_cmpID_Num_Components       ;; b = number of components
-      000879                         50 _init_next_pend:
+      00067B 06 05            [ 7]   49     ld b, #e_cmpID_Num_Components       ;; b = number of components
+      00067D                         50 _init_next_pend:
                                      51     ;; Get in hl a pointer to the next component
-      000879 78               [ 4]   52     ld a, b                             ;; a = b
-      00087A 3D               [ 4]   53     dec a
-      00087B CD 88 08         [17]   54     call man_components_getComponentPtrHL
-      00087E 5D               [ 4]   55     ld e, l
-      00087F 54               [ 4]   56     ld d, h
-      000880 13               [ 6]   57     inc de
-      000881 13               [ 6]   58     inc de 
-      000882 73               [ 7]   59     ld (hl), e
-      000883 23               [ 6]   60     inc hl
-      000884 72               [ 7]   61     ld (hl), d
-      000885 10 F2            [13]   62 djnz _init_next_pend
+      00067D 78               [ 4]   52     ld a, b                             ;; a = b
+      00067E 3D               [ 4]   53     dec a
+      00067F CD 8C 06         [17]   54     call man_components_getComponentPtrHL
+      000682 5D               [ 4]   55     ld e, l
+      000683 54               [ 4]   56     ld d, h
+      000684 13               [ 6]   57     inc de
+      000685 13               [ 6]   58     inc de 
+      000686 73               [ 7]   59     ld (hl), e
+      000687 23               [ 6]   60     inc hl
+      000688 72               [ 7]   61     ld (hl), d
+      000689 10 F2            [13]   62 djnz _init_next_pend
                                      63 
-      000887 C9               [10]   64 ret
+      00068B C9               [10]   64 ret
                                      65 
                                      66 
                                      67 ;;-----------------------------------------------------------------
@@ -5789,25 +5789,25 @@ Hexadecimal [24-Bits]
 
 
                                      76 ;;
-      000888                         77 man_components_getComponentPtrHL::
-      000888 21 E8 07         [10]   78     ld hl, # _entities_access_table      ;; hl points to the Entity components table
-      00088B 87               [ 4]   79     add a                               ;; a = 2a
+      00068C                         77 man_components_getComponentPtrHL::
+      00068C 21 EC 05         [10]   78     ld hl, # _entities_access_table      ;; hl points to the Entity components table
+      00068F 87               [ 4]   79     add a                               ;; a = 2a
       0000A4                         80     add_hl_a                            ;; hl = 2a
       0000A4                          1    add_REGPAIR_a  h, l
                                       1    ;; First Perform RH = E + A
-      00088C 85               [ 4]    2    add l    ;; [1] A' = RL + A 
-      00088D 6F               [ 4]    3    ld  l, a ;; [1] RL' = A' = RL + A. It might generate Carry that must be added to RH
+      000690 85               [ 4]    2    add l    ;; [1] A' = RL + A 
+      000691 6F               [ 4]    3    ld  l, a ;; [1] RL' = A' = RL + A. It might generate Carry that must be added to RH
                                       4    
                                       5    ;; Then Perform RH = RH + Carry 
-      00088E 8C               [ 4]    6    adc h    ;; [1] A'' = A' + RH + Carry = RL + A + RH + Carry
-      00088F 95               [ 4]    7    sub l    ;; [1] Remove RL'. A''' = A'' - RL' = RL + A + RH + Carry - (RL + A) = RH + Carry
-      000890 67               [ 4]    8    ld  h, a ;; [1] Save into RH (RH' = A''' = RH + Carry)
+      000692 8C               [ 4]    6    adc h    ;; [1] A'' = A' + RH + Carry = RL + A + RH + Carry
+      000693 95               [ 4]    7    sub l    ;; [1] Remove RL'. A''' = A'' - RL' = RL + A + RH + Carry - (RL + A) = RH + Carry
+      000694 67               [ 4]    8    ld  h, a ;; [1] Save into RH (RH' = A''' = RH + Carry)
                                      81     ;; Get pointer to the component structure
-      000891 7E               [ 7]   82     ld a, (hl)
-      000892 23               [ 6]   83     inc hl
-      000893 66               [ 7]   84     ld h, (hl)
-      000894 6F               [ 4]   85     ld l, a
-      000895 C9               [10]   86     ret
+      000695 7E               [ 7]   82     ld a, (hl)
+      000696 23               [ 6]   83     inc hl
+      000697 66               [ 7]   84     ld h, (hl)
+      000698 6F               [ 4]   85     ld l, a
+      000699 C9               [10]   86     ret
                                      87 
                                      88 ;;-----------------------------------------------------------------
                                      89 ;;
@@ -5819,11 +5819,11 @@ Hexadecimal [24-Bits]
                                      95 ;;
                                      96 ;;  lronaldo code (https://www.youtube.com/watch?v=OEETYTu-viw&t=1774s)
                                      97 ;;
-      000896                         98 man_components_getArrayHL::
-      000896 CD 88 08         [17]   99     call man_components_getComponentPtrHL
-      000899 23               [ 6]  100     inc hl
-      00089A 23               [ 6]  101     inc hl
-      00089B C9               [10]  102     ret
+      00069A                         98 man_components_getArrayHL::
+      00069A CD 8C 06         [17]   99     call man_components_getComponentPtrHL
+      00069D 23               [ 6]  100     inc hl
+      00069E 23               [ 6]  101     inc hl
+      00069F C9               [10]  102     ret
                                     103 
                                     104 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
                                     105 ;;  COMPONENT_MANAGER::add
@@ -5836,38 +5836,38 @@ Hexadecimal [24-Bits]
                                     112 ;;
                                     113 ;;  MoonBreak_arqstrad code (cpcretrodev 2020)
                                     114 ;;
-      00089C                        115 man_components_add::
+      0006A0                        115 man_components_add::
                                     116     ;;  Gets the pointer to the component's array.
-      00089C CD 88 08         [17]  117 	call man_components_getComponentPtrHL
+      0006A0 CD 8C 06         [17]  117 	call man_components_getComponentPtrHL
                                     118 
                                     119     ;;  DE = Pointer to the first free position of the array of pointers.
-      00089F 5E               [ 7]  120     ld e, (hl)
-      0008A0 23               [ 6]  121     inc hl
+      0006A3 5E               [ 7]  120     ld e, (hl)
+      0006A4 23               [ 6]  121     inc hl
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80), page 111.
 Hexadecimal [24-Bits]
 
 
 
-      0008A1 56               [ 7]  122     ld d, (hl)
-      0008A2 2B               [ 6]  123     dec hl
+      0006A5 56               [ 7]  122     ld d, (hl)
+      0006A6 2B               [ 6]  123     dec hl
                                     124 
                                     125     ;;  Copy the pointer of the entity that handles that component to the
                                     126     ;;  array of pointers.
       0000BB                        127     ld__a_ixl
-      0008A3 DD 7D                    1    .dw #0x7DDD  ;; Opcode for ld a, ixl
-      0008A5 12               [ 7]  128     ld (de), a
-      0008A6 13               [ 6]  129     inc de
+      0006A7 DD 7D                    1    .dw #0x7DDD  ;; Opcode for ld a, ixl
+      0006A9 12               [ 7]  128     ld (de), a
+      0006AA 13               [ 6]  129     inc de
       0000BF                        130     ld__a_ixh
-      0008A7 DD 7C                    1    .dw #0x7CDD  ;; Opcode for ld a, ixh
-      0008A9 12               [ 7]  131     ld (de), a
-      0008AA 13               [ 6]  132     inc de
+      0006AB DD 7C                    1    .dw #0x7CDD  ;; Opcode for ld a, ixh
+      0006AD 12               [ 7]  131     ld (de), a
+      0006AE 13               [ 6]  132     inc de
                                     133 
                                     134     ;;  (HL) = Next free position of the pointer array.
-      0008AB 73               [ 7]  135     ld (hl), e
-      0008AC 23               [ 6]  136     inc hl
-      0008AD 72               [ 7]  137     ld (hl), d
+      0006AF 73               [ 7]  135     ld (hl), e
+      0006B0 23               [ 6]  136     inc hl
+      0006B1 72               [ 7]  137     ld (hl), d
                                     138 
-      0008AE C9               [10]  139 	ret
+      0006B2 C9               [10]  139 	ret
                                     140 
                                     141 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
                                     142 ;;  COMPONENT_MANAGER::removePtr
@@ -5883,61 +5883,61 @@ Hexadecimal [24-Bits]
                                     152 ;;
                                     153 ;;  MoonBreak_arqstrad code (cpcretrodev 2020)
                                     154 ;;
-      0008AF                        155 man_components_removePtr::
+      0006B3                        155 man_components_removePtr::
                                     156     ;;  HL = First pointer of the relevant component array.
-      0008AF CD 88 08         [17]  157 	call man_components_getComponentPtrHL
-      0008B2 E5               [11]  158     push hl
+      0006B3 CD 8C 06         [17]  157 	call man_components_getComponentPtrHL
+      0006B6 E5               [11]  158     push hl
                                     159     ;;  DE = Address insert new pointer.
-      0008B3 5E               [ 7]  160     ld e, (hl)
-      0008B4 23               [ 6]  161     inc hl
-      0008B5 56               [ 7]  162     ld d, (hl)
-      0008B6 23               [ 6]  163     inc hl      ;;  HL = Address to the first pointer of the array.
+      0006B7 5E               [ 7]  160     ld e, (hl)
+      0006B8 23               [ 6]  161     inc hl
+      0006B9 56               [ 7]  162     ld d, (hl)
+      0006BA 23               [ 6]  163     inc hl      ;;  HL = Address to the first pointer of the array.
                                     164 
-      0008B7                        165 	__loop:
-      0008B7 7E               [ 7]  166 	ld a, (hl)
-      0008B8 23               [ 6]  167 	inc hl
+      0006BB                        165 	__loop:
+      0006BB 7E               [ 7]  166 	ld a, (hl)
+      0006BC 23               [ 6]  167 	inc hl
       0000D1                        168     cp__ixl
-      0008B9 DD BD                    1    .dw #0xBDDD  ;; Opcode for cp ixl
-      0008BB 20 FA            [12]  169     jr nz, __loop
+      0006BD DD BD                    1    .dw #0xBDDD  ;; Opcode for cp ixl
+      0006BF 20 FA            [12]  169     jr nz, __loop
                                     170 
-      0008BD 7E               [ 7]  171 	ld a, (hl)
-      0008BE 23               [ 6]  172 	inc hl
+      0006C1 7E               [ 7]  171 	ld a, (hl)
+      0006C2 23               [ 6]  172 	inc hl
       0000D7                        173     cp__ixh
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80), page 112.
 Hexadecimal [24-Bits]
 
 
 
-      0008BF DD BC                    1    .dw #0xBCDD  ;; Opcode for cp ixh
-      0008C1 20 F4            [12]  174     jr nz, __loop
+      0006C3 DD BC                    1    .dw #0xBCDD  ;; Opcode for cp ixh
+      0006C5 20 F4            [12]  174     jr nz, __loop
                                     175 
-      0008C3                        176 __delete_pointer:
+      0006C7                        176 __delete_pointer:
                                     177     ;;  The last pointer is copied in the direction of the pointer to be deleted.
                                     178     ;;  HL = Pointer direction to remove.
                                     179     ;;  DE = Last array pointer.
-      0008C3 1B               [ 6]  180     dec de
-      0008C4 1A               [ 7]  181     ld a, (de)
-      0008C5 2B               [ 6]  182     dec hl
-      0008C6 77               [ 7]  183     ld (hl), a
+      0006C7 1B               [ 6]  180     dec de
+      0006C8 1A               [ 7]  181     ld a, (de)
+      0006C9 2B               [ 6]  182     dec hl
+      0006CA 77               [ 7]  183     ld (hl), a
                                     184 
-      0008C7 1B               [ 6]  185     dec de
-      0008C8 1A               [ 7]  186     ld a, (de)
-      0008C9 2B               [ 6]  187     dec hl
-      0008CA 77               [ 7]  188     ld (hl), a
+      0006CB 1B               [ 6]  185     dec de
+      0006CC 1A               [ 7]  186     ld a, (de)
+      0006CD 2B               [ 6]  187     dec hl
+      0006CE 77               [ 7]  188     ld (hl), a
                                     189 
-      0008CB                        190 __last_array_pointer:
+      0006CF                        190 __last_array_pointer:
                                     191     ;;  HL = Address containing the pointer to the next free address in the array.
-      0008CB E1               [10]  192     pop hl
+      0006CF E1               [10]  192     pop hl
                                     193 
                                     194     ;;  (HL) = New free position.
-      0008CC 73               [ 7]  195     ld (hl), e
-      0008CD 23               [ 6]  196     inc hl
-      0008CE 72               [ 7]  197     ld (hl), d
+      0006D0 73               [ 7]  195     ld (hl), e
+      0006D1 23               [ 6]  196     inc hl
+      0006D2 72               [ 7]  197     ld (hl), d
                                     198 
                                     199     ;;  The content of the las pointer of the array becomes null because it has been
                                     200     ;;  copied to the position of the deleted pointer.
-      0008CF AF               [ 4]  201     xor a
-      0008D0 12               [ 7]  202     ld (de), a
-      0008D1 13               [ 6]  203     inc de
-      0008D2 12               [ 7]  204     ld (de), a
-      0008D3 C9               [10]  205 	ret
+      0006D3 AF               [ 4]  201     xor a
+      0006D4 12               [ 7]  202     ld (de), a
+      0006D5 13               [ 6]  203     inc de
+      0006D6 12               [ 7]  204     ld (de), a
+      0006D7 C9               [10]  205 	ret

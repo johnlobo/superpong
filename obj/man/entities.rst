@@ -5821,11 +5821,11 @@ Hexadecimal [24-Bits]
                                      39 .area _DATA
                                      40 
       000000                         41 DefineComponentArrayStructure_Size _entity, MAX_ENTITIES, sizeof_e
-      0026CD 00                       1     _entity_num::         .db 0
-      0026CE 00 00                    2     _entity_list::        .dw nullptr
-      0026D0 D2 26                    3     _entity_free_list::   .dw _entity_array
-      0026D2                          4     _entity_array::
-      0026D2                          5         .ds MAX_ENTITIES * sizeof_e
+      0026A6 00                       1     _entity_num::         .db 0
+      0026A7 00 00                    2     _entity_list::        .dw nullptr
+      0026A9 AB 26                    3     _entity_free_list::   .dw _entity_array
+      0026AB                          4     _entity_array::
+      0026AB                          5         .ds MAX_ENTITIES * sizeof_e
                                      42 
                                      43 ;;
                                      44 ;; Start of _CODE area
@@ -5849,64 +5849,64 @@ Hexadecimal [24-Bits]
                                      62 ;;  MODIFY:
                                      63 ;;      HL, A, IX
                                      64 ;;
-      0008D4                         65 man_entity_destroy::
-      0008D4 D5               [11]   66 	push de
+      0008D6                         65 man_entity_destroy::
+      0008D6 D5               [11]   66 	push de
                                      67 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
                                      68 ;;	DESTROY POINTER VECTOR COMPONENTS - OPTIMIZE
                                      69 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;	
-      0008D5 DD 7E 02         [19]   70 	ld a, e_cmps(ix)
-      0008D8 E6 10            [ 7]   71 	and #e_cmp_ai
-      0008DA 28 05            [12]   72 	jr z, _noAID
+      0008D7 DD 7E 02         [19]   70 	ld a, e_cmps(ix)
+      0008DA E6 10            [ 7]   71 	and #e_cmp_ai
+      0008DC 28 05            [12]   72 	jr z, _noAID
                                      73 
-      0008DC                         74 	_AId:
-      0008DC 3E 02            [ 7]   75 	ld a, #e_cmpID_AI
-      0008DE CD AF 08         [17]   76 	call man_components_removePtr
+      0008DE                         74 	_AId:
+      0008DE 3E 02            [ 7]   75 	ld a, #e_cmpID_AI
+      0008E0 CD B3 06         [17]   76 	call man_components_removePtr
                                      77 
-      0008E1                         78 	_noAID:
-      0008E1 DD 7E 02         [19]   79 	ld a, e_cmps(ix)
+      0008E3                         78 	_noAID:
+      0008E3 DD 7E 02         [19]   79 	ld a, e_cmps(ix)
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80), page 111.
 Hexadecimal [24-Bits]
 
 
 
-      0008E4 E6 80            [ 7]   80 	and #e_cmp_collisionable
-      0008E6 28 05            [12]   81 	jr z, _noCollisionableD
+      0008E6 E6 80            [ 7]   80 	and #e_cmp_collisionable
+      0008E8 28 05            [12]   81 	jr z, _noCollisionableD
                                      82 
-      0008E8                         83 	_Collisionabled:
-      0008E8 3E 04            [ 7]   84 	ld a, #e_cmpID_Collision
-      0008EA CD AF 08         [17]   85 	call man_components_removePtr
+      0008EA                         83 	_Collisionabled:
+      0008EA 3E 04            [ 7]   84 	ld a, #e_cmpID_Collision
+      0008EC CD B3 06         [17]   85 	call man_components_removePtr
                                      86 
-      0008ED                         87 	_noCollisionableD:
+      0008EF                         87 	_noCollisionableD:
                                      88 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
                                      89 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
                                      90 
-      0008ED D1               [10]   91 	pop de
+      0008EF D1               [10]   91 	pop de
                                      92 
-      0008EE 2A D0 26         [16]   93 	ld hl, (_entity_free_list)					;;	\	The free list will now start at the end pointer of
-      0008F1 DD 22 D0 26      [20]   94 	ld (_entity_free_list), ix					;;	|	the deleted entity and contain a pointers to its old
-      0008F5 DD 75 00         [19]   95 	ld e_ptr(ix), l				    			;;	|	position.
-      0008F8 DD 74 01         [19]   96 	ld e_ptr+1(ix), h							;;	/
+      0008F0 2A A9 26         [16]   93 	ld hl, (_entity_free_list)					;;	\	The free list will now start at the end pointer of
+      0008F3 DD 22 A9 26      [20]   94 	ld (_entity_free_list), ix					;;	|	the deleted entity and contain a pointers to its old
+      0008F7 DD 75 00         [19]   95 	ld e_ptr(ix), l				    			;;	|	position.
+      0008FA DD 74 01         [19]   96 	ld e_ptr+1(ix), h							;;	/
                                      97 
-      0008FB 21 CD 26         [10]   98 	ld hl, #_entity_num
-      0008FE 35               [11]   99 	dec (hl)
+      0008FD 21 A6 26         [10]   98 	ld hl, #_entity_num
+      000900 35               [11]   99 	dec (hl)
                                     100 
-      0008FF 7B               [ 4]  101 	ld a, e										;;	\	If DE points to null, it means it is the las entity
-      000900 B2               [ 4]  102 	or d										;;	|	and _entity_list will point to the next entity
-      000901 28 06            [12]  103 	jr z, #__is_the_last_entity					;;	/	in the list.
+      000901 7B               [ 4]  101 	ld a, e										;;	\	If DE points to null, it means it is the las entity
+      000902 B2               [ 4]  102 	or d										;;	|	and _entity_list will point to the next entity
+      000903 28 06            [12]  103 	jr z, #__is_the_last_entity					;;	/	in the list.
                                     104 
-      000903                        105 __it_is_not_the_last_entity:					;;	\	If it is not the las entity, the entity
-      000903 6B               [ 4]  106 	ld l, e										;;	|	that linked it will point to the pointer that
-      000904 62               [ 4]  107 	ld h, d										;;	|	it contained.
-      000905 71               [ 7]  108 	ld (hl), c									;;	|
-      000906 23               [ 6]  109 	inc hl										;;	|
-      000907 70               [ 7]  110 	ld (hl), b									;;	/
+      000905                        105 __it_is_not_the_last_entity:					;;	\	If it is not the las entity, the entity
+      000905 6B               [ 4]  106 	ld l, e										;;	|	that linked it will point to the pointer that
+      000906 62               [ 4]  107 	ld h, d										;;	|	it contained.
+      000907 71               [ 7]  108 	ld (hl), c									;;	|
+      000908 23               [ 6]  109 	inc hl										;;	|
+      000909 70               [ 7]  110 	ld (hl), b									;;	/
                                     111 
-      000908 C9               [10]  112 	ret
+      00090A C9               [10]  112 	ret
                                     113 
-      000909                        114 __is_the_last_entity:
-      000909 ED 43 CE 26      [20]  115 	ld (_entity_list), bc
+      00090B                        114 __is_the_last_entity:
+      00090B ED 43 A7 26      [20]  115 	ld (_entity_list), bc
                                     116 
-      00090D C9               [10]  117 	ret
+      00090F C9               [10]  117 	ret
                                     118 
                                     119 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
                                     120 ;;  ENTITY_MANAGER::new
@@ -5916,46 +5916,46 @@ Hexadecimal [24-Bits]
                                     124 ;;  MODIFY:
                                     125 ;;       HL, BC, DE
                                     126 ;;	   
-      00090E                        127 man_entity_new::
+      000910                        127 man_entity_new::
                                     128 
                                     129 	;; Increment number of templates
-      00090E 21 CD 26         [10]  130 	ld hl, #_entity_num
-      000911 34               [11]  131 	inc (hl)
+      000910 21 A6 26         [10]  130 	ld hl, #_entity_num
+      000913 34               [11]  131 	inc (hl)
                                     132 
                                     133 	;; updates pointer to free space
-      000912 2A D0 26         [16]  134 	ld hl, (_entity_free_list)	;; HL = Pointer to free space.
+      000914 2A A9 26         [16]  134 	ld hl, (_entity_free_list)	;; HL = Pointer to free space.
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80), page 112.
 Hexadecimal [24-Bits]
 
 
 
                                     135 
-      000915 E5               [11]  136 	push hl
+      000917 E5               [11]  136 	push hl
                                     137 
-      000916 5E               [ 7]  138 	ld e, (hl)							;;	\	Extract from HL the pointer to the next
-      000917 23               [ 6]  139 	inc hl								;;	|	free element.
-      000918 56               [ 7]  140 	ld d, (hl)							;;  |	Free space will now start on that element.
-      000919 ED 53 D0 26      [20]  141 	ld (_entity_free_list), de			;;	/
+      000918 5E               [ 7]  138 	ld e, (hl)							;;	\	Extract from HL the pointer to the next
+      000919 23               [ 6]  139 	inc hl								;;	|	free element.
+      00091A 56               [ 7]  140 	ld d, (hl)							;;  |	Free space will now start on that element.
+      00091B ED 53 A9 26      [20]  141 	ld (_entity_free_list), de			;;	/
                                     142 
-      00091D 2A CE 26         [16]  143 	ld hl, (_entity_list)				;;	HL = Pointer to the first item in the list.
+      00091F 2A A7 26         [16]  143 	ld hl, (_entity_list)				;;	HL = Pointer to the first item in the list.
                                     144 
-      000920 4D               [ 4]  145 	ld c, l								;;	BC = HL
-      000921 44               [ 4]  146 	ld b, h
+      000922 4D               [ 4]  145 	ld c, l								;;	BC = HL
+      000923 44               [ 4]  146 	ld b, h
                                     147 
-      000922 E1               [10]  148 	pop hl
+      000924 E1               [10]  148 	pop hl
                                     149 
-      000923 5D               [ 4]  150 	ld e, l								;;	\	Save the pointer where the new entity will be positioned in DE increasing two
-      000924 54               [ 4]  151 	ld d, h								;;	/	so as not to delete the pointer to the next entity.
+      000925 5D               [ 4]  150 	ld e, l								;;	\	Save the pointer where the new entity will be positioned in DE increasing two
+      000926 54               [ 4]  151 	ld d, h								;;	/	so as not to delete the pointer to the next entity.
                                     152 
                                     153 	;; Update the pointer to the next entity
-      000925 22 CE 26         [16]  154 	ld (_entity_list), hl				;;	\	Assign to _entity_list the pointer of the new position that will host an entity.
-      000928 71               [ 7]  155 	ld (hl), c							;;	|	If it's the first entity that is created, DE will contain a pointer to null, otherwise,
-      000929 23               [ 6]  156 	inc hl								;;	|	the pointer to the next entity.
-      00092A 70               [ 7]  157 	ld (hl), b							;;	/
+      000927 22 A7 26         [16]  154 	ld (_entity_list), hl				;;	\	Assign to _entity_list the pointer of the new position that will host an entity.
+      00092A 71               [ 7]  155 	ld (hl), c							;;	|	If it's the first entity that is created, DE will contain a pointer to null, otherwise,
+      00092B 23               [ 6]  156 	inc hl								;;	|	the pointer to the next entity.
+      00092C 70               [ 7]  157 	ld (hl), b							;;	/
                                     158 
-      00092B 01 1E 00         [10]  159 	ld bc, #sizeof_e - 2
+      00092D 01 1E 00         [10]  159 	ld bc, #sizeof_e - 2
                                     160 
-      00092E C9               [10]  161 	ret
+      000930 C9               [10]  161 	ret
                                     162 
                                     163 ;;==============================================================================================================================
                                     164 ;;==============================================================================================================================
@@ -5970,31 +5970,31 @@ Hexadecimal [24-Bits]
                                     173 ;;  MODIFY:
                                     174 ;;       A, HL, DE, BC
                                     175 ;;
-      00092F                        176 man_entity_init::
-      00092F CD 6A 08         [17]  177 	call man_components_init
+      000931                        176 man_entity_init::
+      000931 CD 6E 06         [17]  177 	call man_components_init
                                     178 	
-      000932 AF               [ 4]  179 	xor a
-      000933 32 CD 26         [13]  180 	ld (_entity_num), a
+      000934 AF               [ 4]  179 	xor a
+      000935 32 A6 26         [13]  180 	ld (_entity_num), a
                                     181 
-      000936 21 00 00         [10]  182 	ld hl, #nullptr
-      000939 22 CE 26         [16]  183 	ld (_entity_list), hl
+      000938 21 00 00         [10]  182 	ld hl, #nullptr
+      00093B 22 A7 26         [16]  183 	ld (_entity_list), hl
                                     184 
-      00093C 21 D2 26         [10]  185 	ld hl, #_entity_array
-      00093F 22 D0 26         [16]  186 	ld (_entity_free_list), hl		;;	List of free entities.
+      00093E 21 AB 26         [10]  185 	ld hl, #_entity_array
+      000941 22 A9 26         [16]  186 	ld (_entity_free_list), hl		;;	List of free entities.
                                     187 	
-      000942 E5               [11]  188 	push hl
+      000944 E5               [11]  188 	push hl
                                     189 
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80), page 113.
 Hexadecimal [24-Bits]
 
 
 
-      000943 36 00            [10]  190 	ld 	(hl), #0							;;	\	Initialize the components of the list
-      000945 54               [ 4]  191 	ld 	d, h								;; 	|	elements to zero.
-      000946 5D               [ 4]  192 	ld	e, l								;; 	|
-      000947 13               [ 6]  193 	inc de									;; 	|
-      000948 01 3F 01         [10]  194 	ld bc, #MAX_ENTITIES * sizeof_e - 1		;; 	|
-      00094B ED B0            [21]  195 	ldir									;; 	/
+      000945 36 00            [10]  190 	ld 	(hl), #0							;;	\	Initialize the components of the list
+      000947 54               [ 4]  191 	ld 	d, h								;; 	|	elements to zero.
+      000948 5D               [ 4]  192 	ld	e, l								;; 	|
+      000949 13               [ 6]  193 	inc de									;; 	|
+      00094A 01 3F 01         [10]  194 	ld bc, #MAX_ENTITIES * sizeof_e - 1		;; 	|
+      00094D ED B0            [21]  195 	ldir									;; 	/
                                     196 
                                     197 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
                                     198 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -6014,42 +6014,42 @@ Hexadecimal [24-Bits]
                                     212 ;;  MODIFY:
                                     213 ;;       A, HL, DE
                                     214 ;;
-      00094D                        215 man_entity_init_linked_list::
-      00094D 3E 09            [ 7]  216 	ld a, #MAX_ENTITIES - 1		;;	\	The entity counter is only necessary until the penultimate, 
-      00094F 32 60 09         [13]  217 	ld (_ent_counter), a		;;	/	since the las one haas to have a null value.
+      00094F                        215 man_entity_init_linked_list::
+      00094F 3E 09            [ 7]  216 	ld a, #MAX_ENTITIES - 1		;;	\	The entity counter is only necessary until the penultimate, 
+      000951 32 62 09         [13]  217 	ld (_ent_counter), a		;;	/	since the las one haas to have a null value.
                                     218 
-      000952 01 20 00         [10]  219 	ld bc, #sizeof_e
+      000954 01 20 00         [10]  219 	ld bc, #sizeof_e
                                     220 
-      000955 E1               [10]  221 	pop hl
+      000957 E1               [10]  221 	pop hl
                                     222 
-      000956 5D               [ 4]  223 	ld e, l
-      000957 54               [ 4]  224 	ld d, h	
+      000958 5D               [ 4]  223 	ld e, l
+      000959 54               [ 4]  224 	ld d, h	
                                     225 
-      000958                        226 __init_loop:
-      000958 09               [11]  227 	add hl, bc				;;	Save in HL the pointer to the next free space.
+      00095A                        226 __init_loop:
+      00095A 09               [11]  227 	add hl, bc				;;	Save in HL the pointer to the next free space.
                                     228 
-      000959 EB               [ 4]  229 	ex de, hl				;;	DE = HL, HL = DE
+      00095B EB               [ 4]  229 	ex de, hl				;;	DE = HL, HL = DE
                                     230 
-      00095A 73               [ 7]  231 	ld (hl), e				;;	\	Copy the address to the next free space
-      00095B 23               [ 6]  232 	inc hl					;;	|	in the first two bytes of the previous element
-      00095C 72               [ 7]  233 	ld (hl), d				;;	/	the address to the next free space.
+      00095C 73               [ 7]  231 	ld (hl), e				;;	\	Copy the address to the next free space
+      00095D 23               [ 6]  232 	inc hl					;;	|	in the first two bytes of the previous element
+      00095E 72               [ 7]  233 	ld (hl), d				;;	/	the address to the next free space.
                                     234 
-      00095D 6B               [ 4]  235 	ld l, e					;; L = E
-      00095E 62               [ 4]  236 	ld h, d					;; H = D
+      00095F 6B               [ 4]  235 	ld l, e					;; L = E
+      000960 62               [ 4]  236 	ld h, d					;; H = D
                                     237 
                            00008C   238 	_ent_counter = . + 1
-      00095F 3E 00            [ 7]  239 	ld a, #0
-      000961 3D               [ 4]  240 	dec a
-      000962 C8               [11]  241 	ret z
+      000961 3E 00            [ 7]  239 	ld a, #0
+      000963 3D               [ 4]  240 	dec a
+      000964 C8               [11]  241 	ret z
                                     242 
-      000963 32 60 09         [13]  243 	ld (_ent_counter), a
+      000965 32 62 09         [13]  243 	ld (_ent_counter), a
                                     244 
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80), page 114.
 Hexadecimal [24-Bits]
 
 
 
-      000966 18 F0            [12]  245 jr __init_loop
+      000968 18 F0            [12]  245 jr __init_loop
                                     246 
                                     247 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
                                     248 ;;  ENTITY_MANAGER::Set4destruction
@@ -6059,18 +6059,18 @@ Hexadecimal [24-Bits]
                                     252 ;;  MODIFY:
                                     253 ;;       A
                                     254 ;;
-      000968                        255 man_entity_set4destruction::
-      000968 DD 7E 03         [19]  256 	ld a, e_type(ix)
-      00096B E6 01            [ 7]  257 	and #e_type_player
-      00096D 28 01            [12]  258 	jr z, _not_player
+      00096A                        255 man_entity_set4destruction::
+      00096A DD 7E 03         [19]  256 	ld a, e_type(ix)
+      00096D E6 01            [ 7]  257 	and #e_type_player
+      00096F 28 01            [12]  258 	jr z, _not_player
                                     259 	;; Set state to game over
                                     260 	;;ld a, #4
                                     261 	;;call game_manager_set_state
-      00096F C9               [10]  262 	ret
-      000970                        263 _not_player:
-      000970 3E 20            [ 7]  264 	ld a, #e_type_dead
-      000972 DD 77 03         [19]  265 	ld e_type(ix), a
-      000975 C9               [10]  266 	ret
+      000971 C9               [10]  262 	ret
+      000972                        263 _not_player:
+      000972 3E 20            [ 7]  264 	ld a, #e_type_dead
+      000974 DD 77 03         [19]  265 	ld e_type(ix), a
+      000977 C9               [10]  266 	ret
                                     267 
                                     268 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
                                     269 ;;  ENTITY_MANAGER::Update
@@ -6079,49 +6079,49 @@ Hexadecimal [24-Bits]
                                     272 ;;  MODIFY:
                                     273 ;;       DE, BC, A, IX
                                     274 ;;	   
-      000976                        275 man_entity_update::
+      000978                        275 man_entity_update::
                                     276 
-      000976 CD DD 09         [17]  277 	call man_entity_getEntityArrayIX
-      000979 11 00 00         [10]  278 	ld de, #nullptr						;; 	Initialize DE with a pointer to null to know if the entity to delete will be the first in the linked list.
+      000978 CD DF 09         [17]  277 	call man_entity_getEntityArrayIX
+      00097B 11 00 00         [10]  278 	ld de, #nullptr						;; 	Initialize DE with a pointer to null to know if the entity to delete will be the first in the linked list.
                                     279 
-      00097C                        280 _loop:
+      00097E                        280 _loop:
                                     281 
-      00097C DD 4E 00         [19]  282 	ld c, e_ptr(ix) 					;;	\	Save in BC the pointer to the next entity.
-      00097F DD 46 01         [19]  283     ld b, e_ptr+1(ix)					;;	/
+      00097E DD 4E 00         [19]  282 	ld c, e_ptr(ix) 					;;	\	Save in BC the pointer to the next entity.
+      000981 DD 46 01         [19]  283     ld b, e_ptr+1(ix)					;;	/
                                     284 	
       0000AE                        285 	ld__a_ixl							;;	\	Ends when finding a null point, the end of the list.
-      000982 DD 7D                    1    .dw #0x7DDD  ;; Opcode for ld a, ixl
+      000984 DD 7D                    1    .dw #0x7DDD  ;; Opcode for ld a, ixl
       0000B0                        286 	or__ixh								;;	|
-      000984 DD B4                    1    .dw #0xB4DD  ;; Opcode for or ixh
-      000986 C8               [11]  287 	ret	z								;;	/
+      000986 DD B4                    1    .dw #0xB4DD  ;; Opcode for or ixh
+      000988 C8               [11]  287 	ret	z								;;	/
                                     288 
-      000987 DD 7E 03         [19]  289 	ld a, e_type(ix)					;;	\ 	It is checked if the entity is marked to die.
-      00098A E6 20            [ 7]  290 	and #e_type_dead					;; 	|
-      00098C 20 06            [12]  291 	jr nz, #__marked_for_death			;;	/
+      000989 DD 7E 03         [19]  289 	ld a, e_type(ix)					;;	\ 	It is checked if the entity is marked to die.
+      00098C E6 20            [ 7]  290 	and #e_type_dead					;; 	|
+      00098E 20 06            [12]  291 	jr nz, #__marked_for_death			;;	/
                                     292 
-      00098E                        293 __unmarked:
+      000990                        293 __unmarked:
       0000BA                        294 	ld__e_ixl							;;	\	If the entity is not marked, its pointer is saved.
-      00098E DD 5D                    1    .dw #0x5DDD  ;; Opcode for ld e, ixl
+      000990 DD 5D                    1    .dw #0x5DDD  ;; Opcode for ld e, ixl
       0000BC                        295     ld__d_ixh							;;	|
-      000990 DD 54                    1    .dw #0x54DD  ;; Opcode for ld d, ixh
+      000992 DD 54                    1    .dw #0x54DD  ;; Opcode for ld d, ixh
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80), page 115.
 Hexadecimal [24-Bits]
 
 
 
-      000992 18 03            [12]  296 	jr #__check_next_entity				;;	/
+      000994 18 03            [12]  296 	jr #__check_next_entity				;;	/
                                     297 
-      000994                        298 __marked_for_death:						;;	The destructor is called to delete the marked entity.
-      000994 CD D4 08         [17]  299 	call man_entity_destroy
+      000996                        298 __marked_for_death:						;;	The destructor is called to delete the marked entity.
+      000996 CD D6 08         [17]  299 	call man_entity_destroy
                                     300 
-      000997                        301 __check_next_entity:
+      000999                        301 __check_next_entity:
                                     302 
       0000C3                        303     ld__ixl_c
-      000997 DD 69                    1    .dw #0x69DD  ;; Opcode for ld ixl, c
+      000999 DD 69                    1    .dw #0x69DD  ;; Opcode for ld ixl, c
       0000C5                        304     ld__ixh_b
-      000999 DD 60                    1    .dw #0x60DD  ;; Opcode for ld ixh, b
+      00099B DD 60                    1    .dw #0x60DD  ;; Opcode for ld ixh, b
                                     305 
-      00099B 18 DF            [12]  306 	jr _loop
+      00099D 18 DF            [12]  306 	jr _loop
                                     307 
                                     308 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
                                     309 ;;  ENTITY_MANAGER::Create
@@ -6133,66 +6133,66 @@ Hexadecimal [24-Bits]
                                     315 ;;  MODIFY:
                                     316 ;;       DE, BC, A
                                     317 ;;	   
-      00099D                        318 man_entity_create::
-      00099D E5               [11]  319 	push hl
-      00099E CD 0E 09         [17]  320 	call man_entity_new
+      00099F                        318 man_entity_create::
+      00099F E5               [11]  319 	push hl
+      0009A0 CD 10 09         [17]  320 	call man_entity_new
                                     321 
       0000CD                        322 	ld__ixh_d
-      0009A1 DD 62                    1    .dw #0x62DD  ;; Opcode for ld ixh, d
+      0009A3 DD 62                    1    .dw #0x62DD  ;; Opcode for ld ixh, d
       0000CF                        323 	ld__ixl_e
-      0009A3 DD 6B                    1    .dw #0x6BDD  ;; Opcode for ld ixl, e
+      0009A5 DD 6B                    1    .dw #0x6BDD  ;; Opcode for ld ixl, e
                                     324 
-      0009A5 E1               [10]  325 	pop hl
+      0009A7 E1               [10]  325 	pop hl
                                     326 
                                     327 	;;	HL and DE are incremented so as not to overwrite the list pointers	to the next entity.
-      0009A6 23               [ 6]  328 	inc hl	
-      0009A7 23               [ 6]  329 	inc hl
-      0009A8 13               [ 6]  330 	inc de
-      0009A9 13               [ 6]  331 	inc de
-      0009AA ED B0            [21]  332 	ldir
+      0009A8 23               [ 6]  328 	inc hl	
+      0009A9 23               [ 6]  329 	inc hl
+      0009AA 13               [ 6]  330 	inc de
+      0009AB 13               [ 6]  331 	inc de
+      0009AC ED B0            [21]  332 	ldir
                                     333 
                                     334 	;;	ASSIGN ENTITY TO VECTOR OF POINTERS
                                     335 
-      0009AC DD 7E 02         [19]  336 	ld a, e_cmps(ix)
-      0009AF E6 02            [ 7]  337 	and a, #e_cmp_render
-      0009B1 28 05            [12]  338 	jr z, _noRender
-      0009B3                        339 	_Render:
-      0009B3 3E 00            [ 7]  340 	ld a, #e_cmpID_Render
-      0009B5 CD 9C 08         [17]  341 	call man_components_add
+      0009AE DD 7E 02         [19]  336 	ld a, e_cmps(ix)
+      0009B1 E6 02            [ 7]  337 	and a, #e_cmp_render
+      0009B3 28 05            [12]  338 	jr z, _noRender
+      0009B5                        339 	_Render:
+      0009B5 3E 00            [ 7]  340 	ld a, #e_cmpID_Render
+      0009B7 CD A0 06         [17]  341 	call man_components_add
                                     342 
-      0009B8                        343 	_noRender:
-      0009B8 DD 7E 02         [19]  344 	ld a, e_cmps(ix)
-      0009BB E6 10            [ 7]  345 	and #e_cmp_ai
-      0009BD 28 05            [12]  346 	jr z, _noAI
+      0009BA                        343 	_noRender:
+      0009BA DD 7E 02         [19]  344 	ld a, e_cmps(ix)
+      0009BD E6 10            [ 7]  345 	and #e_cmp_ai
+      0009BF 28 05            [12]  346 	jr z, _noAI
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80), page 116.
 Hexadecimal [24-Bits]
 
 
 
                                     347 
-      0009BF                        348 	_AI:
-      0009BF 3E 02            [ 7]  349 	ld a, #e_cmpID_AI
-      0009C1 CD 9C 08         [17]  350 	call man_components_add
+      0009C1                        348 	_AI:
+      0009C1 3E 02            [ 7]  349 	ld a, #e_cmpID_AI
+      0009C3 CD A0 06         [17]  350 	call man_components_add
                                     351 
-      0009C4                        352 	_noAI:
-      0009C4 DD 7E 02         [19]  353 	ld a, e_cmps(ix)
-      0009C7 E6 40            [ 7]  354 	and #e_cmp_collider
-      0009C9 28 05            [12]  355 	jr z, _noCollider
+      0009C6                        352 	_noAI:
+      0009C6 DD 7E 02         [19]  353 	ld a, e_cmps(ix)
+      0009C9 E6 40            [ 7]  354 	and #e_cmp_collider
+      0009CB 28 05            [12]  355 	jr z, _noCollider
                                     356 
-      0009CB                        357 	_Collider:
-      0009CB 3E 04            [ 7]  358 	ld a, #e_cmpID_Collision
-      0009CD CD 9C 08         [17]  359 	call man_components_add
+      0009CD                        357 	_Collider:
+      0009CD 3E 04            [ 7]  358 	ld a, #e_cmpID_Collision
+      0009CF CD A0 06         [17]  359 	call man_components_add
                                     360 
-      0009D0                        361 	_noCollider:
-      0009D0 DD 7E 02         [19]  362 	ld a, e_cmps(ix)
-      0009D3 E6 04            [ 7]  363 	and #e_cmp_physics
-      0009D5 28 05            [12]  364 	jr z, _noPhysics
+      0009D2                        361 	_noCollider:
+      0009D2 DD 7E 02         [19]  362 	ld a, e_cmps(ix)
+      0009D5 E6 04            [ 7]  363 	and #e_cmp_physics
+      0009D7 28 05            [12]  364 	jr z, _noPhysics
                                     365 
-      0009D7                        366 	_Physics:
-      0009D7 3E 01            [ 7]  367 	ld a, #e_cmpID_Physics
-      0009D9 CD 9C 08         [17]  368 	call man_components_add
-      0009DC                        369 	_noPhysics:	
-      0009DC C9               [10]  370 	ret
+      0009D9                        366 	_Physics:
+      0009D9 3E 01            [ 7]  367 	ld a, #e_cmpID_Physics
+      0009DB CD A0 06         [17]  368 	call man_components_add
+      0009DE                        369 	_noPhysics:	
+      0009DE C9               [10]  370 	ret
                                     371 
                                     372 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
                                     373 ;;  ENTITY_MANAGER::GetEntityArrayIX
@@ -6201,10 +6201,10 @@ Hexadecimal [24-Bits]
                                     376 ;;  MODIFY:
                                     377 ;;       IX, A
                                     378 ;;	   
-      0009DD                        379 man_entity_getEntityArrayIX::
-      0009DD DD 21 D2 26      [14]  380 	ld ix, #_entity_array
-      0009E1 3A CD 26         [13]  381 	ld a, (_entity_num)
-      0009E4 C9               [10]  382 	ret
+      0009DF                        379 man_entity_getEntityArrayIX::
+      0009DF DD 21 AB 26      [14]  380 	ld ix, #_entity_array
+      0009E3 3A A6 26         [13]  381 	ld a, (_entity_num)
+      0009E6 C9               [10]  382 	ret
                                     383 
                                     384 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
                                     385 ;;  ENTITY_MANAGER::GetEntityArrayIY
@@ -6213,17 +6213,17 @@ Hexadecimal [24-Bits]
                                     388 ;;  MODIFY:
                                     389 ;;       IX, A
                                     390 ;;	   
-      0009E5                        391 man_entity_getEntityArrayIY::
-      0009E5 FD 21 D2 26      [14]  392 	ld iy, #_entity_array
-      0009E9 3A CD 26         [13]  393 	ld a, (_entity_num)
-      0009EC C9               [10]  394 	ret
+      0009E7                        391 man_entity_getEntityArrayIY::
+      0009E7 FD 21 AB 26      [14]  392 	ld iy, #_entity_array
+      0009EB 3A A6 26         [13]  393 	ld a, (_entity_num)
+      0009EE C9               [10]  394 	ret
                                     395 
                                     396 ;;-----------------------------------------------------------------
                                     397 ;;	man_next_entity_iy
                                     398 ;;	INPUT: iy pointer to one the entities
                                     399 ;;	OUTPUT: iy points to the nect
                                     400 ;;
-      0009ED                        401 man_entity_next_entity_iy::
+      0009EF                        401 man_entity_next_entity_iy::
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80), page 117.
 Hexadecimal [24-Bits]
 
@@ -6232,9 +6232,9 @@ Hexadecimal [24-Bits]
       000119                        402 	cpctm_push hl, bc
                            000002     1    .narg v
                            000001     2    .if v
-      0009ED E5               [11]    3    push hl
+      0009EF E5               [11]    3    push hl
                            000001     4    .if v-1
-      0009EE C5               [11]    5    push bc
+      0009F0 C5               [11]    5    push bc
                            000000     6    .if v-2
                                       7    push 
                                       8    .if v-3
@@ -6254,18 +6254,18 @@ Hexadecimal [24-Bits]
                                      22    .endif
                            000001    23    .else
                                      24    .mexit
-      0009EF FD E5            [15]  403 	push iy
-      0009F1 E1               [10]  404 	pop hl
-      0009F2 01 20 00         [10]  405 	ld bc, #sizeof_e
-      0009F5 09               [11]  406 	add hl, bc
-      0009F6 E5               [11]  407 	push hl
-      0009F7 FD E1            [14]  408 	pop iy
+      0009F1 FD E5            [15]  403 	push iy
+      0009F3 E1               [10]  404 	pop hl
+      0009F4 01 20 00         [10]  405 	ld bc, #sizeof_e
+      0009F7 09               [11]  406 	add hl, bc
+      0009F8 E5               [11]  407 	push hl
+      0009F9 FD E1            [14]  408 	pop iy
       000125                        409 	cpctm_pop bc, hl
                            000002     1    .narg v
                            000001     2    .if v
-      0009F9 C1               [10]    3    pop bc
+      0009FB C1               [10]    3    pop bc
                            000001     4    .if v-1
-      0009FA E1               [10]    5    pop hl
+      0009FC E1               [10]    5    pop hl
                            000000     6    .if v-2
                                       7    pop 
                                       8    .if v-3
@@ -6290,7 +6290,7 @@ Hexadecimal [24-Bits]
 
 
                                      24    .mexit
-      0009FB C9               [10]  410 	ret
+      0009FD C9               [10]  410 	ret
                                     411 
                                     412 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
                                     413 ;;	ENTITY_MANAGER::man_entity_getPlayerPosition
@@ -6299,9 +6299,9 @@ Hexadecimal [24-Bits]
                                     416 ;;	MODIFY:
                                     417 ;;		HL
                                     418 ;;	   
-      0009FC                        419 man_entity_getPlayerPosition::
-      0009FC DD 21 D2 26      [14]  420 	ld ix, #_entity_array
-      000A00 C9               [10]  421 	ret
+      0009FE                        419 man_entity_getPlayerPosition::
+      0009FE DD 21 AB 26      [14]  420 	ld ix, #_entity_array
+      000A02 C9               [10]  421 	ret
                                     422 
                                     423 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
                                     424 ;;	ENTITY_MANAGER::man_entity_getOponentPosition
@@ -6310,13 +6310,13 @@ Hexadecimal [24-Bits]
                                     427 ;;	MODIFY:
                                     428 ;;		HL
                                     429 ;;	   
-      000A01                        430 man_entity_getOponentPosition::
+      000A03                        430 man_entity_getOponentPosition::
       00012D                        431 	cpctm_push hl, bc
                            000002     1    .narg v
                            000001     2    .if v
-      000A01 E5               [11]    3    push hl
+      000A03 E5               [11]    3    push hl
                            000001     4    .if v-1
-      000A02 C5               [11]    5    push bc
+      000A04 C5               [11]    5    push bc
                            000000     6    .if v-2
                                       7    push 
                                       8    .if v-3
@@ -6336,11 +6336,11 @@ Hexadecimal [24-Bits]
                                      22    .endif
                            000001    23    .else
                                      24    .mexit
-      000A03 21 D2 26         [10]  432 	ld hl, #_entity_array
-      000A06 01 20 00         [10]  433 	ld bc, #sizeof_e
-      000A09 09               [11]  434 	add hl, bc
-      000A0A E5               [11]  435 	push hl
-      000A0B FD E1            [14]  436 	pop iy
+      000A05 21 AB 26         [10]  432 	ld hl, #_entity_array
+      000A08 01 20 00         [10]  433 	ld bc, #sizeof_e
+      000A0B 09               [11]  434 	add hl, bc
+      000A0C E5               [11]  435 	push hl
+      000A0D FD E1            [14]  436 	pop iy
       000139                        437 	cpctm_pop bc, hl
                            000002     1    .narg v
                            000001     2    .if v
@@ -6349,9 +6349,9 @@ Hexadecimal [24-Bits]
 
 
 
-      000A0D C1               [10]    3    pop bc
+      000A0F C1               [10]    3    pop bc
                            000001     4    .if v-1
-      000A0E E1               [10]    5    pop hl
+      000A10 E1               [10]    5    pop hl
                            000000     6    .if v-2
                                       7    pop 
                                       8    .if v-3
@@ -6371,7 +6371,7 @@ Hexadecimal [24-Bits]
                                      22    .endif
                            000001    23    .else
                                      24    .mexit
-      000A0F C9               [10]  438 	ret
+      000A11 C9               [10]  438 	ret
                                     439 
                                     440 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
                                     441 ;;	ENTITY_MANAGER::man_entity_getBallPositionIY
@@ -6380,13 +6380,13 @@ Hexadecimal [24-Bits]
                                     444 ;;	MODIFY:
                                     445 ;;		HL
                                     446 ;;	   
-      000A10                        447 man_entity_getBallPositionIY::
+      000A12                        447 man_entity_getBallPositionIY::
       00013C                        448 	cpctm_push hl, bc
                            000002     1    .narg v
                            000001     2    .if v
-      000A10 E5               [11]    3    push hl
+      000A12 E5               [11]    3    push hl
                            000001     4    .if v-1
-      000A11 C5               [11]    5    push bc
+      000A13 C5               [11]    5    push bc
                            000000     6    .if v-2
                                       7    push 
                                       8    .if v-3
@@ -6411,18 +6411,18 @@ Hexadecimal [24-Bits]
 
                            000001    23    .else
                                      24    .mexit
-      000A12 21 D2 26         [10]  449 	ld hl, #_entity_array
-      000A15 01 20 00         [10]  450 	ld bc, #sizeof_e
-      000A18 09               [11]  451 	add hl, bc
-      000A19 09               [11]  452 	add hl, bc
-      000A1A E5               [11]  453 	push hl
-      000A1B FD E1            [14]  454 	pop iy
+      000A14 21 AB 26         [10]  449 	ld hl, #_entity_array
+      000A17 01 20 00         [10]  450 	ld bc, #sizeof_e
+      000A1A 09               [11]  451 	add hl, bc
+      000A1B 09               [11]  452 	add hl, bc
+      000A1C E5               [11]  453 	push hl
+      000A1D FD E1            [14]  454 	pop iy
       000149                        455 	cpctm_pop bc, hl
                            000002     1    .narg v
                            000001     2    .if v
-      000A1D C1               [10]    3    pop bc
+      000A1F C1               [10]    3    pop bc
                            000001     4    .if v-1
-      000A1E E1               [10]    5    pop hl
+      000A20 E1               [10]    5    pop hl
                            000000     6    .if v-2
                                       7    pop 
                                       8    .if v-3
@@ -6442,7 +6442,7 @@ Hexadecimal [24-Bits]
                                      22    .endif
                            000001    23    .else
                                      24    .mexit
-      000A1F C9               [10]  456 	ret
+      000A21 C9               [10]  456 	ret
                                     457 
                                     458 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
                                     459 ;;	ENTITY_MANAGER::deleteEverythingExceptPlayer
@@ -6451,17 +6451,17 @@ Hexadecimal [24-Bits]
                                     462 ;;	MODIFY:
                                     463 ;;		A
                                     464 ;;	   
-      000A20                        465 man_entity_deleteEverythingExceptPlayer::
-      000A20 CD DD 09         [17]  466 	call man_entity_getEntityArrayIX
+      000A22                        465 man_entity_deleteEverythingExceptPlayer::
+      000A22 CD DF 09         [17]  466 	call man_entity_getEntityArrayIX
                                     467 
-      000A23                        468 	__loop:
+      000A25                        468 	__loop:
                                     469 	;;	If the pointer to the next element in the list is null the entity is the player
                                     470 	;; 	and the loop is terminated.
-      000A23 DD 7E 00         [19]  471 	ld a, e_ptr(ix)
-      000A26 4F               [ 4]  472 	ld c, a
-      000A27 DD 46 01         [19]  473 	ld b, e_ptr+1(ix)
-      000A2A B1               [ 4]  474 	or c
-      000A2B C8               [11]  475 	ret z
+      000A25 DD 7E 00         [19]  471 	ld a, e_ptr(ix)
+      000A28 4F               [ 4]  472 	ld c, a
+      000A29 DD 46 01         [19]  473 	ld b, e_ptr+1(ix)
+      000A2C B1               [ 4]  474 	or c
+      000A2D C8               [11]  475 	ret z
                                     476 
                                     477 	;;	The entity is marked for deletion.
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80), page 121.
@@ -6469,48 +6469,48 @@ Hexadecimal [24-Bits]
 
 
 
-      000A2C CD 68 09         [17]  478 	call man_entity_set4destruction
+      000A2E CD 6A 09         [17]  478 	call man_entity_set4destruction
                                     479 
       00015B                        480 	ld__ixl_c
-      000A2F DD 69                    1    .dw #0x69DD  ;; Opcode for ld ixl, c
+      000A31 DD 69                    1    .dw #0x69DD  ;; Opcode for ld ixl, c
       00015D                        481 	ld__ixh_b
-      000A31 DD 60                    1    .dw #0x60DD  ;; Opcode for ld ixh, b
-      000A33 18 EE            [12]  482 	jr __loop
+      000A33 DD 60                    1    .dw #0x60DD  ;; Opcode for ld ixh, b
+      000A35 18 EE            [12]  482 	jr __loop
                                     483 
                                     484 ;; Pointer to function
-      000A35 00 00                  485 function_for_all: .db #0x00, #0x00
+      000A37 00 00                  485 function_for_all: .db #0x00, #0x00
                                     486 
                                     487 ;; ---------------------------------------------
                                     488 ;; Applies a function filtering specific criteria
                                     489 ;; B -> Mask of bytes (e_cmps)
                                     490 ;; ---------------------------------------------
-      000A37                        491 man_entity_forall_matching_iy::
-      000A37 22 35 0A         [16]  492     ld (function_for_all), hl
-      000A3A CD E5 09         [17]  493     call man_entity_getEntityArrayIY ;; IY points to the first entity
+      000A39                        491 man_entity_forall_matching_iy::
+      000A39 22 37 0A         [16]  492     ld (function_for_all), hl
+      000A3C CD E7 09         [17]  493     call man_entity_getEntityArrayIY ;; IY points to the first entity
                                     494 
-      000A3D FD 7E 02         [19]  495     ld a,e_cmps(iy) ;;si la primera entidad es invalida, salimos de la funcion
-      000A40 E6 FF            [ 7]  496     and #0xFF
-      000A42 C8               [11]  497     ret z
+      000A3F FD 7E 02         [19]  495     ld a,e_cmps(iy) ;;si la primera entidad es invalida, salimos de la funcion
+      000A42 E6 FF            [ 7]  496     and #0xFF
+      000A44 C8               [11]  497     ret z
                                     498 
-      000A43                        499     loop_forall_matching:
-      000A43 C5               [11]  500         push bc ;;guardo mascara de bytes
-      000A44 FD 7E 02         [19]  501         ld a, e_cmps(iy)
-      000A47 A0               [ 4]  502         and b
-      000A48 B8               [ 4]  503         cp b
-      000A49 20 08            [12]  504         jr nz, afterjp_matching
+      000A45                        499     loop_forall_matching:
+      000A45 C5               [11]  500         push bc ;;guardo mascara de bytes
+      000A46 FD 7E 02         [19]  501         ld a, e_cmps(iy)
+      000A49 A0               [ 4]  502         and b
+      000A4A B8               [ 4]  503         cp b
+      000A4B 20 08            [12]  504         jr nz, afterjp_matching
                                     505    
-      000A4B 21 53 0A         [10]  506         ld hl, #afterjp_matching
-      000A4E E5               [11]  507         push hl
+      000A4D 21 55 0A         [10]  506         ld hl, #afterjp_matching
+      000A50 E5               [11]  507         push hl
                                     508 
-      000A4F 2A 35 0A         [16]  509         ld hl, (function_for_all)
-      000A52 E9               [ 4]  510         jp (hl)
+      000A51 2A 37 0A         [16]  509         ld hl, (function_for_all)
+      000A54 E9               [ 4]  510         jp (hl)
                                     511 
-      000A53                        512     afterjp_matching:
-      000A53 CD ED 09         [17]  513         call man_entity_next_entity_iy
+      000A55                        512     afterjp_matching:
+      000A55 CD EF 09         [17]  513         call man_entity_next_entity_iy
                                     514         
-      000A56 FD 7E 02         [19]  515         ld a,e_cmps(iy)
-      000A59 E6 FF            [ 7]  516         and #0xff
-      000A5B C1               [10]  517         pop bc
-      000A5C 20 E5            [12]  518     jr nz, loop_forall_matching
+      000A58 FD 7E 02         [19]  515         ld a,e_cmps(iy)
+      000A5B E6 FF            [ 7]  516         and #0xff
+      000A5D C1               [10]  517         pop bc
+      000A5E 20 E5            [12]  518     jr nz, loop_forall_matching
                                     519 
-      000A5E C9               [10]  520 	ret
+      000A60 C9               [10]  520 	ret

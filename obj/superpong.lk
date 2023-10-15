@@ -3,47 +3,47 @@
 -b _CODE = 0x0200
 -b _DATA = 0x0000
 -u
--k /Users/david/Projects/retro/cpctelera/cpctelera/tools/sdcc-3.6.8-r9946/bin/../share/sdcc/lib/z80
--k /usr/local/share/sdcc/lib/z80
--l /Users/david/Projects/retro/cpctelera/cpctelera/cpctelera.lib
+-k /home/drodri/sources/retro/cpctelera/cpctelera/tools/sdcc-3.6.8-r9946/bin/../share/sdcc/lib/z80
+-k /mnt/c/sources/retro/cpctelera/cpctelera/tools/sdcc-3.6.8-r9946/share/sdcc/lib/z80
+-l /home/drodri/sources/retro/cpctelera/cpctelera/cpctelera.lib
 -l z80
 obj/assets/sprites/small_numbers.rel
 obj/assets/sprites/font_chars_0.rel
 obj/assets/palette/g_palette.rel
-obj/common.h.rel
 obj/macros.h.rel
 obj/main.rel
-obj/man/array.h.rel
+obj/common.h.rel
+obj/cmp/cmp.h.rel
+obj/man/fight.rel
+obj/man/fight.h.rel
+obj/man/game.h.rel
+obj/man/components.rel
 obj/man/array.rel
 obj/man/ball.h.rel
 obj/man/ball.rel
-obj/man/components.h.rel
-obj/man/components.rel
 obj/man/entities.h.rel
+obj/man/array.h.rel
+obj/man/components.h.rel
 obj/man/entities.rel
-obj/man/fight.h.rel
-obj/man/fight.rel
-obj/man/game.h.rel
 obj/man/game.rel
-obj/cmp/cmp.h.rel
-obj/sys/ai.h.rel
-obj/sys/ai.rel
-obj/sys/ai_actions.rel
-obj/sys/collision.h.rel
-obj/sys/collision.rel
-obj/sys/input.h.rel
-obj/sys/input.rel
-obj/sys/messages.h.rel
-obj/sys/messages.rel
-obj/sys/physics.h.rel
 obj/sys/physics.rel
-obj/sys/render.h.rel
 obj/sys/render.rel
-obj/sys/system.h.rel
-obj/sys/system.rel
-obj/sys/text.h.rel
-obj/sys/text.rel
-obj/sys/util.h.rel
+obj/sys/ai.h.rel
 obj/sys/util.rel
+obj/sys/system.h.rel
+obj/sys/text.h.rel
+obj/sys/ai_actions.rel
+obj/sys/ai.rel
+obj/sys/util.h.rel
+obj/sys/messages.h.rel
+obj/sys/text.rel
+obj/sys/collision.h.rel
+obj/sys/messages.rel
+obj/sys/input.h.rel
+obj/sys/system.rel
+obj/sys/render.h.rel
+obj/sys/physics.h.rel
+obj/sys/collision.rel
+obj/sys/input.rel
 
 -e

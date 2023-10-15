@@ -30,19 +30,19 @@ Hexadecimal [24-Bits]
                                      25 ;;
                                      26 .area _DATA
                                      27 
-      002812                         28 first_lvl::
-      002812 54 48 45 20 44 4F 4F    29 .asciz "THE DOOR                     "  ;; Name
+      00266F                         28 first_lvl::
+      00266F 54 48 45 20 44 4F 4F    29 .asciz "THE DOOR                     "  ;; Name
              52 20 20 20 20 20 20
              20 20 20 20 20 20 20
              20 20 20 20 20 20 20
              20 00
-      002830 05                      30 .db 5                                   ;; Rounds
-      002831 00                      31 .db 0                                   ;; curent round
-      002832 01 02 03                32 .db 1, 2, 3
-      002835 01 02 03                33 .db 1, 2, 3
-      002838 01 02 03                34 .db 1, 2, 3
-      00283B 01 02 03                35 .db 1, 2, 3
-      00283E 01 02 03                36 .db 1, 2, 3
+      00268D 05                      30 .db 5                                   ;; Rounds
+      00268E 00                      31 .db 0                                   ;; curent round
+      00268F 01 02 03                32 .db 1, 2, 3
+      002692 01 02 03                33 .db 1, 2, 3
+      002695 01 02 03                34 .db 1, 2, 3
+      002698 01 02 03                35 .db 1, 2, 3
+      00269B 01 02 03                36 .db 1, 2, 3
                                      37 
                                      38 ;;
                                      39 ;; Start of _CODE area
@@ -63,8 +63,8 @@ Hexadecimal [24-Bits]
 
 
 
-      000A5F                         52 man_fight_init::
-      000A5F C9               [10]   53     ret
+      0005EA                         52 man_fight_init::
+      0005EA C9               [10]   53     ret
                                      54 
                                      55 
                                      56 ;;-----------------------------------------------------------------
@@ -76,5 +76,5 @@ Hexadecimal [24-Bits]
                                      62 ;;  Output: 
                                      63 ;;  Modified: AF, BC, DE, HL
                                      64 ;;
-      000A60                         65 man_fight_update::
-      000A60 C9               [10]   66     ret
+      0005EB                         65 man_fight_update::
+      0005EB C9               [10]   66     ret

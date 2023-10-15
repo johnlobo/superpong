@@ -576,7 +576,7 @@ Hexadecimal [24-Bits]
                                     137 ;;===============================================================================
                                     138 ;; Entity Component IDs
                                     139 ;;===============================================================================
-      000748                        140 DefEnum e_cmpID
+      000836                        140 DefEnum e_cmpID
                            000000     1     e_cmpID_offset = 0
       000000                        141 Enum e_cmpID Render
                            000000     1     e_cmpID_Render = e_cmpID_offset
@@ -5704,15 +5704,15 @@ Hexadecimal [24-Bits]
                                      34 ;;  Modified: AF, BC, HL
                                      35 ;;
       000000                         36 man_ball_reverse_hor_speed::
-      000748 FD E5            [15]   37     push iy
-      00074A CD 10 0A         [17]   38     call man_entity_getBallPositionIY   
-      00074D FD 66 0F         [19]   39     ld h, e_vx(iy)
-      000750 FD 6E 10         [19]   40     ld l, e_vx+1(iy)
-      000753 CD D2 1F         [17]   41     call sys_util_negHL
-      000756 FD 74 0F         [19]   42     ld e_vx(iy), h
-      000759 FD 75 10         [19]   43     ld e_vx+1(iy), l
-      00075C FD E1            [14]   44     pop iy
-      00075E C9               [10]   45     ret
+      000836 FD E5            [15]   37     push iy
+      000838 CD 12 0A         [17]   38     call man_entity_getBallPositionIY   
+      00083B FD 66 0F         [19]   39     ld h, e_vx(iy)
+      00083E FD 6E 10         [19]   40     ld l, e_vx+1(iy)
+      000841 CD CC 0D         [17]   41     call sys_util_negHL
+      000844 FD 74 0F         [19]   42     ld e_vx(iy), h
+      000847 FD 75 10         [19]   43     ld e_vx+1(iy), l
+      00084A FD E1            [14]   44     pop iy
+      00084C C9               [10]   45     ret
                                      46 
                                      47 ;;-----------------------------------------------------------------
                                      48 ;;
@@ -5724,16 +5724,16 @@ Hexadecimal [24-Bits]
                                      54 ;;  Output: 
                                      55 ;;  Modified: AF, BC, HL
                                      56 ;;
-      00075F                         57 man_ball_reverse_ver_speed::
-      00075F FD E5            [15]   58     push iy
-      000761 CD 10 0A         [17]   59     call man_entity_getBallPositionIY
-      000764 FD 66 11         [19]   60     ld h, e_vy(iy)
-      000767 FD 6E 12         [19]   61     ld l, e_vy+1(iy)
-      00076A CD D2 1F         [17]   62     call sys_util_negHL
-      00076D FD 74 11         [19]   63     ld e_vy(iy), h
-      000770 FD 75 12         [19]   64     ld e_vy+1(iy), l
-      000773 FD E1            [14]   65     pop iy
-      000775 C9               [10]   66     ret
+      00084D                         57 man_ball_reverse_ver_speed::
+      00084D FD E5            [15]   58     push iy
+      00084F CD 12 0A         [17]   59     call man_entity_getBallPositionIY
+      000852 FD 66 11         [19]   60     ld h, e_vy(iy)
+      000855 FD 6E 12         [19]   61     ld l, e_vy+1(iy)
+      000858 CD CC 0D         [17]   62     call sys_util_negHL
+      00085B FD 74 11         [19]   63     ld e_vy(iy), h
+      00085E FD 75 12         [19]   64     ld e_vy+1(iy), l
+      000861 FD E1            [14]   65     pop iy
+      000863 C9               [10]   66     ret
                                      67 
                                      68 ;;-----------------------------------------------------------------
                                      69 ;;
@@ -5744,33 +5744,33 @@ Hexadecimal [24-Bits]
                                      74 ;;  Output: 
                                      75 ;;  Modified: AF, BC, HL
                                      76 ;;
-      000776                         77 man_ball_increase_hor_speed::
-      000776 FD 66 0F         [19]   78     ld h, e_vx(iy)
-      000779 FD 6E 10         [19]   79     ld l, e_vx+1(iy)
+      000864                         77 man_ball_increase_hor_speed::
+      000864 FD 66 0F         [19]   78     ld h, e_vx(iy)
+      000867 FD 6E 10         [19]   79     ld l, e_vx+1(iy)
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80), page 110.
 Hexadecimal [24-Bits]
 
 
 
-      00077C CD 86 1F         [17]   80     call sys_util_absHL
-      00077F 01 16 00         [10]   81     ld bc, #STEP_HORIZONTAL_BALL_SPEED
-      000782 09               [11]   82     add hl, bc
-      000783 01 00 01         [10]   83     ld bc, #MAX_HORIZONTAL_BALL_SPEED           ;; Check if the maxi of the hor speed has been reached
-      000786 E5               [11]   84     push hl
-      000787 B7               [ 4]   85     or a
-      000788 ED 42            [15]   86     sbc hl, bc
-      00078A E1               [10]   87     pop hl
-      00078B 38 03            [12]   88     jr c, _mbihs_restore_speed
-      00078D 21 00 01         [10]   89     ld hl, #MAX_HORIZONTAL_BALL_SPEED
-      000790                         90 _mbihs_restore_speed:
-      000790 FD 46 0F         [19]   91     ld b, e_vx(iy)
-      000793 CB 78            [ 8]   92     bit 7, b
-      000795 28 03            [12]   93     jr z, _mbihs_exit
-      000797 CD D2 1F         [17]   94     call sys_util_negHL
-      00079A                         95 _mbihs_exit:
-      00079A FD 74 0F         [19]   96     ld e_vx(iy), h
-      00079D FD 75 10         [19]   97     ld e_vx+1(iy), l
-      0007A0 C9               [10]   98     ret
+      00086A CD 80 0D         [17]   80     call sys_util_absHL
+      00086D 01 16 00         [10]   81     ld bc, #STEP_HORIZONTAL_BALL_SPEED
+      000870 09               [11]   82     add hl, bc
+      000871 01 00 01         [10]   83     ld bc, #MAX_HORIZONTAL_BALL_SPEED           ;; Check if the maxi of the hor speed has been reached
+      000874 E5               [11]   84     push hl
+      000875 B7               [ 4]   85     or a
+      000876 ED 42            [15]   86     sbc hl, bc
+      000878 E1               [10]   87     pop hl
+      000879 38 03            [12]   88     jr c, _mbihs_restore_speed
+      00087B 21 00 01         [10]   89     ld hl, #MAX_HORIZONTAL_BALL_SPEED
+      00087E                         90 _mbihs_restore_speed:
+      00087E FD 46 0F         [19]   91     ld b, e_vx(iy)
+      000881 CB 78            [ 8]   92     bit 7, b
+      000883 28 03            [12]   93     jr z, _mbihs_exit
+      000885 CD CC 0D         [17]   94     call sys_util_negHL
+      000888                         95 _mbihs_exit:
+      000888 FD 74 0F         [19]   96     ld e_vx(iy), h
+      00088B FD 75 10         [19]   97     ld e_vx+1(iy), l
+      00088E C9               [10]   98     ret
                                      99 
                                     100 ;;-----------------------------------------------------------------
                                     101 ;;
@@ -5781,42 +5781,42 @@ Hexadecimal [24-Bits]
                                     106 ;;  Output: 
                                     107 ;;  Modified: AF, BC, HL
                                     108 ;;
-      0007A1                        109 man_ball_set_ver_speed::
-      0007A1 FD E5            [15]  110     push iy
-      0007A3 CD 10 0A         [17]  111     call man_entity_getBallPositionIY
+      00088F                        109 man_ball_set_ver_speed::
+      00088F FD E5            [15]  110     push iy
+      000891 CD 12 0A         [17]  111     call man_entity_getBallPositionIY
                                     112 
-      0007A6 B7               [ 4]  113     or a                                ;; a=0??
-      0007A7 20 0A            [12]  114     jr nz, mbsvs_1
-      0007A9 FD 36 11 FF      [19]  115     ld e_vy(iy), #0xff
-      0007AD FD 36 12 E0      [19]  116     ld e_vy+1(iy), #0xe0
-      0007B1 18 32            [12]  117     jr mbsvs_exit
-      0007B3                        118 mbsvs_1:
-      0007B3 FE 01            [ 7]  119     cp #1
-      0007B5 20 0A            [12]  120     jr nz, mbsvs_2
-      0007B7 FD 36 11 FF      [19]  121     ld e_vy(iy), #0xff
-      0007BB FD 36 12 F0      [19]  122     ld e_vy+1(iy), #0xf0
-      0007BF 18 24            [12]  123     jr mbsvs_exit
-      0007C1                        124 mbsvs_2:
-      0007C1 FE 02            [ 7]  125     cp #2
-      0007C3 20 0A            [12]  126     jr nz, mbsvs_3
-      0007C5 FD 36 11 00      [19]  127     ld e_vy(iy), #0x00
-      0007C9 FD 36 12 00      [19]  128     ld e_vy+1(iy), #0x00
-      0007CD 18 16            [12]  129     jr mbsvs_exit
-      0007CF                        130 mbsvs_3:
-      0007CF FE 03            [ 7]  131     cp #3
-      0007D1 20 0A            [12]  132     jr nz, mbsvs_4
-      0007D3 FD 36 11 00      [19]  133     ld e_vy(iy), #0x00
-      0007D7 FD 36 12 16      [19]  134     ld e_vy+1(iy), #0x16
+      000894 B7               [ 4]  113     or a                                ;; a=0??
+      000895 20 0A            [12]  114     jr nz, mbsvs_1
+      000897 FD 36 11 FF      [19]  115     ld e_vy(iy), #0xff
+      00089B FD 36 12 E0      [19]  116     ld e_vy+1(iy), #0xe0
+      00089F 18 32            [12]  117     jr mbsvs_exit
+      0008A1                        118 mbsvs_1:
+      0008A1 FE 01            [ 7]  119     cp #1
+      0008A3 20 0A            [12]  120     jr nz, mbsvs_2
+      0008A5 FD 36 11 FF      [19]  121     ld e_vy(iy), #0xff
+      0008A9 FD 36 12 F0      [19]  122     ld e_vy+1(iy), #0xf0
+      0008AD 18 24            [12]  123     jr mbsvs_exit
+      0008AF                        124 mbsvs_2:
+      0008AF FE 02            [ 7]  125     cp #2
+      0008B1 20 0A            [12]  126     jr nz, mbsvs_3
+      0008B3 FD 36 11 00      [19]  127     ld e_vy(iy), #0x00
+      0008B7 FD 36 12 00      [19]  128     ld e_vy+1(iy), #0x00
+      0008BB 18 16            [12]  129     jr mbsvs_exit
+      0008BD                        130 mbsvs_3:
+      0008BD FE 03            [ 7]  131     cp #3
+      0008BF 20 0A            [12]  132     jr nz, mbsvs_4
+      0008C1 FD 36 11 00      [19]  133     ld e_vy(iy), #0x00
+      0008C5 FD 36 12 16      [19]  134     ld e_vy+1(iy), #0x16
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80), page 111.
 Hexadecimal [24-Bits]
 
 
 
-      0007DB 18 08            [12]  135     jr mbsvs_exit
-      0007DD                        136 mbsvs_4:
-      0007DD FD 36 11 00      [19]  137     ld e_vy(iy), #0x00
-      0007E1 FD 36 12 32      [19]  138     ld e_vy+1(iy), #0x32
-      0007E5                        139 mbsvs_exit:
-      0007E5 FD E1            [14]  140     pop iy
-      0007E7 C9               [10]  141     ret
+      0008C9 18 08            [12]  135     jr mbsvs_exit
+      0008CB                        136 mbsvs_4:
+      0008CB FD 36 11 00      [19]  137     ld e_vy(iy), #0x00
+      0008CF FD 36 12 32      [19]  138     ld e_vy+1(iy), #0x32
+      0008D3                        139 mbsvs_exit:
+      0008D3 FD E1            [14]  140     pop iy
+      0008D5 C9               [10]  141     ret
                                     142 

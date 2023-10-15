@@ -6206,12 +6206,12 @@ Hexadecimal [24-Bits]
                                      29 ;;  right after _CODE area contents.
                                      30 ;;
                                      31 .area _DATA
-      0026C5 00 00                   32 routine:        .dw #0000
-      0026C7 00                      33 comp_size:      .db #0
-      0026C8 00                      34 comp_type:      .db #0
-      0026C9 00 00                   35 routine_iY:     .dw #0000
-      0026CB 00                      36 comp_size_iY:   .db #0
-      0026CC 00                      37 comp_type_iY:   .db #0
+      00269E 00 00                   32 routine:        .dw #0000
+      0026A0 00                      33 comp_size:      .db #0
+      0026A1 00                      34 comp_type:      .db #0
+      0026A2 00 00                   35 routine_iY:     .dw #0000
+      0026A4 00                      36 comp_size_iY:   .db #0
+      0026A5 00                      37 comp_type_iY:   .db #0
                                      38 
                                      39 
                                      40 ;;
@@ -6228,42 +6228,42 @@ Hexadecimal [24-Bits]
                                      51 ;;  Output: 
                                      52 ;;  Modified: AF, HL
                                      53 ;;
-      0005EA                         54 man_array_init::
-      0005EA AF               [ 4]   55     xor a
-      0005EB DD 77 00         [19]   56     ld a_count(ix), a           ;; Initialize the number of elements in the array
+      0006D8                         54 man_array_init::
+      0006D8 AF               [ 4]   55     xor a
+      0006D9 DD 77 00         [19]   56     ld a_count(ix), a           ;; Initialize the number of elements in the array
                                      57 
       000004                         58     ld__hl_ix                   ;; point hl to the start of the array 
                                       1    ;; LD HL, IX
                                       2    ;;------------
       000004                          3    ld__a_ixl
-      0005EE DD 7D                    1    .dw #0x7DDD  ;; Opcode for ld a, ixl
-      0005F0 6F               [ 4]    4    ld  l, a
+      0006DC DD 7D                    1    .dw #0x7DDD  ;; Opcode for ld a, ixl
+      0006DE 6F               [ 4]    4    ld  l, a
       000007                          5    ld__a_ixh
-      0005F1 DD 7C                    1    .dw #0x7CDD  ;; Opcode for ld a, ixh
-      0005F3 67               [ 4]    6    ld  h, a
+      0006DF DD 7C                    1    .dw #0x7CDD  ;; Opcode for ld a, ixh
+      0006E1 67               [ 4]    6    ld  h, a
                                       7    ;;------------
-      0005F4 3E 07            [ 7]   59     ld a, #a_array
+      0006E2 3E 07            [ 7]   59     ld a, #a_array
       00000C                         60     add_hl_a
       00000C                          1    add_REGPAIR_a  h, l
                                       1    ;; First Perform RH = E + A
-      0005F6 85               [ 4]    2    add l    ;; [1] A' = RL + A 
-      0005F7 6F               [ 4]    3    ld  l, a ;; [1] RL' = A' = RL + A. It might generate Carry that must be added to RH
+      0006E4 85               [ 4]    2    add l    ;; [1] A' = RL + A 
+      0006E5 6F               [ 4]    3    ld  l, a ;; [1] RL' = A' = RL + A. It might generate Carry that must be added to RH
                                       4    
                                       5    ;; Then Perform RH = RH + Carry 
-      0005F8 8C               [ 4]    6    adc h    ;; [1] A'' = A' + RH + Carry = RL + A + RH + Carry
-      0005F9 95               [ 4]    7    sub l    ;; [1] Remove RL'. A''' = A'' - RL' = RL + A + RH + Carry - (RL + A) = RH + Carry
-      0005FA 67               [ 4]    8    ld  h, a ;; [1] Save into RH (RH' = A''' = RH + Carry)
+      0006E6 8C               [ 4]    6    adc h    ;; [1] A'' = A' + RH + Carry = RL + A + RH + Carry
+      0006E7 95               [ 4]    7    sub l    ;; [1] Remove RL'. A''' = A'' - RL' = RL + A + RH + Carry - (RL + A) = RH + Carry
+      0006E8 67               [ 4]    8    ld  h, a ;; [1] Save into RH (RH' = A''' = RH + Carry)
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80), page 120.
 Hexadecimal [24-Bits]
 
 
 
                                      61     
-      0005FB DD 75 04         [19]   62     ld a_pend(ix), l            ;; load pointer to the end in hl
-      0005FE DD 74 05         [19]   63     ld a_pend+1(ix), h
+      0006E9 DD 75 04         [19]   62     ld a_pend(ix), l            ;; load pointer to the end in hl
+      0006EC DD 74 05         [19]   63     ld a_pend+1(ix), h
                                      64 
-      000601 36 FF            [10]   65     ld  (hl), #e_type_invalid   ;;ponemos el primer elemento del array con tipo invalido
-      000603 C9               [10]   66     ret
+      0006EF 36 FF            [10]   65     ld  (hl), #e_type_invalid   ;;ponemos el primer elemento del array con tipo invalido
+      0006F1 C9               [10]   66     ret
                                      67 
                                      68 
                                      69 ;;-----------------------------------------------------------------
@@ -6276,40 +6276,40 @@ Hexadecimal [24-Bits]
                                      76 ;;  Output: hl: points to the new created entity
                                      77 ;;  Modified: AF, BC, DE, HL
                                      78 ;;
-      000604                         79 man_array_create_element::
+      0006F2                         79 man_array_create_element::
                                      80     ;; Is there free space?
-      000604 DD 7E 00         [19]   81     ld a, a_count(ix)
-      000607 47               [ 4]   82     ld b, a
-      000608 DD 7E 03         [19]   83     ld a, a_component_max_number(ix)
-      00060B B8               [ 4]   84     cp b
-      00060C C8               [11]   85     ret z
+      0006F2 DD 7E 00         [19]   81     ld a, a_count(ix)
+      0006F5 47               [ 4]   82     ld b, a
+      0006F6 DD 7E 03         [19]   83     ld a, a_component_max_number(ix)
+      0006F9 B8               [ 4]   84     cp b
+      0006FA C8               [11]   85     ret z
                                      86     
-      00060D 06 00            [ 7]   87     ld b, #0                        ;; bc = component size
-      00060F DD 7E 02         [19]   88     ld a, a_component_size(ix)      ;;
-      000612 4F               [ 4]   89     ld c, a                         ;;    
-      000613 32 2D 06         [13]   90     ld (_create_size), a            ;; sm code to move the size of the entity to bc
-      000616 AF               [ 4]   91     xor a                           ;; ld a, #0
-      000617 32 2E 06         [13]   92     ld (_create_size+1), a          ;;
+      0006FB 06 00            [ 7]   87     ld b, #0                        ;; bc = component size
+      0006FD DD 7E 02         [19]   88     ld a, a_component_size(ix)      ;;
+      000700 4F               [ 4]   89     ld c, a                         ;;    
+      000701 32 1B 07         [13]   90     ld (_create_size), a            ;; sm code to move the size of the entity to bc
+      000704 AF               [ 4]   91     xor a                           ;; ld a, #0
+      000705 32 1C 07         [13]   92     ld (_create_size+1), a          ;;
                                      93     
-      00061A DD 5E 04         [19]   94     ld e, a_pend(ix)                ;; Load the address of the next element in de
-      00061D DD 56 05         [19]   95     ld d, a_pend+1(ix)              ;;
-      000620 D5               [11]   96     push de                         ;; Store the address of the next element to return it at the end
-      000621 ED B0            [21]   97     ldir                            ;; de=pend, bc=component_size, hl=pointer to the entity to be added
+      000708 DD 5E 04         [19]   94     ld e, a_pend(ix)                ;; Load the address of the next element in de
+      00070B DD 56 05         [19]   95     ld d, a_pend+1(ix)              ;;
+      00070E D5               [11]   96     push de                         ;; Store the address of the next element to return it at the end
+      00070F ED B0            [21]   97     ldir                            ;; de=pend, bc=component_size, hl=pointer to the entity to be added
                                      98 
-      000623 DD 34 00         [23]   99     inc a_count(ix)                 ;; increase the number of entities
+      000711 DD 34 00         [23]   99     inc a_count(ix)                 ;; increase the number of entities
                                     100 
-      000626 DD 6E 04         [19]  101     ld l, a_pend(ix)                ;; load in hl the pointer to the next entity
-      000629 DD 66 05         [19]  102     ld h, a_pend+1(ix)
+      000714 DD 6E 04         [19]  101     ld l, a_pend(ix)                ;; load in hl the pointer to the next entity
+      000717 DD 66 05         [19]  102     ld h, a_pend+1(ix)
                            000043   103 _create_size = .+1
-      00062C 01 00 00         [10]  104     ld   bc, #00
-      00062F 09               [11]  105     add  hl, bc
+      00071A 01 00 00         [10]  104     ld   bc, #00
+      00071D 09               [11]  105     add  hl, bc
                                     106 
-      000630 DD 75 04         [19]  107     ld   a_pend(ix), l              ;; update the pointer to the next entity
-      000633 DD 74 05         [19]  108     ld   a_pend+1(ix), h            ;;
+      00071E DD 75 04         [19]  107     ld   a_pend(ix), l              ;; update the pointer to the next entity
+      000721 DD 74 05         [19]  108     ld   a_pend+1(ix), h            ;;
                                     109 
-      000636 E1               [10]  110     pop hl                          ;; restore the new element address in hl
+      000724 E1               [10]  110     pop hl                          ;; restore the new element address in hl
                                     111 
-      000637 C9               [10]  112     ret
+      000725 C9               [10]  112     ret
                                     113 
                                     114 
                                     115 
@@ -6328,71 +6328,71 @@ Hexadecimal [24-Bits]
                                     123 ;;  Output: 
                                     124 ;;  Modified: AF, BC, DE, HL
                                     125 ;;
-      000638                        126 man_array_remove_element::
+      000726                        126 man_array_remove_element::
                                     127 
-      000638 47               [ 4]  128     ld b, a                     ;; copy element to erase to b
-      000639 DD 7E 00         [19]  129     ld a, a_count(ix)           ;; check if we have to erase the last element
-      00063C 3D               [ 4]  130     dec a                       ;;
-      00063D B8               [ 4]  131     cp b                        ;;
-      00063E 28 2B            [12]  132     jr z, _last_element         ;;  jump if we have to erase the last element
+      000726 47               [ 4]  128     ld b, a                     ;; copy element to erase to b
+      000727 DD 7E 00         [19]  129     ld a, a_count(ix)           ;; check if we have to erase the last element
+      00072A 3D               [ 4]  130     dec a                       ;;
+      00072B B8               [ 4]  131     cp b                        ;;
+      00072C 28 2B            [12]  132     jr z, _last_element         ;;  jump if we have to erase the last element
                                     133 
-      000640 CD 3E 07         [17]  134     call man_array_first_element ;; load start of array in hl
+      00072E CD 2C 08         [17]  134     call man_array_first_element ;; load start of array in hl
                                     135 
                                     136 
-      000643 78               [ 4]  137     ld a, b                     ;; restore a value from b
-      000644 B7               [ 4]  138     or a                        ;; if we have to erase the first element we are don with hl
-      000645 CA 50 06         [10]  139     jp z, _calc_end_of_element  ;; 
+      000731 78               [ 4]  137     ld a, b                     ;; restore a value from b
+      000732 B7               [ 4]  138     or a                        ;; if we have to erase the first element we are don with hl
+      000733 CA 3E 07         [10]  139     jp z, _calc_end_of_element  ;; 
                                     140 
-      000648 16 00            [ 7]  141     ld d, #0                 ;; copy the size of an entity in de
-      00064A DD 5E 02         [19]  142     ld e, a_component_size(ix)  ;;
-      00064D                        143 _start_loop:                    ;;
-      00064D 19               [11]  144     add hl, de                  ;; hl advance a card
-      00064E 10 FD            [13]  145     djnz _start_loop            ;; hl points to the start of the element to remove
+      000736 16 00            [ 7]  141     ld d, #0                 ;; copy the size of an entity in de
+      000738 DD 5E 02         [19]  142     ld e, a_component_size(ix)  ;;
+      00073B                        143 _start_loop:                    ;;
+      00073B 19               [11]  144     add hl, de                  ;; hl advance a card
+      00073C 10 FD            [13]  145     djnz _start_loop            ;; hl points to the start of the element to remove
                                     146 
-      000650                        147 _calc_end_of_element:
-      000650 54               [ 4]  148     ld d, h                     ;; copy hl in de-> de=start of the element to remove
-      000651 5D               [ 4]  149     ld e, l                     ;;
+      00073E                        147 _calc_end_of_element:
+      00073E 54               [ 4]  148     ld d, h                     ;; copy hl in de-> de=start of the element to remove
+      00073F 5D               [ 4]  149     ld e, l                     ;;
                                     150 
-      000652 06 00            [ 7]  151     ld b, #0                    ;; add size of an element to hl
-      000654 DD 4E 02         [19]  152     ld c, a_component_size(ix)  ;; 
-      000657 09               [11]  153     add hl,bc                   ;; hl= end of the element to remove
+      000740 06 00            [ 7]  151     ld b, #0                    ;; add size of an element to hl
+      000742 DD 4E 02         [19]  152     ld c, a_component_size(ix)  ;; 
+      000745 09               [11]  153     add hl,bc                   ;; hl= end of the element to remove
                                     154 
-      000658 D5               [11]  155     push de                     ;; save de
-      000659 E5               [11]  156     push hl                     ;; save hl
-      00065A EB               [ 4]  157     ex de, hl                   ;; we have in de the end of the element to remove
+      000746 D5               [11]  155     push de                     ;; save de
+      000747 E5               [11]  156     push hl                     ;; save hl
+      000748 EB               [ 4]  157     ex de, hl                   ;; we have in de the end of the element to remove
                                     158 
-      00065B DD 6E 04         [19]  159     ld l, a_pend(ix)            ;; calculate the amount of data to move
-      00065E DD 66 05         [19]  160     ld h, a_pend+1(ix)          ;; 
-      000661 ED 52            [15]  161     sbc hl, de                  ;;
-      000663 44               [ 4]  162     ld b, h                     ;; move hl to bc
-      000664 4D               [ 4]  163     ld c, l                     ;; bc = size of data to move
+      000749 DD 6E 04         [19]  159     ld l, a_pend(ix)            ;; calculate the amount of data to move
+      00074C DD 66 05         [19]  160     ld h, a_pend+1(ix)          ;; 
+      00074F ED 52            [15]  161     sbc hl, de                  ;;
+      000751 44               [ 4]  162     ld b, h                     ;; move hl to bc
+      000752 4D               [ 4]  163     ld c, l                     ;; bc = size of data to move
                                     164 
-      000665 E1               [10]  165     pop hl                      ;; restore hl
-      000666 D1               [10]  166     pop de                      ;; restore de
+      000753 E1               [10]  165     pop hl                      ;; restore hl
+      000754 D1               [10]  166     pop de                      ;; restore de
                                     167 
-      000667 ED B0            [21]  168     ldir
-      000669 18 03            [12]  169     jr _move_pend
+      000755 ED B0            [21]  168     ldir
+      000757 18 03            [12]  169     jr _move_pend
                                     170 
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80), page 122.
 Hexadecimal [24-Bits]
 
 
 
-      00066B                        171 _last_element:
-      00066B DD 35 06         [23]  172     dec a_selected(ix)
+      000759                        171 _last_element:
+      000759 DD 35 06         [23]  172     dec a_selected(ix)
                                     173     
-      00066E                        174 _move_pend:
-      00066E DD 6E 04         [19]  175     ld l, a_pend(ix)            ;; calculate the amount of data to move
-      000671 DD 66 05         [19]  176     ld h, a_pend+1(ix)          ;; 
-      000674 06 00            [ 7]  177     ld b, #0                    ;; copy the size of an entity in bc
-      000676 DD 4E 02         [19]  178     ld c, a_component_size(ix)  ;; 
-      000679 ED 42            [15]  179     sbc  hl, bc                 ;;
-      00067B DD 75 04         [19]  180     ld a_pend(ix), l            ;; store hl in pend
-      00067E DD 74 05         [19]  181     ld a_pend+1(ix), h          ;; 
+      00075C                        174 _move_pend:
+      00075C DD 6E 04         [19]  175     ld l, a_pend(ix)            ;; calculate the amount of data to move
+      00075F DD 66 05         [19]  176     ld h, a_pend+1(ix)          ;; 
+      000762 06 00            [ 7]  177     ld b, #0                    ;; copy the size of an entity in bc
+      000764 DD 4E 02         [19]  178     ld c, a_component_size(ix)  ;; 
+      000767 ED 42            [15]  179     sbc  hl, bc                 ;;
+      000769 DD 75 04         [19]  180     ld a_pend(ix), l            ;; store hl in pend
+      00076C DD 74 05         [19]  181     ld a_pend+1(ix), h          ;; 
                                     182 
-      000681 DD 35 00         [23]  183     dec a_count(ix) 
+      00076F DD 35 00         [23]  183     dec a_count(ix) 
                                     184 
-      000684 C9               [10]  185 ret
+      000772 C9               [10]  185 ret
                                     186 
                                     187 ;;-----------------------------------------------------------------
                                     188 ;;
@@ -6404,21 +6404,21 @@ Hexadecimal [24-Bits]
                                     194 ;;  Output: hl: pointer to the element
                                     195 ;;  Modified: AF, BC, DE, HL
                                     196 ;;
-      000685                        197 man_array_get_element::
+      000773                        197 man_array_get_element::
                                     198 
-      000685 CD 3E 07         [17]  199     call man_array_first_element ;; load start of array in hl
+      000773 CD 2C 08         [17]  199     call man_array_first_element ;; load start of array in hl
                                     200 
-      000688 B7               [ 4]  201     or a                        ;; check if we have to retrieve the first card
-      000689 C8               [11]  202     ret z                       ;; retrurn if we want to get the first card
+      000776 B7               [ 4]  201     or a                        ;; check if we have to retrieve the first card
+      000777 C8               [11]  202     ret z                       ;; retrurn if we want to get the first card
                                     203 
-      00068A 47               [ 4]  204     ld b, a
-      00068B 16 00            [ 7]  205     ld d, #0                    ;; copy the size of an entity in de
-      00068D DD 5E 02         [19]  206     ld e, a_component_size(ix)  ;; 
-      000690                        207 _g_e_sum_loop:                  ;;
-      000690 19               [11]  208     add hl, de                  ;;  add de to hl until we reach the card
-      000691 10 FD            [13]  209     djnz _g_e_sum_loop          ;;
+      000778 47               [ 4]  204     ld b, a
+      000779 16 00            [ 7]  205     ld d, #0                    ;; copy the size of an entity in de
+      00077B DD 5E 02         [19]  206     ld e, a_component_size(ix)  ;; 
+      00077E                        207 _g_e_sum_loop:                  ;;
+      00077E 19               [11]  208     add hl, de                  ;;  add de to hl until we reach the card
+      00077F 10 FD            [13]  209     djnz _g_e_sum_loop          ;;
                                     210 
-      000693 C9               [10]  211     ret
+      000781 C9               [10]  211     ret
                                     212 
                                     213 
                                     214 ;;-----------------------------------------------------------------
@@ -6432,28 +6432,28 @@ Hexadecimal [24-Bits]
                                     222 ;;          a : number of element.
                                     223 ;;  Modified: AF, BC, DE, HL
                                     224 ;;
-      000694                        225 man_array_get_random_element::
+      000782                        225 man_array_get_random_element::
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80), page 123.
 Hexadecimal [24-Bits]
 
 
 
-      000694 32 9E 06         [13]  226     ld (SUB_OFFSET), a
-      000697 32 A3 06         [13]  227     ld (ADD_OFFSET), a
+      000782 32 8C 07         [13]  226     ld (SUB_OFFSET), a
+      000785 32 91 07         [13]  227     ld (ADD_OFFSET), a
                                     228 
-      00069A DD 7E 00         [19]  229     ld a, a_count(ix)               ;; load max number in a
+      000788 DD 7E 00         [19]  229     ld a, a_count(ix)               ;; load max number in a
                            0000B4   230     SUB_OFFSET = . +1
-      00069D D6 00            [ 7]  231     sub #0x00
-      00069F CD B4 1F         [17]  232     call sys_util_get_random_number
+      00078B D6 00            [ 7]  231     sub #0x00
+      00078D CD AE 0D         [17]  232     call sys_util_get_random_number
                            0000B9   233     ADD_OFFSET = . +1
-      0006A2 C6 00            [ 7]  234     add #0x00
-      0006A4 32 AB 06         [13]  235     ld (_r_e_output), a             ;; save the random number in the output variable
+      000790 C6 00            [ 7]  234     add #0x00
+      000792 32 99 07         [13]  235     ld (_r_e_output), a             ;; save the random number in the output variable
                                     236     
-      0006A7 CD 85 06         [17]  237     call man_array_get_element
+      000795 CD 73 07         [17]  237     call man_array_get_element
                                     238 
                            0000C1   239 _r_e_output = .+1   
-      0006AA 3E 00            [ 7]  240     ld a, #00
-      0006AC C9               [10]  241     ret
+      000798 3E 00            [ 7]  240     ld a, #00
+      00079A C9               [10]  241     ret
                                     242 
                                     243 
                                     244 
@@ -6468,30 +6468,30 @@ Hexadecimal [24-Bits]
                                     253 ;;  Output: 
                                     254 ;;  Modified: AF, BC, DE, HL
                                     255 ;;
-      0006AD                        256 man_array_move_all_elements::
-      0006AD 22 B9 06         [16]  257     ld (FIRST_ARRAY), hl
-      0006B0 22 C8 06         [16]  258     ld (THIRD_ARRAY), hl
-      0006B3 EB               [ 4]  259     ex de, hl
-      0006B4 22 C1 06         [16]  260     ld (SECOND_ARRAY), hl
-      0006B7                        261 _move_loop:
+      00079B                        256 man_array_move_all_elements::
+      00079B 22 A7 07         [16]  257     ld (FIRST_ARRAY), hl
+      00079E 22 B6 07         [16]  258     ld (THIRD_ARRAY), hl
+      0007A1 EB               [ 4]  259     ex de, hl
+      0007A2 22 AF 07         [16]  260     ld (SECOND_ARRAY), hl
+      0007A5                        261 _move_loop:
                            0000CF   262 FIRST_ARRAY = .+2
-      0006B7 DD 21 00 00      [14]  263     ld ix, #0000
-      0006BB AF               [ 4]  264     xor a
-      0006BC CD 85 06         [17]  265     call man_array_get_element
+      0007A5 DD 21 00 00      [14]  263     ld ix, #0000
+      0007A9 AF               [ 4]  264     xor a
+      0007AA CD 73 07         [17]  265     call man_array_get_element
                                     266 
                            0000D7   267 SECOND_ARRAY = .+2
-      0006BF DD 21 00 00      [14]  268     ld ix, #0000
-      0006C3 CD 04 06         [17]  269     call man_array_create_element
+      0007AD DD 21 00 00      [14]  268     ld ix, #0000
+      0007B1 CD F2 06         [17]  269     call man_array_create_element
                                     270 
                            0000DE   271 THIRD_ARRAY = .+2    
-      0006C6 DD 21 00 00      [14]  272     ld ix, #0000
-      0006CA AF               [ 4]  273     xor a
-      0006CB CD 38 06         [17]  274     call man_array_remove_element
+      0007B4 DD 21 00 00      [14]  272     ld ix, #0000
+      0007B8 AF               [ 4]  273     xor a
+      0007B9 CD 26 07         [17]  274     call man_array_remove_element
                                     275     
-      0006CE DD 7E 00         [19]  276     ld a, a_count(ix)
-      0006D1 B7               [ 4]  277     or a
-      0006D2 20 E3            [12]  278     jr nz, _move_loop
-      0006D4 C9               [10]  279     ret
+      0007BC DD 7E 00         [19]  276     ld a, a_count(ix)
+      0007BF B7               [ 4]  277     or a
+      0007C0 20 E3            [12]  278     jr nz, _move_loop
+      0007C2 C9               [10]  279     ret
                                     280 
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80), page 124.
 Hexadecimal [24-Bits]
@@ -6508,46 +6508,46 @@ Hexadecimal [24-Bits]
                                     288 ;;  Output: 
                                     289 ;;  Modified: AF, BC, DE, HL
                                     290 ;;
-      0006D5                        291 man_array_execute_each::
-      0006D5 DD E5            [15]  292     push ix                 ;; save ix 
+      0007C3                        291 man_array_execute_each::
+      0007C3 DD E5            [15]  292     push ix                 ;; save ix 
                                     293     
-      0006D7 DD 7E 00         [19]  294     ld a, a_count(ix)       ;; retrieve number of elements in the array
-      0006DA B7               [ 4]  295     or a                    ;; If no elements in arrary return
-      0006DB C8               [11]  296     ret z 
+      0007C5 DD 7E 00         [19]  294     ld a, a_count(ix)       ;; retrieve number of elements in the array
+      0007C8 B7               [ 4]  295     or a                    ;; If no elements in arrary return
+      0007C9 C8               [11]  296     ret z 
                                     297 
-      0006DC 47               [ 4]  298     ld b, a                 ;; move the number of elements to b for indexing djnz
+      0007CA 47               [ 4]  298     ld b, a                 ;; move the number of elements to b for indexing djnz
                                     299 
-      0006DD 22 C5 26         [16]  300     ld (routine), hl        ;; store routine in memory
+      0007CB 22 9E 26         [16]  300     ld (routine), hl        ;; store routine in memory
                                     301 
-      0006E0 DD 7E 02         [19]  302     ld a, a_component_size(ix)  ;; store component_size in memory
-      0006E3 32 C7 26         [13]  303     ld (comp_size), a       ;;    
+      0007CE DD 7E 02         [19]  302     ld a, a_component_size(ix)  ;; store component_size in memory
+      0007D1 32 A0 26         [13]  303     ld (comp_size), a       ;;    
                                     304     
-      0006E6 CD 3E 07         [17]  305     call man_array_first_element ;; load start of array in hl
+      0007D4 CD 2C 08         [17]  305     call man_array_first_element ;; load start of array in hl
                                     306     
-      0006E9 E5               [11]  307     push hl                 ;;
-      0006EA DD E1            [14]  308     pop ix                  ;;  load ix with the first element
+      0007D7 E5               [11]  307     push hl                 ;;
+      0007D8 DD E1            [14]  308     pop ix                  ;;  load ix with the first element
                                     309 
-      0006EC                        310 loop_each:
-      0006EC C5               [11]  311     push bc                 ;; save index in stack
-      0006ED 21 F5 06         [10]  312     ld hl, #return_point    ;;
-      0006F0 E5               [11]  313     push hl                 ;; set the return point in the stack
+      0007DA                        310 loop_each:
+      0007DA C5               [11]  311     push bc                 ;; save index in stack
+      0007DB 21 E3 07         [10]  312     ld hl, #return_point    ;;
+      0007DE E5               [11]  313     push hl                 ;; set the return point in the stack
                                     314 
-      0006F1 2A C5 26         [16]  315     ld hl, (routine)        ;; Move routine to hl
-      0006F4 E9               [ 4]  316     jp (hl)                 ;; jump to the routine
+      0007DF 2A 9E 26         [16]  315     ld hl, (routine)        ;; Move routine to hl
+      0007E2 E9               [ 4]  316     jp (hl)                 ;; jump to the routine
                                     317 
-      0006F5                        318 return_point:
-      0006F5 16 00            [ 7]  319     ld d, #0                ;; retrieve component_size
-      0006F7 3A C7 26         [13]  320     ld a, (comp_size)       ;;
-      0006FA 5F               [ 4]  321     ld e, a                 ;;
+      0007E3                        318 return_point:
+      0007E3 16 00            [ 7]  319     ld d, #0                ;; retrieve component_size
+      0007E5 3A A0 26         [13]  320     ld a, (comp_size)       ;;
+      0007E8 5F               [ 4]  321     ld e, a                 ;;
                                     322 
-      0006FB DD 19            [15]  323     add ix, de              ;; move ix to the next element
+      0007E9 DD 19            [15]  323     add ix, de              ;; move ix to the next element
                                     324 
-      0006FD C1               [10]  325     pop bc                  ;; restore index
-      0006FE 10 EC            [13]  326     djnz loop_each
+      0007EB C1               [10]  325     pop bc                  ;; restore index
+      0007EC 10 EC            [13]  326     djnz loop_each
                                     327 
-      000700 DD E1            [14]  328     pop ix                  ;; restore ix
+      0007EE DD E1            [14]  328     pop ix                  ;; restore ix
                                     329 
-      000702 C9               [10]  330     ret
+      0007F0 C9               [10]  330     ret
                                     331 
                                     332 ;;-----------------------------------------------------------------
                                     333 ;;
@@ -6566,59 +6566,59 @@ Hexadecimal [24-Bits]
                                     341 ;;  Output: 
                                     342 ;;  Modified: AF, BC, DE, HL
                                     343 ;;
-      000703                        344 man_array_execute_each_matching::
-      000703 DD E5            [15]  345     push ix                             ;; save ix 
-      000705 32 C8 26         [13]  346     ld (comp_type), a                   ;; save component to match for later
+      0007F1                        344 man_array_execute_each_matching::
+      0007F1 DD E5            [15]  345     push ix                             ;; save ix 
+      0007F3 32 A1 26         [13]  346     ld (comp_type), a                   ;; save component to match for later
                                     347 
-      000708 DD 7E 00         [19]  348     ld a, a_count(ix)                   ;; retrieve number of elements in the array
-      00070B B7               [ 4]  349     or a                                ;; If no elements in arrary return
-      00070C C8               [11]  350     ret z                               ;;
+      0007F6 DD 7E 00         [19]  348     ld a, a_count(ix)                   ;; retrieve number of elements in the array
+      0007F9 B7               [ 4]  349     or a                                ;; If no elements in arrary return
+      0007FA C8               [11]  350     ret z                               ;;
                                     351 
-      00070D 47               [ 4]  352     ld b, a                             ;; move the number of elements to b for indexing djnz
+      0007FB 47               [ 4]  352     ld b, a                             ;; move the number of elements to b for indexing djnz
                                     353 
-      00070E 22 C5 26         [16]  354     ld (routine), hl                    ;; store routine in memory
+      0007FC 22 9E 26         [16]  354     ld (routine), hl                    ;; store routine in memory
                                     355 
-      000711 DD 7E 02         [19]  356     ld a, a_component_size(ix)          ;; store component_size in memory
-      000714 32 C7 26         [13]  357     ld (comp_size), a                   ;;    
+      0007FF DD 7E 02         [19]  356     ld a, a_component_size(ix)          ;; store component_size in memory
+      000802 32 A0 26         [13]  357     ld (comp_size), a                   ;;    
                                     358     
-      000717 CD 3E 07         [17]  359     call man_array_first_element        ;; load start of array in hl
+      000805 CD 2C 08         [17]  359     call man_array_first_element        ;; load start of array in hl
                                     360     
-      00071A E5               [11]  361     push hl                             ;;
-      00071B DD E1            [14]  362     pop ix                              ;;  load ix with the first element
+      000808 E5               [11]  361     push hl                             ;;
+      000809 DD E1            [14]  362     pop ix                              ;;  load ix with the first element
                                     363 
-      00071D                        364 matching_loop_each:
-      00071D C5               [11]  365     push bc                             ;; save index in stack
+      00080B                        364 matching_loop_each:
+      00080B C5               [11]  365     push bc                             ;; save index in stack
                                     366 
-      00071E 3A C8 26         [13]  367     ld a, (comp_type)                   ;; Retrieve the component type to match
-      000721 47               [ 4]  368     ld b, a                             ;;
-      000722 DD 7E 00         [19]  369     ld a, e_cmp(ix)                    ;; retrieve the type of the current component
-      000725 A0               [ 4]  370     and b                               ;; Compare if they match
-      000726 28 08            [12]  371     jr z, matching_return_point         ;; Jump to continue in case they don't match
+      00080C 3A A1 26         [13]  367     ld a, (comp_type)                   ;; Retrieve the component type to match
+      00080F 47               [ 4]  368     ld b, a                             ;;
+      000810 DD 7E 00         [19]  369     ld a, e_cmp(ix)                    ;; retrieve the type of the current component
+      000813 A0               [ 4]  370     and b                               ;; Compare if they match
+      000814 28 08            [12]  371     jr z, matching_return_point         ;; Jump to continue in case they don't match
                                     372 
-      000728 21 30 07         [10]  373     ld hl, #matching_return_point       ;;
-      00072B E5               [11]  374     push hl                             ;; set the return point in the stack
+      000816 21 1E 08         [10]  373     ld hl, #matching_return_point       ;;
+      000819 E5               [11]  374     push hl                             ;; set the return point in the stack
                                     375 
-      00072C 2A C5 26         [16]  376     ld hl, (routine)                    ;; Move routine to hl
-      00072F E9               [ 4]  377     jp (hl)                             ;; jump to the routine
+      00081A 2A 9E 26         [16]  376     ld hl, (routine)                    ;; Move routine to hl
+      00081D E9               [ 4]  377     jp (hl)                             ;; jump to the routine
                                     378 
-      000730                        379 matching_return_point:
-      000730 16 00            [ 7]  380     ld d, #0                            ;; retrieve component_size
-      000732 3A C7 26         [13]  381     ld a, (comp_size)                   ;;
-      000735 5F               [ 4]  382     ld e, a                             ;;
+      00081E                        379 matching_return_point:
+      00081E 16 00            [ 7]  380     ld d, #0                            ;; retrieve component_size
+      000820 3A A0 26         [13]  381     ld a, (comp_size)                   ;;
+      000823 5F               [ 4]  382     ld e, a                             ;;
                                     383 
-      000736 DD 19            [15]  384     add ix, de                          ;; move ix to the next element
+      000824 DD 19            [15]  384     add ix, de                          ;; move ix to the next element
                                     385 
-      000738 C1               [10]  386     pop bc                              ;; restore index
-      000739 10 E2            [13]  387     djnz matching_loop_each
+      000826 C1               [10]  386     pop bc                              ;; restore index
+      000827 10 E2            [13]  387     djnz matching_loop_each
                                     388 
-      00073B DD E1            [14]  389     pop ix                              ;; restore ix
+      000829 DD E1            [14]  389     pop ix                              ;; restore ix
                                     390 
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80), page 126.
 Hexadecimal [24-Bits]
 
 
 
-      00073D C9               [10]  391     ret    
+      00082B C9               [10]  391     ret    
                                     392 
                                     393     
                                     394 
@@ -6633,11 +6633,11 @@ Hexadecimal [24-Bits]
                                     403 ;;  Output: ix : first element of the array
                                     404 ;;  Modified: AF, BC, DE, HL
                                     405 ;;
-      00073E                        406 man_array_first_element:: ;; Changes the entity controller to ix register
+      00082C                        406 man_array_first_element:: ;; Changes the entity controller to ix register
       000154                        407     cpctm_push de
                            000001     1    .narg v
                            000001     2    .if v
-      00073E D5               [11]    3    push de
+      00082C D5               [11]    3    push de
                            000000     4    .if v-1
                                       5    push 
                                       6    .if v-2
@@ -6662,14 +6662,14 @@ Hexadecimal [24-Bits]
                                      25    .endif
                            000001    26    .else
                                      27    .mexit
-      00073F DD E5            [15]  408     push ix                     ;; hl to the start of the array    
-      000741 E1               [10]  409     pop hl                      ;;
-      000742 11 07 00         [10]  410     ld de, #a_array             ;;
-      000745 19               [11]  411     add hl, de                  ;;
+      00082D DD E5            [15]  408     push ix                     ;; hl to the start of the array    
+      00082F E1               [10]  409     pop hl                      ;;
+      000830 11 07 00         [10]  410     ld de, #a_array             ;;
+      000833 19               [11]  411     add hl, de                  ;;
       00015C                        412     cpctm_pop de
                            000001     1    .narg v
                            000001     2    .if v
-      000746 D1               [10]    3    pop de
+      000834 D1               [10]    3    pop de
                            000000     4    .if v-1
                                       5    pop 
                                       6    .if v-2
@@ -6699,4 +6699,4 @@ Hexadecimal [24-Bits]
                                      25    .endif
                            000001    26    .else
                                      27    .mexit
-      000747 C9               [10]  413 ret
+      000835 C9               [10]  413 ret

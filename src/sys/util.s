@@ -427,7 +427,7 @@ ret
 ;;  Destroyed: af, bc
 ;;
 sys_util_return_from_sine_table::
-  ld bc, #87
+  ld bc, #90
   or a 
   sbc hl, bc
   jr c, _sus_regular_return
@@ -485,6 +485,7 @@ _sus_return_minus360:
   ex de, hl
   or a                                  ;; reset carry
   sbc hl, de
+  ld (angle), hl
   call sys_util_return_from_sine_table
   jp sys_util_negHL
 _sus_return_minus90:
@@ -497,6 +498,7 @@ _sus_return_minus180:
   ex de, hl
   or a                                  ;; reset carry
   sbc hl, de
+  ld (angle), hl
   jp sys_util_return_from_sine_table
 _sus_return_minus270:
   ;; calculate angle - 180
@@ -504,6 +506,7 @@ _sus_return_minus270:
   ld de, #180
   or a                                  ;; reset carry
   sbc hl, de
+  ld (angle), hl
   call sys_util_return_from_sine_table
   jp sys_util_negHL
 
@@ -524,8 +527,9 @@ _sus_return_minus270:
 ;;
 sys_util_cosine::
   ld (angle), hl
-  ld de, #-90
-  add hl, de
+  ld de, #90
+  or a
+  sbc hl, de
   jr nc, suc_more_than_90
     ;;calculate 90-angle in hl
     ld de, #90
@@ -559,13 +563,13 @@ sys_util_cosine::
 ;; have in mind that form 87 to 90 degres should return the word 0100
 ;;
 sine_table::
-    .db #0 
-    .db #4,   #9,   #13,  #18,  #22,  #27,  #31,  #36,  #40,  #44
-    .db #49,  #53,  #58,  #62,  #66,  #71,  #75,  #79,  #83,  #88
-    .db #92,  #96,  #100, #104, #108, #112, #116, #120, #124, #128
-    .db #132, #136, #139, #143, #147, #150, #154, #158, #161, #165
-    .db #168, #171, #175, #178, #180, #184, #187, #190, #193, #196
-    .db #199, #202, #204, #207, #210, #212, #215, #217, #219, #222
-    .db #224, #226, #228, #230, #232, #234, #236, #237, #239, #241
-    .db #242, #243, #245, #246, #247, #248, #249, #250, #251, #252
-    .db #253, #254, #254, #255, #255, #255
+  .db #0x00	
+  .db #0x04, #0x08, #0x0D, #0x11, #0x16, #0x1A, #0x1F, #0x23, #0x28, #0x2C	
+  .db #0x30, #0x35, #0x39, #0x3D, #0x42, #0x46, #0x4A, #0x4F, #0x53, #0x57	
+  .db #0x5B, #0x5F, #0x64, #0x68, #0x6C, #0x70, #0x74, #0x78, #0x7C, #0x7F	
+  .db #0x83, #0x87, #0x8B, #0x8F, #0x92, #0x96, #0x9A, #0x9D, #0xA1, #0xA4	
+  .db #0xA7, #0xAB, #0xAE, #0xB1, #0xB5, #0xB8, #0xBB, #0xBE, #0xC1, #0xC4	
+  .db #0xC6, #0xC9, #0xCC, #0xCF, #0xD1, #0xD4, #0xD6, #0xD9, #0xDB, #0xDD	
+  .db #0xDF, #0xE2, #0xE4, #0xE6, #0xE8, #0xE9, #0xEB, #0xED, #0xEE, #0xF0	
+  .db #0xF2, #0xF3, #0xF4, #0xF6, #0xF7, #0xF8, #0xF9, #0xFA, #0xFB, #0xFC	
+  .db #0xFC, #0xFD, #0xFE, #0xFE, #0xFF, #0xFF, #0xFF, #0xFF, #0xFF

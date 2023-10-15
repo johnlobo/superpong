@@ -5750,11 +5750,11 @@ Hexadecimal [24-Bits]
                                      32 ;;
                                      33 .area _DATA
                                      34 
-      0028ED 00 00                   35 FONT_NUMBERS: .dw #0000
+      00286C 00 00                   35 FONT_NUMBERS: .dw #0000
                                      36 
-      0028EF C0                      37 sys_render_front_buffer: .db 0xc0
-      0028F0 80                      38 sys_render_back_buffer: .db 0x80
-      0028F1 00                      39 sys_render_touched_zones: .db 0x00
+      00286E C0                      37 sys_render_front_buffer: .db 0xc0
+      00286F 80                      38 sys_render_back_buffer: .db 0x80
+      002870 00                      39 sys_render_touched_zones: .db 0x00
                                      40 
                                      41 .area _ABS   (ABS)
       000100                         42 .org 0x100
@@ -5843,15 +5843,15 @@ Hexadecimal [24-Bits]
                                      88 ;;
                                      89 ;; Code taken form Miss Input 
                                      90 ;;====================================================
-      001C04                         91 sys_render_clear_buffer::
-      001C04 36 00            [10]   92     ld (hl), #0
-      001C06 54               [ 4]   93     ld d, h
-      001C07 5D               [ 4]   94     ld e, l
-      001C08 13               [ 6]   95     inc de
-      001C09 01 FF 3F         [10]   96     ld bc, #0x4000-1
+      000BF1                         91 sys_render_clear_buffer::
+      000BF1 36 00            [10]   92     ld (hl), #0
+      000BF3 54               [ 4]   93     ld d, h
+      000BF4 5D               [ 4]   94     ld e, l
+      000BF5 13               [ 6]   95     inc de
+      000BF6 01 FF 3F         [10]   96     ld bc, #0x4000-1
                                      97 
-      001C0C ED B0            [21]   98     ldir
-      001C0E C9               [10]   99 ret
+      000BF9 ED B0            [21]   98     ldir
+      000BFB C9               [10]   99 ret
                                     100 
                                     101 ;;====================================================
                                     102 ;; sys_render_init_back_buffer
@@ -5867,12 +5867,12 @@ Hexadecimal [24-Bits]
                                     107 ;;
                                     108 ;; Code taken form Miss Input 
                                     109 ;;====================================================
-      001C0F                        110 sys_render_clear_back_buffer::
-      001C0F 3A F0 28         [13]  111     ld a, (sys_render_back_buffer)
-      001C12 67               [ 4]  112     ld h, a
-      001C13 2E 00            [ 7]  113     ld l, #0
-      001C15 CD 04 1C         [17]  114     call sys_render_clear_buffer
-      001C18 C9               [10]  115     ret
+      000BFC                        110 sys_render_clear_back_buffer::
+      000BFC 3A 6F 28         [13]  111     ld a, (sys_render_back_buffer)
+      000BFF 67               [ 4]  112     ld h, a
+      000C00 2E 00            [ 7]  113     ld l, #0
+      000C02 CD F1 0B         [17]  114     call sys_render_clear_buffer
+      000C05 C9               [10]  115     ret
                                     116 
                                     117 ;;====================================================
                                     118 ;; sys_render_init_back_buffer
@@ -5883,12 +5883,12 @@ Hexadecimal [24-Bits]
                                     123 ;;
                                     124 ;; Code taken form Miss Input 
                                     125 ;;====================================================
-      001C19                        126 sys_render_clear_front_buffer::
-      001C19 3A EF 28         [13]  127     ld a, (sys_render_front_buffer)
-      001C1C 67               [ 4]  128     ld h, a
-      001C1D 2E 00            [ 7]  129     ld l, #0
-      001C1F CD 04 1C         [17]  130     call sys_render_clear_buffer
-      001C22 C9               [10]  131     ret
+      000C06                        126 sys_render_clear_front_buffer::
+      000C06 3A 6E 28         [13]  127     ld a, (sys_render_front_buffer)
+      000C09 67               [ 4]  128     ld h, a
+      000C0A 2E 00            [ 7]  129     ld l, #0
+      000C0C CD F1 0B         [17]  130     call sys_render_clear_buffer
+      000C0F C9               [10]  131     ret
                                     132 
                                     133 
                                     134 
@@ -5902,17 +5902,17 @@ Hexadecimal [24-Bits]
                                     142 ;;
                                     143 ;; Code taken form Miss Input 
                                     144 ;;====================================================
-      001C23                        145 sys_render_switch_buffers::
-      001C23 2A EF 28         [16]  146     ld hl, (sys_render_front_buffer)    ;; Inicialmente (80C0)
-      001C26 7D               [ 4]  147     ld a, l                             ;; Carga el front buffer en el back buffer
-      001C27 32 F0 28         [13]  148     ld (sys_render_back_buffer) , a
-      001C2A 7C               [ 4]  149     ld a, h                             ;; Carga el back buffer en el front buffer
-      001C2B 32 EF 28         [13]  150     ld (sys_render_front_buffer), a
-      001C2E CB 3F            [ 8]  151     srl a
-      001C30 CB 3F            [ 8]  152     srl a
-      001C32 6F               [ 4]  153     ld l, a
-      001C33 CD B2 24         [17]  154     call cpct_waitVSYNC_asm
-      001C36 C3 BC 23         [10]  155     jp cpct_setVideoMemoryPage_asm
+      000C10                        145 sys_render_switch_buffers::
+      000C10 2A 6E 28         [16]  146     ld hl, (sys_render_front_buffer)    ;; Inicialmente (80C0)
+      000C13 7D               [ 4]  147     ld a, l                             ;; Carga el front buffer en el back buffer
+      000C14 32 6F 28         [13]  148     ld (sys_render_back_buffer) , a
+      000C17 7C               [ 4]  149     ld a, h                             ;; Carga el back buffer en el front buffer
+      000C18 32 6E 28         [13]  150     ld (sys_render_front_buffer), a
+      000C1B CB 3F            [ 8]  151     srl a
+      000C1D CB 3F            [ 8]  152     srl a
+      000C1F 6F               [ 4]  153     ld l, a
+      000C20 CD 5C 24         [17]  154     call cpct_waitVSYNC_asm
+      000C23 C3 66 23         [10]  155     jp cpct_setVideoMemoryPage_asm
                                     156 
                                     157 
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80), page 113.
@@ -5929,35 +5929,35 @@ Hexadecimal [24-Bits]
                                     164 ;;  Output: 
                                     165 ;;  Modified: AF, BC, DE, HL
                                     166 ;;
-      001C39                        167 sys_render_init::
+      000C26                        167 sys_render_init::
                                     168     
-      001C39 0E 00            [ 7]  169     ld c,#0                                 ;; Set video mode
-      001C3B CD A5 24         [17]  170     call cpct_setVideoMode_asm              ;;
+      000C26 0E 00            [ 7]  169     ld c,#0                                 ;; Set video mode
+      000C28 CD 4F 24         [17]  170     call cpct_setVideoMode_asm              ;;
                                     171     
-      001C3E 21 B2 05         [10]  172     ld hl, #_g_palette                      ;; Set palette
-      001C41 11 10 00         [10]  173     ld de, #16                              ;;
-      001C44 CD 8C 21         [17]  174     call cpct_setPalette_asm                ;;
+      000C2B 21 B2 05         [10]  172     ld hl, #_g_palette                      ;; Set palette
+      000C2E 11 10 00         [10]  173     ld de, #16                              ;;
+      000C31 CD 36 21         [17]  174     call cpct_setPalette_asm                ;;
                                     175 
       000043                        176     cpctm_setBorder_asm HW_BLACK            ;; Set Border
                                       1    .radix h
       000043                          2    cpctm_setBorder_raw_asm \HW_BLACK ;; [28] Macro that does the job, but requires a number value to be passed
                                       1    .globl cpct_setPALColour_asm
-      001C47 21 10 14         [10]    2    ld   hl, #0x1410         ;; [3]  H=Hardware value of desired colour, L=Border INK (16)
-      001C4A CD AB 21         [17]    3    call cpct_setPALColour_asm  ;; [25] Set Palette colour of the border
+      000C34 21 10 14         [10]    2    ld   hl, #0x1410         ;; [3]  H=Hardware value of desired colour, L=Border INK (16)
+      000C37 CD 55 21         [17]    3    call cpct_setPALColour_asm  ;; [25] Set Palette colour of the border
                                       3    .radix d
                                     177     ;;cpctm_setBorder_asm HW_WHITE            ;; Set Border
                                     178 
                                     179     ;;call sys_render_clear_back_buffer
-      001C4D CD 19 1C         [17]  180     call sys_render_clear_front_buffer
+      000C3A CD 06 0C         [17]  180     call sys_render_clear_front_buffer
                                     181 
                                     182     ;;cpctm_clearScreen_asm 0                 ;; Clear screen
                                     183     
                                     184     ;; set pointer array address 
-      001C50 3E 00            [ 7]  185     ld a, #e_cmpID_Render
-      001C52 CD 96 08         [17]  186     call man_components_getArrayHL
-      001C55 22 D1 1C         [16]  187     ld  (_ent_array_ptr), hl
+      000C3D 3E 00            [ 7]  185     ld a, #e_cmpID_Render
+      000C3F CD 9A 06         [17]  186     call man_components_getArrayHL
+      000C42 22 BE 0C         [16]  187     ld  (_ent_array_ptr), hl
                                     188 
-      001C58 C9               [10]  189     ret
+      000C45 C9               [10]  189     ret
                                     190 
                                     191 ;;-----------------------------------------------------------------
                                     192 ;;
@@ -5968,24 +5968,24 @@ Hexadecimal [24-Bits]
                                     197 ;;  Output: 
                                     198 ;;  Modified: AF, BC, DE, HL
                                     199 ;;
-      001C59                        200 sys_render_erase_one_entity::
-      001C59 DD 5E 15         [19]  201     ld e, e_address(ix)
-      001C5C DD 56 16         [19]  202     ld d, e_address+1(ix)
+      000C46                        200 sys_render_erase_one_entity::
+      000C46 DD 5E 15         [19]  201     ld e, e_address(ix)
+      000C49 DD 56 16         [19]  202     ld d, e_address+1(ix)
                                     203     ;; Check if address is #0000
-      001C5F 7A               [ 4]  204     ld a, d
-      001C60 B3               [ 4]  205     or e
-      001C61 C8               [11]  206     ret z
+      000C4C 7A               [ 4]  204     ld a, d
+      000C4D B3               [ 4]  205     or e
+      000C4E C8               [11]  206     ret z
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80), page 114.
 Hexadecimal [24-Bits]
 
 
 
                                     207 
-      001C62 DD 4E 09         [19]  208     ld c, e_w(ix)
-      001C65 DD 46 0A         [19]  209     ld b, e_h(ix) 
-      001C68 3E 00            [ 7]  210     ld a, #0
-      001C6A CD EC 24         [17]  211     call cpct_drawSolidBox_asm
-      001C6D C9               [10]  212     ret
+      000C4F DD 4E 09         [19]  208     ld c, e_w(ix)
+      000C52 DD 46 0A         [19]  209     ld b, e_h(ix) 
+      000C55 3E 00            [ 7]  210     ld a, #0
+      000C57 CD 96 24         [17]  211     call cpct_drawSolidBox_asm
+      000C5A C9               [10]  212     ret
                                     213 
                                     214 ;;-----------------------------------------------------------------
                                     215 ;;
@@ -5996,16 +5996,16 @@ Hexadecimal [24-Bits]
                                     220 ;;  Output: 
                                     221 ;;  Modified: AF, BC, DE, HL
                                     222 ;;
-      001C6E                        223 sys_render_draw_one_vector_entity::
-      001C6E DD 66 04         [19]  224     ld h, e_color(ix)
-      001C71 DD 6E 04         [19]  225     ld l, e_color(ix)
-      001C74 CD C2 24         [17]  226     call cpct_px2byteM0_asm
-      001C77 DD 5E 15         [19]  227     ld e, e_address(ix)
-      001C7A DD 56 16         [19]  228     ld d, e_address+1(ix)
-      001C7D DD 4E 09         [19]  229     ld c, e_w(ix)
-      001C80 DD 46 0A         [19]  230     ld b, e_h(ix) 
-      001C83 CD EC 24         [17]  231     call cpct_drawSolidBox_asm
-      001C86 C9               [10]  232     ret
+      000C5B                        223 sys_render_draw_one_vector_entity::
+      000C5B DD 66 04         [19]  224     ld h, e_color(ix)
+      000C5E DD 6E 04         [19]  225     ld l, e_color(ix)
+      000C61 CD 6C 24         [17]  226     call cpct_px2byteM0_asm
+      000C64 DD 5E 15         [19]  227     ld e, e_address(ix)
+      000C67 DD 56 16         [19]  228     ld d, e_address+1(ix)
+      000C6A DD 4E 09         [19]  229     ld c, e_w(ix)
+      000C6D DD 46 0A         [19]  230     ld b, e_h(ix) 
+      000C70 CD 96 24         [17]  231     call cpct_drawSolidBox_asm
+      000C73 C9               [10]  232     ret
                                     233 
                                     234 ;;-----------------------------------------------------------------
                                     235 ;;
@@ -6016,15 +6016,15 @@ Hexadecimal [24-Bits]
                                     240 ;;  Output: 
                                     241 ;;  Modified: AF, BC, DE, HL
                                     242 ;;
-      001C87                        243 sys_render_draw_one_sprite_entity::
-      001C87 DD 5E 15         [19]  244     ld e, e_address(ix)
-      001C8A DD 56 16         [19]  245     ld d, e_address+1(ix)
-      001C8D DD 6E 13         [19]  246     ld l, e_sprite(ix)
-      001C90 DD 66 14         [19]  247     ld h, e_sprite+1(ix)
-      001C93 DD 4E 09         [19]  248     ld c, e_w(ix)
-      001C96 DD 46 0A         [19]  249     ld b, e_h(ix)
-      001C99 CD B5 21         [17]  250     call cpct_drawSprite_asm
-      001C9C C9               [10]  251     ret
+      000C74                        243 sys_render_draw_one_sprite_entity::
+      000C74 DD 5E 15         [19]  244     ld e, e_address(ix)
+      000C77 DD 56 16         [19]  245     ld d, e_address+1(ix)
+      000C7A DD 6E 13         [19]  246     ld l, e_sprite(ix)
+      000C7D DD 66 14         [19]  247     ld h, e_sprite+1(ix)
+      000C80 DD 4E 09         [19]  248     ld c, e_w(ix)
+      000C83 DD 46 0A         [19]  249     ld b, e_h(ix)
+      000C86 CD 5F 21         [17]  250     call cpct_drawSprite_asm
+      000C89 C9               [10]  251     ret
                                     252 
                                     253 ;;-----------------------------------------------------------------
                                     254 ;;
@@ -6040,45 +6040,45 @@ Hexadecimal [24-Bits]
 
 
 
-      001C9D                        262 sys_render_update_one_entity::
+      000C8A                        262 sys_render_update_one_entity::
                                     263     ;; check if the entity has been moved
-      001C9D DD 7E 1F         [19]  264     ld a, e_moved(ix)
-      001CA0 B7               [ 4]  265     or a
-      001CA1 C8               [11]  266     ret z
+      000C8A DD 7E 1F         [19]  264     ld a, e_moved(ix)
+      000C8D B7               [ 4]  265     or a
+      000C8E C8               [11]  266     ret z
                                     267 
-      001CA2 CD 59 1C         [17]  268     call sys_render_erase_one_entity
+      000C8F CD 46 0C         [17]  268     call sys_render_erase_one_entity
                                     269 
                                     270     ;; move current address to previous address
-      001CA5 DD 7E 15         [19]  271     ld a, e_address(ix)
-      001CA8 DD 77 17         [19]  272     ld e_p_address(ix), a
-      001CAB DD 7E 16         [19]  273     ld a, e_address+1(ix)
-      001CAE DD 77 18         [19]  274     ld e_p_address+1(ix), a
+      000C92 DD 7E 15         [19]  271     ld a, e_address(ix)
+      000C95 DD 77 17         [19]  272     ld e_p_address(ix), a
+      000C98 DD 7E 16         [19]  273     ld a, e_address+1(ix)
+      000C9B DD 77 18         [19]  274     ld e_p_address+1(ix), a
                                     275 
       0000AD                        276     ld_de_frontbuffer               ;; loads in DE the frontbuffer address
-      001CB1 3A EF 28         [13]    1    ld   a, (sys_render_front_buffer)         ;; DE = Pointer to start of the screen
-      001CB4 57               [ 4]    2    ld   d, a
-      001CB5 1E 00            [ 7]    3    ld   e, #00
-      001CB7 DD 4E 05         [19]  277     ld c, e_x(ix)                   ;; get the higher part of the x position
-      001CBA DD 46 07         [19]  278     ld b, e_y(ix)                   ;; get the higher part of the y position
-      001CBD CD FD 25         [17]  279     call cpct_getScreenPtr_asm      ;; Calculate video memory location and return it in HL
+      000C9E 3A 6E 28         [13]    1    ld   a, (sys_render_front_buffer)         ;; DE = Pointer to start of the screen
+      000CA1 57               [ 4]    2    ld   d, a
+      000CA2 1E 00            [ 7]    3    ld   e, #00
+      000CA4 DD 4E 05         [19]  277     ld c, e_x(ix)                   ;; get the higher part of the x position
+      000CA7 DD 46 07         [19]  278     ld b, e_y(ix)                   ;; get the higher part of the y position
+      000CAA CD A7 25         [17]  279     call cpct_getScreenPtr_asm      ;; Calculate video memory location and return it in HL
                                     280     
                                     281     ;; move new address to current address
-      001CC0 DD 75 15         [19]  282     ld e_address(ix), l
-      001CC3 DD 74 16         [19]  283     ld e_address+1(ix), h
+      000CAD DD 75 15         [19]  282     ld e_address(ix), l
+      000CB0 DD 74 16         [19]  283     ld e_address+1(ix), h
                                     284 
                                     285 	;;ld a, e_type(ix)
                                     286 	;;and #e_type_player 
                                     287 	;;jr z, _not_player
-      001CC6 CD 6E 1C         [17]  288     call sys_render_draw_one_vector_entity
-      001CC9 18 00            [12]  289     jr _exit_sruoe
+      000CB3 CD 5B 0C         [17]  288     call sys_render_draw_one_vector_entity
+      000CB6 18 00            [12]  289     jr _exit_sruoe
                                     290 
                                     291 ;;_not_player:
                                     292  ;;   call sys_render_draw_sprite_one_entity
                                     293 
-      001CCB                        294 _exit_sruoe:
-      001CCB DD 36 1F 00      [19]  295     ld e_moved(ix), #0              ;; reset moved flag
+      000CB8                        294 _exit_sruoe:
+      000CB8 DD 36 1F 00      [19]  295     ld e_moved(ix), #0              ;; reset moved flag
                                     296 
-      001CCF C9               [10]  297     ret
+      000CBC C9               [10]  297     ret
                                     298 
                                     299 ;;-----------------------------------------------------------------
                                     300 ;;
@@ -6090,40 +6090,40 @@ Hexadecimal [24-Bits]
                                     306 ;;  Modified: AF, BC, DE, HL
                                     307 ;;
                                     308 
-      001CD0                        309 sys_render_update::
+      000CBD                        309 sys_render_update::
                                     310 
                            0000CD   311 _ent_array_ptr = . + 1
-      001CD0 21 00 00         [10]  312     ld  hl, #nullptr
+      000CBD 21 00 00         [10]  312     ld  hl, #nullptr
                                     313 
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80), page 116.
 Hexadecimal [24-Bits]
 
 
 
-      001CD3                        314 _loop:
+      000CC0                        314 _loop:
                                     315     ;;  Select the pointer to the entity with AI and prepare the next position for the next iteration.
-      001CD3 5E               [ 7]  316     ld e, (hl)
-      001CD4 23               [ 6]  317     inc hl
-      001CD5 56               [ 7]  318     ld d, (hl)
-      001CD6 23               [ 6]  319     inc hl
+      000CC0 5E               [ 7]  316     ld e, (hl)
+      000CC1 23               [ 6]  317     inc hl
+      000CC2 56               [ 7]  318     ld d, (hl)
+      000CC3 23               [ 6]  319     inc hl
                                     320 
                                     321     ;;  The entities are finished traversing when find a pointer to null.
-      001CD7 7B               [ 4]  322     ld a, e
-      001CD8 B2               [ 4]  323     or d
-      001CD9 C8               [11]  324     ret z
+      000CC4 7B               [ 4]  322     ld a, e
+      000CC5 B2               [ 4]  323     or d
+      000CC6 C8               [11]  324     ret z
                                     325 
-      001CDA E5               [11]  326     push hl
+      000CC7 E5               [11]  326     push hl
                                     327 
       0000D7                        328     ld__ixl_e
-      001CDB DD 6B                    1    .dw #0x6BDD  ;; Opcode for ld ixl, e
+      000CC8 DD 6B                    1    .dw #0x6BDD  ;; Opcode for ld ixl, e
       0000D9                        329     ld__ixh_d
-      001CDD DD 62                    1    .dw #0x62DD  ;; Opcode for ld ixh, d
+      000CCA DD 62                    1    .dw #0x62DD  ;; Opcode for ld ixh, d
                                     330 
-      001CDF CD 9D 1C         [17]  331     call sys_render_update_one_entity
+      000CCC CD 8A 0C         [17]  331     call sys_render_update_one_entity
                                     332 
-      001CE2 E1               [10]  333 	pop hl
+      000CCF E1               [10]  333 	pop hl
                                     334 
-      001CE3 18 EE            [12]  335     jr _loop
+      000CD0 18 EE            [12]  335     jr _loop
                                     336 
                                     337 
                                     338 ;;-----------------------------------------------------------------
@@ -6135,82 +6135,82 @@ Hexadecimal [24-Bits]
                                     344 ;;  Output: 
                                     345 ;;  Modified: AF, BC, DE, HL
                                     346 ;;
-      001CE5                        347 sys_render_debug_entity::
-      001CE5 DD E5            [15]  348     push ix
-      001CE7 FD E5            [15]  349     push iy
-      001CE9 CD 01 0A         [17]  350     call man_entity_getOponentPosition
-      001CEC CD E5 09         [17]  351     call man_entity_getEntityArrayIY
-      001CEF CD ED 09         [17]  352     call man_entity_next_entity_iy
-      001CF2 CD ED 09         [17]  353     call man_entity_next_entity_iy
+      000CD2                        347 sys_render_debug_entity::
+      000CD2 DD E5            [15]  348     push ix
+      000CD4 FD E5            [15]  349     push iy
+      000CD6 CD 03 0A         [17]  350     call man_entity_getOponentPosition
+      000CD9 CD E7 09         [17]  351     call man_entity_getEntityArrayIY
+      000CDC CD EF 09         [17]  352     call man_entity_next_entity_iy
+      000CDF CD EF 09         [17]  353     call man_entity_next_entity_iy
       0000F1                        354     cpctm_screenPtr_asm de, 0xc000, 2, 2
-      001CF5 11 02 D0         [10]    1    ld de, #0xc000 + 80 * (2 / 8) + 2048 * (2 & 7) + 2   ;; [3] REG16 = screenPtr
+      000CE2 11 02 D0         [10]    1    ld de, #0xc000 + 80 * (2 / 8) + 2048 * (2 & 7) + 2   ;; [3] REG16 = screenPtr
       0000F4                        355     m_draw_blank_small_number       ;; erases previous number
-      001CF8 D5               [11]    1    push de
-      001CF9 E5               [11]    2    push hl
-      001CFA 0E 06            [ 7]    3    ld c, #6
-      001CFC 06 05            [ 7]    4    ld b, #5
-      001CFE 3E 00            [ 7]    5    ld a, #0                         ;; Patern of solid box
-      001D00 CD EC 24         [17]    6    call cpct_drawSolidBox_asm
-      001D03 E1               [10]    7    pop hl
-      001D04 D1               [10]    8    pop de
-      001D05 26 00            [ 7]  356     ld h, #0
-      001D07 DD 6E 05         [19]  357     ld l, e_x(ix)
+      000CE5 D5               [11]    1    push de
+      000CE6 E5               [11]    2    push hl
+      000CE7 0E 06            [ 7]    3    ld c, #6
+      000CE9 06 05            [ 7]    4    ld b, #5
+      000CEB 3E 00            [ 7]    5    ld a, #0                         ;; Patern of solid box
+      000CED CD 96 24         [17]    6    call cpct_drawSolidBox_asm
+      000CF0 E1               [10]    7    pop hl
+      000CF1 D1               [10]    8    pop de
+      000CF2 26 00            [ 7]  356     ld h, #0
+      000CF4 DD 6E 05         [19]  357     ld l, e_x(ix)
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80), page 117.
 Hexadecimal [24-Bits]
 
 
 
-      001D0A 06 0F            [ 7]  358     ld b, #15                       ;; small number color = 15 
-      001D0C CD 28 1F         [17]  359     call sys_text_draw_small_number ;; draws number
+      000CF7 06 0F            [ 7]  358     ld b, #15                       ;; small number color = 15 
+      000CF9 CD EE 10         [17]  359     call sys_text_draw_small_number ;; draws number
                                     360 
       00010B                        361     cpctm_screenPtr_asm de, 0xc000, 8, 2
-      001D0F 11 08 D0         [10]    1    ld de, #0xc000 + 80 * (2 / 8) + 2048 * (2 & 7) + 8   ;; [3] REG16 = screenPtr
+      000CFC 11 08 D0         [10]    1    ld de, #0xc000 + 80 * (2 / 8) + 2048 * (2 & 7) + 8   ;; [3] REG16 = screenPtr
       00010E                        362     m_draw_blank_small_number       ;; erases previous number
-      001D12 D5               [11]    1    push de
-      001D13 E5               [11]    2    push hl
-      001D14 0E 06            [ 7]    3    ld c, #6
-      001D16 06 05            [ 7]    4    ld b, #5
-      001D18 3E 00            [ 7]    5    ld a, #0                         ;; Patern of solid box
-      001D1A CD EC 24         [17]    6    call cpct_drawSolidBox_asm
-      001D1D E1               [10]    7    pop hl
-      001D1E D1               [10]    8    pop de
-      001D1F 26 00            [ 7]  363     ld h, #0
-      001D21 DD 6E 09         [19]  364     ld l, e_w(ix)
-      001D24 06 0F            [ 7]  365     ld b, #15                       ;; small number color = 15 
-      001D26 CD 28 1F         [17]  366     call sys_text_draw_small_number ;; draws number
+      000CFF D5               [11]    1    push de
+      000D00 E5               [11]    2    push hl
+      000D01 0E 06            [ 7]    3    ld c, #6
+      000D03 06 05            [ 7]    4    ld b, #5
+      000D05 3E 00            [ 7]    5    ld a, #0                         ;; Patern of solid box
+      000D07 CD 96 24         [17]    6    call cpct_drawSolidBox_asm
+      000D0A E1               [10]    7    pop hl
+      000D0B D1               [10]    8    pop de
+      000D0C 26 00            [ 7]  363     ld h, #0
+      000D0E DD 6E 09         [19]  364     ld l, e_w(ix)
+      000D11 06 0F            [ 7]  365     ld b, #15                       ;; small number color = 15 
+      000D13 CD EE 10         [17]  366     call sys_text_draw_small_number ;; draws number
                                     367     ;; vy
       000125                        368     cpctm_screenPtr_asm de, 0xc000, 2, 8
-      001D29 11 52 C0         [10]    1    ld de, #0xc000 + 80 * (8 / 8) + 2048 * (8 & 7) + 2   ;; [3] REG16 = screenPtr
+      000D16 11 52 C0         [10]    1    ld de, #0xc000 + 80 * (8 / 8) + 2048 * (8 & 7) + 2   ;; [3] REG16 = screenPtr
       000128                        369     m_draw_blank_small_number       ;; erases previous number
-      001D2C D5               [11]    1    push de
-      001D2D E5               [11]    2    push hl
-      001D2E 0E 06            [ 7]    3    ld c, #6
-      001D30 06 05            [ 7]    4    ld b, #5
-      001D32 3E 00            [ 7]    5    ld a, #0                         ;; Patern of solid box
-      001D34 CD EC 24         [17]    6    call cpct_drawSolidBox_asm
-      001D37 E1               [10]    7    pop hl
-      001D38 D1               [10]    8    pop de
-      001D39 26 00            [ 7]  370     ld h, #0
-      001D3B FD 6E 05         [19]  371     ld l, e_x(iy)
-      001D3E 06 0F            [ 7]  372     ld b, #15                       ;; small number color = 15 
-      001D40 CD 28 1F         [17]  373     call sys_text_draw_small_number ;; draws number
+      000D19 D5               [11]    1    push de
+      000D1A E5               [11]    2    push hl
+      000D1B 0E 06            [ 7]    3    ld c, #6
+      000D1D 06 05            [ 7]    4    ld b, #5
+      000D1F 3E 00            [ 7]    5    ld a, #0                         ;; Patern of solid box
+      000D21 CD 96 24         [17]    6    call cpct_drawSolidBox_asm
+      000D24 E1               [10]    7    pop hl
+      000D25 D1               [10]    8    pop de
+      000D26 26 00            [ 7]  370     ld h, #0
+      000D28 FD 6E 05         [19]  371     ld l, e_x(iy)
+      000D2B 06 0F            [ 7]  372     ld b, #15                       ;; small number color = 15 
+      000D2D CD EE 10         [17]  373     call sys_text_draw_small_number ;; draws number
                                     374 
       00013F                        375     cpctm_screenPtr_asm de, 0xc000, 8, 8
-      001D43 11 58 C0         [10]    1    ld de, #0xc000 + 80 * (8 / 8) + 2048 * (8 & 7) + 8   ;; [3] REG16 = screenPtr
+      000D30 11 58 C0         [10]    1    ld de, #0xc000 + 80 * (8 / 8) + 2048 * (8 & 7) + 8   ;; [3] REG16 = screenPtr
       000142                        376     m_draw_blank_small_number       ;; erases previous number
-      001D46 D5               [11]    1    push de
-      001D47 E5               [11]    2    push hl
-      001D48 0E 06            [ 7]    3    ld c, #6
-      001D4A 06 05            [ 7]    4    ld b, #5
-      001D4C 3E 00            [ 7]    5    ld a, #0                         ;; Patern of solid box
-      001D4E CD EC 24         [17]    6    call cpct_drawSolidBox_asm
-      001D51 E1               [10]    7    pop hl
-      001D52 D1               [10]    8    pop de
-      001D53 26 00            [ 7]  377     ld h, #0
-      001D55 FD 6E 09         [19]  378     ld l, e_w(iy)
-      001D58 06 0F            [ 7]  379     ld b, #15                       ;; small number color = 15 
-      001D5A CD 28 1F         [17]  380     call sys_text_draw_small_number ;; draws number
-      001D5D FD E1            [14]  381     pop iy
-      001D5F DD E1            [14]  382     pop ix
-      001D61 C9               [10]  383     ret
+      000D33 D5               [11]    1    push de
+      000D34 E5               [11]    2    push hl
+      000D35 0E 06            [ 7]    3    ld c, #6
+      000D37 06 05            [ 7]    4    ld b, #5
+      000D39 3E 00            [ 7]    5    ld a, #0                         ;; Patern of solid box
+      000D3B CD 96 24         [17]    6    call cpct_drawSolidBox_asm
+      000D3E E1               [10]    7    pop hl
+      000D3F D1               [10]    8    pop de
+      000D40 26 00            [ 7]  377     ld h, #0
+      000D42 FD 6E 09         [19]  378     ld l, e_w(iy)
+      000D45 06 0F            [ 7]  379     ld b, #15                       ;; small number color = 15 
+      000D47 CD EE 10         [17]  380     call sys_text_draw_small_number ;; draws number
+      000D4A FD E1            [14]  381     pop iy
+      000D4C DD E1            [14]  382     pop ix
+      000D4E C9               [10]  383     ret
                                     384     
